@@ -17,7 +17,8 @@ namespace FuncTracker.Web.Controllers
         {
             if (string.IsNullOrEmpty(name))
                 return RedirectToAction("Index", "Home");
-            return View();
+
+            return RedirectToAction("SuccessfullyCreated");
         }
     }
 }

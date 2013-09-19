@@ -17,13 +17,14 @@ namespace Test.FundTracker.Web.Controllers.Home
         }
 
         [Test]
-        public void CreateWallet_returns_ViewResult_with_empty_ViewName()
+        public void CreateWallet_redirects_to_SuccessfullyCreated()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.CreateWallet("foo");
+            var result = walletController.CreateWallet("foo");
 
-            Assert.That(viewResult, Is.TypeOf<ViewResult>());
-            Assert.That(((ViewResult)viewResult).ViewName, Is.EqualTo(string.Empty));
+            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
+            var redirectResult = ((RedirectToRouteResult)result);
+            Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("SuccessfullyCreated"));
         }
 
         [TestCase(null)]

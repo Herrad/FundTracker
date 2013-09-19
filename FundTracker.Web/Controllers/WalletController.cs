@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using FuncTracker.Web.Controllers.ValidationFailure;
 
-namespace FuncTracker.Web.Controllers
+namespace FundTracker.Web.Controllers
 {
     public class WalletController : Controller
     {
@@ -18,7 +17,7 @@ namespace FuncTracker.Web.Controllers
         {
             if (string.IsNullOrEmpty(name))
             {
-                return RedirectToAction("Index", "Home", new { failure = new NoNameValidationFailure() });
+                return RedirectToAction("Index", "Home", new { failure = new ValidationFailure.ValidationFailure() });
             }
 
             return RedirectToAction("SuccessfullyCreated");

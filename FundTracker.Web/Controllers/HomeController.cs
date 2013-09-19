@@ -1,13 +1,18 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Web.Controllers.ValidationFailure;
 
-namespace FuncTracker.Web.Controllers
+namespace FundTracker.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ViewResult Index()
+        public ViewResult Index(IValidationFailure validationFailure)
         {
+            if(validationFailure != null)
+            {
+                validationFailure.GetFailureMessage();
+            }
+
             return View();
         }
-
     }
 }

@@ -1,6 +1,6 @@
 using System.Web.Mvc;
-using FuncTracker.Web.Controllers;
-using FuncTracker.Web.Controllers.ValidationFailure;
+using FundTracker.Web.Controllers;
+using FundTracker.Web.Controllers.ValidationFailure;
 using NUnit.Framework;
 
 namespace Test.FundTracker.Web.Controllers.Home
@@ -39,7 +39,7 @@ namespace Test.FundTracker.Web.Controllers.Home
             var redirectResult = ((RedirectToRouteResult)result);
             Assert.That(redirectResult.RouteValues["controller"], Is.EqualTo("Home"));
             Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("Index"));
-            Assert.That(redirectResult.RouteValues["failure"], Is.TypeOf<NoNameValidationFailure>());
+            Assert.That(redirectResult.RouteValues["failure"], Is.TypeOf<ValidationFailure>());
         }
     }
 }

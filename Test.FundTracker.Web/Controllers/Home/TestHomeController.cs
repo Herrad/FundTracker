@@ -1,5 +1,4 @@
 using FundTracker.Web.Controllers;
-using FundTracker.Web.Controllers.ValidationFailure;
 using NUnit.Framework;
 using Rhino.Mocks;
 

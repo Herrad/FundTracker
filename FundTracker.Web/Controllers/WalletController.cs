@@ -15,12 +15,23 @@ namespace FundTracker.Web.Controllers
         [HttpPost]
         public ActionResult CreateWallet(string name)
         {
+            return ValidateAndRedirect(name);
+        }
+
+        private ActionResult ValidateAndRedirect(string name)
+        {
             if (string.IsNullOrEmpty(name))
             {
-                return RedirectToAction("Index", "Home", new { failure = new ValidationFailure.ValidationFailure() });
+                var validationFailure = CreateNoNameValidationFailure();
+                return RedirectToAction("Index", "Home", new {failure = validationFailure});
             }
 
             return RedirectToAction("SuccessfullyCreated");
+        }
+
+        private static ValidationFailure CreateNoNameValidationFailure()
+        {
+            return new ValidationFailure("You need to put in a name for this wallet");
         }
     }
 }

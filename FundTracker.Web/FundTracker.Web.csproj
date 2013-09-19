@@ -101,8 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValidationFailure\IValidationFailure.cs" />
-    <Compile Include="Controllers\ValidationFailure\ValidationFailure.cs" />
+    <Compile Include="Controllers\IValidationFailure.cs" />
+    <Compile Include="Controllers\ValidationFailure.cs" />
     <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

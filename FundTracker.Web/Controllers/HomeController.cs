@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using FundTracker.Web.Controllers.ValidationFailure;
 
 namespace FundTracker.Web.Controllers
 {

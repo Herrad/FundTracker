@@ -1,4 +1,4 @@
-namespace FundTracker.Web.Controllers.ValidationFailure
+namespace FundTracker.Web.Controllers
 {
     public interface IValidationFailure
     {

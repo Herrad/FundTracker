@@ -2,12 +2,14 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <link rel="stylesheet" href="~/Content/Css/Site.css"/>
-    <title>@ViewBag.Title</title>
-    @RenderSection("Header")
-</head>
-<body>
-    @RenderBody()
-</body>
+    <head>
+        <link rel="stylesheet" href="~/Content/Css/Site.css"/>
+        <title>@ViewBag.Title</title>
+        @RenderSection("Header")
+    </head>
+    <body>
+        <div id="main">
+            @RenderBody()
+        </div>
+    </body>
 </html>

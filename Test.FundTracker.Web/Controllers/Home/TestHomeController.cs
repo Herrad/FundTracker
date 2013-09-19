@@ -12,7 +12,7 @@ namespace Test.FundTracker.Web.Controllers.Home
         public void Index_returns_ViewResult_with_empty_ViewName_when_no_failures_are_passed()
         {
             var homeController = new HomeController();
-            var viewResult = homeController.Index(null);
+            var viewResult = homeController.ValidationFailure(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
         }
@@ -21,7 +21,7 @@ namespace Test.FundTracker.Web.Controllers.Home
         public void Index_has_ViewModel_set()
         {
             var homeController = new HomeController();
-            var viewResult = homeController.Index(null);
+            var viewResult = homeController.ValidationFailure(null);
 
             Assert.That(viewResult.Model, Is.TypeOf<HomePageViewModel>());
         }
@@ -32,7 +32,7 @@ namespace Test.FundTracker.Web.Controllers.Home
             const string validationMessage = "foo fail";
 
             var homeController = new HomeController();
-            var viewResult = homeController.Index(validationMessage);
+            var viewResult = homeController.ValidationFailure(validationMessage);
 
             var homePageViewModel = (HomePageViewModel) viewResult.Model;
             Assert.That(homePageViewModel.ValidationFailure, Is.EqualTo(validationMessage));

@@ -22,7 +22,7 @@ namespace FundTracker.Web.Controllers
         {
             if (string.IsNullOrEmpty(name))
             {
-                return RedirectToAction("Index", "Home", new {failure = "You need to put in a name for this wallet"});
+                return RedirectToAction("ValidationFailure", "Home", new { failure = "You need to put in a name for this wallet" });
             }
 
             return RedirectToAction("SuccessfullyCreated");

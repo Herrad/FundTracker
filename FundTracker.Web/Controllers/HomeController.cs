@@ -5,11 +5,16 @@ namespace FundTracker.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ViewResult Index(string validationMessage)
+        public ViewResult Index()
         {
-            var homePageViewModel = new HomePageViewModel(validationMessage);
+            return View(new HomePageViewModel(null));
+        }
 
-            return View(homePageViewModel);
+        public ViewResult ValidationFailure(string failure)
+        {
+            var homePageViewModel = new HomePageViewModel(failure);
+
+            return View("Index", homePageViewModel);
         }
     }
 }

@@ -54,9 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FuncTracker.Web\FuncTracker.Web.csproj">
+    <ProjectReference Include="..\FundTracker.Web\FundTracker.Web.csproj">
       <Project>{3D48C315-ECF6-4580-A111-DBBC9BF42D19}</Project>
-      <Name>FuncTracker.Web</Name>
+      <Name>FundTracker.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

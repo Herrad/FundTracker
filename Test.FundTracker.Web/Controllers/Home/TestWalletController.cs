@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using FuncTracker.Web.Controllers;
+using FuncTracker.Web.Controllers.ValidationFailure;
 using NUnit.Framework;
 
 namespace Test.FundTracker.Web.Controllers.Home
@@ -29,7 +30,7 @@ namespace Test.FundTracker.Web.Controllers.Home
 
         [TestCase(null)]
         [TestCase("")]
-        public void CreateWallet_redirects_to_HomeController_Index_action_if_name_is_null_or_empty(string name)
+        public void CreateWallet_redirects_to_HomeController_Index_action_with_validation_message_if_name_is_null_or_empty(string name)
         {
             var walletController = new WalletController();
             var result = walletController.CreateWallet(null);
@@ -38,6 +39,7 @@ namespace Test.FundTracker.Web.Controllers.Home
             var redirectResult = ((RedirectToRouteResult)result);
             Assert.That(redirectResult.RouteValues["controller"], Is.EqualTo("Home"));
             Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("Index"));
+            Assert.That(redirectResult.RouteValues["routeValues"], Is.TypeOf<NoNameValidationFailure>());
         }
     }
 }

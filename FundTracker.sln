@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuncTracker.Web", "FuncTracker.Web\FuncTracker.Web.csproj", "{3D48C315-ECF6-4580-A111-DBBC9BF42D19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundTracker.Web", "FundTracker.Web\FundTracker.Web.csproj", "{3D48C315-ECF6-4580-A111-DBBC9BF42D19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FundTracker.Web", "Test.FundTracker.Web\Test.FundTracker.Web.csproj", "{06A63CA5-BF99-4C6F-851A-C01E0F997766}"
 EndProject

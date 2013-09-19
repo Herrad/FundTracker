@@ -7,10 +7,10 @@ namespace Test.FundTracker.Web.Controllers.Home
     public class TestWalletController
     {
         [Test]
-        public void Create_returns_ViewResult_with_empty_ViewName()
+        public void Created_returns_ViewResult_with_empty_ViewName()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.Create();
+            var viewResult = walletController.Created();
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
         } 

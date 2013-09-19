@@ -11,7 +11,7 @@ namespace FuncTracker.Web.Controllers
         //
         // GET: /Wallet/
 
-        public ViewResult Create()
+        public ViewResult Created()
         {
             return View();
         }

@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace FuncTracker.Web
+namespace FundTracker.Web.App_Start
 {
     public class FilterConfig
     {

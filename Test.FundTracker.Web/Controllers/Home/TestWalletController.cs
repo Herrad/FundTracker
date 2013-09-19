@@ -51,11 +51,9 @@ namespace Test.FundTracker.Web.Controllers.Home
             var redirectResult = ((RedirectToRouteResult)result);
 
             var failureValue = redirectResult.RouteValues["failure"];
-            Assert.That(failureValue, Is.TypeOf<ValidationFailure>());
+            Assert.That(failureValue, Is.TypeOf<string>());
 
-            var validationFailureMessage = ((ValidationFailure) failureValue).GetFailureMessage();
-
-            Assert.That(validationFailureMessage, Is.EqualTo("You need to put in a name for this wallet"));
+            Assert.That(failureValue, Is.EqualTo("You need to put in a name for this wallet"));
         }
     }
 }

@@ -1,4 +1,5 @@
 using FundTracker.Web.Controllers;
+using FundTracker.Web.ViewModels;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -17,16 +18,12 @@ namespace Test.FundTracker.Web.Controllers.Home
         }
 
         [Test]
-        public void Index_action_calls_GetFailureMessage_on_validation_failure()
+        public void Index_has_ViewModel_set()
         {
-            var validationFailure = MockRepository.GenerateMock<IValidationFailure>();
-
             var homeController = new HomeController();
-            homeController.Index(validationFailure);
+            var viewResult = homeController.Index(null);
 
-            validationFailure.AssertWasCalled(
-                failure => failure.GetFailureMessage(),
-                c => c.Repeat.Once());
+            Assert.That(viewResult.Model, Is.TypeOf<HomePageViewModel>());
         }
     }
 }

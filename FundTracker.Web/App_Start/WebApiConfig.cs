@@ -1,7 +1,6 @@
 ﻿using System.Web.Http;
-using RouteParameter = System.Web.Http.RouteParameter;
 
-namespace FuncTracker.Web
+namespace FundTracker.Web.App_Start
 {
     public static class WebApiConfig
     {

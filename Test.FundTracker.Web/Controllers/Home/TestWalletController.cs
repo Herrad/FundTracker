@@ -13,6 +13,15 @@ namespace Test.FundTracker.Web.Controllers.Home
             var viewResult = walletController.SuccessfullyCreated();
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
-        } 
+        }
+
+        [Test]
+        public void CreateWallet_returns_ViewResult_with_empty_ViewName()
+        {
+            var walletController = new WalletController();
+            var viewResult = walletController.CreateWallet();
+
+            Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
+        }
     }
 }

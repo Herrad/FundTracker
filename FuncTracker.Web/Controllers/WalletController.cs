@@ -12,5 +12,9 @@ namespace FuncTracker.Web.Controllers
             return View();
         }
 
+        public ViewResult CreateWallet()
+        {
+            return View();
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Test.FundTracker.Web.Controllers.Home
             var redirectResult = ((RedirectToRouteResult)result);
             Assert.That(redirectResult.RouteValues["controller"], Is.EqualTo("Home"));
             Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("Index"));
-            Assert.That(redirectResult.RouteValues["routeValues"], Is.TypeOf<NoNameValidationFailure>());
+            Assert.That(redirectResult.RouteValues["failure"], Is.TypeOf<NoNameValidationFailure>());
         }
     }
 }

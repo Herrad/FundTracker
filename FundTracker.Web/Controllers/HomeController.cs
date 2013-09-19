@@ -7,7 +7,9 @@ namespace FundTracker.Web.Controllers
     {
         public ViewResult Index(string validationMessage)
         {
-            return View(new HomePageViewModel());
+            var homePageViewModel = new HomePageViewModel(validationMessage);
+
+            return View(homePageViewModel);
         }
     }
 }

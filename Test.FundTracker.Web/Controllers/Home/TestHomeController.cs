@@ -25,5 +25,17 @@ namespace Test.FundTracker.Web.Controllers.Home
 
             Assert.That(viewResult.Model, Is.TypeOf<HomePageViewModel>());
         }
+
+        [Test]
+        public void Index_sets_message_on_HomePageViewModel_to_passed_in_ValidationMessage()
+        {
+            const string validationMessage = "foo fail";
+
+            var homeController = new HomeController();
+            var viewResult = homeController.Index(validationMessage);
+
+            var homePageViewModel = (HomePageViewModel) viewResult.Model;
+            Assert.That(homePageViewModel.ValidationFailure, Is.EqualTo(validationMessage));
+        }
     }
 }

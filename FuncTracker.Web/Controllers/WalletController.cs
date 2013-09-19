@@ -12,8 +12,11 @@ namespace FuncTracker.Web.Controllers
             return View();
         }
 
-        public ViewResult CreateWallet()
+        [HttpPost]
+        public ActionResult CreateWallet(string name)
         {
+            if (string.IsNullOrEmpty(name))
+                return RedirectToAction("Index", "Home");
             return View();
         }
     }

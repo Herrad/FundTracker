@@ -2,12 +2,15 @@
 
 @{
     ViewBag.Title = "Fund Tracker";
-    Layout = "_Layout.cshtml";
+    Layout = "~/Views/_Layout.cshtml";
 }
 
 @section Header
 {
-    <link rel="stylesheet" href="~/Content/Css/Site.css"/>
 }
 
 <h2>Fund Tracker</h2>
+
+<form method="POST" action="/Wallet/Create" >
+    <input type="submit" />
+</form>

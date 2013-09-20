@@ -1,18 +1,17 @@
 using FundTracker.Web.Controllers;
 using FundTracker.Web.ViewModels;
 using NUnit.Framework;
-using Rhino.Mocks;
 
-namespace Test.FundTracker.Web.Controllers.Home
+namespace Test.FundTracker.Web.Controllers
 {
     [TestFixture]
     public class TestHomeController
     {
         [Test]
-        public void Index_returns_ViewResult_with_empty_ViewName_when_no_failures_are_passed()
+        public void Index_returns_ViewResult_with_empty_ViewName()
         {
             var homeController = new HomeController();
-            var viewResult = homeController.ValidationFailure(null);
+            var viewResult = homeController.Index();
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
         }

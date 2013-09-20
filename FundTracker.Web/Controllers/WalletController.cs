@@ -27,5 +27,10 @@ namespace FundTracker.Web.Controllers
 
             return RedirectToAction("SuccessfullyCreated");
         }
+
+        public ViewResult Display()
+        {
+            return View();
+        }
     }
 }

@@ -16,7 +16,9 @@ h2{margin-bottom: 20px;}
     #create-a-wallet input.button { padding: 10px 0;}
     #create-a-wallet .submit-label { margin-top: 30px;}
     #create-a-wallet .error-text {float: left;color: red;}
+    
+#created { float: left;width: 30%;margin: 15% 0 0 35%;}
+#created span { float: left;}
+#created a { float: left;margin-top: 30px;}
 
-
-
-#cl{ clear: both;}
+.cl{ clear: both;}

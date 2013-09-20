@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0F97A2
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Acceptance.FundTracker.Web", "Test.Acceptance.FundTracker.Web\Test.Acceptance.FundTracker.Web.csproj", "{C82BF119-BC5D-4C60-966B-B4227E8FCA73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{06A63CA5-BF99-4C6F-851A-C01E0F997766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A63CA5-BF99-4C6F-851A-C01E0F997766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A63CA5-BF99-4C6F-851A-C01E0F997766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C82BF119-BC5D-4C60-966B-B4227E8FCA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C82BF119-BC5D-4C60-966B-B4227E8FCA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C82BF119-BC5D-4C60-966B-B4227E8FCA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C82BF119-BC5D-4C60-966B-B4227E8FCA73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

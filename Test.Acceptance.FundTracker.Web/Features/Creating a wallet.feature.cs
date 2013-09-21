@@ -20,6 +20,7 @@ namespace Test.Acceptance.FundTracker.Web.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Creating a wallet")]
+    [NUnit.Framework.CategoryAttribute("web")]
     public partial class CreatingAWalletFeature
     {
         
@@ -33,7 +34,8 @@ namespace Test.Acceptance.FundTracker.Web.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Creating a wallet", "In order to store money\r\nAs someone with incoming and outgoing transactions\r\nI wa" +
-                    "nt to be able to create a wallet", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "nt to be able to create a wallet", ProgrammingLanguage.CSharp, new string[] {
+                        "web"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,12 +72,14 @@ namespace Test.Acceptance.FundTracker.Web.Features
         public virtual void CreatingAWalletWithAName()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a wallet with a name", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.When("I create a wallet with the name \"my first wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 8
+ testRunner.When("I create a wallet with the name \"my first wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 9
  testRunner.Then("I am taken to the display wallet page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 10
+ testRunner.And("the name \"my first wallet\" is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
@@ -7,6 +6,12 @@ namespace Test.Acceptance.FundTracker.Web.Steps
     [Binding]
     public class CreatingAWalletSteps : ChromeDriverTest
     {
+        [BeforeFeature]
+        public static void SetUp()
+        {
+            SetUpSeleniumOnChrome();
+        }
+
         [When(@"I create a wallet with the name ""(.*)""")]
         public void WhenICreateAWalletWithTheName(string walletName)
         {
@@ -26,24 +31,18 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var pageTitle = _chromeDriver.FindElementByTagName("h2").Text;
             Assert.That(pageTitle, Is.EqualTo("Wallet"));
         }
-    }
 
-    public class ChromeDriverTest
-    {
-        protected static ChromeDriver _chromeDriver;
-
-        [BeforeScenario]
-        public void SetUpSeleniumOnChrome()
+        [Then(@"the name ""(.*)"" is displayed")]
+        public void ThenTheNameIsDisplayed(string expectedWalletName)
         {
-            _chromeDriver = new ChromeDriver("WebDriver") {Url = "localhost:27554"};
-            _chromeDriver.Navigate();
+            var walletNameDisplayed = _chromeDriver.FindElementByClassName("wallet-name").Text;
+            Assert.That(walletNameDisplayed, Is.EqualTo(expectedWalletName));
         }
 
-        [AfterScenario]
-        public void TearDownChromeDriver()
+        [AfterFeature]
+        public static void TearDown()
         {
-            _chromeDriver.Close();
-            _chromeDriver.Quit();
+            TearDownChromeDriver();
         }
     }
 }

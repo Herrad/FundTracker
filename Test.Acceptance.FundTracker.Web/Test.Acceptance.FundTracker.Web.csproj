@@ -62,7 +62,6 @@
     <Compile Include="Steps\CreatingAWalletSteps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.ci.config" />
     <None Include="App.config" />
     <None Include="Features\Creating a wallet.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

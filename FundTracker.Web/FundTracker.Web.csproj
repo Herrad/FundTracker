@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
     <Compile Include="ViewModels\WalletViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,20 +12,41 @@ namespace Test.FundTracker.Web.Controllers
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.SuccessfullyCreated();
+            var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
         }
 
         [Test]
-        public void CreateWallet_redirects_to_SuccessfullyCreated()
+        public void SuccessfullyCreated_sets_WalletName_on_ViewModel()
         {
+            const string walletName = "foo walletName";
+
             var walletController = new WalletController();
-            var result = walletController.CreateWallet("foo");
+            
+            var viewResult = walletController.SuccessfullyCreated(walletName);
+
+            var viewModel = (SuccessfullyCreatedWalletViewModel) viewResult.Model;
+            Assert.That(viewModel, Is.Not.Null);
+            Assert.That(viewModel.Name, Is.EqualTo(walletName));
+        }
+
+        [Test]
+        public void CreateWallet_redirects_to_SuccessfullyCreated_passing_name()
+        {
+            const string walletName = "foo";
+
+            var walletController = new WalletController();
+            
+            var result = walletController.CreateWallet(walletName);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
-            var redirectResult = ((RedirectToRouteResult)result);
+
+            var redirectResult = (RedirectToRouteResult)result;
             Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("SuccessfullyCreated"));
+
+            var walletNameValue = redirectResult.RouteValues["walletName"];
+            Assert.That(walletNameValue, Is.EqualTo(walletName));
         }
         
         [TestCase(null)]

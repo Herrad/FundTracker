@@ -5,12 +5,11 @@ namespace FundTracker.Web.Controllers
 {
     public class WalletController : Controller
     {
-        //
-        // GET: /Wallet/
-
-        public ViewResult SuccessfullyCreated()
+        public ViewResult SuccessfullyCreated(string walletName)
         {
-            return View();
+            var viewModel = new SuccessfullyCreatedWalletViewModel(walletName);
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -26,7 +25,7 @@ namespace FundTracker.Web.Controllers
                 return RedirectToAction("ValidationFailure", "Home", new { failure = "You need to put in a name for this wallet" });
             }
 
-            return RedirectToAction("SuccessfullyCreated");
+            return RedirectToAction("SuccessfullyCreated", new { walletName = name});
         }
 
         public ViewResult Display(string walletName)

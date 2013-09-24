@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model FundTracker.Web.ViewModels.WalletViewModel
 
 @{
     ViewBag.Title = "Wallet";
@@ -8,4 +8,4 @@
 {}
 
 <h2>Wallet</h2>
-<span class="wallet-name"></span>
+<span class="wallet-name">@Model.Name</span>

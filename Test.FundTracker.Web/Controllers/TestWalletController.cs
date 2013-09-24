@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using FundTracker.Web.Controllers;
+using FundTracker.Web.ViewModels;
 using NUnit.Framework;
 
 namespace Test.FundTracker.Web.Controllers
@@ -60,9 +61,20 @@ namespace Test.FundTracker.Web.Controllers
         public void Display_returns_a_view_with_no_ViewName_set()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.Display();
+            var viewResult = walletController.Display(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void Display_builds_WalletViewModel_with_name_set()
+        {
+            var walletController = new WalletController();
+            var viewResult = walletController.Display("foo wallet");
+
+            var viewModel = (WalletViewModel) viewResult.Model;
+
+            Assert.That(viewModel.Name, Is.EqualTo("foo wallet"));
         }
     }
 }

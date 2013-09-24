@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Web.ViewModels;
 
 namespace FundTracker.Web.Controllers
 {
@@ -28,9 +29,11 @@ namespace FundTracker.Web.Controllers
             return RedirectToAction("SuccessfullyCreated");
         }
 
-        public ViewResult Display()
+        public ViewResult Display(string walletName)
         {
-            return View();
+            var walletViewModel = new WalletViewModel(walletName);
+
+            return View(walletViewModel);
         }
     }
 }

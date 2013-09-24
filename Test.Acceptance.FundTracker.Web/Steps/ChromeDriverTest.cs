@@ -1,3 +1,4 @@
+using System.Configuration;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
@@ -6,10 +7,11 @@ namespace Test.Acceptance.FundTracker.Web.Steps
     public class ChromeDriverTest
     {
         protected static ChromeDriver _chromeDriver;
+        private static readonly string _baseUrl = ConfigurationManager.AppSettings["BaseSiteUrl"];
 
         private static ChromeDriver CreateChromeDriverInstance()
         {
-            return new ChromeDriver("WebDriver") {Url = "localhost:27554"};
+            return new ChromeDriver("WebDriver") { Url = _baseUrl };
         }
 
         public static void SetUpSeleniumOnChrome()
@@ -21,7 +23,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [BeforeScenario]
         public void NavigateToHomePage()
         {
-            _chromeDriver.Url = "localhost:27554";
+            _chromeDriver.Url = _baseUrl;
             _chromeDriver.Navigate();
         }
 

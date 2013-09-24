@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.Acceptance.FundTracker.Web\bin\Debug\Test.Acceptance.FundTracker.Web.dll" total="1" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-09-24" time="22:08:54">
+  <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.5472" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\Koe\Projects\Fund Tracker\FundTracker" machine-name="KOE-PC" user="Koe" user-domain="Koe-PC" />
+  <culture-info current-culture="en-GB" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="C:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.Acceptance.FundTracker.Web\bin\Debug\Test.Acceptance.FundTracker.Web.dll" executed="True" result="Failure" success="False" time="8.982" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="Test" executed="True" result="Failure" success="False" time="8.967" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Acceptance" executed="True" result="Failure" success="False" time="8.967" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="FundTracker" executed="True" result="Failure" success="False" time="8.967" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Web" executed="True" result="Failure" success="False" time="8.966" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Features" executed="True" result="Failure" success="False" time="8.966" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="CreatingAWalletFeature" description="Creating a wallet" executed="True" result="Failure" success="False" time="8.964" asserts="0">
+                            <categories>
+                              <category name="web" />
+                            </categories>
+                            <results>
+                              <test-case name="Test.Acceptance.FundTracker.Web.Features.CreatingAWalletFeature.CreatingAWalletWithAName" description="Creating a wallet with a name" executed="True" result="Failure" success="False" time="1.863" asserts="2">
+                                <failure>
+                                  <message><![CDATA[  Expected string length 15 but was 0. Strings differ at index 0.
+  Expected: "my first wallet"
+  But was:  <string.Empty>
+  -----------^
+]]></message>
+                                  <stack-trace><![CDATA[at Test.Acceptance.FundTracker.Web.Steps.CreatingAWalletSteps.ThenTheNameIsDisplayed(String expectedWalletName) in c:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.Acceptance.FundTracker.Web\Steps\CreatingAWalletSteps.cs:line 68
+at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepInstance stepInstance)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at Test.Acceptance.FundTracker.Web.Features.CreatingAWalletFeature.ScenarioCleanup() in c:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.Acceptance.FundTracker.Web\Features\Creating a wallet.feature.cs:line 0
+at Test.Acceptance.FundTracker.Web.Features.CreatingAWalletFeature.CreatingAWalletWithAName() in c:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.Acceptance.FundTracker.Web\Features\Creating a wallet.feature:line 10
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

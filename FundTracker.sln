@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0F97A2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Acceptance.FundTracker.Web", "Test.Acceptance.FundTracker.Web\Test.Acceptance.FundTracker.Web.csproj", "{C82BF119-BC5D-4C60-966B-B4227E8FCA73}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rake scripts", "Rake scripts", "{57E1E66E-ECF9-428E-9A9A-7265E91C9D08}"
+	ProjectSection(SolutionItems) = preProject
+		rakefile.rb = rakefile.rb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

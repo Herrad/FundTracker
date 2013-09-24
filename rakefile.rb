@@ -1,31 +1,48 @@
 require 'bundler/setup'
 require 'albacore'
 
-task :default => [:build, :deploy]
+@acceptance_assemblies = Dir["**/bin/Debug/*Acceptance*.dll"]
+@test_assemblies = Dir["**/bin/Debug/*Test*.dll"] - @acceptance_assemblies
+
+@deploy_target = "C:/Sites/FundTracker"
+
+task :check do
+	puts @test_assemblies
+end
+
+task :default => [:build]
 
 msbuild :build do |msb|
-	msb.properties = {:configuration => :Debug }
+	msb.properties = {:configuration => :Release }
 	msb.solution = "FundTracker.sln"
 end
 
-task :deploy do
-	create_web_site("FundTracker", "FundTracker.Web", "80")
+nunit :test => :build do |nunit|
+	nunit.command = "nunit-console.exe"
+	nunit.assemblies = @test_assemblies
 end
 
-def create_web_site(site_name, site_location, site_port)
-  delete_command = "c:/windows/system32/inetsrv delete site #{site_name}"
-  result = system delete_command
-  puts "Failed to delete site on IIS: #{$?}" unless result
-
-  add_command = "c:/windows/system32/inetsrv add site /name:#{site_name} /bindings:http/*:#{site_port}: /physicalPath:#{site_location}"
-  result = system add_command
-  raise "Failed to add site on IIS: #{$?}" unless result
-
-  set_app_pool_command = "c:/windows/system32/inetsrv set app #{site_name}/ /applicationPool:\"ASP.NET v4.0\""
-  result = system set_app_pool_command
-  raise "Failed to bind site to .net 4 app pool on IIS: #{$?}" unless result
-
-  start_site_command = "c:/windows/system32/inetsrv start site #{site_name}"
-  result = system start_site_command
-  raise "Failed to start site on IIS: #{$?}" unless result
+nunit :acceptance => :build do |nunit|
+	nunit.command = "nunit-console.exe"
+	nunit.assemblies = @acceptance_assemblies
 end
+
+task :deploy => [:build, :test] do
+	
+	FileUtils.rm_rf("#{@deploy_target}/*") if Dir.exists?(@deploy_target)
+	
+	FileUtils.mkdir(@deploy_target) unless Dir.exists?(@deploy_target)
+	FileUtils.chmod("a=rwx", @deploy_target)
+
+	puts "Deploying to #{@deploy_target}"
+
+	Dir.glob("FundTracker.Web/*").each do |file|
+		dir, filename = File.dirname(file), File.basename(file)
+		dest = File.join(@deploy_target, dir)
+		FileUtils.mkdir(dest) unless Dir.exists?(dest)
+		FileUtils.cp_r(file, File.join(dest,filename))
+	end
+	
+	puts "Deployed"
+end
+

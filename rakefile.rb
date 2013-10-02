@@ -1,8 +1,6 @@
 require 'bundler/setup'
 require 'albacore'
 
-@acceptance_assemblies = Dir["**/bin/Debug/*Acceptance*.dll"]
-@test_assemblies = Dir["**/bin/Debug/*Test*.dll"] - @acceptance_assemblies
 
 task :default => [:build, :test]
 
@@ -15,7 +13,11 @@ msbuild :build do |msb|
 end
 
 namespace "test" do
+	@acceptance_assemblies = Dir["./**/bin/Release/*Acceptance*.dll"]
+	@test_assemblies = Dir["./**/bin/Release/*Test*.dll"] - @acceptance_assemblies
+
 	task :run_all => [:unit, :acceptance]
+	
 	nunit :unit => :build do |nunit|
 		nunit.command = "nunit-console.exe"
 		nunit.assemblies = @test_assemblies
@@ -32,7 +34,8 @@ namespace "setup" do
 	
 	task :deploy => :build do
 		site_name = "FundTracker.local"
-		site_location = "\"#{File.expand_path("./FundTracker.Web")}\""
+		site_location = "\"#{File.expand_path(".\\FundTracker.Web")}\"".gsub! "/", "\\"
+		puts "location #{site_location}"
 		set_up_site(site_name, site_location)
 	end
 	
@@ -43,13 +46,10 @@ namespace "setup" do
 		system "#{@appcmd} delete site #{site_name}"
 		
 		puts "adding site pointing to #{site_location}"
-		system "#{@appcmd} add site /name:#{site_name} /bindings:http/*:80: /physicalPath:#{site_location}"
+		system "#{@appcmd} add site /name:#{site_name} /bindings:http/*:27554: /physicalPath:#{site_location}"
 		
 		puts "configuring app pool for site"
 		system "#{@appcmd} set app #{site_name}/ /applicationPool:\"ASP.NET v4.0\""
-		
-		puts "stopping default site"
-		system "#{@appcmd} stop site \"Default Web Site\""
 		
 		puts "starting site"
 		system "#{@appcmd} start site #{site_name}"

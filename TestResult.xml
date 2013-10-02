@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.FundTracker.Web\bin\Debug\Test.FundTracker.Web.dll" total="12" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-10-02" time="23:25:18">
-  <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.5472" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\Koe\Projects\Fund Tracker\FundTracker" machine-name="KOE-PC" user="Koe" user-domain="Koe-PC" />
+<test-results name="C:\Projects\Fund Tracker\Test.Acceptance.FundTracker.Web\bin\Release\Test.Acceptance.FundTracker.Web.dll" total="2" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-10-03" time="00:40:44">
+  <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.5472" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Projects\Fund Tracker" machine-name="KOE-PC" user="Koe" user-domain="Koe-PC" />
   <culture-info current-culture="en-GB" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="C:\Users\Koe\Projects\Fund Tracker\FundTracker\Test.FundTracker.Web\bin\Debug\Test.FundTracker.Web.dll" executed="True" result="Success" success="True" time="0.163" asserts="0">
+  <test-suite type="Assembly" name="C:\Projects\Fund Tracker\Test.Acceptance.FundTracker.Web\bin\Release\Test.Acceptance.FundTracker.Web.dll" executed="True" result="Failure" success="False" time="8.309" asserts="0">
     <results>
-      <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="0.148" asserts="0">
+      <test-suite type="Namespace" name="Test" executed="True" result="Failure" success="False" time="8.294" asserts="0">
         <results>
-          <test-suite type="Namespace" name="FundTracker" executed="True" result="Success" success="True" time="0.148" asserts="0">
+          <test-suite type="Namespace" name="Acceptance" executed="True" result="Failure" success="False" time="8.294" asserts="0">
             <results>
-              <test-suite type="Namespace" name="Web" executed="True" result="Success" success="True" time="0.148" asserts="0">
+              <test-suite type="Namespace" name="FundTracker" executed="True" result="Failure" success="False" time="8.293" asserts="0">
                 <results>
-                  <test-suite type="Namespace" name="Controllers" executed="True" result="Success" success="True" time="0.147" asserts="0">
+                  <test-suite type="Namespace" name="Web" executed="True" result="Failure" success="False" time="8.293" asserts="0">
                     <results>
-                      <test-suite type="TestFixture" name="TestHomeController" executed="True" result="Success" success="True" time="0.079" asserts="0">
+                      <test-suite type="Namespace" name="Features" executed="True" result="Failure" success="False" time="8.293" asserts="0">
                         <results>
-                          <test-case name="Test.FundTracker.Web.Controllers.TestHomeController.Index_has_ViewModel_set" executed="True" result="Success" success="True" time="0.055" asserts="1" />
-                          <test-case name="Test.FundTracker.Web.Controllers.TestHomeController.Index_returns_ViewResult_with_empty_ViewName" executed="True" result="Success" success="True" time="0.005" asserts="1" />
-                          <test-case name="Test.FundTracker.Web.Controllers.TestHomeController.Index_sets_message_on_HomePageViewModel_to_passed_in_ValidationMessage" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                        </results>
-                      </test-suite>
-                      <test-suite type="TestFixture" name="TestWalletController" executed="True" result="Success" success="True" time="0.064" asserts="0">
-                        <results>
-                          <test-suite type="ParameterizedTest" name="CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty" executed="True" result="Success" success="True" time="0.048" asserts="0">
+                          <test-suite type="TestFixture" name="CreatingAWalletFeature" description="Creating a wallet" executed="True" result="Failure" success="False" time="8.291" asserts="0">
+                            <categories>
+                              <category name="web" />
+                            </categories>
                             <results>
-                              <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(null)" executed="True" result="Success" success="True" time="0.046" asserts="3" />
-                              <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(&quot;&quot;)" executed="True" result="Success" success="True" time="0.000" asserts="3" />
+                              <test-case name="Test.Acceptance.FundTracker.Web.Features.CreatingAWalletFeature.AddingFundsToAWallet" description="Adding funds to a wallet" executed="True" result="Error" success="False" time="0.714" asserts="0">
+                                <failure>
+                                  <message><![CDATA[OpenQA.Selenium.NoSuchElementException : no such element
+  (Session info: chrome=29.0.1547.76)
+  (Driver info: chromedriver=2.2,platform=Windows NT 6.1 SP1 x86_64)]]></message>
+                                  <stack-trace><![CDATA[at OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(Response errorResponse)
+at OpenQA.Selenium.Remote.RemoteWebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters)
+at OpenQA.Selenium.Remote.RemoteWebDriver.FindElement(String mechanism, String value)
+at Test.Acceptance.FundTracker.Web.Steps.CreatingAWalletSteps.AvailableFundsShouldBe(Decimal expectedAvailableFunds) in c:\Projects\Fund Tracker\Test.Acceptance.FundTracker.Web\Steps\CreatingAWalletSteps.cs:line 30
+at Test.Acceptance.FundTracker.Web.Steps.CreatingAWalletSteps.GivenMyAvailableFundsAre(Decimal expectedAvailableFunds) in c:\Projects\Fund Tracker\Test.Acceptance.FundTracker.Web\Steps\CreatingAWalletSteps.cs:line 25
+at lambda_method(Closure , IContextManager , Decimal )
+at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepInstance stepInstance)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+]]></stack-trace>
+                                </failure>
+                              </test-case>
+                              <test-case name="Test.Acceptance.FundTracker.Web.Features.CreatingAWalletFeature.CreatingAWalletWithAName" description="Creating a wallet with a name" executed="True" result="Success" success="True" time="0.252" asserts="2" />
                             </results>
                           </test-suite>
-                          <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.CreateWallet_redirects_to_SuccessfullyCreated_passing_name" executed="True" result="Success" success="True" time="0.001" asserts="3" />
-                          <test-suite type="ParameterizedTest" name="CreateWallet_sets_validation_message_if_name_is_null_or_empty" executed="True" result="Success" success="True" time="0.001" asserts="0">
-                            <results>
-                              <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.CreateWallet_sets_validation_message_if_name_is_null_or_empty(&quot;&quot;)" executed="True" result="Success" success="True" time="0.001" asserts="3" />
-                              <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.CreateWallet_sets_validation_message_if_name_is_null_or_empty(null)" executed="True" result="Success" success="True" time="0.000" asserts="3" />
-                            </results>
-                          </test-suite>
-                          <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.Display_builds_WalletViewModel_with_name_set" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                          <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.Display_returns_a_view_with_no_ViewName_set" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                          <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.SuccessfullyCreated_returns_ViewResult_with_empty_ViewName" executed="True" result="Success" success="True" time="0.000" asserts="1" />
-                          <test-case name="Test.FundTracker.Web.Controllers.TestWalletController.SuccessfullyCreated_sets_WalletName_on_ViewModel" executed="True" result="Success" success="True" time="0.007" asserts="2" />
                         </results>
                       </test-suite>
                     </results>

@@ -9,8 +9,8 @@ Scenario: Creating a wallet with a name
 	Then I am taken to the display wallet page
 	And the name "my first wallet" is displayed
 
-#Scenario: Adding funds to a wallet
-#	Given I have created a wallet called "my wallet"
-#	And my available funds are 0
-#	When I add 100.00 in funds to my wallet
-#	Then the amount in the wallet is 100.00
+Scenario: Adding funds to a wallet
+	Given I have created a wallet called "my wallet"
+	And my available funds are 0
+	When I add 100.00 in funds to my wallet
+	Then the amount in the wallet is 100.00

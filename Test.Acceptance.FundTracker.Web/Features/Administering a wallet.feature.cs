@@ -19,21 +19,21 @@ namespace Test.Acceptance.FundTracker.Web.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Creating a wallet")]
+    [NUnit.Framework.DescriptionAttribute("Administering a wallet")]
     [NUnit.Framework.CategoryAttribute("web")]
-    public partial class CreatingAWalletFeature
+    public partial class AdministeringAWalletFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Creating a wallet.feature"
+#line 1 "Administering a wallet.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Creating a wallet", "In order to store money\r\nAs someone with incoming and outgoing transactions\r\nI wa" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Administering a wallet", "In order to store money\r\nAs someone with incoming and outgoing transactions\r\nI wa" +
                     "nt to be able to create a wallet", ProgrammingLanguage.CSharp, new string[] {
                         "web"});
             testRunner.OnFeatureStart(featureInfo);
@@ -99,6 +99,17 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I add 100.00 in funds to my wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
  testRunner.Then("the amount in the wallet is 100.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Wallet does not display value from query string")]
+        public virtual void WalletDoesNotDisplayValueFromQueryString()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Wallet does not display value from query string", ((string[])(null)));
+#line 18
+ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }

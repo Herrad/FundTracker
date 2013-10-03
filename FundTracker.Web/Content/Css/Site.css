@@ -21,4 +21,7 @@ h2{margin-bottom: 20px;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
 
+.wallet-info { float: left;}
+.wallet-input { float: left;}
+
 .cl{ clear: both;}

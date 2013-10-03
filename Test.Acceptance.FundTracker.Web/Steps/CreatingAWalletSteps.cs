@@ -47,7 +47,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [When(@"I add (.*) in funds to my wallet")]
         public void WhenIAddInFundsToMyWallet(decimal fundAmount)
         {
-            var addFundsAmount = _chromeDriver.FindElementByName("fund-amount-to-add");
+            var addFundsAmount = _chromeDriver.FindElementByName("fundsToAdd");
             addFundsAmount.SendKeys(fundAmount.ToString(CultureInfo.InvariantCulture));
 
             var addFundsButton = _chromeDriver.FindElementByName("submit");

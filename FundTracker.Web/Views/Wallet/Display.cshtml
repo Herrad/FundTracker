@@ -8,4 +8,17 @@
 {}
 
 <h2>Wallet</h2>
-<span class="wallet-name">@Model.Name</span>
+
+<div class="wallet-info">
+    <h2 class="wallet-name">@Model.Name</h2>
+    <span>Available funds: £</span>
+    <strong id="available-funds">@Model.AvailableFunds</strong>
+</div>
+<div class="cl"></div>
+<div class="wallet-input">
+    <form method="POST" action="/Wallet/AddFunds">
+        <label for="fundsToAdd">Funds to add</label>
+        <input type="number" name="fundsToAdd" value="0" min="0"/>
+        <input type="submit" name="submit"/>
+    </form>
+</div>

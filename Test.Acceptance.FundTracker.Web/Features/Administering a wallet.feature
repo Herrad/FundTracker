@@ -1,5 +1,5 @@
 ﻿@web
-Feature: Creating a wallet
+Feature: Administering a wallet
 	In order to store money
 	As someone with incoming and outgoing transactions
 	I want to be able to create a wallet
@@ -14,3 +14,5 @@ Scenario: Adding funds to a wallet
 	And my available funds are 0
 	When I add 100.00 in funds to my wallet
 	Then the amount in the wallet is 100.00
+ 
+ Scenario: Wallet does not display value from query string

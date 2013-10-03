@@ -28,11 +28,21 @@ namespace FundTracker.Web.Controllers
             return RedirectToAction("SuccessfullyCreated", new { walletName = name});
         }
 
-        public ViewResult Display(string walletName)
+        public ViewResult Display(string walletName, decimal availableFunds)
         {
-            var walletViewModel = new WalletViewModel(walletName);
+            var walletViewModel = new WalletViewModel(walletName, availableFunds);
 
-            return View(walletViewModel);
+            return View("Display", walletViewModel);
+        }
+
+        public ActionResult AddFunds(string name, decimal fundsToAdd)
+        {
+            return RedirectToAction("Display", new { walletName = name, availableFunds = fundsToAdd });
+        }
+
+        public ViewResult DisplayNoFunds(string walletName)
+        {
+            return Display(walletName, 0);
         }
     }
 }

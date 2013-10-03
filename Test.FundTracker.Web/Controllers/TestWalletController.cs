@@ -48,6 +48,25 @@ namespace Test.FundTracker.Web.Controllers
             var walletNameValue = redirectResult.RouteValues["walletName"];
             Assert.That(walletNameValue, Is.EqualTo(walletName));
         }
+
+        [Test]
+        public void AddFunds_redirects_to_DisplayWallet_passing_name_and_funds()
+        {
+            var walletController = new WalletController();
+
+            const string expectedName = "fooName";
+            const decimal expectedFunds = 100.00m;
+
+            var result = walletController.AddFunds(expectedName, expectedFunds);
+
+            Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
+
+            var redirectResult = (RedirectToRouteResult) result;
+
+            Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("Display"));
+            Assert.That(redirectResult.RouteValues["walletName"], Is.EqualTo(expectedName));
+            Assert.That(redirectResult.RouteValues["availableFunds"], Is.EqualTo(expectedFunds));
+        }
         
         [TestCase(null)]
         [TestCase("")]
@@ -79,23 +98,34 @@ namespace Test.FundTracker.Web.Controllers
         }
 
         [Test]
-        public void Display_returns_a_view_with_no_ViewName_set()
+        public void Display_returns_a_view_with_ViewName_set_to_Display()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.Display(null);
+            var viewResult = walletController.Display(null, 0);
 
-            Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
+            Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
         }
 
         [Test]
-        public void Display_builds_WalletViewModel_with_name_set()
+        public void Display_builds_WalletViewModel_with_name_and_funds_set()
         {
             var walletController = new WalletController();
-            var viewResult = walletController.Display("foo wallet");
+            var viewResult = walletController.Display("foo wallet", 123m);
 
             var viewModel = (WalletViewModel) viewResult.Model;
 
             Assert.That(viewModel.Name, Is.EqualTo("foo wallet"));
+            Assert.That(viewModel.AvailableFunds, Is.EqualTo(123m));
+        }
+
+        [Test]
+        public void Display_with_no_funds_sets_funds_to_0()
+        {
+            var walletController = new WalletController();
+            var viewResult = walletController.DisplayNoFunds("foo wallet");
+
+            var viewModel = (WalletViewModel)viewResult.Model;
+            Assert.That(viewModel.AvailableFunds, Is.EqualTo(0));
         }
     }
 }

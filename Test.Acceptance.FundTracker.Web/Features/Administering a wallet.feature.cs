@@ -115,7 +115,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 20
  testRunner.And("my wallet has 200.0 available funds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
- testRunner.When("I display my wallet with", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I display my wallet with \"availableFunds=100.00\" in the query string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("the amount in the wallet is 200.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

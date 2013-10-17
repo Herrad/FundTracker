@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
@@ -17,6 +18,12 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         public static void SetUpSeleniumOnChrome()
         {
             _chromeDriver = CreateChromeDriverInstance();
+            _chromeDriver.Navigate();
+        }
+
+        protected void NavigateToCurrentUrlWith(string queryString)
+        {
+            _chromeDriver.Url += queryString;
             _chromeDriver.Navigate();
         }
 

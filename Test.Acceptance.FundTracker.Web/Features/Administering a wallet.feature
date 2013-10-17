@@ -18,4 +18,5 @@ Scenario: Adding funds to a wallet
  Scenario: Wallet does not display value from query string
 	Given I have created a wallet called "my wallet"
 	And my wallet has 200.0 available funds
-	When I display my wallet with 
+	When I display my wallet with "availableFunds=100.00" in the query string 
+	Then the amount in the wallet is 200.00

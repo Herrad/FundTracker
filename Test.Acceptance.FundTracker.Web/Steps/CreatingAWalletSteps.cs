@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -25,11 +26,43 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             AvailableFundsShouldBe(expectedAvailableFunds);
         }
 
+        [Given(@"my wallet has (.*) available funds")]
+        public void GivenMyWalletHasAvailableFunds(Decimal availableFunds)
+        {
+            AddFundsToWallet(availableFunds);
+        }
+
         private static void AvailableFundsShouldBe(decimal expectedAvailableFunds)
         {
             var availableFunds = _chromeDriver.FindElementById("available-funds").Text;
-            Assert.That(availableFunds, Is.EqualTo(expectedAvailableFunds.ToString(CultureInfo.InvariantCulture)));
+            decimal parsedAvailableFunds = 0;
+            var successfullyParsed = decimal.TryParse(availableFunds, out parsedAvailableFunds);
+            if(!successfullyParsed)
+                Assert.Fail("failed to parse " + availableFunds);
+
+            Assert.That(parsedAvailableFunds, Is.EqualTo(expectedAvailableFunds));
         }
+
+        [When(@"I display my wallet with the query string ""(.*)""")]
+        public void WhenIDisplayMyWalletWithTheQueryString(string queryString)
+        {
+            NavigateToCurrentUrlWith(queryString);
+        }
+
+        [When(@"I display my wallet with ""(.*)"" in the query string")]
+        public void WhenIDisplayMyWalletWithInTheQueryString(string queryString)
+        {
+            queryString = EncodeQueryString(queryString);
+            NavigateToCurrentUrlWith(queryString);
+        }
+
+        private static string EncodeQueryString(string queryString)
+        {
+            if (_chromeDriver.Url.Contains("?"))
+                return "&" + queryString;
+            return "?" + queryString;
+        }
+
 
         [When(@"I create a wallet with the name ""(.*)""")]
         public void CreateAWalletWithTheName(string walletName)
@@ -46,6 +79,11 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
         [When(@"I add (.*) in funds to my wallet")]
         public void WhenIAddInFundsToMyWallet(decimal fundAmount)
+        {
+            AddFundsToWallet(fundAmount);
+        }
+
+        private static void AddFundsToWallet(decimal fundAmount)
         {
             var addFundsAmount = _chromeDriver.FindElementByName("fundsToAdd");
             addFundsAmount.SendKeys(fundAmount.ToString(CultureInfo.InvariantCulture));

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using FundTracker.Web.App_Start;
+using FundTracker.Web.Structuremap;
 
 namespace FundTracker.Web
 {
@@ -16,6 +17,8 @@ namespace FundTracker.Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Bootstrapper.Run();
         }
     }
 }

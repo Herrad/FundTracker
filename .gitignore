@@ -1,6 +1,7 @@
 _ReSharper.FundTracker*/
 bin/
 obj/
+gems/
 *.suo
 packages/
 *.user

@@ -1,5 +1,6 @@
 using System.Web.Mvc;
 using FundTracker.Web.Controllers;
+using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
 using NUnit.Framework;
 
@@ -11,7 +12,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
@@ -22,7 +23,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo walletName";
 
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             
             var viewResult = walletController.SuccessfullyCreated(walletName);
 
@@ -36,7 +37,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo";
 
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             
             var result = walletController.CreateWallet(walletName);
 
@@ -52,7 +53,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void AddFunds_redirects_to_DisplayWallet_passing_name_and_funds()
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
 
             const string expectedName = "fooName";
             const decimal expectedFunds = 100.00m;
@@ -72,7 +73,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -85,7 +86,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_sets_validation_message_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -100,7 +101,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_returns_a_view_with_ViewName_set_to_Display()
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var viewResult = walletController.Display(null, 0);
 
             Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
@@ -109,7 +110,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_builds_WalletViewModel_with_name_and_funds_set()
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var viewResult = walletController.Display("foo wallet", 123m);
 
             var viewModel = (WalletViewModel) viewResult.Model;
@@ -121,7 +122,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_with_no_funds_sets_funds_to_0()
         {
-            var walletController = new WalletController();
+            var walletController = new WalletController(new CreateWalletValidation());
             var viewResult = walletController.DisplayNoFunds("foo wallet");
 
             var viewModel = (WalletViewModel)viewResult.Model;

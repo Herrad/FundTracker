@@ -18,6 +18,11 @@ namespace "test" do
 
 	task :run_all => [:unit, :acceptance]
 	
+	task :assemblies do
+		puts @acceptance_assemblies
+		puts @test_assemblies
+	end
+	
 	nunit :unit => :build do |nunit|
 		nunit.command = "nunit-console.exe"
 		nunit.assemblies = @test_assemblies
@@ -49,10 +54,10 @@ namespace "setup" do
 		system "#{@appcmd} add site /name:#{site_name} /bindings:http/*:27554: /physicalPath:#{site_location}"
 		
 		puts "configuring app pool for site"
-		system "#{@appcmd} set app #{site_name}/ /applicationPool:\"ASP.NET v4.0\""
+		#system "#{@appcmd} set app #{site_name} /applicationPool:\"ASP.NET v4.0\""
 		
 		puts "starting site"
-		system "#{@appcmd} start site #{site_name}"
+		system "#{@appcmd} start site #{site_name}/"
 	end
 end
 

@@ -57,6 +57,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
+      <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
+      <Name>FundTracker.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FundTracker.Services\FundTracker.Services.csproj">
+      <Project>{334CA1D2-E60D-49F7-AAED-2AEB0293603C}</Project>
+      <Name>FundTracker.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FundTracker.Web\FundTracker.Web.csproj">
       <Project>{3D48C315-ECF6-4580-A111-DBBC9BF42D19}</Project>
       <Name>FundTracker.Web</Name>

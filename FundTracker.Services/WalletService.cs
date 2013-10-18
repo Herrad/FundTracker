@@ -1,10 +1,20 @@
-﻿namespace FundTracker.Services
+﻿using System.Linq;
+using FundTracker.Domain;
+
+namespace FundTracker.Services
 {
     public class WalletService : IProvideWallets
     {
-        public Wallet Get()
+        private readonly IHaveAListOfWallets _walletRepository;
+
+        public WalletService(IHaveAListOfWallets walletRepository)
         {
-            return new Wallet();
+            _walletRepository = walletRepository;
+        }
+
+        public Wallet GetBy(string name)
+        {
+            return _walletRepository.Wallets.First(wallet => wallet.Name == name);
         }
     }
 }

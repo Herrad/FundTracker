@@ -39,10 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IHaveAListOfWallets.cs" />
+    <Compile Include="InMemoryWalletRepository.cs" />
     <Compile Include="IProvideWallets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wallet.cs" />
     <Compile Include="WalletService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
+      <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
+      <Name>FundTracker.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

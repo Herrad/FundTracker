@@ -21,9 +21,10 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         }
 
         [Given(@"my available funds are (.*)")]
-        public void GivenMyAvailableFundsAre(decimal expectedAvailableFunds)
+        public void GivenMyAvailableFundsAre(decimal availableFunds)
         {
-            AvailableFundsShouldBe(expectedAvailableFunds);
+            AvailableFundsShouldBe(0);
+            AddFundsToWallet(availableFunds);
         }
 
         [Given(@"my wallet has (.*) available funds")]

@@ -1,7 +1,9 @@
-﻿namespace FundTracker.Services
+﻿using FundTracker.Domain;
+
+namespace FundTracker.Services
 {
     public interface IProvideWallets
     {
-        Wallet Get();
+        Wallet GetBy(string name);
     }
 }

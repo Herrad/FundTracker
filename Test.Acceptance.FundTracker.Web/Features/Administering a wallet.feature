@@ -11,12 +11,6 @@ Scenario: Creating a wallet with a name
 
 Scenario: Adding funds to a wallet
 	Given I have created a wallet called "my wallet"
-	And my available funds are 0
+	And my available funds are 50.00
 	When I add 100.00 in funds to my wallet
-	Then the amount in the wallet is 100.00
- 
- Scenario: Wallet does not display value from query string
-	Given I have created a wallet called "my wallet"
-	And my wallet has 200.0 available funds
-	When I display my wallet with "availableFunds=100.00" in the query string 
-	Then the amount in the wallet is 200.00
+	Then the amount in the wallet is 150.00

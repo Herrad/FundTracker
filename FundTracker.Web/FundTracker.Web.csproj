@@ -107,7 +107,7 @@
     <Compile Include="Controllers\ActionHelpers\CreateWalletValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\IValidateWalletCreation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IAddFundsToWallets.cs" />
+    <Compile Include="Controllers\IShowTheResultOfAddingFundsToAWallet.cs" />
     <Compile Include="Controllers\ICreateNewWallets.cs" />
     <Compile Include="Controllers\ICreateRedirects.cs" />
     <Compile Include="Controllers\IDisplayWallets.cs" />
@@ -167,6 +167,10 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
+      <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
+      <Name>FundTracker.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FundTracker.Services\FundTracker.Services.csproj">
       <Project>{334CA1D2-E60D-49F7-AAED-2AEB0293603C}</Project>
       <Name>FundTracker.Services</Name>

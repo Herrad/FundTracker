@@ -2,7 +2,7 @@
 
 namespace FundTracker.Web.Controllers
 {
-    public interface IAddFundsToWallets
+    public interface IShowTheResultOfAddingFundsToAWallet
     {
         ActionResult AddFunds(string name, decimal fundsToAdd);
     }

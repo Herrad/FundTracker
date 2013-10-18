@@ -1,17 +1,20 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
 
 namespace FundTracker.Web.Controllers
 {
-    public class WalletController : Controller, IAddFundsToWallets, ICreateNewWallets, ICreateRedirects
+    public class WalletController : Controller, IShowTheResultOfAddingFundsToAWallet, ICreateNewWallets, ICreateRedirects
     {
         private RedirectToRouteResult _redirect;
         private readonly IValidateWalletCreation _createWalletValidation;
+        private readonly IProvideWallets _walletProvider;
 
-        public WalletController(IValidateWalletCreation createWalletValidation)
+        public WalletController(IValidateWalletCreation createWalletValidation, IProvideWallets walletProvider)
         {
             _createWalletValidation = createWalletValidation;
+            _walletProvider = walletProvider;
         }
 
         public ViewResult SuccessfullyCreated(string walletName)
@@ -30,6 +33,7 @@ namespace FundTracker.Web.Controllers
 
         public ViewResult Display(string walletName, decimal availableFunds)
         {
+            _walletProvider.GetBy(walletName);
             var walletViewModel = new WalletViewModel(walletName, availableFunds);
 
             return View("Display", walletViewModel);

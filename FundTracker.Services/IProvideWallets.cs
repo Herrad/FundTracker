@@ -4,6 +4,6 @@ namespace FundTracker.Services
 {
     public interface IProvideWallets
     {
-        Wallet GetBy(string name);
+        IWallet GetBy(string name);
     }
 }

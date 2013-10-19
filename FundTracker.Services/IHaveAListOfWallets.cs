@@ -5,6 +5,6 @@ namespace FundTracker.Services
 {
     public interface IHaveAListOfWallets
     {
-        List<Wallet> Wallets { get; }
+        List<IWallet> Wallets { get; }
     }
 }

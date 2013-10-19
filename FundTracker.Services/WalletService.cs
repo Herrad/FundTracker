@@ -15,7 +15,7 @@ namespace FundTracker.Services
             _nameValidater = nameValidater;
         }
 
-        public Wallet GetBy(string name)
+        public IWallet GetBy(string name)
         {
             ValidateName(name);
             return _walletRepository.Wallets.First(wallet => wallet.Name == name);
@@ -26,7 +26,7 @@ namespace FundTracker.Services
             if (!_nameValidater.IsNameValid(name)) throw new ArgumentException("Name must be non-empty string");
         }
 
-        public void Add(Wallet wallet)
+        public void Add(IWallet wallet)
         {
             _walletRepository.Wallets.Add(wallet);
         }

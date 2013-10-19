@@ -55,14 +55,20 @@ namespace Test.FundTracker.Web.Controllers
         }
 
         [Test]
-        public void AddFunds_redirects_to_DisplayWallet_passing_name_and_funds()
+        public void AddFunds_redirects_to_DisplayWallet_passing_name()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
-
             const string expectedName = "fooName";
-            const decimal expectedFunds = 100.00m;
+            const decimal fundsToAdd = 100.00m;
 
-            var result = walletController.AddFunds(expectedName, expectedFunds);
+            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
+            walletProvider
+                .Stub(x => x.GetBy(expectedName))
+                .Return(MockRepository.GenerateStub<IWallet>());
+            
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder());
+
+
+            var result = walletController.AddFunds(expectedName, fundsToAdd);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
 
@@ -70,7 +76,28 @@ namespace Test.FundTracker.Web.Controllers
 
             Assert.That(redirectResult.RouteValues["action"], Is.EqualTo("Display"));
             Assert.That(redirectResult.RouteValues["walletName"], Is.EqualTo(expectedName));
-            Assert.That(redirectResult.RouteValues["availableFunds"], Is.EqualTo(expectedFunds));
+        }
+
+        [Test]
+        public void AddFunds_adds_funds_to_wallet()
+        {
+            const string name = "foo name";
+            const decimal fundsToAdd = 123m;
+
+            var wallet = MockRepository.GenerateMock<IWallet>();
+
+            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
+            walletProvider
+                .Stub(x => x.GetBy(name))
+                .Return(wallet);
+
+            var controller = new WalletController(null, walletProvider, null);
+
+            controller.AddFunds(name, fundsToAdd);
+
+            wallet.AssertWasCalled(
+                x => x.AddFunds(fundsToAdd), 
+                c => c.Repeat.Once());
         }
         
         [TestCase(null)]

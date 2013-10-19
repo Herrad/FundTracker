@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
@@ -45,6 +46,9 @@ namespace FundTracker.Web.Controllers
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)
         {
+            var wallet = _walletProvider.GetBy(name);
+            wallet.AddFunds(fundsToAdd);
+
             return RedirectToAction("Display", new { walletName = name, availableFunds = fundsToAdd });
         }
 

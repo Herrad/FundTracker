@@ -7,9 +7,9 @@ namespace FundTracker.Services
     {
         public InMemoryWalletRepository()
         {
-            Wallets = new List<Wallet>();
+            Wallets = new List<IWallet>();
         }
 
-        public List<Wallet> Wallets { get; private set; }
+        public List<IWallet> Wallets { get; private set; }
     }
 }

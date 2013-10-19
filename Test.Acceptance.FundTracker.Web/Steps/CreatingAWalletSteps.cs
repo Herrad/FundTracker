@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -27,12 +26,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             AddFundsToWallet(availableFunds);
         }
 
-        [Given(@"my wallet has (.*) available funds")]
-        public void GivenMyWalletHasAvailableFunds(Decimal availableFunds)
-        {
-            AddFundsToWallet(availableFunds);
-        }
-
         private static void AvailableFundsShouldBe(decimal expectedAvailableFunds)
         {
             var availableFunds = _chromeDriver.FindElementById("available-funds").Text;
@@ -41,27 +34,10 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             if(!successfullyParsed)
                 Assert.Fail("failed to parse " + availableFunds);
 
-            Assert.That(parsedAvailableFunds, Is.EqualTo(expectedAvailableFunds));
-        }
-
-        [When(@"I display my wallet with the query string ""(.*)""")]
-        public void WhenIDisplayMyWalletWithTheQueryString(string queryString)
-        {
-            NavigateToCurrentUrlWith(queryString);
-        }
-
-        [When(@"I display my wallet with ""(.*)"" in the query string")]
-        public void WhenIDisplayMyWalletWithInTheQueryString(string queryString)
-        {
-            queryString = EncodeQueryString(queryString);
-            NavigateToCurrentUrlWith(queryString);
-        }
-
-        private static string EncodeQueryString(string queryString)
-        {
-            if (_chromeDriver.Url.Contains("?"))
-                return "&" + queryString;
-            return "?" + queryString;
+            if (parsedAvailableFunds != expectedAvailableFunds)
+            {
+                AddFundsToWallet(expectedAvailableFunds-parsedAvailableFunds);
+            }
         }
 
 

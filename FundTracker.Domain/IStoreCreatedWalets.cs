@@ -2,6 +2,6 @@
 {
     public interface IStoreCreatedWalets
     {
-        void Add(Wallet wallet);
+        void Add(IWallet wallet);
     }
 }

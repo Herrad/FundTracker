@@ -25,7 +25,7 @@ namespace Test.FundTracker.Services
         {
             var expectedWallet = new Wallet("foo name");
 
-            Wallets = new List<Wallet>{expectedWallet, new Wallet("foo other name")};
+            Wallets = new List<IWallet>{expectedWallet, new Wallet("foo other name")};
             
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
@@ -40,7 +40,7 @@ namespace Test.FundTracker.Services
         [Test]
         public void Add_adds_a_wallet_to_the_WalletsList()
         {
-            Wallets = new List<Wallet>();
+            Wallets = new List<IWallet>();
 
             var walletService = new WalletService(this, null);
 
@@ -52,6 +52,6 @@ namespace Test.FundTracker.Services
             Assert.That(Wallets.Count, Is.EqualTo(1));
         }
 
-        public List<Wallet> Wallets { get; private set; }
+        public List<IWallet> Wallets { get; private set; }
     }
 }

@@ -4,6 +4,6 @@ namespace FundTracker.Web.ViewModels.Builders
 {
     public interface IFormatWalletsAsViewModels
     {
-        WalletViewModel FormatWalletAsViewModel(Wallet wallet);
+        WalletViewModel FormatWalletAsViewModel(IWallet wallet);
     }
 }

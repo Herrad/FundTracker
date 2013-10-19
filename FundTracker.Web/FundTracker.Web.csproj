@@ -105,10 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActionHelpers\CreateWalletValidation.cs" />
-    <Compile Include="Controllers\ActionHelpers\IValidateWalletCreation.cs" />
+    <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
+    <Compile Include="Controllers\ActionHelpers\IValidateWalletNames.cs" />
+    <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IShowTheResultOfAddingFundsToAWallet.cs" />
-    <Compile Include="Controllers\ICreateNewWallets.cs" />
+    <Compile Include="Controllers\IShowTheResultOfCreatingNewWallets.cs" />
     <Compile Include="Controllers\ICreateRedirects.cs" />
     <Compile Include="Controllers\IDisplayWallets.cs" />
     <Compile Include="Controllers\WalletController.cs" />

@@ -3,7 +3,7 @@ using FundTracker.Domain;
 
 namespace FundTracker.Services
 {
-    public class WalletService : IProvideWallets
+    public class WalletService : IProvideWallets, IStoreCreatedWalets
     {
         private readonly IHaveAListOfWallets _walletRepository;
 
@@ -15,6 +15,11 @@ namespace FundTracker.Services
         public Wallet GetBy(string name)
         {
             return _walletRepository.Wallets.First(wallet => wallet.Name == name);
+        }
+
+        public void Add(Wallet wallet)
+        {
+            _walletRepository.Wallets.Add(wallet);
         }
     }
 }

@@ -5,13 +5,13 @@ using FundTracker.Web.ViewModels;
 
 namespace FundTracker.Web.Controllers
 {
-    public class WalletController : Controller, IShowTheResultOfAddingFundsToAWallet, ICreateNewWallets, ICreateRedirects
+    public class WalletController : Controller, IShowTheResultOfAddingFundsToAWallet, IShowTheResultOfCreatingNewWallets, ICreateRedirects
     {
         private RedirectToRouteResult _redirect;
-        private readonly IValidateWalletCreation _createWalletValidation;
+        private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
         private readonly IProvideWallets _walletProvider;
 
-        public WalletController(IValidateWalletCreation createWalletValidation, IProvideWallets walletProvider)
+        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider)
         {
             _createWalletValidation = createWalletValidation;
             _walletProvider = walletProvider;
@@ -27,7 +27,7 @@ namespace FundTracker.Web.Controllers
         [HttpPost]
         public ActionResult CreateWallet(string name)
         {
-            _createWalletValidation.ValidateAndRedirect(this, name);
+            _createWalletValidation.ValidateAndCreateWallet(this, name);
             return _redirect;
         }
 
@@ -53,6 +53,7 @@ namespace FundTracker.Web.Controllers
         {
             _redirect = RedirectToAction(action, controller, parameters);
         }
-
     }
+
+
 }

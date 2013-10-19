@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
+    <Compile Include="Controllers\TestWalletCreation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,18 +1,28 @@
-﻿using System;
+﻿using FundTracker.Domain;
+using FundTracker.Services;
 
 namespace FundTracker.Web.Controllers.ActionHelpers
 {
-    public class CreateWalletValidation : IValidateWalletCreation
+    public class CreateWalletValidation : IRedirectBasedOnWalletCreationValidation
     {
-        public void ValidateAndRedirect(WalletController controller, string name)
+        private readonly IValidateWalletNames _walletNameValidator;
+        private readonly ICreateWallets _walletBuilder;
+
+        public CreateWalletValidation(IValidateWalletNames walletNameValidator, ICreateWallets walletBuilder)
         {
-            if (String.IsNullOrEmpty(name))
+            _walletNameValidator = walletNameValidator;
+            _walletBuilder = walletBuilder;
+        }
+
+        public void ValidateAndCreateWallet(ICreateRedirects redirectCreater, string name)
+        {
+            if (_walletNameValidator.IsNameValid(name))
             {
-                controller.SetRedirect("ValidationFailure", "Home", new { failure = "You need to put in a name for this wallet" });
+                redirectCreater.SetRedirect("SuccessfullyCreated", "Wallet", new { walletName = name });
+                _walletBuilder.CreateWallet(name);
                 return;
             }
-
-            controller.SetRedirect("SuccessfullyCreated", "Wallet", new { walletName = name });
+            redirectCreater.SetRedirect("ValidationFailure", "Home", new { failure = "You need to put in a name for this wallet" });
         }
     }
 }

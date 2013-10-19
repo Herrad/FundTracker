@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FundTracker.Domain;
+﻿using FundTracker.Domain;
 using NUnit.Framework;
 
 namespace Test.FundTracker.Domain
@@ -23,6 +18,17 @@ namespace Test.FundTracker.Domain
             wallet.AddFunds(expectedFunds);
 
             Assert.That(wallet.AvailableFunds, Is.EqualTo(expectedFunds));
+        }
+
+        [Test]
+        public void Wallets_with_the_same_name_are_equal()
+        {
+            const string walletName = "foo name";
+
+            var wallet1 = new Wallet(walletName);
+            var wallet2 = new Wallet(walletName);
+
+            Assert.That(wallet1.Equals(wallet2), "wallets are not the same");
         }
     }
 }

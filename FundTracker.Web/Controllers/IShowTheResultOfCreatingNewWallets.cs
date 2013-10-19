@@ -2,7 +2,7 @@
 
 namespace FundTracker.Web.Controllers
 {
-    public interface ICreateNewWallets
+    public interface IShowTheResultOfCreatingNewWallets
     {
         [HttpPost]
         ActionResult CreateWallet(string name);

@@ -18,6 +18,7 @@
 <div class="wallet-input">
     <form method="POST" action="/Wallet/AddFunds">
         <label for="fundsToAdd">Funds to add</label>
+        <input type="hidden" name="name" value="@Model.Name" />
         <input type="number" name="fundsToAdd" value="0" min="0"/>
         <input type="submit" name="submit"/>
     </form>

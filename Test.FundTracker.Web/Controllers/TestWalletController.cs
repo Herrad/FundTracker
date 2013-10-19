@@ -4,6 +4,7 @@ using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
+using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -15,7 +16,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
             var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
@@ -26,7 +27,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo walletName";
 
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
             
             var viewResult = walletController.SuccessfullyCreated(walletName);
 
@@ -40,7 +41,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo";
 
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
             
             var result = walletController.CreateWallet(walletName);
 
@@ -56,7 +57,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void AddFunds_redirects_to_DisplayWallet_passing_name_and_funds()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
 
             const string expectedName = "fooName";
             const decimal expectedFunds = 100.00m;
@@ -76,7 +77,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -89,7 +90,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_sets_validation_message_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null);
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -104,46 +105,39 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_returns_a_view_with_ViewName_set_to_Display()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), MockRepository.GenerateStub<IProvideWallets>());
-            var viewResult = walletController.Display(null, 0);
+            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
+            var formatWalletsAsViewModels = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
+
+            var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels);
+            var viewResult = walletController.Display(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
         }
 
         [Test]
-        public void Display_builds_WalletViewModel_with_name_and_funds_set()
+        public void Display_gives_wallet_to_ViewModelBuilder()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), MockRepository.GenerateStub<IProvideWallets>());
-            var viewResult = walletController.Display("foo wallet", 123m);
+            const string walletName = "foo wallet";
+            var wallet = new Wallet(walletName);
+
+            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
+            walletProvider
+                .Stub(x => x.GetBy(walletName))
+                .Return(wallet);
+            
+            var walletViewModelBuilder = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
+            walletViewModelBuilder
+                .Stub(x => x.FormatWalletAsViewModel(wallet))
+                .Return(new WalletViewModel(walletName, 123m));
+
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
+            var viewResult = walletController.Display(walletName);
 
             var viewModel = (WalletViewModel) viewResult.Model;
 
-            Assert.That(viewModel.Name, Is.EqualTo("foo wallet"));
+            Assert.That(viewModel, Is.Not.Null, "View model wasn't set");
+            Assert.That(viewModel.Name, Is.EqualTo(walletName));
             Assert.That(viewModel.AvailableFunds, Is.EqualTo(123m));
-        }
-
-        [Test]
-        public void Display_gets_a_wallet_to_display()
-        {
-            const string walletName = "foo name";
-
-            var walletProvider = MockRepository.GenerateMock<IProvideWallets>();
-
-            var walletController = new WalletController(null, walletProvider);
-
-            walletController.Display(walletName, 123);
-
-            walletProvider.AssertWasCalled(x => x.GetBy(walletName), c => c.Repeat.Once());
-        }
-
-        [Test]
-        public void Display_with_no_funds_sets_funds_to_0()
-        {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), MockRepository.GenerateStub<IProvideWallets>());
-            var viewResult = walletController.DisplayNoFunds("foo wallet");
-
-            var viewModel = (WalletViewModel)viewResult.Model;
-            Assert.That(viewModel.AvailableFunds, Is.EqualTo(0));
         }
     }
 }

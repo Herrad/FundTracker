@@ -35,6 +35,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\Test.FundTracker.Web\bin\Debug\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +49,7 @@
   <ItemGroup>
     <Compile Include="TestWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestWalletCreation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -54,6 +58,10 @@
     <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
       <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
       <Name>FundTracker.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FundTracker.Web\FundTracker.Web.csproj">
+      <Project>{3D48C315-ECF6-4580-A111-DBBC9BF42D19}</Project>
+      <Name>FundTracker.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

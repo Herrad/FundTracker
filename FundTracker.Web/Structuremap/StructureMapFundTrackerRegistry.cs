@@ -1,5 +1,7 @@
-﻿using FundTracker.Services;
+﻿using System;
+using FundTracker.Services;
 using StructureMap.Configuration.DSL;
+using StructureMap.Graph;
 
 namespace FundTracker.Web.Structuremap
 {
@@ -12,6 +14,7 @@ namespace FundTracker.Web.Structuremap
                     {
                         x.AssemblyContainingType<WalletService>();
                         x.TheCallingAssembly();
+                        x.SingleImplementationsOfInterface();
                     });
         }
     }

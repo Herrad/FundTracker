@@ -1,11 +1,10 @@
 using FundTracker.Domain;
-using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Test.FundTracker.Web.Controllers
+namespace Test.FundTracker.Domain
 {
     [TestFixture]
     public class TestWalletCreation

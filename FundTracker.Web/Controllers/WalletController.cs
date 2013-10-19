@@ -2,6 +2,7 @@
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
+using FundTracker.Web.ViewModels.Builders;
 
 namespace FundTracker.Web.Controllers
 {
@@ -10,11 +11,13 @@ namespace FundTracker.Web.Controllers
         private RedirectToRouteResult _redirect;
         private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
         private readonly IProvideWallets _walletProvider;
+        private readonly IFormatWalletsAsViewModels _walletViewModelBuilder;
 
-        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider)
+        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder)
         {
             _createWalletValidation = createWalletValidation;
             _walletProvider = walletProvider;
+            _walletViewModelBuilder = walletViewModelBuilder;
         }
 
         public ViewResult SuccessfullyCreated(string walletName)
@@ -31,10 +34,11 @@ namespace FundTracker.Web.Controllers
             return _redirect;
         }
 
-        public ViewResult Display(string walletName, decimal availableFunds)
+        public ViewResult Display(string walletName)
         {
-            _walletProvider.GetBy(walletName);
-            var walletViewModel = new WalletViewModel(walletName, availableFunds);
+            var wallet = _walletProvider.GetBy(walletName);
+
+            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet);
 
             return View("Display", walletViewModel);
         }
@@ -44,16 +48,9 @@ namespace FundTracker.Web.Controllers
             return RedirectToAction("Display", new { walletName = name, availableFunds = fundsToAdd });
         }
 
-        public ViewResult DisplayNoFunds(string walletName)
-        {
-            return Display(walletName, 0);
-        }
-
         public void SetRedirect(string action, string controller, object parameters)
         {
             _redirect = RedirectToAction(action, controller, parameters);
         }
     }
-
-
 }

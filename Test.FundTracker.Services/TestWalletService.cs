@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FundTracker.Domain;
 using FundTracker.Services;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Test.FundTracker.Services
 {
@@ -9,12 +11,26 @@ namespace Test.FundTracker.Services
     public class TestWalletService : IHaveAListOfWallets
     {
         [Test]
+        public void GetBy_throws_an_exception_when_Name_is_not_valid()
+        {
+            var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
+            nameValidater.Stub(x => x.IsNameValid("bad name")).Return(false);
+
+            var walletService = new WalletService(this, nameValidater);
+
+            Assert.Throws<ArgumentException>(() => walletService.GetBy("bad name"));
+        }
+        [Test]
         public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
             var expectedWallet = new Wallet("foo name");
 
             Wallets = new List<Wallet>{expectedWallet, new Wallet("foo other name")};
-            var walletService = new WalletService(this);
+            
+            var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
+            nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
+
+            var walletService = new WalletService(this, nameValidater);
 
             var wallet = walletService.GetBy("foo name");
 
@@ -26,7 +42,7 @@ namespace Test.FundTracker.Services
         {
             Wallets = new List<Wallet>();
 
-            var walletService = new WalletService(this);
+            var walletService = new WalletService(this, null);
 
             var wallet = new Wallet("foo name");
 
@@ -37,15 +53,5 @@ namespace Test.FundTracker.Services
         }
 
         public List<Wallet> Wallets { get; private set; }
-    }
-
-    [TestFixture]
-    public class TestWalletBuilder
-    {
-        [Test]
-        public void Building_wallet_()
-        {
-
-        }
     }
 }

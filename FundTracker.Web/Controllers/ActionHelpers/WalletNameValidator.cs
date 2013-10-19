@@ -1,4 +1,5 @@
 ﻿using System;
+using FundTracker.Domain;
 
 namespace FundTracker.Web.Controllers.ActionHelpers
 {

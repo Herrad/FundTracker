@@ -106,7 +106,6 @@
   <ItemGroup>
     <Compile Include="Controllers\ActionHelpers\CreateWalletValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
-    <Compile Include="Controllers\ActionHelpers\IValidateWalletNames.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IShowTheResultOfAddingFundsToAWallet.cs" />
@@ -121,6 +120,8 @@
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\StructureMapDependencyResolver.cs" />
     <Compile Include="Structuremap\StructureMapFundTrackerRegistry.cs" />
+    <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
+    <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
     <Compile Include="ViewModels\WalletViewModel.cs" />

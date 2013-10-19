@@ -43,6 +43,7 @@
     <Compile Include="IHaveAvailableFunds.cs" />
     <Compile Include="IStoreCreatedWalets.cs" />
     <Compile Include="ITakeFundsToAdd.cs" />
+    <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="WalletBuilder.cs" />

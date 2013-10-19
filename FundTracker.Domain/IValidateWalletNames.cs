@@ -1,4 +1,4 @@
-﻿namespace FundTracker.Web.Controllers.ActionHelpers
+﻿namespace FundTracker.Domain
 {
     public interface IValidateWalletNames
     {

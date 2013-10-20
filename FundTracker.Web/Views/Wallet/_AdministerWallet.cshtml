@@ -1,4 +1,7 @@
 ﻿@model FundTracker.Web.ViewModels.WalletViewModel
+<a class="withdrawal">
+    Click here to add a withdrawal
+</a>
 <div class="wallet-input">
     <form method="POST" action="/Wallet/AddFunds">
         <input type="hidden" name="name" value="@Model.Name" />

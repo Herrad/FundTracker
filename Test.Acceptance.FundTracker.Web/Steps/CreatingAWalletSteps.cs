@@ -17,7 +17,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"my available funds are (.*)")]
         public void GivenMyAvailableFundsAre(decimal expectedAvailableFunds)
         {
-            
             var availableFundsOnPage = ParseAvailableFundsFromPage();
 
             if (expectedAvailableFunds > availableFundsOnPage)
@@ -41,7 +40,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
         private static decimal ParseAvailableFundsFromPage()
         {
-            var availableFunds = _chromeDriver.FindElementById("available-funds").Text;
+            var availableFunds = _chromeDriver.FindElementById("available-funds-value").Text;
             decimal parsedAvailableFunds;
             var successfullyParsed = decimal.TryParse(availableFunds, out parsedAvailableFunds);
             if (!successfullyParsed)
@@ -94,6 +93,24 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             RemoveFundsFromWallet(fundsToRemove);
         }
 
+        [When(@"I add a recurring withdrawal of (.*)")]
+        public void WhenIAddARecurringWithdrawalOf(decimal fundsToWithdraw)
+        {
+            AddWithdrawal(fundsToWithdraw);
+        }
+
+        private static void AddWithdrawal(decimal fundsToWithdraw)
+        {
+            var addWithdrawalElement = _chromeDriver.FindElementByClassName("withdrawal");
+            addWithdrawalElement.Click();
+
+            var withdrawalAmount = _chromeDriver.FindElementByClassName("withdrawal-amount");
+            withdrawalAmount.Clear();
+            withdrawalAmount.SendKeys(fundsToWithdraw.ToString(CultureInfo.InvariantCulture));
+
+            var withdrawalSubmit = _chromeDriver.FindElementByClassName("withdrawal-submit");
+            withdrawalSubmit.Click();
+        }
 
         private static void AddFundsToWallet(decimal fundAmount)
         {
@@ -119,7 +136,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         public void ThenIAmTakenToTheDisplayWalletPage()
         {
             var pageTitle = _chromeDriver.FindElementByTagName("h2").Text;
-            Assert.That(pageTitle, Is.EqualTo("Wallet"));
+            Assert.That(pageTitle, Is.EqualTo("Your Wallet"));
         }
 
         [Then(@"the name starts with ""(.*)""")]

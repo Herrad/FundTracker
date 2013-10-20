@@ -49,7 +49,12 @@ namespace FundTracker.Web.Controllers
             var wallet = _walletProvider.GetBy(name);
             wallet.AddFunds(fundsToAdd);
 
-            return RedirectToAction("Display", new { walletName = name, availableFunds = fundsToAdd });
+            return RedirectToAction("Display", new { walletName = name });
+        }
+
+        public ActionResult RemoveFunds(string name, decimal fundsToRemove)
+        {
+            return AddFunds(name, 0 - fundsToRemove);
         }
 
         public void SetRedirect(string action, string controller, object parameters)

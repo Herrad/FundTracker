@@ -75,11 +75,11 @@ namespace Test.Acceptance.FundTracker.Web.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.When("I create a wallet with the name \"my first wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I create a wallet with the unique name starting with \"my first wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
  testRunner.Then("I am taken to the display wallet page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
- testRunner.And("the name \"my first wallet\" is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the name starts with \"my first wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -92,13 +92,32 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
 this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.Given("I have created a wallet called \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have created a wallet with a unique name starting with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
  testRunner.And("my available funds are 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
  testRunner.When("I add 100.00 in funds to my wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
  testRunner.Then("the amount in the wallet is 150.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Removing funds from a wallet")]
+        public virtual void RemovingFundsFromAWallet()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing funds from a wallet", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+ testRunner.Given("I have created a wallet with a unique name starting with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+ testRunner.And("my available funds are 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+ testRunner.When("I remove 25.00 in funds from my wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("the amount in the wallet is 25.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

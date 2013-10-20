@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Views\Wallet\AdministerWallet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">

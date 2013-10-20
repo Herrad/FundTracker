@@ -7,13 +7,13 @@
 @section Header
 {}
 
-<h2>Wallet</h2>
+<h2 class="display-header">Your Wallet</h2>
 
 <div class="wallet-info">
     <h2 class="wallet-name">@Model.Name</h2>
-    <span>Available funds: £</span>
-    <strong id="available-funds">@Model.AvailableFunds</strong>
+    <span class="available-funds">Available funds: £<strong>@Model.AvailableFunds</strong></span>
 </div>
+<div class="cl"></div>
 @{
     Html.RenderPartial("AdministerWallet");
 }

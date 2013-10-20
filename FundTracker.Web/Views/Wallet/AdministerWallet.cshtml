@@ -4,12 +4,12 @@
         <input type="hidden" name="name" value="@Model.Name" />
         <label for="fundsToAdd">Funds to add</label>
         <input type="number" name="fundsToAdd" value="0" min="0"/>
-        <input type="submit" name="submit-add" value="Add Funds"/>
+        <input type="submit" name="submit-add" class="fund-submit"value="Add Funds"/>
     </form>
     <form method="POST" action="/Wallet/RemoveFunds">
         <input type="hidden" name="name" value="@Model.Name" />
         <label for="fundsToRemove">Funds to remove</label>
         <input type="number" name="fundsToRemove" value="0" min="0"/>
-        <input type="submit" name="submit-remove" value="Remove Funds"/>
+        <input type="submit" name="submit-remove" class="fund-submit" value="Remove Funds"/>
     </form>
 </div>

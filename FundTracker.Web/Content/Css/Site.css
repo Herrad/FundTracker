@@ -21,7 +21,14 @@ h2{margin-bottom: 20px;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
 
-.wallet-info { float: left;}
-.wallet-input { float: left;}
+.display-header{ padding: 10px 0 0 10px;}
+.wallet-info { float: left;width: 40%;margin-left: 30%;}
+    .wallet-info .available-funds{ float: left;padding: 200px 125px 50px 125px;background: #EAEAEA;border: 1px solid #c8c8c8; }
+   
+
+.wallet-input { float: left;width: 45%;margin:20px 0 0 27.5%;}
+    .wallet-input form label  { float: left;width: 25%;}
+    .wallet-input form input { float: left;}
+    .wallet-input form .fund-submit { float: left;width: 35%;}
 
 .cl{ clear: both;}

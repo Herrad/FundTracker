@@ -1,5 +1,7 @@
 using System;
 using System.Configuration;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
 
@@ -38,6 +40,20 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             _chromeDriver.Close();
             _chromeDriver.Quit();
+        }
+
+        protected static IWebElement TryToFindElementByClassName(string className)
+        {
+            try
+            {
+                var withdrawalTile = _chromeDriver.FindElementByClassName(className);
+                return withdrawalTile;
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Could not find element by class name: " + className);
+            }
+            return null;
         }
     }
 }

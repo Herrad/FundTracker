@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
 {
     [Binding]
-    public class CreatingAWalletSteps : ChromeDriverTest
+    public class AdministeringAWalletSteps : ChromeDriverTest
     {
         [BeforeFeature]
         public static void SetUp()
@@ -104,11 +105,11 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var addWithdrawalElement = _chromeDriver.FindElementByClassName("withdrawal");
             addWithdrawalElement.Click();
 
-            var withdrawalAmount = _chromeDriver.FindElementByClassName("withdrawal-amount");
+            var withdrawalAmount = TryToFindElementByClassName("withdrawal-amount");
             withdrawalAmount.Clear();
             withdrawalAmount.SendKeys(fundsToWithdraw.ToString(CultureInfo.InvariantCulture));
 
-            var withdrawalSubmit = _chromeDriver.FindElementByClassName("withdrawal-submit");
+            var withdrawalSubmit = TryToFindElementByClassName("withdrawal-submit");
             withdrawalSubmit.Click();
         }
 
@@ -145,10 +146,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var walletNameDisplayed = _chromeDriver.FindElementByClassName("wallet-name").Text;
             Assert.That(walletNameDisplayed.StartsWith(expectedWalletName));
         }
+        
         [Then(@"a withdrawal tile is shown with the outgoing amount set to (.*)")]
-        public void ThenAWithdrawalTileIsShownWithTheOutgoingAmountSetTo(Decimal p0)
+        public void ThenAWithdrawalTileIsShownWithTheOutgoingAmountSetTo(decimal expectedWithdrawalAmount)
         {
-            ScenarioContext.Current.Pending();
+            var withdrawalTile =  TryToFindElementByClassName("withdrawal-tile");
+            Assert.That(withdrawalTile.Displayed);
+
+            var amount = decimal.Parse(withdrawalTile.FindElement(By.ClassName("amount")).Text);
+
+            Assert.That(amount, Is.EqualTo(expectedWithdrawalAmount));
         }
 
 

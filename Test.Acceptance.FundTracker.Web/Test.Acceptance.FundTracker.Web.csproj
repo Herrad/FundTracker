@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ChromeDriverTest.cs" />
-    <Compile Include="Steps\CreatingAWalletSteps.cs" />
+    <Compile Include="Steps\AdministeringAWalletSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

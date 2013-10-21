@@ -152,19 +152,49 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.GetBy(walletName))
                 .Return(wallet);
             
-            var walletViewModelBuilder = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
-            walletViewModelBuilder
-                .Stub(x => x.FormatWalletAsViewModel(wallet))
-                .Return(new WalletViewModel(walletName, 123m));
+            var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
-            var viewResult = walletController.Display(walletName);
+            walletController.Display(walletName);
 
-            var viewModel = (WalletViewModel) viewResult.Model;
+            walletViewModelBuilder
+                .AssertWasCalled(
+                x => x.FormatWalletAsViewModel(wallet),
+                c => c.Repeat.Once());
+        }
+    }
 
-            Assert.That(viewModel, Is.Not.Null, "View model wasn't set");
-            Assert.That(viewModel.Name, Is.EqualTo(walletName));
-            Assert.That(viewModel.AvailableFunds, Is.EqualTo(123m));
+    [TestFixture]
+    public class TestWalletViewModelFormatter
+    {
+        [Test]
+        public void Sets_WalletName_and_Amount_on_ViewModel()
+        {
+            const string walletName = "foo name";
+
+            var viewModelFormatter = new WalletViewModelBuilder();
+
+            var wallet = new Wallet(walletName);
+            wallet.AddFunds(123m);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
+
+            Assert.That(result.Name, Is.EqualTo(walletName));
+            Assert.That(result.AvailableFunds, Is.EqualTo(123m));
+        }
+
+        [Test]
+        public void Sets_WithdrawalTile_on_ViewModel()
+        {
+            const string walletName = "foo name";
+
+            var viewModelFormatter = new WalletViewModelBuilder();
+
+            var wallet = new Wallet(walletName);
+            wallet.AddFunds(123m);
+
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
+            
+            Assert.That(result.WithdrawalTilesViewModel, Is.Not.Null);
         }
     }
 }

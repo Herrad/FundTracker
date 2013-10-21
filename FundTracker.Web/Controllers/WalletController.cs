@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
@@ -7,7 +6,7 @@ using FundTracker.Web.ViewModels.Builders;
 
 namespace FundTracker.Web.Controllers
 {
-    public class WalletController : Controller, IShowTheResultOfAddingFundsToAWallet, IShowTheResultOfCreatingNewWallets, ICreateRedirects
+    public class WalletController : Controller, IShowTheResultOfAddingFundsToAWallet, IShowTheResultOfCreatingNewWallets, ICreateRedirects, ICreateViews
     {
         private RedirectToRouteResult _redirect;
         private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
@@ -57,9 +56,19 @@ namespace FundTracker.Web.Controllers
             return AddFunds(name, 0 - fundsToRemove);
         }
 
+        public ViewResult AddWithdrawal()
+        {
+            return null;
+        }
+
         public void SetRedirect(string action, string controller, object parameters)
         {
             _redirect = RedirectToAction(action, controller, parameters);
+        }
+
+        public void CreateView(string viewName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿@model FundTracker.Web.ViewModels.Builders.CreateWithdrawalViewModel
+
+@{
+    ViewBag.Title = "Create a recurring withdrawal";
+    Layout = "~/Views/_Layout.cshtml";
+}
+@section Header
+{}
+<h2>Create a recurring withdrawal</h2>
+
+<form method="POST" action="/Withdrawal/AddNew">
+    <input type="hidden" name="name" value="@Model.WalletName"/>
+    <input type="number" name="amount" min="0" class="withdrawal-amount"/>
+    <input type="submit" class="withdrawal-submit"/>
+</form>

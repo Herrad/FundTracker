@@ -108,11 +108,13 @@
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ICreateViews.cs" />
     <Compile Include="Controllers\IShowTheResultOfAddingFundsToAWallet.cs" />
     <Compile Include="Controllers\IShowTheResultOfCreatingNewWallets.cs" />
     <Compile Include="Controllers\ICreateRedirects.cs" />
     <Compile Include="Controllers\IDisplayWallets.cs" />
     <Compile Include="Controllers\WalletController.cs" />
+    <Compile Include="Controllers\WithdrawalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -120,6 +122,7 @@
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\StructureMapDependencyResolver.cs" />
     <Compile Include="Structuremap\StructureMapFundTrackerRegistry.cs" />
+    <Compile Include="ViewModels\Builders\CreateWithdrawalViewModel.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
@@ -170,6 +173,8 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\Wallet\_AdministerWallet.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Withdrawal\Create.cshtml" />
+    <Content Include="Views\Wallet\_WithdrawalTiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">

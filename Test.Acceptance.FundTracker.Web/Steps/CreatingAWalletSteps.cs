@@ -145,6 +145,12 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var walletNameDisplayed = _chromeDriver.FindElementByClassName("wallet-name").Text;
             Assert.That(walletNameDisplayed.StartsWith(expectedWalletName));
         }
+        [Then(@"a withdrawal tile is shown with the outgoing amount set to (.*)")]
+        public void ThenAWithdrawalTileIsShownWithTheOutgoingAmountSetTo(Decimal p0)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
 
         [Then(@"the amount in the wallet is (.*)")]
         public void ThenTheAmountInTheWalletIs(decimal expectedFunds)

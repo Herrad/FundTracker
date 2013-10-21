@@ -15,7 +15,12 @@
 
 <div class="wallet-info">
     <h2 class="wallet-name">@Model.Name</h2>
-    <span class="available-funds">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></span>
+    <div class="funds">
+        <a class="recurring deposit">Click here to add a recurring deposit</a>
+        <span class="available-funds">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></span>
+        <a class="recurring withdrawal">Click here to add a recurring withdrawal</a>
+
+    </div>
 </div>
 <div class="cl"></div>
 @{

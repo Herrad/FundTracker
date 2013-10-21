@@ -36,7 +36,7 @@ namespace FundTracker.Web.Controllers
 
         public ViewResult Display(string walletName)
         {
-            var wallet = _walletProvider.GetBy(walletName);
+            var wallet = _walletProvider.FindFirstWalletWith(walletName);
 
             var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet);
 
@@ -45,7 +45,7 @@ namespace FundTracker.Web.Controllers
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)
         {
-            var wallet = _walletProvider.GetBy(name);
+            var wallet = _walletProvider.FindFirstWalletWith(name);
             wallet.AddFunds(fundsToAdd);
 
             return RedirectToAction("Display", new { walletName = name });

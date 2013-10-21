@@ -15,7 +15,7 @@ namespace FundTracker.Services
             _nameValidater = nameValidater;
         }
 
-        public IWallet GetBy(string name)
+        public IWallet FindFirstWalletWith(string name)
         {
             ValidateName(name);
             return _walletRepository.Wallets.First(wallet => wallet.Name == name);

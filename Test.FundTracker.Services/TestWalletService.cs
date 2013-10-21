@@ -18,7 +18,7 @@ namespace Test.FundTracker.Services
 
             var walletService = new WalletService(this, nameValidater);
 
-            Assert.Throws<ArgumentException>(() => walletService.GetBy("bad name"));
+            Assert.Throws<ArgumentException>(() => walletService.FindFirstWalletWith("bad name"));
         }
         [Test]
         public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
@@ -32,7 +32,7 @@ namespace Test.FundTracker.Services
 
             var walletService = new WalletService(this, nameValidater);
 
-            var wallet = walletService.GetBy("foo name");
+            var wallet = walletService.FindFirstWalletWith("foo name");
 
             Assert.That(wallet, Is.EqualTo(expectedWallet));
         }

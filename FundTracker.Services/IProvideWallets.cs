@@ -4,6 +4,6 @@ namespace FundTracker.Services
 {
     public interface IProvideWallets
     {
-        IWallet GetBy(string name);
+        IWallet FindFirstWalletWith(string name);
     }
 }

@@ -62,7 +62,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.GetBy(expectedName))
+                .Stub(x => x.FindFirstWalletWith(expectedName))
                 .Return(MockRepository.GenerateStub<IWallet>());
             
             var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder());
@@ -88,7 +88,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.GetBy(name))
+                .Stub(x => x.FindFirstWalletWith(name))
                 .Return(wallet);
 
             var controller = new WalletController(null, walletProvider, null);
@@ -149,7 +149,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.GetBy(walletName))
+                .Stub(x => x.FindFirstWalletWith(walletName))
                 .Return(wallet);
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();

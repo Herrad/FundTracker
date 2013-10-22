@@ -8,24 +8,14 @@ namespace Test.FundTracker.Domain
     public class TestWalletIdentification
     {
         [Test]
-        public void Identifies_first_wallet_in_a_list_matching_name()
+        public void Identifications_with_the_same_name_are_equal()
         {
-            const string name = "foo wallet";
+            const string walletName = "foo name";
 
-            var expectedWallet = new Wallet("foo wallet");
-            var listOfWallets = new List<IWallet>
-                {
-                    expectedWallet,
-                    new Wallet("foo name"),
-                    new Wallet("foo other name"),
-                    expectedWallet
-                };
+            var identification1 = new WalletIdentification(walletName);
+            var identification2 = new WalletIdentification(walletName);
 
-            var identifier = new WalletNameIdentifier(name);
-
-            var wallet = identifier.FindFirstMatchingWalletIn(listOfWallets);
-
-            Assert.That(wallet, Is.EqualTo(expectedWallet));
+            Assert.That(identification1.Equals(identification2), "identifiers are not the same");
         }
     }
 }

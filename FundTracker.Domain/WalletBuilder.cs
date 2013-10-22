@@ -9,9 +9,9 @@
             _walletStore = walletStore;
         }
 
-        public void CreateWallet(string name)
+        public void CreateWallet(WalletIdentification walletIdentification)
         {
-            _walletStore.Add(new Wallet(name));
+            _walletStore.Add(new Wallet(walletIdentification));
         }
     }
 }

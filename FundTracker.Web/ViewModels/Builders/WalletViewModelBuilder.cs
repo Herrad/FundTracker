@@ -7,7 +7,7 @@ namespace FundTracker.Web.ViewModels.Builders
     {
         public WalletViewModel FormatWalletAsViewModel(IWallet wallet)
         {
-            var walletViewModel = new WalletViewModel(wallet.Name, wallet.AvailableFunds, CreateWithdrawalTilesViewModel());
+            var walletViewModel = new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, CreateWithdrawalTilesViewModel());
             return walletViewModel;
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IWallet : ITakeFundsToAdd, IHaveAvailableFunds
     {
-        string Name { get; }
+        WalletIdentification Identification { get; }
     }
 }

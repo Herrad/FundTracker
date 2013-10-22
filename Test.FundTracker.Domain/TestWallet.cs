@@ -11,7 +11,7 @@ namespace Test.FundTracker.Domain
         {
             const decimal expectedFunds = 150m;
             
-            var wallet = new Wallet(null);
+            var wallet = new Wallet(new WalletIdentification(null));
 
             Assert.That(wallet.AvailableFunds, Is.EqualTo(0));
 
@@ -21,12 +21,12 @@ namespace Test.FundTracker.Domain
         }
 
         [Test]
-        public void Wallets_with_the_same_name_are_equal()
+        public void Wallets_with_the_same_Identification_are_equal()
         {
-            const string walletName = "foo name";
+            var identification = new WalletIdentification("foo name");
 
-            var wallet1 = new Wallet(walletName);
-            var wallet2 = new Wallet(walletName);
+            var wallet1 = new Wallet(identification);
+            var wallet2 = new Wallet(identification);
 
             Assert.That(wallet1.Equals(wallet2), "wallets are not the same");
         }

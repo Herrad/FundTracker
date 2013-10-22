@@ -25,7 +25,7 @@ namespace Test.FundTracker.Domain
 
             walletValidator.ValidateAndCreateWallet(MockRepository.GenerateStub<ICreateRedirects>(), walletName);
 
-            walletBuilder.AssertWasCalled(x => x.CreateWallet(walletName), c => c.Repeat.Once());
+            walletBuilder.AssertWasCalled(x => x.CreateWallet(new WalletIdentification(walletName)), c => c.Repeat.Once());
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Test.FundTracker.Domain
 
             walletValidator.ValidateAndCreateWallet(MockRepository.GenerateStub<ICreateRedirects>(), walletName);
 
-            walletBuilder.AssertWasNotCalled(x => x.CreateWallet(walletName), c => c.Repeat.Once());
+            walletBuilder.AssertWasNotCalled(x => x.CreateWallet(new WalletIdentification(walletName)), c => c.Repeat.Once());
         }
 
         [Test]
@@ -56,9 +56,9 @@ namespace Test.FundTracker.Domain
 
             var walletBuilder = new WalletBuilder(walletStore);
 
-            walletBuilder.CreateWallet(walletName);
+            walletBuilder.CreateWallet(new WalletIdentification(walletName));
 
-            walletStore.AssertWasCalled(x => x.Add(new Wallet(walletName)), c => c.Repeat.Once());
+            walletStore.AssertWasCalled(x => x.Add(new Wallet(new WalletIdentification(walletName))), c => c.Repeat.Once());
         }
     }
 }

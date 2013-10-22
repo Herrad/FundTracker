@@ -62,7 +62,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(expectedName))
+                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(expectedName)))
                 .Return(MockRepository.GenerateStub<IWallet>());
             
             var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder());
@@ -88,7 +88,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(name))
+                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(name)))
                 .Return(wallet);
 
             var controller = new WalletController(null, walletProvider, null);
@@ -145,11 +145,11 @@ namespace Test.FundTracker.Web.Controllers
         public void Display_gives_wallet_to_ViewModelBuilder()
         {
             const string walletName = "foo wallet";
-            var wallet = new Wallet(walletName);
+            var wallet = new Wallet(new WalletIdentification(walletName));
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(walletName))
+                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
                 .Return(wallet);
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
@@ -174,7 +174,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var viewModelFormatter = new WalletViewModelBuilder();
 
-            var wallet = new Wallet(walletName);
+            var wallet = new Wallet(new WalletIdentification(walletName));
             wallet.AddFunds(123m);
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
 
@@ -189,7 +189,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var viewModelFormatter = new WalletViewModelBuilder();
 
-            var wallet = new Wallet(walletName);
+            var wallet = new Wallet(new WalletIdentification(walletName));
             wallet.AddFunds(123m);
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet);

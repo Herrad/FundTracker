@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.ViewModels;
@@ -36,7 +37,7 @@ namespace FundTracker.Web.Controllers
 
         public ViewResult Display(string walletName)
         {
-            var wallet = _walletProvider.FindFirstWalletWith(walletName);
+            var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
 
             var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet);
 
@@ -45,7 +46,7 @@ namespace FundTracker.Web.Controllers
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)
         {
-            var wallet = _walletProvider.FindFirstWalletWith(name);
+            var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(name));
             wallet.AddFunds(fundsToAdd);
 
             return RedirectToAction("Display", new { walletName = name });

@@ -50,6 +50,7 @@
     <Compile Include="TestWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestWalletCreation.cs" />
+    <Compile Include="TestWalletIdentification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

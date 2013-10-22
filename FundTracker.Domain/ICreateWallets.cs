@@ -2,6 +2,6 @@
 {
     public interface ICreateWallets
     {
-        void CreateWallet(string name);
+        void CreateWallet(WalletIdentification walletIdentification);
     }
 }

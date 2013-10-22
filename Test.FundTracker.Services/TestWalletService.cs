@@ -11,28 +11,18 @@ namespace Test.FundTracker.Services
     public class TestWalletService : IHaveAListOfWallets
     {
         [Test]
-        public void GetBy_throws_an_exception_when_Name_is_not_valid()
-        {
-            var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
-            nameValidater.Stub(x => x.IsNameValid("bad name")).Return(false);
-
-            var walletService = new WalletService(this, nameValidater);
-
-            Assert.Throws<ArgumentException>(() => walletService.FindFirstWalletWith("bad name"));
-        }
-        [Test]
         public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
-            var expectedWallet = new Wallet("foo name");
+            var expectedWallet = new Wallet(new WalletIdentification("foo name"));
 
-            Wallets = new List<IWallet>{expectedWallet, new Wallet("foo other name")};
+            Wallets = new List<IWallet>{expectedWallet, new Wallet(new WalletIdentification("foo other name"))};
             
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
 
-            var walletService = new WalletService(this, nameValidater);
+            var walletService = new WalletService(this);
 
-            var wallet = walletService.FindFirstWalletWith("foo name");
+            var wallet = walletService.FindFirstWalletWith(new WalletIdentification("foo name"));
 
             Assert.That(wallet, Is.EqualTo(expectedWallet));
         }
@@ -42,9 +32,9 @@ namespace Test.FundTracker.Services
         {
             Wallets = new List<IWallet>();
 
-            var walletService = new WalletService(this, null);
+            var walletService = new WalletService(this);
 
-            var wallet = new Wallet("foo name");
+            var wallet = new Wallet(new WalletIdentification("foo name"));
 
             walletService.Add(wallet);
 

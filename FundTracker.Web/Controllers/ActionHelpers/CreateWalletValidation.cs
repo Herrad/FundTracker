@@ -19,7 +19,7 @@ namespace FundTracker.Web.Controllers.ActionHelpers
             if (_walletNameValidator.IsNameValid(name))
             {
                 redirectCreater.SetRedirect("SuccessfullyCreated", "Wallet", new { walletName = name });
-                _walletBuilder.CreateWallet(name);
+                _walletBuilder.CreateWallet(new WalletIdentification(name));
                 return;
             }
             redirectCreater.SetRedirect("ValidationFailure", "Home", new { failure = "You need to put in a name for this wallet" });

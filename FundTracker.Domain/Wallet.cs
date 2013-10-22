@@ -4,17 +4,17 @@
     {
         protected bool Equals(Wallet other)
         {
-            return string.Equals(Name, other.Name);
+            return Identification.Equals(other.Identification);
         }
 
         public override int GetHashCode()
         {
-            return (Name != null ? Name.GetHashCode() : 0);
+            return (Identification!= null ? Identification.GetHashCode() : 0);
         }
 
-        public Wallet(string name)
+        public Wallet(WalletIdentification walletIdentification)
         {
-            Name = name;
+            Identification = walletIdentification;
         }
 
         public void AddFunds(decimal fundsToAdd)
@@ -23,7 +23,7 @@
         }
 
         public decimal AvailableFunds { get; private set; }
-        public string Name { get; private set; }
+        public WalletIdentification Identification { get; private set; }
 
         public override bool Equals(object obj)
         {

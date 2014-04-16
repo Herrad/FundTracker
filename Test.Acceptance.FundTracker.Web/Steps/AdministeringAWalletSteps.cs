@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Helpers;
-using Coypu;
+﻿using Coypu;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;
@@ -9,24 +7,19 @@ using Test.Acceptance.FundTracker.Web.Pages;
 namespace Test.Acceptance.FundTracker.Web.Steps
 {
     [Binding]
-    public class AdministeringAWalletSteps : WebDriverTests 
+    public class AdministeringAWalletSteps : WebDriverTests
     {
-        [Given(@"my available funds are (.*)")]
-        public void GivenMyAvailableFundsAre(decimal expectedAvailableFunds)
+        [Given(@"this wallet exists")]
+        public void GivenThisWalletExists(Table table)
         {
-            var availableFundsOnPage = AdministerWalletPage.GetAvailableFunds();
+            var walletRow = table.Rows[0];
+            var name = walletRow["Unique Name"];
+            var availableFunds = decimal.Parse(walletRow["Starting Funds"]);
 
-            if (expectedAvailableFunds > availableFundsOnPage)
-            {
-                var fundDifference = expectedAvailableFunds - availableFundsOnPage;
-                AdministerWalletPage.AddFundsToWallet(fundDifference);
-            }
-            else if (expectedAvailableFunds < availableFundsOnPage)
-            {
-                AdministerWalletPage.RemoveFundsFromWallet(availableFundsOnPage - expectedAvailableFunds);
-            }
+            ScenarioContext.Current["wallet name"] = name;
+            ScenarioContext.Current["available funds"] = availableFunds;
 
-            Assert.That(AdministerWalletPage.GetAvailableFunds(), Is.EqualTo(expectedAvailableFunds), "funds were not set as expected (is adding/removing funds working?)");
+            MongoDbAdapter.CreateWalletCalled(name, availableFunds);
         }
 
         [Given(@"I have created a wallet with a unique name starting with ""(.*)""")]
@@ -38,7 +31,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"A wallet already exists called ""(.*)""")]
         public void GivenAWalletAlreadyExistsCalled(string walletName)
         {
-            MongoDbAdapter.CreateWalletCalled(walletName);
+            MongoDbAdapter.CreateWalletCalled(walletName, 0);
         }
 
         [When(@"I load the wallet with name ""(.*)""")]
@@ -70,19 +63,19 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [When(@"I add (.*) in funds to my wallet")]
         public void WhenIAddInFundsToMyWallet(decimal fundAmount)
         {
-            AdministerWalletPage.AddFundsToWallet(fundAmount);
+            var walletName = (string) ScenarioContext.Current["wallet name"];
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            
+            administerWalletPage.AddFundsToWallet(fundAmount);
         }
 
         [When(@"I remove (.*) in funds from my wallet")]
         public void WhenIRemoveInFundsFromMyWallet(decimal fundsToRemove)
         {
-            AdministerWalletPage.RemoveFundsFromWallet(fundsToRemove);
-        }
-
-        [When(@"I add a recurring withdrawal of (.*)")]
-        public void WhenIAddARecurringWithdrawalOf(decimal fundsToWithdraw)
-        {
-            AdministerWalletPage.AddWithdrawal(fundsToWithdraw);
+            var walletName = (string)ScenarioContext.Current["wallet name"];
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            
+            administerWalletPage.RemoveFundsFromWallet(fundsToRemove);
         }
 
         [Then(@"I am taken to the display wallet page")]

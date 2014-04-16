@@ -7,7 +7,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 {
     public class AdministerWalletPage
     {
-        public static void AddFundsToWallet(decimal fundAmount)
+        public void AddFundsToWallet(decimal fundAmount)
         {
             var addFundsAmount = WebDriverTests.Driver.FindCss(".funds-to-add");
             addFundsAmount.SendKeys(fundAmount.ToString(CultureInfo.InvariantCulture));
@@ -16,7 +16,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             addFundsButton.Click();
         }
 
-        public static void RemoveFundsFromWallet(decimal fundsToRemove)
+        public void RemoveFundsFromWallet(decimal fundsToRemove)
         {
             var removeFundsAmount = WebDriverTests.Driver.FindCss(".funds-to-remove");
             removeFundsAmount.SendKeys(fundsToRemove.ToString(CultureInfo.InvariantCulture));

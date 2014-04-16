@@ -25,13 +25,15 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             return walletName + Guid.NewGuid();
         }
 
-        public static void SubmitSearchForWalletCalled(string walletName)
+        public static AdministerWalletPage SubmitSearchForWalletCalled(string walletName)
         {
             ScenarioContext.Current["wallet name"] = walletName;
             EnterNameTo(walletName, ".find-name");
 
             var createButton = WebDriverTests.Driver.FindCss(".find-submit");
             createButton.Click();
+
+            return new AdministerWalletPage();
         }
 
         private static void EnterNameTo(string walletName, string targetNameBox)

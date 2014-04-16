@@ -11,7 +11,6 @@ namespace FundTracker.Web.Structuremap
     {
         public static void Run()
         {
-            var inMemoryWalletRepository =  new InMemoryWalletRepository();
             var registry = new StructureMapFundTrackerRegistry();
             ObjectFactory.Configure(x =>
                 {
@@ -24,6 +23,7 @@ namespace FundTracker.Web.Structuremap
                     x.For<ICreateWallets>().Use<WalletBuilder>();
                     x.For<ISaveWallets>().Use<MongoDbWalletRepository>();
                     x.For<IKnowAboutWallets>().Use<MongoDbWalletRepository>();
+                    x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
                 });
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
         }

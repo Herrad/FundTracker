@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
 using FundTracker.Services;
@@ -9,26 +8,63 @@ namespace FundTracker.Data
 {
     public class MongoDbWalletRepository : ISaveWallets, IKnowAboutWallets
     {
-        const string ConnectionString = "mongodb://localhost";
+        private readonly IMapMongoWalletsToWallets _mongoWalletToWalletMapper;
+        private readonly MongoCollection<MongoWallet> _walletCollection = GetWalletCollection();
 
-        public void Save(IWallet wallet)
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper)
         {
-            var walletCollection = GetWalletCollection();
-
-            walletCollection.Insert(new MongoWallet
-            {
-                Name = wallet.Identification.Name
-            });
+            _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
+            _walletCollection = GetWalletCollection();
         }
+
+
+        const string ConnectionString = "mongodb://localhost";
 
         public IWallet Get(WalletIdentification identification)
         {
-            var walletCollection = GetWalletCollection();
+            var mongoWallet = GetMongoWallet(identification);
 
+            return _mongoWalletToWalletMapper.InflateWallet(mongoWallet);
+        }
+
+        public void Save(IWallet wallet)
+        {
+            if (WalletExists(wallet))
+            {
+                UpdateExistingWallet(wallet);
+            }
+
+            CreateNewWallet(wallet);
+        }
+
+        private bool WalletExists(IWallet wallet)
+        {
+            return GetMongoWallet(wallet.Identification) != null;
+        }
+
+        private void CreateNewWallet(IWallet wallet)
+        {
+            _walletCollection.Insert(new MongoWallet
+            {
+                Name = wallet.Identification.Name,
+                AvailableFunds = wallet.AvailableFunds
+            });
+        }
+
+        private void UpdateExistingWallet(IWallet wallet)
+        {
+            var walletName = wallet.Identification.Name;
+            var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);
+            var update = Update<MongoWallet>.Set(mw => mw.AvailableFunds, wallet.AvailableFunds);
+            _walletCollection.Update(mongoQuery, update);
+        }
+
+        private MongoWallet GetMongoWallet(WalletIdentification identification)
+        {
             var walletName = identification.Name;
             var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);
-            var mongoWallet = walletCollection.FindOne(mongoQuery);
-            return new Wallet(new WalletIdentification(mongoWallet.Name));
+            var mongoWallet = _walletCollection.FindOne(mongoQuery);
+            return mongoWallet;
         }
 
         private static MongoCollection<MongoWallet> GetWalletCollection()

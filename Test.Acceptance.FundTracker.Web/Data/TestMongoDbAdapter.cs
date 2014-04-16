@@ -8,7 +8,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
         [Test]
         public void Can_insert_and_read_from_mongo_db()
         {
-            MongoDbAdapter.CreateWalletCalled("foo");
+            MongoDbAdapter.CreateWalletCalled("foo", 100);
             var result = MongoDbAdapter.FindWalletCalled("foo");
 
             Assert.That(result, Is.Not.Null);

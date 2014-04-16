@@ -11,14 +11,25 @@
 
 <h2>Fund Tracker</h2>
 
-<div id="container">
-    <div id="create-a-wallet">
-        <form method="POST" action="/Wallet/CreateWallet" >
-            <label for="name">Bob in your wallet's name</label>
-            <input type="text" name="name" class="name"/>
-            @if(!string.IsNullOrEmpty(Model.ValidationFailure)){<span class="error-text">@Model.ValidationFailure</span>}
+<div class="container">
+    <div id="create-a-wallet" class="wallet-name-panel">
+        <form method="POST" action="/Wallet/CreateWallet">
+            <label for="name">Bob in your new wallet's name</label>
+            <input type="text" name="name" class="create-name" />
+            @if (!string.IsNullOrEmpty(Model.ValidationFailure))
+            {<span class="error-text">@Model.ValidationFailure</span>}
             <label for="submit" class="submit-label">Click the shiny button to create a wallet!</label>
-            <input type="submit" value="Create Me"name="submit" class="button"/>
+            <input type="submit" value="Create Me" name="submit" class="create-submit button" />
+        </form>
+    </div>
+</div>
+<div id="find-a-wallet" class="container">
+    <div class="wallet-name-panel">
+        <form method="POST" action="/Wallet/Display">
+            <label for="name">Pop in your existing wallet's name</label>
+            <input type="text" name="walletName" class="find-name" />
+            <label for="submit" class="submit-label">Click away and we'll find your wallet</label>
+            <input type="submit" value="Find Me" name="submit" class="find-submit button" />
         </form>
     </div>
 </div>

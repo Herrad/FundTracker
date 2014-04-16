@@ -55,6 +55,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -108,6 +109,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">
+      <Project>{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}</Project>
+      <Name>FundTracker.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
       <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
       <Name>FundTracker.Domain</Name>

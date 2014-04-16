@@ -1,4 +1,6 @@
-﻿using Coypu;
+﻿using System.Collections.Generic;
+using System.Web.Helpers;
+using Coypu;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;
@@ -42,7 +44,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [When(@"I load the wallet with name ""(.*)""")]
         public void WhenILoadTheWalletWithName(string walletName)
         {
-            IndexPage.FindWalletCalled(walletName);
+            IndexPage.SubmitSearchForWalletCalled(walletName);
         }
 
 
@@ -114,6 +116,15 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var availableFundsFromPage = AdministerWalletPage.GetAvailableFunds();
 
             Assert.That(availableFundsFromPage, Is.EqualTo(expectedFunds));
+        }
+
+        [Then(@"the database contains a wallet with my name")]
+        public void ThenTheDatabaseContainsAWalletWithMyName()
+        {
+            var walletName = (string) ScenarioContext.Current["wallet name"];
+            var walletFound = MongoDbAdapter.FindWalletCalled(walletName);
+
+            Assert.That(walletFound.Name, Is.EqualTo(walletName));
         }
     }
 }

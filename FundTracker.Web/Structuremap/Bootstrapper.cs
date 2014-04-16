@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using FundTracker.Data;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
@@ -25,6 +25,7 @@ namespace FundTracker.Web.Structuremap
                     x.For<IValidateWalletNames>().Use<WalletNameValidator>();
                     x.For<IStoreCreatedWalets>().Use<WalletService>();
                     x.For<ICreateWallets>().Use<WalletBuilder>();
+                    x.For<ISaveWallets>().Use<MongoDbWalletRepository>();
                 });
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
         }

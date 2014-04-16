@@ -27,6 +27,10 @@ Scenario: View an existing wallet
 	Then I am taken to the display wallet page
 	And the name starts with "existing wallet"
 
+Scenario: Creating a wallet adds it to the database
+	When I create a wallet with the unique name starting with "my wallet"
+	Then the database contains a wallet with my name
+
 @wip
 #Scenario: Adding recurring fund changes
 #	Given I have created a wallet with a unique name starting with "my wallet"

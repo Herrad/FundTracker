@@ -8,14 +8,15 @@ using Rhino.Mocks;
 namespace Test.FundTracker.Services
 {
     [TestFixture]
-    public class TestWalletService : IHaveAListOfWallets, ISaveWallets
+    public class TestWalletService : IKnowAboutWallets, ISaveWallets
     {
         private IWallet _walletSaved;
+        private IWallet _walletToReturnFromGet;
 
         [Test]
         public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
-            var expectedWallet = new Wallet(new WalletIdentification("foo name"));
+            var expectedWallet = _walletToReturnFromGet = new Wallet(new WalletIdentification("foo name"));
 
             Wallets = new List<IWallet>{expectedWallet, new Wallet(new WalletIdentification("foo other name"))};
             
@@ -27,21 +28,6 @@ namespace Test.FundTracker.Services
             var wallet = walletService.FindFirstWalletWith(new WalletIdentification("foo name"));
 
             Assert.That(wallet, Is.EqualTo(expectedWallet));
-        }
-
-        [Test]
-        public void Add_adds_a_wallet_to_the_WalletsList()
-        {
-            Wallets = new List<IWallet>();
-
-            var walletService = new WalletService(this, this);
-
-            var wallet = new Wallet(new WalletIdentification("foo name"));
-
-            walletService.Add(wallet);
-
-            Assert.That(Wallets.Contains(wallet), "list does not contain wallet");
-            Assert.That(Wallets.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -60,6 +46,11 @@ namespace Test.FundTracker.Services
         }
 
         public List<IWallet> Wallets { get; private set; }
+        public IWallet Get(WalletIdentification identification)
+        {
+            return _walletToReturnFromGet;
+        }
+
         public void Save(IWallet wallet)
         {
             _walletSaved = wallet;

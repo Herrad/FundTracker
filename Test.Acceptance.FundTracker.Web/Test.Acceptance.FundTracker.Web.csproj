@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\MongoDbAdapter.cs" />
+    <Compile Include="Data\TestMongoDbAdapter.cs" />
     <Compile Include="Features\Administering a wallet.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

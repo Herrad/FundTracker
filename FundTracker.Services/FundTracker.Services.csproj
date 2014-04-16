@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IHaveAListOfWallets.cs" />
+    <Compile Include="IKnowAboutWallets.cs" />
     <Compile Include="InMemoryWalletRepository.cs" />
     <Compile Include="IProvideWallets.cs" />
     <Compile Include="ISaveWallets.cs" />

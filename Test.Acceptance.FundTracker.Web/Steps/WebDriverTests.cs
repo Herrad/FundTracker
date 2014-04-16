@@ -11,10 +11,14 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [BeforeScenario]
         public static void ConfigureWebDriver()
         {
-            var sessionConfiguration = new SessionConfiguration()
+            var appHost = ConfigurationManager.AppSettings["host"];
+
+            var portNumber = int.Parse(ConfigurationManager.AppSettings["port"]);
+
+            var sessionConfiguration = new SessionConfiguration
             {
-                AppHost = ConfigurationManager.AppSettings["host"],
-                Port = int.Parse(ConfigurationManager.AppSettings["port"]),
+                AppHost = appHost,
+                Port = portNumber,
                 Driver = typeof(SeleniumWebDriver),
                 Browser = Coypu.Drivers.Browser.Firefox
             };

@@ -13,17 +13,15 @@ namespace Test.Acceptance.FundTracker.Web.Data
 
         public static void CreateWalletCalled(string walletName)
         {
+            if (FindWalletCalled(walletName) != null)
+            {
+                return;
+            }
+
             var walletsCollection = GetWalletsCollection();
 
-            var walletToInsert = new BsonDocument(new Dictionary<string, object> {{"name", walletName}});
+            var walletToInsert = new MongoWallet(){Name = walletName};
             walletsCollection.Insert(walletToInsert);
-        }
-
-        private static MongoCollection<MongoWallet> GetWalletsCollection()
-        {
-            var mongoServer = Client.GetServer();
-            var mongoDatabase = mongoServer.GetDatabase("FundTracker");
-            return mongoDatabase.GetCollection<MongoWallet>("Wallets");
         }
 
         public static MongoWallet FindWalletCalled(string walletName)
@@ -31,6 +29,13 @@ namespace Test.Acceptance.FundTracker.Web.Data
             var query = Query<MongoWallet>.EQ(e => e.Name, walletName);
             var walletsCollection = GetWalletsCollection();
             return walletsCollection.FindOne(query);
+        }
+
+        private static MongoCollection<MongoWallet> GetWalletsCollection()
+        {
+            var mongoServer = Client.GetServer();
+            var mongoDatabase = mongoServer.GetDatabase("FundTracker");
+            return mongoDatabase.GetCollection<MongoWallet>("Wallets");
         }
     }
 }

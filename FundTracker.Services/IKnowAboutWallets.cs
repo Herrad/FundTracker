@@ -3,8 +3,9 @@ using FundTracker.Domain;
 
 namespace FundTracker.Services
 {
-    public interface IHaveAListOfWallets
+    public interface IKnowAboutWallets
     {
-        List<IWallet> Wallets { get; }
+
+        IWallet Get(WalletIdentification identification);
     }
 }

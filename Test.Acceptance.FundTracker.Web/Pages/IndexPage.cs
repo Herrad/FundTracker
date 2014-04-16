@@ -8,6 +8,9 @@ namespace Test.Acceptance.FundTracker.Web.Pages
     {
         public static void CreateWalletWithAUniqueNameStartingWith(string walletName)
         {
+            walletName = UniqueifyWalletName(walletName);
+            ScenarioContext.Current["wallet name"] = walletName;
+
             EnterNameTo(walletName, ".create-name");
 
             var createButton = WebDriverTests.Driver.FindCss(".create-submit");
@@ -17,8 +20,14 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             redirectLink.Click();
         }
 
+        private static string UniqueifyWalletName(string walletName)
+        {
+            return walletName + Guid.NewGuid();
+        }
+
         public static void SubmitSearchForWalletCalled(string walletName)
         {
+            ScenarioContext.Current["wallet name"] = walletName;
             EnterNameTo(walletName, ".find-name");
 
             var createButton = WebDriverTests.Driver.FindCss(".find-submit");
@@ -27,8 +36,6 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         private static void EnterNameTo(string walletName, string targetNameBox)
         {
-            walletName += Guid.NewGuid();
-            ScenarioContext.Current["wallet name"] = walletName;
             var nameBox = WebDriverTests.Driver.FindCss(targetNameBox);
             nameBox.SendKeys(walletName);
         }

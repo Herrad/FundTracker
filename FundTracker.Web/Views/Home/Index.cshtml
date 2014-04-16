@@ -15,7 +15,7 @@
     <div id="create-a-wallet">
         <form method="POST" action="/Wallet/CreateWallet" >
             <label for="name">Bob in your wallet's name</label>
-            <input type="text" name="name"/>
+            <input type="text" name="name" class="name"/>
             @if(!string.IsNullOrEmpty(Model.ValidationFailure)){<span class="error-text">@Model.ValidationFailure</span>}
             <label for="submit" class="submit-label">Click the shiny button to create a wallet!</label>
             <input type="submit" value="Create Me"name="submit" class="button"/>

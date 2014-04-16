@@ -1,0 +1,59 @@
+﻿VS filter: testpath:TestAssembly:Test.Acceptance.FundTracker.Web/TestClass:Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature/TestMethod:AddingFundsToAWallet
+Appdomain Disposed
+Test Suite Dump
+#0: Test.Acceptance.FundTracker.Web/Default - 
+#1: Default - 
+#3: Test.Acceptance.FundTracker.Web - 
+#4: Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature - 
+#6: AddingFundsToAWallet - TestAssembly:Test.Acceptance.FundTracker.Web/TestClass:Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature/TestMethod:AddingFundsToAWallet
+End: Test Suite Dump
+Scheduler: considering #6 for thread #0
+Scheduler: using #6 for thread #0
+Test #6 is scheduled for thread #0
+Thread #0: creating new test thread executor for Test.Acceptance.FundTracker.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (target: Default)
+Loading SpecRun type 'TechTalk.SpecRun.Framework.TestAssemblyExecutor' from: C:\Users\Koe\AppData\Local\Temp\VisualStudioTestExplorerExtensions\SpecRun.Runner.1.2.0\tools\TechTalk.SpecRun.Framework.Executor.dll
+Test #6/0 is started on thread #0
+T:Given I have created a wallet with a unique name starting with "my wallet"
+T:-> done: AdministeringAWalletSteps.GivenIHaveCreatedAWalletWithAUniqueNameStartingWith("my wallet") (5.9s)
+T:And my available funds are 50.00
+T:-> error: Unable to find css: .fundsToAdd
+T:When I add 100.00 in funds to my wallet
+T:-> skipped because of previous errors
+T:Then the amount in the wallet is 150.00
+T:-> skipped because of previous errors
+Scheduler: dequeuing a rescheduled item: 6
+Scheduler: considering #6 for thread #0
+Scheduler: using #6 for thread #0
+Test #6 is scheduled for thread #0
+Test #6 is finished on thread #0 as Failed within 20.19237 seconds
+Test #6/1 is started on thread #0
+T:Given I have created a wallet with a unique name starting with "my wallet"
+T:-> error: Unable to find css: .name
+T:And my available funds are 50.00
+T:-> skipped because of previous errors
+T:When I add 100.00 in funds to my wallet
+T:-> skipped because of previous errors
+T:Then the amount in the wallet is 150.00
+T:-> skipped because of previous errors
+Scheduler: dequeuing a rescheduled item: 6
+Scheduler: considering #6 for thread #0
+Scheduler: using #6 for thread #0
+Test #6 is scheduled for thread #0
+Test #6 is finished on thread #0 as Failed within 0.9956587 seconds
+Test #6/2 is started on thread #0
+T:Given I have created a wallet with a unique name starting with "my wallet"
+T:-> error: Unable to find css: .name
+T:And my available funds are 50.00
+T:-> skipped because of previous errors
+T:When I add 100.00 in funds to my wallet
+T:-> skipped because of previous errors
+T:Then the amount in the wallet is 150.00
+T:-> skipped because of previous errors
+Test #6 is finished on thread #0 as Failed within 4.7681586 seconds
+Appdomain Disposed
+Total: 1 (test executions: 3)
+Succeeded: 0
+Ignored: 0
+Pending: 0
+Skipped: 0
+Failed: 1

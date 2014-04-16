@@ -1,0 +1,23 @@
+﻿VS filter: testpath:TestAssembly:Test.Acceptance.FundTracker.Web/TestClass:Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature/TestMethod:AddingFundsToAWallet
+Appdomain Disposed
+Test Suite Dump
+#0: Test.Acceptance.FundTracker.Web/Default - 
+#1: Default - 
+#3: Test.Acceptance.FundTracker.Web - 
+#4: Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature - 
+#6: AddingFundsToAWallet - TestAssembly:Test.Acceptance.FundTracker.Web/TestClass:Test.Acceptance.FundTracker.Web.Features.AdministeringAWalletFeature/TestMethod:AddingFundsToAWallet
+End: Test Suite Dump
+Scheduler: considering #6 for thread #0
+Scheduler: using #6 for thread #0
+Test #6 is scheduled for thread #0
+Thread #0: creating new test thread executor for Test.Acceptance.FundTracker.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null (target: Default)
+Loading SpecRun type 'TechTalk.SpecRun.Framework.TestAssemblyExecutor' from: C:\Users\Koe\AppData\Local\Temp\VisualStudioTestExplorerExtensions\SpecRun.Runner.1.2.0\tools\TechTalk.SpecRun.Framework.Executor.dll
+Test #6/0 is started on thread #0
+Test #6 is finished on thread #0 as InitializationFailed within 21.7924247 seconds
+Appdomain Disposed
+Total: 1
+Succeeded: 0
+Ignored: 0
+Pending: 0
+Skipped: 0
+Failed: 1

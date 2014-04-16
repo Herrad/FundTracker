@@ -123,24 +123,20 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Adding recurring fund changes")]
-        [NUnit.Framework.CategoryAttribute("wip")]
-        public virtual void AddingRecurringFundChanges()
+        [NUnit.Framework.DescriptionAttribute("View an existing wallet")]
+        public virtual void ViewAnExistingWallet()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding recurring fund changes", new string[] {
-                        "wip"});
-#line 25
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View an existing wallet", ((string[])(null)));
+#line 24
 this.ScenarioSetup(scenarioInfo);
+#line 25
+ testRunner.Given("A wallet already exists called \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 26
- testRunner.Given("I have created a wallet with a unique name starting with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("I load the wallet with name \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 27
- testRunner.And("my available funds are 100.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I am taken to the display wallet page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 28
- testRunner.When("I add a recurring withdrawal of 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 29
- testRunner.Then("a withdrawal tile is shown with the outgoing amount set to 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 30
- testRunner.And("the amount in the wallet is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the name starts with \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Coypu;
+﻿using Coypu;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Pages;
@@ -30,14 +29,26 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"I have created a wallet with a unique name starting with ""(.*)""")]
         public void GivenIHaveCreatedAWalletWithAUniqueNameStartingWith (string walletName)
         {
-            CreateWalletPage.CreateWithAUniqueNameStartingWith(walletName);
+            IndexPage.CreateWalletWithAUniqueNameStartingWith(walletName);
+        }
+
+        [Given(@"A wallet already exists called ""(.*)""")]
+        public void GivenAWalletAlreadyExistsCalled(string walletName)
+        {
+
+        }
+
+        [When(@"I load the wallet with name ""(.*)""")]
+        public void WhenILoadTheWalletWithName(string walletName)
+        {
+            IndexPage.FindWalletCalled(walletName);
         }
 
 
         [When(@"I create a wallet with the unique name starting with ""(.*)""")]
         public void WhenICreateAWalletWithTheUniqueNameStartingWith(string walletName)
         {
-            CreateWalletPage.CreateWithAUniqueNameStartingWith(walletName);
+            IndexPage.CreateWalletWithAUniqueNameStartingWith(walletName);
         }
 
         [When(@"I create a wallet with the name ""(.*)""")]

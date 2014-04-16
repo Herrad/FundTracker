@@ -3,9 +3,9 @@ using Test.Acceptance.FundTracker.Web.Steps;
 
 namespace Test.Acceptance.FundTracker.Web.Pages
 {
-    public class CreateWalletPage
+    public class IndexPage
     {
-        public static void CreateWithAUniqueNameStartingWith(string walletName)
+        public static void CreateWalletWithAUniqueNameStartingWith(string walletName)
         {
             walletName += Guid.NewGuid();
             var nameBox = WebDriverTests.Driver.FindCss(".name");
@@ -16,6 +16,11 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
             var redirectLink = WebDriverTests.Driver.FindCss("a");
             redirectLink.Click();
+        }
+
+        public static void FindWalletCalled(string walletName)
+        {
+            
         }
     }
 }

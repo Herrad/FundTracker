@@ -21,10 +21,16 @@ Scenario: Removing funds from a wallet
 	When I remove 25.00 in funds from my wallet
 	Then the amount in the wallet is 25.00
 
+Scenario: View an existing wallet
+	Given A wallet already exists called "existing wallet"
+	When I load the wallet with name "existing wallet"
+	Then I am taken to the display wallet page
+	And the name starts with "existing wallet"
+
 @wip
-Scenario: Adding recurring fund changes
-	Given I have created a wallet with a unique name starting with "my wallet"
-	And my available funds are 100.00
-	When I add a recurring withdrawal of 50.00
-	Then a withdrawal tile is shown with the outgoing amount set to 50.00
-	And the amount in the wallet is 50.00
+#Scenario: Adding recurring fund changes
+#	Given I have created a wallet with a unique name starting with "my wallet"
+#	And my available funds are 100.00
+#	When I add a recurring withdrawal of 50.00
+#	Then a withdrawal tile is shown with the outgoing amount set to 50.00
+#	And the amount in the wallet is 50.00

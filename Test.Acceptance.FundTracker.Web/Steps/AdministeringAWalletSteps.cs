@@ -1,6 +1,7 @@
 ﻿using Coypu;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
+using Test.Acceptance.FundTracker.Web.Data;
 using Test.Acceptance.FundTracker.Web.Pages;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
@@ -35,7 +36,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"A wallet already exists called ""(.*)""")]
         public void GivenAWalletAlreadyExistsCalled(string walletName)
         {
-
+            MongoDbAdapter.CreateWalletCalled(walletName);
         }
 
         [When(@"I load the wallet with name ""(.*)""")]

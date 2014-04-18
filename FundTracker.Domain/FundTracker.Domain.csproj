@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroEvent">
+      <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\WalletFundsChanged.cs" />
     <Compile Include="ICreateWallets.cs" />
     <Compile Include="IHaveAvailableFunds.cs" />
     <Compile Include="IStoreCreatedWalets.cs" />

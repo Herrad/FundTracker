@@ -7,6 +7,7 @@ using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Test.FundTracker.Domain;
 
 namespace Test.FundTracker.Web.Controllers
 {
@@ -145,7 +146,7 @@ namespace Test.FundTracker.Web.Controllers
         public void Display_gives_wallet_to_ViewModelBuilder()
         {
             const string walletName = "foo wallet";
-            var wallet = new Wallet(new WalletIdentification(walletName));
+            var wallet = new Wallet(new WalletIdentification(walletName), 0, new FakeEventReciever());
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
@@ -161,40 +162,6 @@ namespace Test.FundTracker.Web.Controllers
                 .AssertWasCalled(
                 x => x.FormatWalletAsViewModel(wallet),
                 c => c.Repeat.Once());
-        }
-    }
-
-    [TestFixture]
-    public class TestWalletViewModelFormatter
-    {
-        [Test]
-        public void Sets_WalletName_and_Amount_on_ViewModel()
-        {
-            const string walletName = "foo name";
-
-            var viewModelFormatter = new WalletViewModelBuilder();
-
-            var wallet = new Wallet(new WalletIdentification(walletName));
-            wallet.AddFunds(123m);
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
-
-            Assert.That(result.Name, Is.EqualTo(walletName));
-            Assert.That(result.AvailableFunds, Is.EqualTo(123m));
-        }
-
-        [Test]
-        public void Sets_WithdrawalTile_on_ViewModel()
-        {
-            const string walletName = "foo name";
-
-            var viewModelFormatter = new WalletViewModelBuilder();
-
-            var wallet = new Wallet(new WalletIdentification(walletName));
-            wallet.AddFunds(123m);
-
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
-            
-            Assert.That(result.WithdrawalTilesViewModel, Is.Not.Null);
         }
     }
 }

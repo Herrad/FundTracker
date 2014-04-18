@@ -1,7 +1,27 @@
-﻿namespace FundTracker.Domain
+﻿using FundTracker.Domain.Events;
+using MicroEvent;
+
+namespace FundTracker.Domain
 {
     public class Wallet : IWallet
     {
+        private readonly IReceivePublishedEvents _eventReciever;
+        public WalletIdentification Identification { get; private set; }
+        public decimal AvailableFunds { get; private set; }
+
+        public Wallet(WalletIdentification walletIdentification, decimal availableFunds, IReceivePublishedEvents eventReciever)
+        {
+            _eventReciever = eventReciever;
+            Identification = walletIdentification;
+            AvailableFunds = availableFunds;
+        }
+
+        public void AddFunds(decimal fundsToAdd)
+        {
+            AvailableFunds += fundsToAdd;
+            _eventReciever.Publish(new WalletFundsChanged(this));
+        }
+
         protected bool Equals(Wallet other)
         {
             return Identification.Equals(other.Identification);
@@ -11,19 +31,6 @@
         {
             return (Identification!= null ? Identification.GetHashCode() : 0);
         }
-
-        public Wallet(WalletIdentification walletIdentification)
-        {
-            Identification = walletIdentification;
-        }
-
-        public void AddFunds(decimal fundsToAdd)
-        {
-            AvailableFunds += fundsToAdd;
-        }
-
-        public decimal AvailableFunds { get; private set; }
-        public WalletIdentification Identification { get; private set; }
 
         public override bool Equals(object obj)
         {

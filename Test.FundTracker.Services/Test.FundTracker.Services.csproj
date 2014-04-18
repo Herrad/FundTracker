@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroEvent">
+      <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
@@ -60,6 +63,10 @@
     <ProjectReference Include="..\FundTracker.Services\FundTracker.Services.csproj">
       <Project>{334CA1D2-E60D-49F7-AAED-2AEB0293603C}</Project>
       <Name>FundTracker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.FundTracker.Domain\Test.FundTracker.Domain.csproj">
+      <Project>{9FD9115E-79B6-443E-A1FB-B0023E7A8B70}</Project>
+      <Name>Test.FundTracker.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

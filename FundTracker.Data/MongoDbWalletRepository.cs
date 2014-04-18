@@ -1,17 +1,19 @@
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
+using FundTracker.Domain.Events;
 using FundTracker.Services;
+using MicroEvent;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
 namespace FundTracker.Data
 {
-    public class MongoDbWalletRepository : ISaveWallets, IKnowAboutWallets
+    public class MongoDbWalletRepository : Subscription, ISaveWallets, IKnowAboutWallets
     {
         private readonly IMapMongoWalletsToWallets _mongoWalletToWalletMapper;
         private readonly MongoCollection<MongoWallet> _walletCollection = GetWalletCollection();
 
-        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper)
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper) : base(typeof(WalletFundsChanged))
         {
             _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
             _walletCollection = GetWalletCollection();
@@ -74,6 +76,13 @@ namespace FundTracker.Data
             var mongoDatabase = mongoServer.GetDatabase("FundTracker");
             var walletCollection = mongoDatabase.GetCollection<MongoWallet>("Wallets");
             return walletCollection;
+        }
+
+        public override void Notify(AnEvent anEvent)
+        {
+            var fundsChanged = (WalletFundsChanged) anEvent;
+            var wallet = fundsChanged.Wallet;
+            UpdateExistingWallet(wallet);
         }
     }
 }

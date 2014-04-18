@@ -3,7 +3,9 @@ using FundTracker.Data;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
+using MicroEvent;
 using StructureMap;
+using StructureMap.Pipeline;
 
 namespace FundTracker.Web.Structuremap
 {
@@ -12,6 +14,8 @@ namespace FundTracker.Web.Structuremap
         public static void Run()
         {
             var registry = new StructureMapFundTrackerRegistry();
+            var eventBus = new EventBusFactory().BuildEventBus();
+
             ObjectFactory.Configure(x =>
                 {
                     x.AddRegistry(registry);
@@ -24,6 +28,9 @@ namespace FundTracker.Web.Structuremap
                     x.For<ISaveWallets>().Use<MongoDbWalletRepository>();
                     x.For<IKnowAboutWallets>().Use<MongoDbWalletRepository>();
                     x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
+                    x.For<IReceivePublishedEvents>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
+                    x.For<IReadSubscriptions>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
+                    x.For<Subscription>().OnCreationForAll(eventBus.Subscribe);
                 });
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
         }

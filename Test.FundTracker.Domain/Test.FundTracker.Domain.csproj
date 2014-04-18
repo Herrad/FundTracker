@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroEvent">
+      <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -47,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeEventReciever.cs" />
     <Compile Include="TestWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestWalletCreation.cs" />

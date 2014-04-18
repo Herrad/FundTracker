@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FundTracker.Data.Entities;
+using FundTracker.Domain;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -13,15 +14,23 @@ namespace Test.Acceptance.FundTracker.Web.Data
 
         public static void CreateWalletCalled(string walletName, decimal availableFunds)
         {
+            var walletsCollection = GetWalletsCollection();
+            var walletToInsert = new MongoWallet {Name = walletName, AvailableFunds = availableFunds};
+
             if (FindWalletCalled(walletName) != null)
             {
+                UpdateExistingWallet(walletToInsert);
                 return;
             }
 
-            var walletsCollection = GetWalletsCollection();
-
-            var walletToInsert = new MongoWallet {Name = walletName, AvailableFunds = availableFunds};
             walletsCollection.Insert(walletToInsert);
+        }
+
+        public static void UpdateExistingWallet(MongoWallet walletToUpdate)
+        {
+            var walletsCollection = GetWalletsCollection();
+            var update = Update<MongoWallet>.Set(mw => mw.AvailableFunds, walletToUpdate.AvailableFunds);
+            walletsCollection.Update(Query<MongoWallet>.EQ(e => e.Name, walletToUpdate.Name), update);
         }
 
         public static MongoWallet FindWalletCalled(string walletName)

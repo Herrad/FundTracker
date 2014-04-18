@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroEvent">
+      <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
+    <Compile Include="Controllers\TestWalletViewModelFormatter.cs" />
     <Compile Include="Controllers\TestWithdrawalController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +73,10 @@
     <ProjectReference Include="..\FundTracker.Web\FundTracker.Web.csproj">
       <Project>{3D48C315-ECF6-4580-A111-DBBC9BF42D19}</Project>
       <Name>FundTracker.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.FundTracker.Domain\Test.FundTracker.Domain.csproj">
+      <Project>{9FD9115E-79B6-443E-A1FB-B0023E7A8B70}</Project>
+      <Name>Test.FundTracker.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

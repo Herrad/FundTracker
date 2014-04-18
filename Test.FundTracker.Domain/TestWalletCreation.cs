@@ -54,11 +54,13 @@ namespace Test.FundTracker.Domain
 
             var walletStore = MockRepository.GenerateMock<IStoreCreatedWalets>();
 
-            var walletBuilder = new WalletBuilder(walletStore);
+            var fakeEventReciever = new FakeEventReciever();
+
+            var walletBuilder = new WalletBuilder(walletStore, fakeEventReciever);
 
             walletBuilder.CreateWallet(new WalletIdentification(walletName));
 
-            walletStore.AssertWasCalled(x => x.Add(new Wallet(new WalletIdentification(walletName))), c => c.Repeat.Once());
+            walletStore.AssertWasCalled(x => x.Add(new Wallet(new WalletIdentification(walletName), 0, fakeEventReciever)), c => c.Repeat.Once());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Coypu;
+﻿using System;
+using Coypu;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;
@@ -21,6 +22,15 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
             MongoDbAdapter.CreateWalletCalled(name, availableFunds);
         }
+
+        [Given(@"I am administering this wallet")]
+        public void GivenIAmAdministeringThisWallet()
+        {
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            walletName = walletName.Replace(" ", "%20");
+            Driver.Visit("/Wallet/Display?walletName=" + walletName);
+        }
+
 
         [Given(@"I have created a wallet with a unique name starting with ""(.*)""")]
         public void GivenIHaveCreatedAWalletWithAUniqueNameStartingWith (string walletName)

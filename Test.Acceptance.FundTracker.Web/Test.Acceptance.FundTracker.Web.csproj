@@ -83,10 +83,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Administering a wallet.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Recurring funds.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Recurring funds.feature</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdministerWalletPage.cs" />
     <Compile Include="Pages\IndexPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AdministeringAWalletSteps.cs" />
+    <Compile Include="Steps\RecurringFundsSteps.cs" />
     <Compile Include="Steps\WebDriverTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +103,10 @@
     <None Include="Features\Administering a wallet.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Administering a wallet.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Recurring funds.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Recurring funds.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />

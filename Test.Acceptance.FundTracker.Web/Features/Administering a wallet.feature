@@ -32,11 +32,3 @@ Scenario: View an existing wallet
 Scenario: Creating a wallet adds it to the database
 	When I create a wallet with the unique name starting with "my wallet"
 	Then the database contains a wallet with my name
-
-@wip
-#Scenario: Adding recurring fund changes
-#	Given I have created a wallet with a unique name starting with "my wallet"
-#	And my available funds are 100.00
-#	When I add a recurring withdrawal of 50.00
-#	Then a withdrawal tile is shown with the outgoing amount set to 50.00
-#	And the amount in the wallet is 50.00

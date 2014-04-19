@@ -16,9 +16,9 @@ namespace Test.FundTracker.Services
         [Test]
         public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
-            var expectedWallet = _walletToReturnFromGet = new Wallet(new WalletIdentification("foo name"), 0, new FakeEventReciever());
+            var expectedWallet = _walletToReturnFromGet = new Wallet(new FakeEventReciever(), new WalletIdentification("foo name"), 0, null);
 
-            Wallets = new List<IWallet> { expectedWallet, new Wallet(new WalletIdentification("foo other name"), 0, new FakeEventReciever()) };
+            Wallets = new List<IWallet> { expectedWallet, new Wallet(new FakeEventReciever(), new WalletIdentification("foo other name"), 0, null) };
             
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
@@ -38,7 +38,7 @@ namespace Test.FundTracker.Services
 
             var walletService = new WalletService(this, this);
 
-            var wallet = new Wallet(new WalletIdentification("foo name"), 0, new FakeEventReciever());
+            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification("foo name"), 0, null);
 
             walletService.Add(wallet);
 

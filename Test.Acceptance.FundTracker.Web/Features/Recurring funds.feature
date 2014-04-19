@@ -9,6 +9,7 @@ Scenario: Adding recurring fund changes
 	Given this wallet exists
 	| Unique Name | Starting Funds	|
 	| my wallet   | 100.00          |
+	And my wallet has no recurring changes
 	And I am administering this wallet
 	When I add a recurring withdrawal of 50.00
 	Then a withdrawal tile is shown with the outgoing amount set to 50.00

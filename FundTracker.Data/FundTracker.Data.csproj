@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\MongoRecurringChange.cs" />
     <Compile Include="Entities\MongoWallet.cs" />
     <Compile Include="IMapMongoWalletsToWallets.cs" />
     <Compile Include="MongoDbWalletRepository.cs" />

@@ -2,5 +2,7 @@
 
 @foreach (var tile in Model.Tiles)
 {
-    
+    <div class="withdrawal-tile">
+        <span>£<strong class="amount">@(0-tile.Amount)</strong></span>
+    </div>
 }

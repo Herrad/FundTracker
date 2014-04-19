@@ -40,11 +40,28 @@ namespace Test.Acceptance.FundTracker.Web.Data
             return walletsCollection.FindOne(query);
         }
 
+        public static void RemoveRecurringChangesAssociatedWith(string walletName)
+        {
+            var mongoWallet = FindWalletCalled(walletName);
+            var mongoDatabase = GetMongoDatabase();
+            var recurringChanges = mongoDatabase.GetCollection<MongoRecurringChange>("RecurringChanges");
+
+            var allChangesForWalletQuery = Query<MongoRecurringChange>.EQ(e => e.WalletId, mongoWallet.Id);
+
+            recurringChanges.Remove(allChangesForWalletQuery);
+        }
+
         private static MongoCollection<MongoWallet> GetWalletsCollection()
+        {
+            var mongoDatabase = GetMongoDatabase();
+            return mongoDatabase.GetCollection<MongoWallet>("Wallets");
+        }
+
+        private static MongoDatabase GetMongoDatabase()
         {
             var mongoServer = Client.GetServer();
             var mongoDatabase = mongoServer.GetDatabase("FundTracker");
-            return mongoDatabase.GetCollection<MongoWallet>("Wallets");
+            return mongoDatabase;
         }
     }
 }

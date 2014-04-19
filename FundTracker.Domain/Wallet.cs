@@ -1,4 +1,5 @@
-﻿using FundTracker.Domain.Events;
+﻿using System.Collections.Generic;
+using FundTracker.Domain.Events;
 using MicroEvent;
 
 namespace FundTracker.Domain
@@ -6,12 +7,15 @@ namespace FundTracker.Domain
     public class Wallet : IWallet
     {
         private readonly IReceivePublishedEvents _eventReciever;
+        public List<RecurringChange> RecurringChanges { get; private set; }
         public WalletIdentification Identification { get; private set; }
+
         public decimal AvailableFunds { get; private set; }
 
-        public Wallet(WalletIdentification walletIdentification, decimal availableFunds, IReceivePublishedEvents eventReciever)
+        public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, decimal availableFunds, List<RecurringChange> recurringChanges)
         {
             _eventReciever = eventReciever;
+            RecurringChanges = recurringChanges;
             Identification = walletIdentification;
             AvailableFunds = availableFunds;
         }
@@ -20,6 +24,13 @@ namespace FundTracker.Domain
         {
             AvailableFunds += fundsToAdd;
             _eventReciever.Publish(new WalletFundsChanged(this));
+        }
+
+        public void CreateChange(RecurringChange recurringChange)
+        {
+            RecurringChanges.Add(recurringChange);
+            AddFunds(recurringChange.Amount);
+            _eventReciever.Publish(new RecurringChangeCreated(recurringChange));
         }
 
         protected bool Equals(Wallet other)

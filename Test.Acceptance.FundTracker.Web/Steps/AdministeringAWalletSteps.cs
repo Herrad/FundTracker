@@ -23,6 +23,13 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             MongoDbAdapter.CreateWalletCalled(name, availableFunds);
         }
 
+        [Given(@"my wallet has no recurring changes")]
+        public void GivenItHasNoRecurringChanges()
+        {
+            MongoDbAdapter.RemoveRecurringChangesAssociatedWith(ScenarioContext.Current["wallet name"].ToString());
+        }
+
+
         [Given(@"I am administering this wallet")]
         public void GivenIAmAdministeringThisWallet()
         {

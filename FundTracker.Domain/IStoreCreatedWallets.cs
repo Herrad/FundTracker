@@ -1,6 +1,6 @@
 ﻿namespace FundTracker.Domain
 {
-    public interface IStoreCreatedWalets
+    public interface IStoreCreatedWallets
     {
         void Add(IWallet wallet);
     }

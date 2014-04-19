@@ -35,21 +35,19 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\RecurringChangeCreated.cs" />
     <Compile Include="Events\WalletFundsChanged.cs" />
     <Compile Include="ICreateWallets.cs" />
     <Compile Include="IHaveAvailableFunds.cs" />
-    <Compile Include="IStoreCreatedWalets.cs" />
+    <Compile Include="IStoreCreatedWallets.cs" />
     <Compile Include="ITakeFundsToAdd.cs" />
     <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="IWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurringChange.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="WalletBuilder.cs" />
     <Compile Include="WalletIdentification.cs" />

@@ -15,7 +15,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var viewModelFormatter = new WalletViewModelBuilder();
 
-            var wallet = new Wallet(new WalletIdentification(walletName), 0, new FakeEventReciever());
+            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification(walletName), 0, null);
             wallet.AddFunds(123m);
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
 
@@ -30,7 +30,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var viewModelFormatter = new WalletViewModelBuilder();
 
-            var wallet = new Wallet(new WalletIdentification(walletName), 0, new FakeEventReciever());
+            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification(walletName), 0, null);
             wallet.AddFunds(123m);
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet);

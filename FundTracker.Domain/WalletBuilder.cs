@@ -1,13 +1,14 @@
-﻿using MicroEvent;
+﻿using System.Collections.Generic;
+using MicroEvent;
 
 namespace FundTracker.Domain
 {
     public class WalletBuilder : ICreateWallets
     {
-        private readonly IStoreCreatedWalets _walletStore;
+        private readonly IStoreCreatedWallets _walletStore;
         private readonly IReceivePublishedEvents _eventBus;
 
-        public WalletBuilder(IStoreCreatedWalets walletStore, IReceivePublishedEvents eventBus)
+        public WalletBuilder(IStoreCreatedWallets walletStore, IReceivePublishedEvents eventBus)
         {
             _walletStore = walletStore;
             _eventBus = eventBus;
@@ -15,7 +16,8 @@ namespace FundTracker.Domain
 
         public void CreateWallet(WalletIdentification walletIdentification)
         {
-            _walletStore.Add(new Wallet(walletIdentification, 0, _eventBus));
+            var wallet = new Wallet(_eventBus, walletIdentification, 0, new List<RecurringChange>());
+            _walletStore.Add(wallet);
         }
     }
 }

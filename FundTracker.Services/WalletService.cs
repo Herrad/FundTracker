@@ -2,7 +2,7 @@
 
 namespace FundTracker.Services
 {
-    public class WalletService : IProvideWallets, IStoreCreatedWalets
+    public class WalletService : IProvideWallets, IStoreCreatedWallets
     {
         private readonly IKnowAboutWallets _walletRepository;
         private readonly ISaveWallets _walletSaver;

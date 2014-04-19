@@ -84,12 +84,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
  testRunner.Given("this wallet exists", ((string)(null)), table1, "Given ");
 #line 12
- testRunner.And("I am administering this wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("my wallet has no recurring changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.When("I add a recurring withdrawal of 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am administering this wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.Then("a withdrawal tile is shown with the outgoing amount set to 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I add a recurring withdrawal of 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
+ testRunner.Then("a withdrawal tile is shown with the outgoing amount set to 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 16
  testRunner.And("the amount in the wallet is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

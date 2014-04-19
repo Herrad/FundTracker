@@ -146,7 +146,7 @@ namespace Test.FundTracker.Web.Controllers
         public void Display_gives_wallet_to_ViewModelBuilder()
         {
             const string walletName = "foo wallet";
-            var wallet = new Wallet(new WalletIdentification(walletName), 0, new FakeEventReciever());
+            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification(walletName), 0, null);
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider

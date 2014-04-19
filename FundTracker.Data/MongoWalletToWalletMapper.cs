@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
 using MicroEvent;
@@ -13,10 +15,17 @@ namespace FundTracker.Data
             _eventBus = eventBus;
         }
 
-        public IWallet InflateWallet(MongoWallet mongoWallet)
+        public IWallet InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges)
         {
-            var wallet = new Wallet(new WalletIdentification(mongoWallet.Name), mongoWallet.AvailableFunds, _eventBus);
+            var walletIdentification = new WalletIdentification(mongoWallet.Name);
+            var recurringChanges = mongoRecurringChanges.Select(x => CreateRecurringChange(x, walletIdentification)).ToList();
+            var wallet = new Wallet(_eventBus, walletIdentification, mongoWallet.AvailableFunds, recurringChanges);
             return wallet;
+        }
+
+        private static RecurringChange CreateRecurringChange(MongoRecurringChange recurringChange, WalletIdentification walletIdentification)
+        {
+            return new RecurringChange(walletIdentification, recurringChange.Amount);
         }
     }
 }

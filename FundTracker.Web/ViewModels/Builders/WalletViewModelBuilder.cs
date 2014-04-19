@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using FundTracker.Domain;
 
 namespace FundTracker.Web.ViewModels.Builders
@@ -7,13 +7,13 @@ namespace FundTracker.Web.ViewModels.Builders
     {
         public WalletViewModel FormatWalletAsViewModel(IWallet wallet)
         {
-            var walletViewModel = new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, CreateWithdrawalTilesViewModel());
+            var walletViewModel = new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, CreateWithdrawalTilesViewModel(wallet));
             return walletViewModel;
         }
 
-        private static WithdrawalTilesViewModel CreateWithdrawalTilesViewModel()
+        private static WithdrawalTilesViewModel CreateWithdrawalTilesViewModel(IHaveRecurringChanges wallet)
         {
-            return new WithdrawalTilesViewModel(new List<WithdrawalTileViewModel>());
+            return new WithdrawalTilesViewModel(wallet.RecurringChanges.Select(x => new WithdrawalTileViewModel(x.Amount)));
         }
     }
 }

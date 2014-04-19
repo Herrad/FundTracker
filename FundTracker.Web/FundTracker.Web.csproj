@@ -131,6 +131,8 @@
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
     <Compile Include="ViewModels\WalletViewModel.cs" />
+    <Compile Include="ViewModels\WithdrawalTilesViewModel.cs" />
+    <Compile Include="ViewModels\WithdrawalTileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

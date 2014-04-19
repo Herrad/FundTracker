@@ -52,7 +52,7 @@ namespace Test.FundTracker.Domain
         {
             const string walletName = "foo name";
 
-            var walletStore = MockRepository.GenerateMock<IStoreCreatedWalets>();
+            var walletStore = MockRepository.GenerateMock<IStoreCreatedWallets>();
 
             var fakeEventReciever = new FakeEventReciever();
 
@@ -60,7 +60,7 @@ namespace Test.FundTracker.Domain
 
             walletBuilder.CreateWallet(new WalletIdentification(walletName));
 
-            walletStore.AssertWasCalled(x => x.Add(new Wallet(new WalletIdentification(walletName), 0, fakeEventReciever)), c => c.Repeat.Once());
+            walletStore.AssertWasCalled(x => x.Add(new Wallet(fakeEventReciever, new WalletIdentification(walletName), 0, null)), c => c.Repeat.Once());
         }
     }
 }

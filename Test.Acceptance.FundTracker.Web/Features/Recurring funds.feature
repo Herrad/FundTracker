@@ -3,9 +3,7 @@
 	As a person with recurring changes
 	I want to track the impact of funds being added and removed
 	
-
-@wip
-Scenario: Adding recurring fund changes
+Scenario: Adding recurring fund changes 
 	Given this wallet exists
 	| Unique Name | Starting Funds	|
 	| my wallet   | 100.00          |

@@ -67,12 +67,10 @@ namespace Test.Acceptance.FundTracker.Web.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Adding recurring fund changes")]
-        [NUnit.Framework.CategoryAttribute("wip")]
         public virtual void AddingRecurringFundChanges()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding recurring fund changes", new string[] {
-                        "wip"});
-#line 8
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Adding recurring fund changes", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -81,17 +79,17 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "my wallet",
                         "100.00"});
-#line 9
+#line 7
  testRunner.Given("this wallet exists", ((string)(null)), table1, "Given ");
-#line 12
+#line 10
  testRunner.And("my wallet has no recurring changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
+#line 11
  testRunner.And("I am administering this wallet", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 12
  testRunner.When("I add a recurring withdrawal of 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
+#line 13
  testRunner.Then("a withdrawal tile is shown with the outgoing amount set to 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 16
+#line 14
  testRunner.And("the amount in the wallet is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

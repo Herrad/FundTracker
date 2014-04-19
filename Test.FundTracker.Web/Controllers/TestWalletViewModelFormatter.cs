@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FundTracker.Domain;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
@@ -30,8 +31,9 @@ namespace Test.FundTracker.Web.Controllers
 
             var viewModelFormatter = new WalletViewModelBuilder();
 
-            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification(walletName), 0, null);
-            wallet.AddFunds(123m);
+            var walletIdentification = new WalletIdentification(walletName);
+            var wallet = new Wallet(new FakeEventReciever(), walletIdentification, 0, new List<RecurringChange>());
+            wallet.CreateChange(new RecurringChange(walletIdentification, 123m));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet);
             

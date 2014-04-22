@@ -16,10 +16,11 @@
 <div class="wallet-info">
     <h2 class="wallet-name">@Model.Name</h2>
     <div class="funds">
-        <a class="recurring deposit">Click here to add a recurring deposit</a>
+        <a class="recurring deposit">Add a recurring deposit</a>
+        @{Html.RenderPartial("_DepositTiles");}
         <span class="available-funds">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></span>
         @{Html.RenderPartial("_WithdrawalTiles", Model.WithdrawalTilesViewModel);}
-        <a href="/Withdrawal/Create/?walletName=@Model.Name" class="recurring withdrawal">Click here to add a recurring withdrawal</a>
+        <a href="/Withdrawal/Create/?walletName=@Model.Name" class="recurring withdrawal">Add a recurring withdrawal</a>
     </div>
 </div>
 <div class="cl"></div>

@@ -139,6 +139,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\Css\Site.css" />
+    <Content Include="Content\Images\arrows.png" />
+    <Content Include="Content\Images\green-arrows.png" />
+    <Content Include="Content\Images\red-arrows.png" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -180,6 +183,7 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Withdrawal\Create.cshtml" />
     <Content Include="Views\Wallet\_WithdrawalTiles.cshtml" />
+    <Content Include="Views\Wallet\_DepositTiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">

@@ -1,8 +1,10 @@
 ﻿@model FundTracker.Web.ViewModels.WithdrawalTilesViewModel
 
-@foreach (var tile in Model.Tiles)
-{
-    <div class="withdrawal-tile">
-        <span>£<strong class="amount">@(0-tile.Amount)</strong></span>
-    </div>
-}
+<div class="tiles withdrawal">
+    @foreach (var tile in Model.Tiles)
+    {
+        <div class="withdrawal-tile">
+            <span>£<strong class="amount">@(0-tile.Amount)</strong></span>
+        </div>
+    }
+</div>

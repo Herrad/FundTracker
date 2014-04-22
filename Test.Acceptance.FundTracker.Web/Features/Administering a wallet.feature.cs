@@ -139,14 +139,21 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View an existing wallet", ((string[])(null)));
 #line 26
 this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name",
+                        "Starting Funds"});
+            table3.AddRow(new string[] {
+                        "my wallet",
+                        "0.00"});
 #line 27
- testRunner.Given("A wallet already exists called \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 28
- testRunner.When("I load the wallet with name \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 29
- testRunner.Then("I am taken to the display wallet page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("this wallet exists", ((string)(null)), table3, "Given ");
 #line 30
- testRunner.And("the name starts with \"existing wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I load the wallet with name \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.Then("I am taken to the display wallet page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+ testRunner.And("the name starts with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -156,11 +163,11 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CreatingAWalletAddsItToTheDatabase()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Creating a wallet adds it to the database", ((string[])(null)));
-#line 32
-this.ScenarioSetup(scenarioInfo);
-#line 33
- testRunner.When("I create a wallet with the unique name starting with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+ testRunner.When("I create a wallet with the unique name starting with \"my wallet\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
  testRunner.Then("the database contains a wallet with my name", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

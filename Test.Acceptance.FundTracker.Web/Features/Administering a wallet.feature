@@ -24,10 +24,12 @@ Scenario: Removing funds from a wallet
 	Then the amount in the wallet is 25.00
 
 Scenario: View an existing wallet
-	Given A wallet already exists called "existing wallet"
-	When I load the wallet with name "existing wallet"
+	Given this wallet exists
+	| Unique Name | Starting Funds |
+	| my wallet   | 0.00          |
+	When I load the wallet with name "my wallet"
 	Then I am taken to the display wallet page
-	And the name starts with "existing wallet"
+	And the name starts with "my wallet"
 
 Scenario: Creating a wallet adds it to the database
 	When I create a wallet with the unique name starting with "my wallet"

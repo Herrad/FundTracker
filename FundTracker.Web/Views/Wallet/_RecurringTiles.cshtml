@@ -1,0 +1,10 @@
+﻿@model FundTracker.Web.ViewModels.TilesViewModel
+
+<div class="tiles @Model.TileType">
+    @foreach (var tile in Model.Tiles)
+    {
+        <div class="@Model.TileType-tile">
+            <span>£<strong class="amount">@(0 - tile.Amount)</strong></span>
+        </div>
+    }
+</div>

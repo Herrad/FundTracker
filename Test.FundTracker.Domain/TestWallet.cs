@@ -13,7 +13,7 @@ namespace Test.FundTracker.Domain
         {
             const decimal expectedFunds = 150m;
 
-            var wallet = new Wallet(new FakeEventReciever(), new WalletIdentification(null), 0, null);
+            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), 0, null);
 
             Assert.That(wallet.AvailableFunds, Is.EqualTo(0));
 
@@ -27,8 +27,8 @@ namespace Test.FundTracker.Domain
         {
             var identification = new WalletIdentification("foo name");
 
-            var wallet1 = new Wallet(new FakeEventReciever(), identification, 0, null);
-            var wallet2 = new Wallet(new FakeEventReciever(), identification, 0, null);
+            var wallet1 = new Wallet(new LastEventPublishedReporter(), identification, 0, null);
+            var wallet2 = new Wallet(new LastEventPublishedReporter(), identification, 0, null);
 
             Assert.That(wallet1.Equals(wallet2), "wallets are not the same");
         }
@@ -38,14 +38,14 @@ namespace Test.FundTracker.Domain
         {
             const decimal expectedFunds = 150m;
 
-            var eventBus = new FakeEventReciever();
+            var eventBus = new LastEventPublishedReporter();
             var wallet = new Wallet(eventBus, new WalletIdentification(null), 0, null);
 
             Assert.That(wallet.AvailableFunds, Is.EqualTo(0));
 
             wallet.AddFunds(expectedFunds);
 
-            var eventPublished = eventBus.EventPublished;
+            var eventPublished = eventBus.LastEventPublished;
             Assert.That(eventPublished, Is.Not.Null);
             Assert.That(eventPublished, Is.TypeOf<WalletFundsChanged>());
 
@@ -60,7 +60,7 @@ namespace Test.FundTracker.Domain
         {
             var recurringChanges = new List<RecurringChange>();
             var walletIdentification = new WalletIdentification(null);
-            var wallet = new Wallet(new FakeEventReciever(), walletIdentification, 0, recurringChanges);
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, recurringChanges);
 
             var recurringChange = new RecurringChange(walletIdentification, 123);
             wallet.CreateChange(recurringChange);
@@ -73,7 +73,7 @@ namespace Test.FundTracker.Domain
         {
             var recurringChanges = new List<RecurringChange>();
             var walletIdentification = new WalletIdentification(null);
-            var wallet = new Wallet(new FakeEventReciever(), walletIdentification, 100, recurringChanges);
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 100, recurringChanges);
 
             var recurringChange = new RecurringChange(walletIdentification, -25);
             wallet.CreateChange(recurringChange);
@@ -86,7 +86,7 @@ namespace Test.FundTracker.Domain
         {
             const int expectedAmount = 123;
 
-            var eventBus = new FakeEventReciever();
+            var eventBus = new LastEventPublishedReporter();
             var recurringChanges = new List<RecurringChange>();
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, 0, recurringChanges);
@@ -94,13 +94,13 @@ namespace Test.FundTracker.Domain
             var recurringChange = new RecurringChange(walletIdentification, expectedAmount);
             wallet.CreateChange(recurringChange);
 
-            Assert.That(eventBus.EventPublished, Is.TypeOf<RecurringChangeCreated>());
+            Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());
 
-            var recurringChangeCreated = (RecurringChangeCreated) eventBus.EventPublished;
+            var recurringChangeCreated = (RecurringChangeCreated) eventBus.LastEventPublished;
 
             Assert.That(recurringChangeCreated.Change, Is.Not.Null);
             Assert.That(recurringChangeCreated.Change.Amount, Is.EqualTo(expectedAmount));
-            Assert.That(recurringChangeCreated.Change.Identification, Is.EqualTo(walletIdentification));
+            Assert.That(recurringChangeCreated.Change.TargetWalletIdentifier, Is.EqualTo(walletIdentification));
         }
     }
 }

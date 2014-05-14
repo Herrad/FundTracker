@@ -1,8 +1,8 @@
 namespace FundTracker.Web.ViewModels.Builders
 {
-    public class CreateWithdrawalViewModel
+    public class CreateRecurringChangeViewModel
     {
-        public CreateWithdrawalViewModel(string walletName)
+        public CreateRecurringChangeViewModel(string walletName)
         {
             WalletName = walletName;
         }

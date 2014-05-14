@@ -1,8 +1,8 @@
 namespace FundTracker.Web.ViewModels
 {
-    public class WithdrawalTileViewModel
+    public class TileViewModel
     {
-        public WithdrawalTileViewModel(decimal amount)
+        public TileViewModel(decimal amount)
         {
             Amount = amount;
         }

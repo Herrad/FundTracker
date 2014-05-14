@@ -1,5 +1,4 @@
-﻿@web
-Feature: Administering a wallet 
+﻿Feature: Administering a wallet 
 	In order to store money
 	As someone with incoming and outgoing transactions
 	I want to be able to create a wallet

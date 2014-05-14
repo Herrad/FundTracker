@@ -14,9 +14,9 @@ namespace Test.FundTracker.Web.Controllers
         public void Create_returns_view_with_empty_ViewName_set()
         {
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
-            var withdrawalController = new WithdrawalController(walletService);
+            var withdrawalController = new RecurringChangeController(walletService);
 
-            var result = withdrawalController.Create(null);
+            var result = withdrawalController.CreateWithdrawal(null);
 
             Assert.That(result.ViewName, Is.Empty);
         }
@@ -26,16 +26,16 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo name";
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
-            var withdrawalController = new WithdrawalController(walletService);
-            var result = withdrawalController.Create(walletName);
+            var withdrawalController = new RecurringChangeController(walletService);
+            var result = withdrawalController.CreateWithdrawal(walletName);
 
-            var model = (CreateWithdrawalViewModel) result.Model;
+            var model = (CreateRecurringChangeViewModel) result.Model;
             Assert.That(model, Is.Not.Null);
             Assert.That(model.WalletName, Is.EqualTo(walletName));
         }
 
         [Test]
-        public void AddNew_redirects_to_Wallet_display_page()
+        public void AddNewWithdrawal_redirects_to_Wallet_display_page()
         {
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             var withdrawalExposer = new WithdrawalExposer();
@@ -43,15 +43,15 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(Arg<WalletIdentification>.Is.Anything))
                 .Return(withdrawalExposer);
 
-            var withdrawalController = new WithdrawalController(walletService);
-            var result = withdrawalController.AddNew("foo name", 123m);
+            var withdrawalController = new RecurringChangeController(walletService);
+            var result = withdrawalController.AddNewWithdrawal("foo name", 123m);
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Display"));
             Assert.That(result.RouteValues["controller"], Is.EqualTo("Wallet"));
         }
 
         [Test]
-        public void AddNew_sets_wallet_name_in_RouteValues()
+        public void AddNewWithdrawal_sets_wallet_name_in_RouteValues()
         {
             const string walletName = "foo name";
 
@@ -61,9 +61,9 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(Arg<WalletIdentification>.Is.Anything))
                 .Return(withdrawalExposer);
 
-            var withdrawalController = new WithdrawalController(walletService);
+            var withdrawalController = new RecurringChangeController(walletService);
 
-            var result = withdrawalController.AddNew(walletName, 123m);
+            var result = withdrawalController.AddNewWithdrawal(walletName, 123m);
 
             Assert.That(result.RouteValues["walletName"], Is.Not.Null);
             Assert.That(result.RouteValues["walletName"], Is.EqualTo(walletName));
@@ -82,12 +82,12 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(expectedWalletIdentification))
                 .Return(withdrawalExposer);
 
-            var withdrawalController = new WithdrawalController(walletService);
+            var withdrawalController = new RecurringChangeController(walletService);
 
-            withdrawalController.AddNew("foo", amountToWithdraw);
+            withdrawalController.AddNewWithdrawal("foo", amountToWithdraw);
 
             Assert.That(withdrawalExposer.WithdrawalAdded, Is.Not.Null);
-            Assert.That(withdrawalExposer.WithdrawalAdded.Identification, Is.EqualTo(expectedWalletIdentification));
+            Assert.That(withdrawalExposer.WithdrawalAdded.TargetWalletIdentifier, Is.EqualTo(expectedWalletIdentification));
             Assert.That(withdrawalExposer.WithdrawalAdded.Amount, Is.EqualTo(expectedAmountGivenToWallet));
         }
     }

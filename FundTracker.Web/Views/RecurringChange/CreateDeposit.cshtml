@@ -1,0 +1,16 @@
+﻿@model FundTracker.Web.ViewModels.Builders.CreateRecurringChangeViewModel
+
+@{
+    ViewBag.Title = "Create a recurring change";
+    Layout = "~/Views/_Layout.cshtml";
+}
+@section Header
+{}
+<h2>Create a recurring deposit into <strong>@Model.WalletName</strong></h2>
+
+<form method="POST" action="/RecurringChange/AddNewDeposit">
+    <input type="hidden" name="name" min="0"value="@Model.WalletName" />
+    <label for="amount">Enter a value to deposit</label>
+    <input type="number" name="amount" class="deposit-amount" />
+    <input type="submit" class="deposit-submit" />
+</form>

@@ -90,7 +90,7 @@ namespace FundTracker.Data
 
         private void CreateNewRecurringChange(RecurringChange recurringChange)
         {
-            var wallet = GetMongoWallet(recurringChange.Identification);
+            var wallet = GetMongoWallet(recurringChange.TargetWalletIdentifier);
 
             _mongoRecurringChanges.Insert(new MongoRecurringChange
             {

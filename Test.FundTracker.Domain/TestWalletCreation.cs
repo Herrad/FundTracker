@@ -54,7 +54,7 @@ namespace Test.FundTracker.Domain
 
             var walletStore = MockRepository.GenerateMock<IStoreCreatedWallets>();
 
-            var fakeEventReciever = new FakeEventReciever();
+            var fakeEventReciever = new LastEventPublishedReporter();
 
             var walletBuilder = new WalletBuilder(walletStore, fakeEventReciever);
 

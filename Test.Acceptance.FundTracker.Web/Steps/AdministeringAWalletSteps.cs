@@ -108,16 +108,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var walletNameDisplayed = Driver.FindCss(".wallet-name").Text;
             Assert.That(walletNameDisplayed.StartsWith(expectedWalletName));
         }
-        
-        [Then(@"a withdrawal tile is shown with the outgoing amount set to (.*)")]
-        public void ThenAWithdrawalTileIsShownWithTheOutgoingAmountSetTo(decimal expectedWithdrawalAmount)
-        {
-            var withdrawalTile =  Driver.FindCss(".withdrawal-tile");
-
-            var amount = decimal.Parse(withdrawalTile.FindCss(".amount").Text);
-
-            Assert.That(amount, Is.EqualTo(expectedWithdrawalAmount));
-        }
 
 
         [Then(@"the amount in the wallet is (.*)")]

@@ -38,6 +38,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventSwallower.cs" />
     <Compile Include="Events\RecurringChangeCreated.cs" />
     <Compile Include="Events\WalletFundsChanged.cs" />
     <Compile Include="ICreateWallets.cs" />

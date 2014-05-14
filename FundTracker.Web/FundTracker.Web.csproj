@@ -117,7 +117,7 @@
     <Compile Include="Controllers\ICreateRedirects.cs" />
     <Compile Include="Controllers\IDisplayWallets.cs" />
     <Compile Include="Controllers\WalletController.cs" />
-    <Compile Include="Controllers\WithdrawalController.cs" />
+    <Compile Include="Controllers\RecurringChangeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -125,14 +125,15 @@
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\StructureMapDependencyResolver.cs" />
     <Compile Include="Structuremap\StructureMapFundTrackerRegistry.cs" />
-    <Compile Include="ViewModels\Builders\CreateWithdrawalViewModel.cs" />
+    <Compile Include="ViewModels\Builders\CreateRecurringChangeViewModel.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\RecurringAmountViewModel.cs" />
     <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
     <Compile Include="ViewModels\WalletViewModel.cs" />
-    <Compile Include="ViewModels\WithdrawalTilesViewModel.cs" />
-    <Compile Include="ViewModels\WithdrawalTileViewModel.cs" />
+    <Compile Include="ViewModels\TilesViewModel.cs" />
+    <Compile Include="ViewModels\TileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -181,9 +182,10 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\Wallet\_AdministerWallet.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
-    <Content Include="Views\Withdrawal\Create.cshtml" />
-    <Content Include="Views\Wallet\_WithdrawalTiles.cshtml" />
-    <Content Include="Views\Wallet\_DepositTiles.cshtml" />
+    <Content Include="Views\RecurringChange\CreateWithdrawal.cshtml" />
+    <Content Include="Views\Wallet\_RecurringTiles.cshtml" />
+    <Content Include="Views\Wallet\_RecurringAmount.cshtml" />
+    <Content Include="Views\RecurringChange\CreateDeposit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">

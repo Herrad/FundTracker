@@ -125,9 +125,12 @@
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\StructureMapDependencyResolver.cs" />
     <Compile Include="Structuremap\StructureMapFundTrackerRegistry.cs" />
+    <Compile Include="ViewModels\Builders\CalendarDayViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\CreateRecurringChangeViewModel.cs" />
+    <Compile Include="ViewModels\Builders\IBuildCalanderDayViewModels.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
+    <Compile Include="ViewModels\CalendarDayViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\RecurringAmountViewModel.cs" />
     <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
@@ -186,6 +189,7 @@
     <Content Include="Views\Wallet\_RecurringTiles.cshtml" />
     <Content Include="Views\Wallet\_RecurringAmount.cshtml" />
     <Content Include="Views\RecurringChange\CreateDeposit.cshtml" />
+    <Content Include="Views\Wallet\_Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">

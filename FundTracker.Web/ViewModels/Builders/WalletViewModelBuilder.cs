@@ -1,16 +1,26 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FundTracker.Domain;
 
 namespace FundTracker.Web.ViewModels.Builders
 {
     public class WalletViewModelBuilder : IFormatWalletsAsViewModels
     {
+        private readonly IBuildCalanderDayViewModels _calendarDayViewModelBuilder;
+
+        public WalletViewModelBuilder(IBuildCalanderDayViewModels calendarDayViewModelBuilder)
+        {
+            _calendarDayViewModelBuilder = calendarDayViewModelBuilder;
+        }
+
         public WalletViewModel FormatWalletAsViewModel(IWallet wallet)
         {
             var depositAmountViewModel = BuildDepositAmountViewModel(wallet);
             var withdrawalAmountViewModel = BuildWithdrawalAmountViewModel(wallet);
 
-            return new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel);
+            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(DateTime.Today);
+
+            return new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
         }
 
         private static RecurringAmountViewModel BuildDepositAmountViewModel(IHaveRecurringChanges wallet)

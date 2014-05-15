@@ -1,9 +1,12 @@
+using System.Web.Mvc;
+
 namespace FundTracker.Web.ViewModels
 {
     public class WalletViewModel
     {
-        public WalletViewModel(string name, decimal availableFunds, RecurringAmountViewModel depositAmountViewModel, RecurringAmountViewModel withdrawalAmountViewModel)
+        public WalletViewModel(string name, decimal availableFunds, RecurringAmountViewModel depositAmountViewModel, RecurringAmountViewModel withdrawalAmountViewModel, CalendarDayViewModel dayViewModel)
         {
+            DayViewModel = dayViewModel;
             WithdrawalAmountViewModel = withdrawalAmountViewModel;
             AvailableFunds = availableFunds;
             Name = name;
@@ -16,5 +19,6 @@ namespace FundTracker.Web.ViewModels
 
         public RecurringAmountViewModel DepositAmountViewModel { get; private set; }
         public RecurringAmountViewModel WithdrawalAmountViewModel { get; private set; }
+        public CalendarDayViewModel DayViewModel { get; private set; }
     }
 }

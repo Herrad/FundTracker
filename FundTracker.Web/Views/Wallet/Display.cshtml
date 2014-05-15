@@ -12,7 +12,7 @@
 }
 
 <h2 class="display-header">Your Wallet</h2>
-
+@{Html.RenderPartial("_Calendar", @Model.DayViewModel);}
 <div class="wallet-info">
     <h2 class="wallet-name">@Model.Name</h2>
     <div class="funds">

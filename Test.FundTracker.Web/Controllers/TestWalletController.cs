@@ -17,7 +17,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
@@ -28,7 +28,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo walletName";
 
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             
             var viewResult = walletController.SuccessfullyCreated(walletName);
 
@@ -42,7 +42,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo";
 
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             
             var result = walletController.CreateWallet(walletName);
 
@@ -66,7 +66,7 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(new WalletIdentification(expectedName)))
                 .Return(MockRepository.GenerateStub<IWallet>());
             
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
 
 
             var result = walletController.AddFunds(expectedName, fundsToAdd);
@@ -105,7 +105,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -118,7 +118,7 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_sets_validation_message_if_name_is_null_or_empty(string name)
         {
-            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder());
+            var walletController = new WalletController(new CreateWalletValidation(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());

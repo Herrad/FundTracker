@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Test.FundTracker.Web.ViewModels.Builders
 {
     [TestFixture]
-    public class TestCalendarDayViewModel
+    public class TestCalendarDayViewModelBuilder
     {
         [Test]
         public void Sets_DaysInPreviousMonth_to_last_5_days_of_previous_month()
@@ -34,6 +34,31 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             Assert.That(calendarDayViewModel.DaysInNextMonth, Is.Not.Null);
             Assert.That(calendarDayViewModel.DaysInNextMonth.Count, Is.EqualTo(expectedNumberOfDaysInNextMonth));
+            for (var i = 1; i <= expectedNumberOfDaysInNextMonth; i++)
+            {
+                Assert.That(calendarDayViewModel.DaysInNextMonth[i-1], Is.EqualTo(i));
+            }
+        }
+
+        [TestCase(9, 30)]
+        [TestCase(10, 31)]
+        [TestCase(2, 28)]
+        public void Fills_in_all_days_in_selected_month(int selectedMonth, int expectedNumberOfDays)
+        {
+            var selectedDate = new DateTime(2014, selectedMonth, 14);
+
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate);
+
+            Assert.That(calendarDayViewModel.DaysInCurrentMonth, Is.Not.Null);
+            Assert.That(calendarDayViewModel.DaysInCurrentMonth.Count, Is.EqualTo(expectedNumberOfDays));
+        }
+
+        [Test]
+        public void Sets_SelectedDay()
+        {
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(new DateTime(2014, 9, 14));
+
+            Assert.That(calendarDayViewModel.SelectedDay, Is.EqualTo(14));
         }
     }
 }

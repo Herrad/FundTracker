@@ -13,7 +13,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var daysInCurrentMonth = BuildDaysInCurrentMonth(selectedDate);
 
-            return new CalendarDayViewModel(daysInPreviousMonth, daysInCurrentMonth, daysInNextMonth, selectedDate.Day);
+            return new CalendarDayViewModel(daysInPreviousMonth, daysInCurrentMonth, daysInNextMonth, selectedDate);
         }
 
         private static List<int> BuildDaysInCurrentMonth(DateTime selectedDate)

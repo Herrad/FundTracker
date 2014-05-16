@@ -23,7 +23,15 @@ h2{margin-bottom: 20px;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
 
-.wallet-info { margin-left: auto;margin-right: auto;}
+#calander .month { padding-left: 13%;font-size: 1.5em;}
+#calander ul {margin: 0;padding: 0;list-style: none;}
+    #calander li{ float: left;width: 2.3%;text-align: center;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
+        #calander li.current-month:hover{ background: #b8b8b8;cursor: pointer;}
+    #calander li.current-month.selected{ font-weight: bold;background: #b8b8b8;}
+        #calander li.current-month.selected:hover{background: #b8b8b8;cursor: default;}
+        #calander li.other-month{ background: #b8b8b8;}
+    
+.wallet-info { }
     .wallet-info .funds div { float: left;}
     .wallet-info .funds a { float: left;}
 

@@ -54,11 +54,12 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         }
 
         [Test]
-        public void Sets_SelectedDay()
+        public void Sets_SelectedDate()
         {
-            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(new DateTime(2014, 9, 14));
+            var selectedDate = new DateTime(2014, 9, 14);
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate);
 
-            Assert.That(calendarDayViewModel.SelectedDay, Is.EqualTo(14));
+            Assert.That(calendarDayViewModel.SelectedDate, Is.EqualTo(selectedDate));
         }
     }
 }

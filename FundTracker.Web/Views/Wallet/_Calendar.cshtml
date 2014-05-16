@@ -1,4 +1,24 @@
 ﻿@model FundTracker.Web.ViewModels.CalendarDayViewModel
 
 <div id="calander">
+    <strong class="month">@Model.SelectedDate.ToString("MMM")</strong>
+    <ul>
+        @foreach (var day in Model.DaysInPreviousMonth)
+        {
+            <li class="other-month">@day</li>
+        }
+        @foreach (var day in Model.DaysInCurrentMonth)
+        {
+            if (day == Model.SelectedDate.Day)
+            {
+                <li class="current-month selected">@day</li>
+                continue;
+            }
+            <li class="current-month">@day</li>
+        }
+        @foreach (var day in Model.DaysInNextMonth)
+        {
+            <li class="other-month">@day</li>
+        }
+    </ul>
 </div>

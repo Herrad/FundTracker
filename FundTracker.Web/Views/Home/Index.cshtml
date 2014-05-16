@@ -16,10 +16,11 @@
         <form method="POST" action="/Wallet/CreateWallet">
             <label for="name">Bob in your new wallet's name</label>
             <input type="text" name="name" class="create-name" />
+            <input type="hidden" name="date" value="@DateTime.Today.ToString("d")" />
             @if (!string.IsNullOrEmpty(Model.ValidationFailure))
             {<span class="error-text">@Model.ValidationFailure</span>}
-            <label for="submit" class="submit-label">Click the shiny button to create a wallet!</label>
-            <input type="submit" value="Create Me" name="submit" class="create-submit button" />
+            <label class="submit-label">Click the shiny button to create a wallet!</label>
+            <input type="submit" value="Create Me" class="create-submit button" />
         </form>
     </div>
 </div>
@@ -28,8 +29,9 @@
         <form method="POST" action="/Wallet/Display">
             <label for="name">Pop in your existing wallet's name</label>
             <input type="text" name="walletName" class="find-name" />
-            <label for="submit" class="submit-label">Click away and we'll find your wallet</label>
-            <input type="submit" value="Find Me" name="submit" class="find-submit button" />
+            <input type="hidden" name="date" value="@DateTime.Today.ToString("d")" />
+            <label class="submit-label">Click away and we'll find your wallet</label>
+            <input type="submit" value="Find Me" class="find-submit button" />
         </form>
     </div>
 </div>

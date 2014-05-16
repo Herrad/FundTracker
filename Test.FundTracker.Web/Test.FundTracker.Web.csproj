@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
-    <Compile Include="ViewModels\Builders\TestCalendarDayViewModel.cs" />
+    <Compile Include="ViewModels\Builders\TestCalendarDayViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\TestWalletViewModelFormatter.cs" />
     <Compile Include="Controllers\TestWithdrawalController.cs" />
     <Compile Include="Controllers\WithdrawalExposer.cs" />

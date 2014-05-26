@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Globalization;
+using System.Web.Mvc;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
@@ -35,13 +37,26 @@ namespace FundTracker.Web.Controllers
             return _redirect;
         }
 
-        public ViewResult Display(string walletName)
+        public ViewResult Display(string walletName, string date)
         {
             var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
 
-            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet);
+            var selectedDate = TryParsingSelectedDate(date);
+            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, selectedDate);
 
             return View("Display", walletViewModel);
+        }
+
+        private static DateTime TryParsingSelectedDate(string date)
+        {
+            DateTime selectedDate;
+            var couldParse = DateTime.TryParseExact(date, "dd-MM-yy", new DateTimeFormatInfo(), DateTimeStyles.None,
+                out selectedDate);
+            if (!couldParse)
+            {
+                selectedDate = DateTime.Today;
+            }
+            return selectedDate;
         }
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)

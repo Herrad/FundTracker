@@ -13,12 +13,12 @@ namespace FundTracker.Web.ViewModels.Builders
             _calendarDayViewModelBuilder = calendarDayViewModelBuilder;
         }
 
-        public WalletViewModel FormatWalletAsViewModel(IWallet wallet)
+        public WalletViewModel FormatWalletAsViewModel(IWallet wallet, DateTime selectedDate)
         {
             var depositAmountViewModel = BuildDepositAmountViewModel(wallet);
             var withdrawalAmountViewModel = BuildWithdrawalAmountViewModel(wallet);
 
-            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(DateTime.Today);
+            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
 
             return new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
         }

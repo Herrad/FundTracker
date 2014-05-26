@@ -130,7 +130,7 @@
     <Compile Include="ViewModels\Builders\IBuildCalanderDayViewModels.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
-    <Compile Include="ViewModels\CalendarDayViewModel.cs" />
+    <Compile Include="ViewModels\WalletDatePickerViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\RecurringAmountViewModel.cs" />
     <Compile Include="ViewModels\SuccessfullyCreatedWalletViewModel.cs" />
@@ -226,7 +226,8 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /Y "C:\Projects\MicroEvent\MicroEvent\src\MicroEvent\bin\Release\MicroEvent.dll" "../../MicroEvent"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

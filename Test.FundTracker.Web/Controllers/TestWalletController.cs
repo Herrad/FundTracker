@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using FundTracker.Domain;
 using FundTracker.Services;
@@ -137,7 +138,7 @@ namespace Test.FundTracker.Web.Controllers
             var formatWalletsAsViewModels = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
 
             var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels);
-            var viewResult = walletController.Display(null);
+            var viewResult = walletController.Display(null, "01-02-03");
 
             Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
         }
@@ -156,12 +157,41 @@ namespace Test.FundTracker.Web.Controllers
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
-            walletController.Display(walletName);
+            walletController.Display(walletName, "01-02-03");
+
+            var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
+                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
+
+            Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(new DateTime(2003, 2, 1)));
 
             walletViewModelBuilder
                 .AssertWasCalled(
-                x => x.FormatWalletAsViewModel(wallet),
+                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything),
                 c => c.Repeat.Once());
+        }
+
+        [Test]
+        public void Date_defaults_to_today_when_date_cannot_be_parsed()
+        {
+            const string walletName = "foo wallet";
+            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
+
+            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
+            walletProvider
+                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Return(wallet);
+
+            var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
+
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
+            walletController.Display(walletName, "01-02-03 foo blarg foo");
+
+            var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
+                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
+
+            Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(DateTime.Today));
         }
     }
 }

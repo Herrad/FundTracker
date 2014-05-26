@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using FundTracker.Domain;
 
 namespace FundTracker.Web.ViewModels.Builders
 {
     public class CalendarDayViewModelBuilder : IBuildCalanderDayViewModels
     {
-        public CalendarDayViewModel Build(DateTime selectedDate)
+        public WalletDatePickerViewModel Build(DateTime selectedDate, WalletIdentification identification)
         {
             var daysInPreviousMonth = BuildDaysInPreviousMonth(selectedDate);
 
@@ -13,16 +15,21 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var daysInCurrentMonth = BuildDaysInCurrentMonth(selectedDate);
 
-            return new CalendarDayViewModel(daysInPreviousMonth, daysInCurrentMonth, daysInNextMonth, selectedDate);
+            return new WalletDatePickerViewModel(daysInPreviousMonth, daysInCurrentMonth, daysInNextMonth, selectedDate, identification.Name);
         }
 
-        private static List<int> BuildDaysInCurrentMonth(DateTime selectedDate)
+        private static List<string> BuildDaysInCurrentMonth(DateTime selectedDate)
         {
-            var daysInCurrentMonth = new List<int>();
+            var daysInCurrentMonth = new List<string>();
             var numberOfDaysInCurrentMonth = GetNumberOfDaysInCurrentMonth(selectedDate);
-            for (int i = 1; i <= numberOfDaysInCurrentMonth; i++)
+            for (var i = 1; i <= numberOfDaysInCurrentMonth; i++)
             {
-                daysInCurrentMonth.Add(i);
+                var dayWithZeroIfNeeded = i.ToString(CultureInfo.InvariantCulture);
+                if (i < 10)
+                {
+                    dayWithZeroIfNeeded = "0" + i;
+                }
+                daysInCurrentMonth.Add(dayWithZeroIfNeeded);
             }
             return daysInCurrentMonth;
         }

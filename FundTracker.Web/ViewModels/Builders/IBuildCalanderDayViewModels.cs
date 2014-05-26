@@ -1,9 +1,10 @@
 using System;
+using FundTracker.Domain;
 
 namespace FundTracker.Web.ViewModels.Builders
 {
     public interface IBuildCalanderDayViewModels
     {
-        CalendarDayViewModel Build(DateTime selectedDate);
+        WalletDatePickerViewModel Build(DateTime selectedDate, WalletIdentification identification);
     }
 }

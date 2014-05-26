@@ -1,4 +1,5 @@
 using System;
+using FundTracker.Domain;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 
@@ -13,7 +14,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var selectedDate = new DateTime(2014, 10, 14);
             const int daysInSeptember = 30;
 
-            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate);
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate, new WalletIdentification("fooName"));
 
             var daysInPreviousMonth = calendarDayViewModel.DaysInPreviousMonth;
 
@@ -30,7 +31,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         [TestCase(2, 7)]
         public void Sets_DaysInNextMonth_to_first_few_days_depending_on_days_in_current_month(int currentMonth, int expectedNumberOfDaysInNextMonth)
         {
-            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(new DateTime(2014, currentMonth, 14));
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(new DateTime(2014, currentMonth, 14), new WalletIdentification("fooName"));
 
             Assert.That(calendarDayViewModel.DaysInNextMonth, Is.Not.Null);
             Assert.That(calendarDayViewModel.DaysInNextMonth.Count, Is.EqualTo(expectedNumberOfDaysInNextMonth));
@@ -47,7 +48,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             var selectedDate = new DateTime(2014, selectedMonth, 14);
 
-            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate);
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate, new WalletIdentification("fooName"));
 
             Assert.That(calendarDayViewModel.DaysInCurrentMonth, Is.Not.Null);
             Assert.That(calendarDayViewModel.DaysInCurrentMonth.Count, Is.EqualTo(expectedNumberOfDays));
@@ -57,9 +58,20 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         public void Sets_SelectedDate()
         {
             var selectedDate = new DateTime(2014, 9, 14);
-            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate);
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate, new WalletIdentification("fooName"));
 
             Assert.That(calendarDayViewModel.SelectedDate, Is.EqualTo(selectedDate));
+        }
+
+        [Test]
+        public void Sets_WalletName()
+        {
+            const string expectedName = "fooName";
+            var selectedDate = new DateTime(2014, 9, 14);
+
+            var calendarDayViewModel = new CalendarDayViewModelBuilder().Build(selectedDate, new WalletIdentification(expectedName));
+
+            Assert.That(calendarDayViewModel.WalletName, Is.EqualTo(expectedName));
         }
     }
 }

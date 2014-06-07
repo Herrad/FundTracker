@@ -14,7 +14,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var calendar = Driver.FindCss("#calendar");
             var selected = calendar.FindCss(".selected");
 
-            Assert.That(selected.Text, Is.EqualTo(DateTime.Today.Day.ToString(CultureInfo.InvariantCulture)));
+            Assert.That(selected.Text, Is.EqualTo(DateTime.Today.ToString("dd")));
         }
 
     }

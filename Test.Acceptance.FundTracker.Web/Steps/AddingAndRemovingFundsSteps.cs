@@ -1,5 +1,4 @@
 ﻿using System;
-using FundTracker.Domain;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;

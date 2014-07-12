@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
 using MongoDB.Bson;
@@ -10,8 +11,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
 {
     public class TestDbAdapter
     {
-        const string ConnectionString = "mongodb://localhost";
-        private static readonly MongoClient Client = new MongoClient(ConnectionString);
+        private static readonly MongoClient Client = new MongoClient(ConfigurationManager.AppSettings["MongoConnectionString"]);
 
         public static void CreateWalletCalled(string walletName, decimal availableFunds)
         {
@@ -82,7 +82,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
         private static MongoDatabase GetMongoDatabase()
         {
             var mongoServer = Client.GetServer();
-            var mongoDatabase = mongoServer.GetDatabase("FundTracker");
+            var mongoDatabase = mongoServer.GetDatabase(ConfigurationManager.AppSettings["DatabaseName"]);
             return mongoDatabase;
         }
     }

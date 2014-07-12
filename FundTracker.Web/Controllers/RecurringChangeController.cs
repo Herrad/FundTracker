@@ -14,6 +14,11 @@ namespace FundTracker.Web.Controllers
             _walletService = walletService;
         }
 
+        public ViewResult Display(string walletName)
+        {
+            return View();
+        }
+
         public ViewResult CreateWithdrawal(string walletName)
         {
             return View(new CreateRecurringChangeViewModel(walletName));

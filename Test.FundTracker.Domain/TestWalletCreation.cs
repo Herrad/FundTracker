@@ -20,7 +20,7 @@ namespace Test.FundTracker.Domain
                 .Stub(x => x.IsNameValid(walletName))
                 .Return(true);
 
-            var walletValidator = new CreateWalletValidation(walletNameValidator,
+            var walletValidator = new CreateWalletValidationRules(walletNameValidator,
                                                              walletBuilder);
 
             walletValidator.ValidateAndCreateWallet(MockRepository.GenerateStub<ICreateRedirects>(), walletName);
@@ -39,7 +39,7 @@ namespace Test.FundTracker.Domain
                 .Stub(x => x.IsNameValid(walletName))
                 .Return(false);
 
-            var walletValidator = new CreateWalletValidation(walletNameValidator,
+            var walletValidator = new CreateWalletValidationRules(walletNameValidator,
                                                              walletBuilder);
 
             walletValidator.ValidateAndCreateWallet(MockRepository.GenerateStub<ICreateRedirects>(), walletName);

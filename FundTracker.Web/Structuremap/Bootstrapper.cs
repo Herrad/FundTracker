@@ -20,7 +20,7 @@ namespace FundTracker.Web.Structuremap
                 {
                     x.AddRegistry(registry);
 
-                    x.For<IRedirectBasedOnWalletCreationValidation>().Use<CreateWalletValidationRules>();
+                    x.For<IRedirectBasedOnWalletCreationValidation>().Use<CreateWalletValidation>();
                     x.For<IProvideWallets>().Use<WalletService>();
                     x.For<IValidateWalletNames>().Use<WalletNameValidator>();
                     x.For<IStoreCreatedWallets>().Use<WalletService>();

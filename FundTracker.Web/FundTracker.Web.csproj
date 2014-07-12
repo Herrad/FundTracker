@@ -107,7 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ActionHelpers\CreateWalletValidationRules.cs" />
+    <Compile Include="Controllers\ActionHelpers\CreateWalletValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -121,7 +121,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Http\IWriteCookies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structuremap\Bootstrapper.cs" />
     <Compile Include="Structuremap\StructureMapDependencyResolver.cs" />
@@ -191,7 +190,7 @@
     <Content Include="Views\Wallet\_RecurringAmount.cshtml" />
     <Content Include="Views\RecurringChange\CreateDeposit.cshtml" />
     <Content Include="Views\Wallet\_Calendar.cshtml" />
-    <Content Include="Views\RecurringChange\Display.cshtml" />
+    <Content Include="Views\RecurringChanges\Withdrawal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">

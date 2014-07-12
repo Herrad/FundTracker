@@ -3,7 +3,7 @@
 
 
 <div class="recurring-amount @Model.RecurringType.ToLower()">
-    <a href="/RecurringChange/Display?walletName=@Model.WalletName">Total @Model.RecurringType.ToString(CultureInfo.InvariantCulture)s</a>: £<strong class="amount">@Model.PositiveTotal</strong>
+    <a href="/RecurringChanges/@Model.RecurringType?walletName=@Model.WalletName">Total @Model.RecurringType.ToString(CultureInfo.InvariantCulture)s</a>: £<strong class="amount">@Model.PositiveTotal</strong>
 </div>
 
 <div class="recurring-amount limited @Model.RecurringType.ToLower()">

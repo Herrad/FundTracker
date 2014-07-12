@@ -1,13 +1,14 @@
 ﻿using FundTracker.Domain;
+using FundTracker.Services;
 
 namespace FundTracker.Web.Controllers.ActionHelpers
 {
-    public class CreateWalletValidationRules : IRedirectBasedOnWalletCreationValidation
+    public class CreateWalletValidation : IRedirectBasedOnWalletCreationValidation
     {
         private readonly IValidateWalletNames _walletNameValidator;
         private readonly ICreateWallets _walletBuilder;
 
-        public CreateWalletValidationRules(IValidateWalletNames walletNameValidator, ICreateWallets walletBuilder)
+        public CreateWalletValidation(IValidateWalletNames walletNameValidator, ICreateWallets walletBuilder)
         {
             _walletNameValidator = walletNameValidator;
             _walletBuilder = walletBuilder;

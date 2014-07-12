@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
-using FundTracker.Web.Http;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 
@@ -16,14 +15,12 @@ namespace FundTracker.Web.Controllers
         private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
         private readonly IProvideWallets _walletProvider;
         private readonly IFormatWalletsAsViewModels _walletViewModelBuilder;
-        private readonly IWriteCookies _cookieWriter;
 
-        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder, IWriteCookies cookieWriter)
+        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder)
         {
             _createWalletValidation = createWalletValidation;
             _walletProvider = walletProvider;
             _walletViewModelBuilder = walletViewModelBuilder;
-            _cookieWriter = cookieWriter;
         }
 
         public ViewResult SuccessfullyCreated(string walletName)
@@ -44,13 +41,13 @@ namespace FundTracker.Web.Controllers
         {
             var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
 
-            var selectedDate = SetDateCookie(date);
+            var selectedDate = TryParsingSelectedDate(date);
             var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, selectedDate);
 
             return View("Display", walletViewModel);
         }
 
-        private DateTime SetDateCookie(string date)
+        private static DateTime TryParsingSelectedDate(string date)
         {
             DateTime selectedDate;
             var couldParse = DateTime.TryParseExact(date, "dd-MM-yy", new DateTimeFormatInfo(), DateTimeStyles.None,
@@ -59,7 +56,6 @@ namespace FundTracker.Web.Controllers
             {
                 selectedDate = DateTime.Today;
             }
-            _cookieWriter.SetCookie("Date", selectedDate.ToString("yyyy MMMM dd"));
             return selectedDate;
         }
 
@@ -79,6 +75,14 @@ namespace FundTracker.Web.Controllers
         public void SetRedirect(string action, string controller, object parameters)
         {
             _redirect = RedirectToAction(action, controller, parameters);
+        }
+    }
+
+    public class RecurringChangesController : Controller
+    {
+        public ViewResult Withdrawal(string walletName)
+        {
+            return View();
         }
     }
 }

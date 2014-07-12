@@ -18,16 +18,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0-amountRemoved, changeTimeStamp);
         }
 
-        [Given(@"I have a deposit of (.*) due in (.*) days for ""(.*)""")]
-        public void GivenIHaveADepositOfDueInDaysFor(int depositAmount, int daysUntilItsDue, string depositName)
-        {
-            var depositDueDate = DateTime.Now.AddDays(daysUntilItsDue);
-            var walletName = ScenarioContext.Current["wallet name"].ToString();
-
-            TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate);
-        }
-
-
         [When(@"I view my withdrawals for (.*) days ago")]
         public void WhenIViewMyWithdrawalsForDaysAgo(int daysFromToday)
         {
@@ -37,17 +27,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             administerWalletPage = administerWalletPage.ViewFor(DateTime.Now.AddDays(0 - daysFromToday));
             ScenarioContext.Current["page being viewed"] =  administerWalletPage.ViewWithdrawals();
         }
-
-        [When(@"I view my deposits for (.*) days ahead")]
-        public void WhenIViewMyDepositsForDaysAhead(int daysAheadOfToday)
-        {
-            var walletName = ScenarioContext.Current["wallet name"].ToString();
-            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
-
-            administerWalletPage = administerWalletPage.ViewFor(DateTime.Now.AddDays(daysAheadOfToday));
-            ScenarioContext.Current["page being viewed"] = administerWalletPage.ViewWithdrawals();
-        }
-
 
 
         [Then(@"I can see an entry for ""(.*)""")]

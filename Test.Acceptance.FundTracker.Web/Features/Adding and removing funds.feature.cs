@@ -67,10 +67,12 @@ namespace Test.Acceptance.FundTracker.Web.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Removing funds 2 days ago")]
+        [NUnit.Framework.CategoryAttribute("wip")]
         public virtual void RemovingFunds2DaysAgo()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing funds 2 days ago", ((string[])(null)));
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing funds 2 days ago", new string[] {
+                        "wip"});
+#line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -79,40 +81,14 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "my wallet",
                         "250.00"});
-#line 7
+#line 8
  testRunner.Given("this wallet exists", ((string)(null)), table1, "Given ");
-#line 10
- testRunner.And("I removed 100 in funds 2 days ago for \"dance lessons\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.When("I view my withdrawals for 2 days ago", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I removed 100 in funds 2 days ago for \"dance lessons\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
+ testRunner.When("I view my withdrawals for 2 days ago", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 13
  testRunner.Then("I can see an entry for \"dance lessons\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Incoming funds in 5 days")]
-        public virtual void IncomingFundsIn5Days()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Incoming funds in 5 days", ((string[])(null)));
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
-            table2.AddRow(new string[] {
-                        "my wallet",
-                        "250.00"});
-#line 15
- testRunner.Given("this wallet exists", ((string)(null)), table2, "Given ");
-#line 18
- testRunner.And("I have a deposit of 1000 due in 5 days for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
- testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
- testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
-using FundTracker.Web.Http;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 
@@ -16,14 +15,12 @@ namespace FundTracker.Web.Controllers
         private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
         private readonly IProvideWallets _walletProvider;
         private readonly IFormatWalletsAsViewModels _walletViewModelBuilder;
-        private readonly IWriteCookies _cookieWriter;
 
-        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder, IWriteCookies cookieWriter)
+        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder)
         {
             _createWalletValidation = createWalletValidation;
             _walletProvider = walletProvider;
             _walletViewModelBuilder = walletViewModelBuilder;
-            _cookieWriter = cookieWriter;
         }
 
         public ViewResult SuccessfullyCreated(string walletName)
@@ -59,7 +56,6 @@ namespace FundTracker.Web.Controllers
             {
                 selectedDate = DateTime.Today;
             }
-            _cookieWriter.SetCookie("Date", selectedDate.ToString("yyyy MMMM dd"));
             return selectedDate;
         }
 

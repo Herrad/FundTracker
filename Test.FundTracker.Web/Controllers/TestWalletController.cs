@@ -19,9 +19,9 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
@@ -32,9 +32,9 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo walletName";
 
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             
             var viewResult = walletController.SuccessfullyCreated(walletName);
 
@@ -48,9 +48,9 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo";
 
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             
             var result = walletController.CreateWallet(walletName);
 
@@ -69,14 +69,14 @@ namespace Test.FundTracker.Web.Controllers
             const string expectedName = "fooName";
             const decimal fundsToAdd = 100.00m;
 
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
                 .Stub(x => x.FindFirstWalletWith(new WalletIdentification(expectedName)))
                 .Return(MockRepository.GenerateStub<IWallet>());
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
 
 
             var result = walletController.AddFunds(expectedName, fundsToAdd);
@@ -92,7 +92,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void AddFunds_adds_funds_to_wallet()
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
             const string name = "foo name";
             const decimal fundsToAdd = 123m;
@@ -104,7 +104,7 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(new WalletIdentification(name)))
                 .Return(wallet);
 
-            var controller = new WalletController(null, walletProvider, null, cookieWriter);
+            var controller = new WalletController(null, walletProvider, null);
 
             controller.AddFunds(name, fundsToAdd);
 
@@ -117,9 +117,9 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_redirects_to_HomeController_ValidationFailure_action_if_name_is_null_or_empty(string name)
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -132,9 +132,9 @@ namespace Test.FundTracker.Web.Controllers
         [TestCase("")]
         public void CreateWallet_sets_validation_message_if_name_is_null_or_empty(string name)
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), cookieWriter);
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -149,12 +149,12 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_returns_a_view_with_ViewName_set_to_Display()
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             var formatWalletsAsViewModels = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels, cookieWriter);
+            var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels);
             var viewResult = walletController.Display(null, "01-02-03");
 
             Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
@@ -163,7 +163,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Display_gives_wallet_to_ViewModelBuilder()
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
             const string walletName = "foo wallet";
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
@@ -175,7 +175,7 @@ namespace Test.FundTracker.Web.Controllers
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, cookieWriter);
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
             walletController.Display(walletName, "01-02-03");
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
@@ -193,7 +193,7 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void Date_defaults_to_today_when_date_cannot_be_parsed()
         {
-            var cookieWriter = MockRepository.GenerateStub<IWriteCookies>();
+            
 
             const string walletName = "foo wallet";
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
@@ -205,7 +205,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, cookieWriter);
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
             walletController.Display(walletName, "01-02-03 foo blarg foo");
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
@@ -213,33 +213,6 @@ namespace Test.FundTracker.Web.Controllers
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
             Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(DateTime.Today));
-        }
-
-        [Test]
-        public void Display_sets_Date_cookie()
-        {
-            var cookieWriter = MockRepository.GenerateMock<IWriteCookies>();
-
-            const string walletName = "foo wallet";
-            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
-
-            var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
-            walletProvider
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
-                .Return(wallet);
-
-            var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
-
-            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, cookieWriter);
-            walletController.Display(walletName, "01-02-03");
-
-            cookieWriter.AssertWasCalled(x => x.SetCookie(Arg<string>.Is.Anything, Arg<string>.Is.Anything));
-
-            var cookieWriterArguments = cookieWriter.GetArgumentsForCallsMadeOn(
-                x => x.SetCookie(Arg<String>.Is.Anything, Arg<string>.Is.Anything))[0];
-
-            Assert.That(cookieWriterArguments[0], Is.EqualTo("Date"));
-            Assert.That(cookieWriterArguments[1], Is.EqualTo("2003 February 01"));
         }
     }
 }

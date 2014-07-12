@@ -61,7 +61,7 @@ namespace FundTracker.Data
             {
                 var recurringChangeCreated = (RecurringChangeCreated)anEvent;
                 var recurringChange = recurringChangeCreated.Change;
-                CreateNewRecurringChange(recurringChange);
+                CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetWallet);
             }
         }
 
@@ -87,9 +87,9 @@ namespace FundTracker.Data
             });
         }
 
-        private void CreateNewRecurringChange(RecurringChange recurringChange)
+        private void CreateNewRecurringChange(RecurringChange recurringChange, WalletIdentification targetWalletIdentifier)
         {
-            var wallet = GetMongoWallet(recurringChange.TargetWalletIdentifier);
+            var wallet = GetMongoWallet(targetWalletIdentifier);
 
             GetRecurringChanges().Insert(new MongoRecurringChange
             {

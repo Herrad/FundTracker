@@ -18,14 +18,14 @@ namespace FundTracker.Data
         public IWallet InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges)
         {
             var walletIdentification = new WalletIdentification(mongoWallet.Name);
-            var recurringChanges = mongoRecurringChanges.Select(x => CreateRecurringChange(x, walletIdentification)).ToList();
+            var recurringChanges = mongoRecurringChanges.Select(CreateRecurringChange).ToList();
             var wallet = new Wallet(_eventBus, walletIdentification, mongoWallet.AvailableFunds, recurringChanges);
             return wallet;
         }
 
-        private static RecurringChange CreateRecurringChange(MongoRecurringChange recurringChange, WalletIdentification walletIdentification)
+        private static RecurringChange CreateRecurringChange(MongoRecurringChange recurringChange)
         {
-            return new RecurringChange(walletIdentification, recurringChange.Amount);
+            return new RecurringChange(recurringChange.Name, recurringChange.Amount);
         }
     }
 }

@@ -55,8 +55,9 @@
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
     <Compile Include="ViewModels\Builders\TestCalendarDayViewModelBuilder.cs" />
+    <Compile Include="ViewModels\Builders\TestRecurringChangeListViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\TestWalletViewModelFormatter.cs" />
-    <Compile Include="Controllers\TestWithdrawalController.cs" />
+    <Compile Include="Controllers\TestRecurringChangeController.cs" />
     <Compile Include="Controllers\WithdrawalExposer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

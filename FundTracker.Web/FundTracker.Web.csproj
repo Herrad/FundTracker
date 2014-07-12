@@ -129,8 +129,11 @@
     <Compile Include="ViewModels\Builders\CalendarDayViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\CreateRecurringChangeViewModel.cs" />
     <Compile Include="ViewModels\Builders\IBuildCalanderDayViewModels.cs" />
+    <Compile Include="ViewModels\Builders\IBuildRecurringChangeListViewModels.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
+    <Compile Include="ViewModels\Builders\RecurringChangeListViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
+    <Compile Include="ViewModels\RecurringChangeListViewModel.cs" />
     <Compile Include="ViewModels\WalletDatePickerViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\RecurringAmountViewModel.cs" />

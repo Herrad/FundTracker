@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model FundTracker.Web.ViewModels.RecurringChangeListViewModel
 
 @{
     ViewBag.Title = "Changes";
@@ -10,5 +10,8 @@
 
 <h2>Changes</h2>
 <ul>
-    <li>Dance lessons</li>
+    @foreach (var changeName in Model.ChangeNames)
+    {
+        <li>@changeName</li>
+    }
 </ul>

@@ -2,13 +2,13 @@ namespace FundTracker.Domain
 {
     public class RecurringChange
     {
-        public RecurringChange(WalletIdentification targetWalletIdentifier, decimal amount)
+        public RecurringChange(string name, decimal amount)
         {
-            TargetWalletIdentifier = targetWalletIdentifier;
+            Name = name;
             Amount = amount;
         }
 
+        public string Name { get; private set; }
         public decimal Amount { get; private set; }
-        public WalletIdentification TargetWalletIdentifier { get; private set; }
     }
 }

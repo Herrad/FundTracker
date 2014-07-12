@@ -30,7 +30,7 @@ namespace FundTracker.Domain
         {
             RecurringChanges.Add(recurringChange);
             AddFunds(recurringChange.Amount);
-            _eventReciever.Publish(new RecurringChangeCreated(recurringChange));
+            _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }
 
         protected bool Equals(Wallet other)

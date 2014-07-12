@@ -77,4 +77,12 @@ namespace FundTracker.Web.Controllers
             _redirect = RedirectToAction(action, controller, parameters);
         }
     }
+
+    public class RecurringChangesController : Controller
+    {
+        public ViewResult Withdrawal(string walletName)
+        {
+            return View();
+        }
+    }
 }

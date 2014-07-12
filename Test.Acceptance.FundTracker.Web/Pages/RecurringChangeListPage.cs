@@ -1,5 +1,4 @@
 using System.Linq;
-using NUnit.Framework;
 using Test.Acceptance.FundTracker.Web.Steps;
 
 namespace Test.Acceptance.FundTracker.Web.Pages

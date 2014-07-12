@@ -190,6 +190,7 @@
     <Content Include="Views\Wallet\_RecurringAmount.cshtml" />
     <Content Include="Views\RecurringChange\CreateDeposit.cshtml" />
     <Content Include="Views\Wallet\_Calendar.cshtml" />
+    <Content Include="Views\RecurringChanges\Withdrawal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">

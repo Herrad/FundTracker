@@ -2,6 +2,5 @@
 {
     public interface ICreateViews
     {
-        void CreateView(string viewName);
     }
 }

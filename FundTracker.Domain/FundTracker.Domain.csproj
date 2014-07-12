@@ -43,6 +43,7 @@
     <Compile Include="Events\WalletFundsChanged.cs" />
     <Compile Include="ICreateWallets.cs" />
     <Compile Include="IHaveAvailableFunds.cs" />
+    <Compile Include="IHaveRecurringChanges.cs" />
     <Compile Include="IStoreCreatedWallets.cs" />
     <Compile Include="ITakeFundsToAdd.cs" />
     <Compile Include="IValidateWalletNames.cs" />

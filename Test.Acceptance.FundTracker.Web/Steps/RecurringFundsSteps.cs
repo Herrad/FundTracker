@@ -32,7 +32,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
 
         [Then(@"the outgoing total value is (.*)")]
-        public void ThenAWithdrawalTileIsShownWithTheOutgoingAmountSetTo(decimal expectedWithdrawalAmount)
+        public void ThenTheOutgoingTotalValueIs(decimal expectedWithdrawalAmount)
         {
             var withdrawalAmount = Driver.FindCss(".recurring-amount.withdrawal");
 

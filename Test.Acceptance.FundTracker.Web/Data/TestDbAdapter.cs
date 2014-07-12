@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
@@ -7,7 +8,7 @@ using MongoDB.Driver.Builders;
 
 namespace Test.Acceptance.FundTracker.Web.Data
 {
-    public class MongoDbAdapter
+    public class TestDbAdapter
     {
         const string ConnectionString = "mongodb://localhost";
         private static readonly MongoClient Client = new MongoClient(ConnectionString);
@@ -24,6 +25,21 @@ namespace Test.Acceptance.FundTracker.Web.Data
             }
 
             walletsCollection.Insert(walletToInsert);
+        }
+
+        public static void CreateRecurringChange(string walletName, string nameOfRemoval, int changeAmount, DateTime firstApplicationDate)
+        {
+            var mongoDatabase = GetMongoDatabase();
+            var recurringChanges = mongoDatabase.GetCollection<MongoRecurringChange>("RecurringChanges");
+            var wallet = FindWalletCalled(walletName);
+            var recurringChangeToInsert = new MongoRecurringChange
+            {
+                WalletId = wallet.Id,
+                Amount = changeAmount,
+                Name = nameOfRemoval,
+                FirstApplicationDate = firstApplicationDate
+            };
+            recurringChanges.Insert(recurringChangeToInsert);
         }
 
         public static void UpdateExistingWallet(MongoWallet walletToUpdate)
@@ -49,6 +65,12 @@ namespace Test.Acceptance.FundTracker.Web.Data
             var allChangesForWalletQuery = Query<MongoRecurringChange>.EQ(e => e.WalletId, mongoWallet.Id);
 
             recurringChanges.Remove(allChangesForWalletQuery);
+        }
+
+        public static void RemoveWallet(string walletName)
+        {
+            var query = Query<MongoWallet>.EQ(e => e.Name, walletName);
+            GetWalletsCollection().Remove(query);
         }
 
         private static MongoCollection<MongoWallet> GetWalletsCollection()

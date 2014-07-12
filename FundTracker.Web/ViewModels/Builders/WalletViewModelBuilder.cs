@@ -23,19 +23,19 @@ namespace FundTracker.Web.ViewModels.Builders
             return new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
         }
 
-        private static RecurringAmountViewModel BuildDepositAmountViewModel(IHaveRecurringChanges wallet)
+        private static RecurringAmountViewModel BuildDepositAmountViewModel(IWallet wallet)
         {
             var recurringDeposits = wallet.RecurringChanges.Where(recurringChange => recurringChange.Amount > 0);
             var depositAmountViewModel = new RecurringAmountViewModel("Deposit",
-                recurringDeposits.Sum(recurringChange => recurringChange.Amount));
+                recurringDeposits.Sum(recurringChange => recurringChange.Amount), wallet.Identification.Name);
             return depositAmountViewModel;
         }
 
-        private static RecurringAmountViewModel BuildWithdrawalAmountViewModel(IHaveRecurringChanges wallet)
+        private static RecurringAmountViewModel BuildWithdrawalAmountViewModel(IWallet wallet)
         {
             var recurringWithdrawals = wallet.RecurringChanges.Where(recurringChange => recurringChange.Amount < 0);
             var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal",
-                recurringWithdrawals.Sum(recurringChange => 0 - recurringChange.Amount));
+                recurringWithdrawals.Sum(recurringChange => 0 - recurringChange.Amount), wallet.Identification.Name);
             return withdrawalAmountViewModel;
         }
     }

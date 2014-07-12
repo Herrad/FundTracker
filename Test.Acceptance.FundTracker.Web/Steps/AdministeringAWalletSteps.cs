@@ -20,13 +20,13 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             ScenarioContext.Current["wallet name"] = name;
             ScenarioContext.Current["available funds"] = availableFunds;
 
-            MongoDbAdapter.CreateWalletCalled(name, availableFunds);
+            TestDbAdapter.CreateWalletCalled(name, availableFunds);
         }
 
         [Given(@"my wallet has no recurring changes")]
         public void GivenItHasNoRecurringChanges()
         {
-            MongoDbAdapter.RemoveRecurringChangesAssociatedWith(ScenarioContext.Current["wallet name"].ToString());
+            TestDbAdapter.RemoveRecurringChangesAssociatedWith(ScenarioContext.Current["wallet name"].ToString());
         }
 
 
@@ -48,7 +48,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"A wallet already exists called ""(.*)""")]
         public void GivenAWalletAlreadyExistsCalled(string walletName)
         {
-            MongoDbAdapter.CreateWalletCalled(walletName, 0);
+            TestDbAdapter.CreateWalletCalled(walletName, 0);
         }
 
         [When(@"I load the wallet with name ""(.*)""")]
@@ -122,7 +122,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         public void ThenTheDatabaseContainsAWalletWithMyName()
         {
             var walletName = (string) ScenarioContext.Current["wallet name"];
-            var walletFound = MongoDbAdapter.FindWalletCalled(walletName);
+            var walletFound = TestDbAdapter.FindWalletCalled(walletName);
 
             Assert.That(walletFound.Name, Is.EqualTo(walletName));
         }

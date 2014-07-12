@@ -72,19 +72,9 @@ namespace FundTracker.Web.Controllers
             return AddFunds(name, 0 - fundsToRemove);
         }
 
-        public ViewResult AddWithdrawal()
-        {
-            return null;
-        }
-
         public void SetRedirect(string action, string controller, object parameters)
         {
             _redirect = RedirectToAction(action, controller, parameters);
-        }
-
-        public void CreateView(string viewName)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

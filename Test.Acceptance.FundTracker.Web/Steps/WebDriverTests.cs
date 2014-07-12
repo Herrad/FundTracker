@@ -2,6 +2,7 @@ using System.Configuration;
 using Coypu;
 using Coypu.Drivers.Selenium;
 using TechTalk.SpecFlow;
+using Test.Acceptance.FundTracker.Web.Data;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
 {
@@ -27,8 +28,13 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         }
 
         [AfterScenario]
-        public static void TearDownWebDriver()
+        public static void TearDown()
         {
+            if (ScenarioContext.Current.ContainsKey("wallet name"))
+            {
+                TestDbAdapter.RemoveWallet(ScenarioContext.Current["wallet name"].ToString());
+            }
+
             Driver.Dispose();
         }
 

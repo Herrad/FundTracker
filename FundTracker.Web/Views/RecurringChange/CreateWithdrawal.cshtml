@@ -9,8 +9,9 @@
 <h2>Create a recurring withdrawal from <strong>@Model.WalletName</strong></h2>
 
 <form method="POST" action="/RecurringChange/AddNewWithdrawal">
-    <input type="hidden" name="name" min="0" value="@Model.WalletName" />
+    <input type="hidden" name="walletName" min="0" value="@Model.WalletName" />
     <label for="amount">Enter a value to withdraw</label>
     <input type="number" name="amount" class="withdrawal-amount" />
+    <input type="text" name="withdrawalName" class="withdrawal-name" />
     <input type="submit" class="withdrawal-submit" />
 </form>

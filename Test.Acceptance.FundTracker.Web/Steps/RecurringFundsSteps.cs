@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -8,26 +7,39 @@ namespace Test.Acceptance.FundTracker.Web.Steps
     [Binding]
     public class RecurringFundsSteps : WebDriverTests
     {
-        [When(@"I add a recurring withdrawal of (.*)")]
-        public void WhenIAddARecurringWithdrawalOf(decimal withdrawalAmount)
+
+        [When(@"I add the following recurring deposit")]
+        public void WhenIAddTheFollowingRecurringDeposit(Table recurringDepositParameters)
         {
-            var recurringWithdrawal = Driver.FindCss(".recurring.withdrawal");
-            recurringWithdrawal.Click();
+            var recurringDepositToEnter = recurringDepositParameters.Rows[0];
 
-            Driver.FindCss(".withdrawal-amount").SendKeys(withdrawalAmount.ToString(CultureInfo.InvariantCulture));
+            var recurringDeposit = Driver.FindCss(".recurring.deposit");
+            recurringDeposit.Click();
 
-            Driver.FindCss(".withdrawal-submit").Click();
-        }
-
-        [When(@"I add a recurring deposit of (.*)")]
-        public void WhenIAddARecurringDepositOf(decimal depositAmount)
-        {
-            var recurringWithdrawal = Driver.FindCss(".recurring.deposit");
-            recurringWithdrawal.Click();
+            var depositAmount = recurringDepositToEnter["Amount"];
+            var depositName = recurringDepositToEnter["Name"];
 
             Driver.FindCss(".deposit-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            Driver.FindCss(".deposit-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
 
             Driver.FindCss(".deposit-submit").Click();
+        }
+
+        [When(@"I add the following recurring withdrawal")]
+        public void WhenIAddTheFollowingRecurringWithdrawal(Table recurringWithdrawalParameters)
+        {
+            var recurringDepositToEnter = recurringWithdrawalParameters.Rows[0];
+
+            var recurringDeposit = Driver.FindCss(".recurring.withdrawal");
+            recurringDeposit.Click();
+
+            var depositAmount = recurringDepositToEnter["Amount"];
+            var depositName = recurringDepositToEnter["Name"];
+
+            Driver.FindCss(".withdrawal-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            Driver.FindCss(".withdrawal-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+
+            Driver.FindCss(".withdrawal-submit").Click();
         }
 
 

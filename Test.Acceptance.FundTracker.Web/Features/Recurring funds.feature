@@ -9,7 +9,9 @@ Scenario: Adding recurring withdrawal changes
 	| my wallet   | 100.00          |
 	And my wallet has no recurring changes
 	And I am administering this wallet
-	When I add a recurring withdrawal of 50.00
+	When I add the following recurring withdrawal
+	| Name | Amount |
+	| debt | 50     |
 	Then the outgoing total value is 50.00
 	And the amount in the wallet is 50.00
 
@@ -19,6 +21,8 @@ Scenario: Adding recurring deposit changes
 	| my wallet   | 100.00          |
 	And my wallet has no recurring changes
 	And I am administering this wallet
-	When I add a recurring deposit of 50.00
+	When I add the following recurring deposit
+	| Name | Amount |
+	| debt | 50     |
 	Then the incoming total value is 50.00
 	And the amount in the wallet is 150.00

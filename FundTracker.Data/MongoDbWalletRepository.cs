@@ -33,7 +33,7 @@ namespace FundTracker.Data
             return _mongoWalletToWalletMapper.InflateWallet(mongoWallet, mongoRecurringChanges);
         }
 
-        private IEnumerable<MongoRecurringChange> GetAllRecurringChangesFor(MongoWallet mongoWallet)
+        private static IEnumerable<MongoRecurringChange> GetAllRecurringChangesFor(MongoWallet mongoWallet)
         {
             var mongoQuery = Query<MongoRecurringChange>.EQ(mw => mw.WalletId, mongoWallet.Id);
             return GetRecurringChanges().Find(mongoQuery);
@@ -65,12 +65,12 @@ namespace FundTracker.Data
             }
         }
 
-        private bool WalletExists(IWallet wallet)
+        private static bool WalletExists(IWallet wallet)
         {
             return GetMongoWallet(wallet.Identification) != null;
         }
 
-        private MongoWallet GetMongoWallet(WalletIdentification identification)
+        private static MongoWallet GetMongoWallet(WalletIdentification identification)
         {
             var walletName = identification.Name;
             var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);
@@ -78,7 +78,7 @@ namespace FundTracker.Data
             return mongoWallet;
         }
 
-        private void CreateNewWallet(IWallet wallet)
+        private static void CreateNewWallet(IWallet wallet)
         {
             GetWallets().Insert(new MongoWallet
             {
@@ -87,7 +87,7 @@ namespace FundTracker.Data
             });
         }
 
-        private void CreateNewRecurringChange(RecurringChange recurringChange, WalletIdentification targetWalletIdentifier)
+        private static void CreateNewRecurringChange(RecurringChange recurringChange, WalletIdentification targetWalletIdentifier)
         {
             var wallet = GetMongoWallet(targetWalletIdentifier);
 

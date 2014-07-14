@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TestAddRecurringChanges.cs" />
     <Compile Include="Controllers\TestHomeController.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
     <Compile Include="ViewModels\Builders\TestCalendarDayViewModelBuilder.cs" />

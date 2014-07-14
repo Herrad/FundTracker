@@ -1,58 +1,59 @@
-using System.Linq;
 using System.Web.Mvc;
 using FundTracker.Domain;
-using FundTracker.Services;
+using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.BoundModels;
 using FundTracker.Web.ViewModels.Builders;
 
 namespace FundTracker.Web.Controllers
 {
-    public class RecurringChangeController : Controller
+    public class RecurringChangeController : Controller, ICreateRedirects
     {
-        private readonly IProvideWallets _walletService;
         private readonly IBuildRecurringChangeListViewModels _recurringChangeListViewModelBuilder;
+        private readonly IBuildCreateRecurringChangeViewModels _createRecurringChangeViewModelBuilder;
+        private RedirectToRouteResult _redirectResult;
+        private readonly IAddRecurringChanges _addChangeAction;
 
-        public RecurringChangeController(IProvideWallets walletService, IBuildRecurringChangeListViewModels recurringChangeListViewModelBuilder)
+        public RecurringChangeController(IBuildRecurringChangeListViewModels recurringChangeListViewModelBuilder, IBuildCreateRecurringChangeViewModels createRecurringChangeViewModelBuilder, IAddRecurringChanges addChangeAction)
         {
-            _walletService = walletService;
             _recurringChangeListViewModelBuilder = recurringChangeListViewModelBuilder;
+            _createRecurringChangeViewModelBuilder = createRecurringChangeViewModelBuilder;
+            _addChangeAction = addChangeAction;
         }
 
         public ViewResult Display(string walletName)
         {
-            var wallet = _walletService.FindFirstWalletWith(new WalletIdentification(walletName));
-            var recurringChangeListViewModel = _recurringChangeListViewModelBuilder.Build(wallet);
+            var recurringChangeListViewModel = _recurringChangeListViewModelBuilder.Build(walletName);
 
             return View(recurringChangeListViewModel);
         }
 
-        public ViewResult CreateWithdrawal(string walletName)
+        public ViewResult CreateWithdrawal(WalletDay walletDay)
         {
-            return View(new CreateRecurringChangeViewModel(walletName));
+            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName);
+            return View(createRecurringChangeViewModel);
         }
 
-        public ViewResult CreateDeposit(string walletName)
+        public ViewResult CreateDeposit(WalletDay walletDay)
         {
-            return View(new CreateRecurringChangeViewModel(walletName));
+            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName);
+            return View(createRecurringChangeViewModel);
         }
 
         public RedirectToRouteResult AddNewWithdrawal(string walletName, string withdrawalName, decimal amount)
         {
-            return CreateChange(walletName, withdrawalName, 0 - amount);
+            _addChangeAction.Execute(walletName, withdrawalName, 0 - amount, this);
+            return _redirectResult;
         }
 
         public RedirectToRouteResult AddNewDeposit(string walletName, string depositName, decimal amount)
         {
-            return CreateChange(walletName, depositName, amount);
+            _addChangeAction.Execute(walletName, depositName, amount, this);
+            return _redirectResult;
         }
 
-        private RedirectToRouteResult CreateChange(string walletName, string changeName, decimal amount)
+        public void SetRedirect(string action, string controller, object parameters)
         {
-            var walletIdentification = new WalletIdentification(walletName);
-            var wallet = _walletService.FindFirstWalletWith(walletIdentification);
-
-            wallet.CreateChange(new RecurringChange(changeName, amount));
-
-            return RedirectToAction("Display", "Wallet", new {walletName});
+            _redirectResult = RedirectToAction(action, controller, parameters);
         }
     }
 }

@@ -4,6 +4,7 @@ using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.Http;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
@@ -21,7 +22,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             var viewResult = walletController.SuccessfullyCreated(null);
 
             Assert.That(viewResult.ViewName, Is.EqualTo(string.Empty));
@@ -34,7 +35,7 @@ namespace Test.FundTracker.Web.Controllers
 
             
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             
             var viewResult = walletController.SuccessfullyCreated(walletName);
 
@@ -50,7 +51,7 @@ namespace Test.FundTracker.Web.Controllers
 
             
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             
             var result = walletController.CreateWallet(walletName);
 
@@ -76,7 +77,7 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(new WalletIdentification(expectedName)))
                 .Return(MockRepository.GenerateStub<IWallet>());
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
 
 
             var result = walletController.AddFunds(expectedName, fundsToAdd);
@@ -104,7 +105,7 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(new WalletIdentification(name)))
                 .Return(wallet);
 
-            var controller = new WalletController(null, walletProvider, null);
+            var controller = new WalletController(null, walletProvider, null, new DateParser());
 
             controller.AddFunds(name, fundsToAdd);
 
@@ -119,7 +120,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -134,7 +135,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             
 
-            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()));
+            var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), MockRepository.GenerateStub<ICreateWallets>()), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             var result = walletController.CreateWallet(name);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
@@ -154,7 +155,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             var formatWalletsAsViewModels = MockRepository.GenerateStub<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels);
+            var walletController = new WalletController(null, walletProvider, formatWalletsAsViewModels, new DateParser());
             var viewResult = walletController.Display(null, "01-02-03");
 
             Assert.That(viewResult.ViewName, Is.EqualTo("Display"));
@@ -175,7 +176,7 @@ namespace Test.FundTracker.Web.Controllers
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
             walletController.Display(walletName, "01-02-03");
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
@@ -205,7 +206,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
-            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder);
+            var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
             walletController.Display(walletName, "01-02-03 foo blarg foo");
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(

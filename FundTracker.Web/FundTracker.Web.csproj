@@ -107,15 +107,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ActionHelpers\AddChangeAction.cs" />
     <Compile Include="Controllers\ActionHelpers\CreateWalletValidationRules.cs" />
+    <Compile Include="Controllers\ActionHelpers\IAddRecurringChanges.cs" />
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
+    <Compile Include="Controllers\BoundModels\WalletDay.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ICreateViews.cs" />
     <Compile Include="Controllers\IShowTheResultOfAddingFundsToAWallet.cs" />
     <Compile Include="Controllers\IShowTheResultOfCreatingNewWallets.cs" />
     <Compile Include="Controllers\ICreateRedirects.cs" />
     <Compile Include="Controllers\IDisplayWallets.cs" />
+    <Compile Include="Controllers\ParameterParsers\DateParser.cs" />
+    <Compile Include="Controllers\ParameterParsers\IParseDates.cs" />
     <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Controllers\RecurringChangeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -128,7 +133,9 @@
     <Compile Include="Structuremap\StructureMapFundTrackerRegistry.cs" />
     <Compile Include="ViewModels\Builders\CalendarDayViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\CreateRecurringChangeViewModel.cs" />
+    <Compile Include="ViewModels\Builders\CreateRecurringChangeViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\IBuildCalanderDayViewModels.cs" />
+    <Compile Include="ViewModels\Builders\IBuildCreateRecurringChangeViewModels.cs" />
     <Compile Include="ViewModels\Builders\IBuildRecurringChangeListViewModels.cs" />
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\RecurringChangeListViewModelBuilder.cs" />

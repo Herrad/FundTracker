@@ -19,3 +19,14 @@ Scenario: Incoming funds in 5 days
 	When I view my deposits for 5 days ahead
 	Then I can see an entry for "payday"
 
+
+Scenario: Multiple changes on different days
+	Given this wallet exists
+	| Unique Name | Starting Funds |
+	| my wallet   | 250.00         |
+	And I have a deposit of 1000 due in 5 days for "payday"
+	And I have a deposit of 250 due in 2 days for "debt"
+	When I view my deposits for 5 days ahead
+	Then I can see an entry for "payday"
+	And no entry for "debt" is present
+

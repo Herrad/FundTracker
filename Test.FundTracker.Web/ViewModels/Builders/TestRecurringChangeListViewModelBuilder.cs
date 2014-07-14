@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
+using FundTracker.Services;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
@@ -14,6 +15,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         [Test]
         public void Sets_a_list_of_names()
         {
+            const string walletName = "foo wallet";
+
             const string expectedName1 = "foo1";
             const string expectedName2 = "foo2";
             const string expectedName3 = "foo3";
@@ -23,14 +26,18 @@ namespace Test.FundTracker.Web.ViewModels.Builders
                 new RecurringChange(expectedName2, 222m),
                 new RecurringChange(expectedName3, 333m)
             };
-
-            var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
+            var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger
                 .Stub(x => x.RecurringChanges)
                 .Return(recurringChanges);
 
-            var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder();
-            var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(recurringChanger);
+            var walletService = MockRepository.GenerateStub<IProvideWallets>();
+            walletService
+                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Return(recurringChanger);
+
+            var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService);
+            var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName);
 
             Assert.That(recurringChangeListViewModel, Is.Not.Null);
             Assert.That(recurringChangeListViewModel.ChangeNames, Is.Not.Null);

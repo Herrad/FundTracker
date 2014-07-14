@@ -61,5 +61,19 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
             Assert.That(entryExists, "Expected a recurring change called " + expectedEntry);
         }
+
+        [Then(@"no entry for ""(.*)"" is present")]
+        public void ThenNoEntryForIsPresent(string expectedEntry)
+        {
+            var pageBeingViewed = ScenarioContext.Current["page being viewed"];
+            Assert.That(pageBeingViewed, Is.TypeOf<RecurringChangeListPage>());
+
+            var recurringChangeListPage = (RecurringChangeListPage)pageBeingViewed;
+            var entryExists = recurringChangeListPage.HasEntryFor(expectedEntry);
+
+
+            Assert.That(entryExists, Is.False, "Expected not to find a recurring change called " + expectedEntry);
+        }
+
     }
 }

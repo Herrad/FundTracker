@@ -32,8 +32,8 @@ namespace Test.Acceptance.FundTracker.Web.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Adding and removing funds", "In order to keep track of ad hoc transactions\nAs a person with money\nI want to se" +
-                    "e when I\'ve added and remved funds from my wallet", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Adding and removing funds", "In order to keep track of ad hoc transactions\r\nAs a person with money\r\nI want to " +
+                    "see when I\'ve added and remved funds from my wallet", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -113,6 +113,36 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 20
  testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Multiple changes on different days")]
+        public virtual void MultipleChangesOnDifferentDays()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiple changes on different days", ((string[])(null)));
+#line 23
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name",
+                        "Starting Funds"});
+            table3.AddRow(new string[] {
+                        "my wallet",
+                        "250.00"});
+#line 24
+ testRunner.Given("this wallet exists", ((string)(null)), table3, "Given ");
+#line 27
+ testRunner.And("I have a deposit of 1000 due in 5 days for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.And("I have a deposit of 250 due in 2 days for \"debt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+ testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 31
+ testRunner.And("no entry for \"debt\" is present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

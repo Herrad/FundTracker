@@ -1,9 +1,8 @@
-﻿using System;
-using System.Globalization;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 
@@ -15,12 +14,14 @@ namespace FundTracker.Web.Controllers
         private readonly IRedirectBasedOnWalletCreationValidation _createWalletValidation;
         private readonly IProvideWallets _walletProvider;
         private readonly IFormatWalletsAsViewModels _walletViewModelBuilder;
+        private readonly IParseDates _dateParser;
 
-        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder)
+        public WalletController(IRedirectBasedOnWalletCreationValidation createWalletValidation, IProvideWallets walletProvider, IFormatWalletsAsViewModels walletViewModelBuilder, IParseDates dateParser)
         {
             _createWalletValidation = createWalletValidation;
             _walletProvider = walletProvider;
             _walletViewModelBuilder = walletViewModelBuilder;
+            _dateParser = dateParser;
         }
 
         public ViewResult SuccessfullyCreated(string walletName)
@@ -41,22 +42,10 @@ namespace FundTracker.Web.Controllers
         {
             var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
 
-            var selectedDate = SetDateCookie(date);
+            var selectedDate = _dateParser.ParseDateOrUseToday(date);
             var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, selectedDate);
 
             return View("Display", walletViewModel);
-        }
-
-        private DateTime SetDateCookie(string date)
-        {
-            DateTime selectedDate;
-            var couldParse = DateTime.TryParseExact(date, "dd-MM-yy", new DateTimeFormatInfo(), DateTimeStyles.None,
-                out selectedDate);
-            if (!couldParse)
-            {
-                selectedDate = DateTime.Today;
-            }
-            return selectedDate;
         }
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)

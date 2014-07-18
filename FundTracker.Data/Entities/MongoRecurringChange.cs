@@ -9,6 +9,6 @@ namespace FundTracker.Data.Entities
         public decimal Amount { get; set; }
         public ObjectId WalletId { get; set; }
         public string Name { get; set; }
-        public DateTime FirstApplicationDate { get; set; }
+        public string FirstApplicationDate { get; set; }
     }
 }

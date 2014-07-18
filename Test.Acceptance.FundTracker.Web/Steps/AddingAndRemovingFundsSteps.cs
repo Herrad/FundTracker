@@ -12,16 +12,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"I removed (.*) in funds (.*) days ago for ""(.*)""")]
         public void GivenIRemovedInFundsDaysAgoFor(int amountRemoved, int daysSinceRemovalTookPlace, string nameOfRemoval)
         {
-            var changeTimeStamp = DateTime.Now.AddDays(0 - daysSinceRemovalTookPlace);
+            var firstApplicationDate = DateTime.Today.AddDays(0 - daysSinceRemovalTookPlace).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0-amountRemoved, changeTimeStamp);
+            TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0-amountRemoved, firstApplicationDate);
         }
 
         [Given(@"I have a deposit of (.*) due in (.*) days for ""(.*)""")]
         public void GivenIHaveADepositOfDueInDaysFor(int depositAmount, int daysUntilItsDue, string depositName)
         {
-            var depositDueDate = DateTime.Now.AddDays(daysUntilItsDue);
+            var depositDueDate = DateTime.Today.AddDays(daysUntilItsDue).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
             TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate);
@@ -34,7 +34,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var walletName = ScenarioContext.Current["wallet name"].ToString();
             var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
 
-            administerWalletPage = administerWalletPage.ViewFor(DateTime.Now.AddDays(0 - daysFromToday));
+            administerWalletPage = administerWalletPage.ViewFor(DateTime.Today.AddDays(0 - daysFromToday));
             ScenarioContext.Current["page being viewed"] =  administerWalletPage.ViewWithdrawals();
         }
 
@@ -44,7 +44,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var walletName = ScenarioContext.Current["wallet name"].ToString();
             var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
 
-            administerWalletPage = administerWalletPage.ViewFor(DateTime.Now.AddDays(daysAheadOfToday));
+            administerWalletPage = administerWalletPage.ViewFor(DateTime.Today.AddDays(daysAheadOfToday));
             ScenarioContext.Current["page being viewed"] = administerWalletPage.ViewWithdrawals();
         }
 

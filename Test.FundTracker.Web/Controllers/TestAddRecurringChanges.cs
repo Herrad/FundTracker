@@ -1,7 +1,9 @@
+using System;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.ParameterParsers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -23,14 +25,41 @@ namespace Test.FundTracker.Web.Controllers
                 .Stub(x => x.FindFirstWalletWith(walletIdentification))
                 .Return(withdrawalExposer);
 
-            var addChangeAction = new AddChangeAction(walletService);
+            var dateParser = MockRepository.GenerateStub<IParseDates>();
+            var addChangeAction = new AddChangeAction(walletService, dateParser);
 
             const string withdrawalName = "withdrawal for foo";
-            addChangeAction.Execute(walletName, withdrawalName, 123, MockRepository.GenerateStub<ICreateRedirects>());
+            addChangeAction.Execute(walletName, withdrawalName, 123, "date", MockRepository.GenerateStub<ICreateRedirects>());
 
             Assert.That(withdrawalExposer.WithdrawalAdded, Is.Not.Null);
             Assert.That(withdrawalExposer.WithdrawalAdded.Amount, Is.EqualTo(expectedAmountGivenToWallet));
             Assert.That(withdrawalExposer.WithdrawalAdded.Name, Is.EqualTo(withdrawalName));
+        }
+
+        [Test]
+        public void Execute_puts_parsed_date_on_wallet()
+        {
+            const string walletName = "foo wallet";
+            var walletIdentification = new WalletIdentification(walletName);
+
+            var walletService = MockRepository.GenerateStub<IProvideWallets>();
+            var withdrawalExposer = new WithdrawalExposer();
+            walletService
+                .Stub(x => x.FindFirstWalletWith(walletIdentification))
+                .Return(withdrawalExposer);
+
+            const string dateToParse = "date";
+            var parsedDate = new DateTime(1, 2, 3);
+            var dateParser = MockRepository.GenerateStub<IParseDates>();
+            dateParser
+                .Stub(x => x.ParseDateOrUseToday(dateToParse))
+                .Return(parsedDate);
+            var addChangeAction = new AddChangeAction(walletService, dateParser);
+
+            const string withdrawalName = "withdrawal for foo";
+            addChangeAction.Execute(walletName, withdrawalName, 123, dateToParse, MockRepository.GenerateStub<ICreateRedirects>());
+
+            Assert.That(withdrawalExposer.WithdrawalAdded.StartDate, Is.EqualTo(parsedDate));
         }
     }
 }

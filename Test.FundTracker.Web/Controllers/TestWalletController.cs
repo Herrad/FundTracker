@@ -177,13 +177,13 @@ namespace Test.FundTracker.Web.Controllers
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
-            walletController.Display(walletName, "01-02-03");
+            walletController.Display(walletName, "2001-02-03");
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
                 x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(new DateTime(2003, 2, 1)));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(new DateTime(2001, 2, 3)));
 
             walletViewModelBuilder
                 .AssertWasCalled(
@@ -191,8 +191,10 @@ namespace Test.FundTracker.Web.Controllers
                 c => c.Repeat.Once());
         }
 
-        [Test]
-        public void Date_defaults_to_today_when_date_cannot_be_parsed()
+        [TestCase("01-02-03")]
+        [TestCase("01-02-03 foo blarg foo")]
+        [TestCase("01 jun 2013")]
+        public void Date_defaults_to_today_when_date_cannot_be_parsed(string dateStringToVerify)
         {
             
 
@@ -207,7 +209,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
 
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
-            walletController.Display(walletName, "01-02-03 foo blarg foo");
+            walletController.Display(walletName, dateStringToVerify);
 
             var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
                 x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];

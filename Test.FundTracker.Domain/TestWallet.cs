@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FundTracker.Domain;
 using FundTracker.Domain.Events;
 using NUnit.Framework;
@@ -62,7 +63,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, recurringChanges);
 
-            var recurringChange = new RecurringChange("foo", 123);
+            var recurringChange = new RecurringChange("foo", 123, new DateTime(1, 2, 3));
             wallet.CreateChange(recurringChange);
 
             Assert.That(recurringChanges.Contains(recurringChange));
@@ -75,7 +76,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 100, recurringChanges);
 
-            var recurringChange = new RecurringChange("foo", -25);
+            var recurringChange = new RecurringChange("foo", -25, new DateTime(1, 2, 3));
             wallet.CreateChange(recurringChange);
 
             Assert.That(wallet.AvailableFunds, Is.EqualTo(75));
@@ -86,13 +87,14 @@ namespace Test.FundTracker.Domain
         {
             const string expectedChangeName = "foo";
             const int expectedAmount = 123;
+            var expectedStartDate = new DateTime(1, 2, 3);
 
             var eventBus = new LastEventPublishedReporter();
             var recurringChanges = new List<RecurringChange>();
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, 0, recurringChanges);
 
-            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount);
+            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, expectedStartDate);
             wallet.CreateChange(recurringChange);
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());
@@ -102,6 +104,7 @@ namespace Test.FundTracker.Domain
             Assert.That(recurringChangeCreated.Change, Is.Not.Null);
             Assert.That(recurringChangeCreated.Change.Amount, Is.EqualTo(expectedAmount));
             Assert.That(recurringChangeCreated.Change.Name, Is.EqualTo(expectedChangeName));
+            Assert.That(recurringChangeCreated.Change.StartDate, Is.EqualTo(expectedStartDate));
         }
     }
 }

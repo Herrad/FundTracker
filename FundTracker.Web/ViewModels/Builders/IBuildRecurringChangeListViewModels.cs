@@ -2,6 +2,6 @@
 {
     public interface IBuildRecurringChangeListViewModels
     {
-        RecurringChangeListViewModel Build(string walletName);
+        RecurringChangeListViewModel Build(string walletName, string date);
     }
 }

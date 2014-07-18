@@ -12,9 +12,9 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [BeforeScenario]
         public static void ConfigureWebDriver()
         {
-            var appHost = ConfigurationManager.AppSettings["host"];
+            var appHost = ConfigurationManager.AppSettings["host"] ?? "localhost";
 
-            var portNumber = int.Parse(ConfigurationManager.AppSettings["port"]);
+            var portNumber = int.Parse(ConfigurationManager.AppSettings["port"] ?? "53463");
 
             var sessionConfiguration = new SessionConfiguration
             {

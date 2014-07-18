@@ -14,7 +14,7 @@
             <a class="current-month selected">@day</a>
             continue;
         }
-        <a class="current-month" href="/Wallet/Display/?walletName=@Model.WalletName&date=@day-@Model.SelectedDate.ToString("MM")-@Model.SelectedDate.ToString("yy")">@day</a>
+        <a class="current-month" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.ToString("yyyy")-@Model.SelectedDate.ToString("MM")-@day">@day</a>
     }
     @foreach (var day in Model.DaysInNextMonth)
     {

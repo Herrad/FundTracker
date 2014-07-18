@@ -94,11 +94,13 @@ namespace FundTracker.Data
             GetRecurringChanges().Insert(new MongoRecurringChange
             {
                 WalletId = wallet.Id,
-                Amount = recurringChange.Amount
+                Amount = recurringChange.Amount,
+                Name = recurringChange.Name,
+                FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd")
             });
         }
 
-        private void UpdateExistingWallet(IWallet wallet)
+        private static void UpdateExistingWallet(IWallet wallet)
         {
             var walletName = wallet.Identification.Name;
             var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);

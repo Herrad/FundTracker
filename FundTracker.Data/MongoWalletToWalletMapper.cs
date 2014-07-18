@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Data.Entities;
@@ -25,7 +26,7 @@ namespace FundTracker.Data
 
         private static RecurringChange CreateRecurringChange(MongoRecurringChange recurringChange)
         {
-            return new RecurringChange(recurringChange.Name, recurringChange.Amount);
+            return new RecurringChange(recurringChange.Name, recurringChange.Amount, DateTime.Parse(recurringChange.FirstApplicationDate));
         }
     }
 }

@@ -15,11 +15,11 @@
 <div class="wallet-info">
     <h2 class="wallet-name">@Model.Name</h2>
     <div class="funds">
-        <a href="/RecurringChange/CreateDeposit/?walletName=@Model.Name" class="recurring deposit">Add a recurring deposit</a>
+        <a href="/RecurringChange/CreateDeposit/?walletName=@Model.Name&date=@Model.DayViewModel.SelectedDate.ToString("yyyy-MM-dd")" class="recurring deposit">Add a recurring deposit</a>
         @{Html.RenderPartial("_RecurringAmount", Model.DepositAmountViewModel);}
         <div class="available-funds">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></div>
         @{Html.RenderPartial("_RecurringAmount", Model.WithdrawalAmountViewModel);}
-        <a href="/RecurringChange/CreateWithdrawal/?walletName=@Model.Name" class="recurring withdrawal">Add a recurring withdrawal</a>
+        <a href="/RecurringChange/CreateWithdrawal/?walletName=@Model.Name&date=@Model.DayViewModel.SelectedDate.ToString("yyyy-MM-dd")" class="recurring withdrawal">Add a recurring withdrawal</a>
     </div>
 </div>
 <div class="cl"></div>

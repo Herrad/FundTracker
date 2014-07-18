@@ -11,7 +11,13 @@ namespace Test.Acceptance.FundTracker.Web.Data
 {
     public class TestDbAdapter
     {
-        private static readonly MongoClient Client = new MongoClient(ConfigurationManager.AppSettings["MongoConnectionString"]);
+        private static readonly MongoClient Client = GetDefaultMongoClient();
+
+        private static MongoClient GetDefaultMongoClient()
+        {
+            var connectionString = ConfigurationManager.AppSettings["MongoConnectionString"] ?? "mongodb://developer:creat10n@ds053109.mongolab.com:53109/appharbor_e752f405-e12c-4b27-ac06-25d741636009";
+            return new MongoClient(connectionString);
+        }
 
         public static void CreateWalletCalled(string walletName, decimal availableFunds)
         {
@@ -27,7 +33,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
             walletsCollection.Insert(walletToInsert);
         }
 
-        public static void CreateRecurringChange(string walletName, string nameOfRemoval, int changeAmount, DateTime firstApplicationDate)
+        public static void CreateRecurringChange(string walletName, string nameOfRemoval, int changeAmount, string firstApplicationDate)
         {
             var mongoDatabase = GetMongoDatabase();
             var recurringChanges = mongoDatabase.GetCollection<MongoRecurringChange>("RecurringChanges");
@@ -82,7 +88,8 @@ namespace Test.Acceptance.FundTracker.Web.Data
         private static MongoDatabase GetMongoDatabase()
         {
             var mongoServer = Client.GetServer();
-            var mongoDatabase = mongoServer.GetDatabase(ConfigurationManager.AppSettings["DatabaseName"]);
+            var databaseName = ConfigurationManager.AppSettings["DatabaseName"] ?? "appharbor_e752f405-e12c-4b27-ac06-25d741636009";
+            var mongoDatabase = mongoServer.GetDatabase(databaseName);
             return mongoDatabase;
         }
     }

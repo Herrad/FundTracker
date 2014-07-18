@@ -220,6 +220,43 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Changes repeat according to rules")]
+        public virtual void ChangesRepeatAccordingToRules()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes repeat according to rules", ((string[])(null)));
+#line 61
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name",
+                        "Starting Funds"});
+            table8.AddRow(new string[] {
+                        "my wallet",
+                        "250.00"});
+#line 62
+ testRunner.Given("this wallet exists", ((string)(null)), table8, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Amount",
+                        "Start Date",
+                        "Repetition Rule"});
+            table9.AddRow(new string[] {
+                        "payday",
+                        "1000",
+                        "2014-07-01",
+                        "Every week"});
+#line 65
+ testRunner.And("the following recurring deposit exists", ((string)(null)), table9, "And ");
+#line 68
+ testRunner.When("I view my deposits for \"2014-07-08\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 69
+ testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

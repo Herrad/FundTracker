@@ -53,9 +53,11 @@
   <ItemGroup>
     <Compile Include="Entities\MongoRecurringChange.cs" />
     <Compile Include="Entities\MongoWallet.cs" />
-    <Compile Include="IMapMongoWalletsToWallets.cs" />
+    <Compile Include="Mappers\IMapMongoRecurringChangesToRecurringChanges.cs" />
+    <Compile Include="Mappers\IMapMongoWalletsToWallets.cs" />
+    <Compile Include="Mappers\MongoRecurringChangeToRecurringChangeMapper.cs" />
+    <Compile Include="Mappers\MongoWalletToWalletMapper.cs" />
     <Compile Include="MongoDbWalletRepository.cs" />
-    <Compile Include="MongoWalletToWalletMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FundTracker.Data.Entities;
 using FundTracker.Domain;
 
-namespace FundTracker.Data
+namespace FundTracker.Data.Mappers
 {
     public interface IMapMongoWalletsToWallets
     {

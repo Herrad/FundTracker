@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using FundTracker.Data.Entities;
+using FundTracker.Data.Mappers;
 using FundTracker.Domain;
 using FundTracker.Domain.Events;
 using FundTracker.Services;

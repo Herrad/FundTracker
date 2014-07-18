@@ -56,3 +56,14 @@ Scenario: Multiple changes on different days
 	When I view my deposits for 5 days ahead
 	Then I can see an entry for "payday"
 	And no entry for "debt" is present
+
+	
+Scenario: Changes repeat according to rules
+	Given this wallet exists
+	| Unique Name | Starting Funds |
+	| my wallet   | 250.00         |
+	And the following recurring deposit exists
+	| Name   | Amount | Start Date | Repetition Rule |
+	| payday | 1000   | 2014-07-01 | Every week      |
+	When I view my deposits for "2014-07-08" 
+	Then I can see an entry for "payday"

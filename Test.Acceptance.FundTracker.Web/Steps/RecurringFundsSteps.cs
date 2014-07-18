@@ -29,6 +29,19 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate);
         }
 
+        [Given(@"the following recurring deposit exists")]
+        public void GivenTheFollowingRecurringDepositExists(Table table)
+        {
+            var tableRow = table.Rows[0];
+            var name = tableRow["Name"];
+            var amount = int.Parse(tableRow["Amount"]);
+            var startDate = tableRow["Start Date"];
+            var repetitionRule = tableRow["Repetition Rule"];
+
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            TestDbAdapter.CreateRecurringChange(walletName, name, amount, startDate);
+        }
+
 
         [When(@"I view my withdrawals for (.*) days ago")]
         public void WhenIViewMyWithdrawalsForDaysAgo(int daysFromToday)
@@ -83,6 +96,17 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
             Driver.FindCss(".withdrawal-submit").Click();
         }
+
+        [When(@"I view my deposits for ""(.*)""")]
+        public void WhenIViewMyDepositsFor(string targetDate)
+        {
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+
+            administerWalletPage = administerWalletPage.ViewFor(DateTime.Parse(targetDate));
+            ScenarioContext.Current["page being viewed"] = administerWalletPage.ViewDeposits();
+        }
+
 
 
         [Then(@"I can see an entry for ""(.*)""")]

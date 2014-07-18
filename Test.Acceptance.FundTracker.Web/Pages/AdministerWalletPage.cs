@@ -81,5 +81,11 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             WebDriverTests.Driver.FindLink("Total Withdrawals").Click();
             return new RecurringChangeListPage();
         }
+
+        public RecurringChangeListPage ViewDeposits()
+        {
+            WebDriverTests.Driver.FindLink("Total Deposits").Click();
+            return new RecurringChangeListPage();
+        }
     }
 }

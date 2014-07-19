@@ -38,15 +38,17 @@ namespace FundTracker.Web.Controllers
             return View(createRecurringChangeViewModel);
         }
 
-        public RedirectToRouteResult AddNewWithdrawal(WalletDay walletDay, string withdrawalName, decimal amount)
+        public RedirectToRouteResult AddNewWithdrawal(WalletDay walletDay, AddedChange addedChange)
         {
-            _addChangeAction.Execute(walletDay.WalletName, withdrawalName, 0 - amount, walletDay.Date, this);
+            addedChange.Amount = 0 - addedChange.Amount;
+
+            _addChangeAction.Execute(walletDay, addedChange, this);
             return _redirectResult;
         }
 
-        public RedirectToRouteResult AddNewDeposit(WalletDay walletDay, string depositName, decimal amount)
+        public RedirectToRouteResult AddNewDeposit(WalletDay walletDay, AddedChange addedChange)
         {
-            _addChangeAction.Execute(walletDay.WalletName, depositName, amount, walletDay.Date, this);
+            _addChangeAction.Execute(walletDay, addedChange, this);
             return _redirectResult;
         }
 

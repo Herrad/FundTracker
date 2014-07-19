@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B1D865D6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundTracker.Data", "FundTracker.Data\FundTracker.Data.csproj", "{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FundTracker.Data", "Test.FundTracker.Data\Test.FundTracker.Data.csproj", "{3D198B70-2087-471A-B951-24F7B9B6E005}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D198B70-2087-471A-B951-24F7B9B6E005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D198B70-2087-471A-B951-24F7B9B6E005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D198B70-2087-471A-B951-24F7B9B6E005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D198B70-2087-471A-B951-24F7B9B6E005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,5 +87,6 @@ Global
 		{B8995B49-9763-415E-BDDE-9D23114824BE} = {E089DF01-DB88-4AB3-91F0-5510775E339E}
 		{9FD9115E-79B6-443E-A1FB-B0023E7A8B70} = {B1D865D6-D3DE-49C1-BCAB-B3C2E90E0BE2}
 		{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D} = {E089DF01-DB88-4AB3-91F0-5510775E339E}
+		{3D198B70-2087-471A-B951-24F7B9B6E005} = {B1D865D6-D3DE-49C1-BCAB-B3C2E90E0BE2}
 	EndGlobalSection
 EndGlobal

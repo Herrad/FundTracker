@@ -25,9 +25,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var startDate = new DateTime(1, 2 ,3);
             var recurringChanges = new List<RecurringChange>
             {
-                new RecurringChange(expectedName1, 111m, startDate),
-                new RecurringChange(expectedName2, 222m, startDate),
-                new RecurringChange(expectedName3, 333m, startDate)
+                new RecurringChange(expectedName1, 111m, startDate, null),
+                new RecurringChange(expectedName2, 222m, startDate, null),
+                new RecurringChange(expectedName3, 333m, startDate, null)
             };
             var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger
@@ -69,9 +69,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var recurringChanges = new List<RecurringChange>
             {
-                new RecurringChange(expectedName1, 111m, startDate),
-                new RecurringChange(expectedName2, 222m, startDate),
-                new RecurringChange("foo3", 333m, new DateTime(4, 5, 6))
+                new RecurringChange(expectedName1, 111m, startDate, null),
+                new RecurringChange(expectedName2, 222m, startDate, null),
+                new RecurringChange("foo3", 333m, new DateTime(4, 5, 6), null)
             };
             var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger

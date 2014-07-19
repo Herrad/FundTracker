@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LastEventPublishedReporter.cs" />
+    <Compile Include="RecurranceRules\TestRecurranceSpecifications.cs" />
     <Compile Include="TestWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestWalletCreation.cs" />

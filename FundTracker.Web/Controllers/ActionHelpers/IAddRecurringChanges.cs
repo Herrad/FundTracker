@@ -1,7 +1,9 @@
+using FundTracker.Web.Controllers.BoundModels;
+
 namespace FundTracker.Web.Controllers.ActionHelpers
 {
     public interface IAddRecurringChanges
     {
-        void Execute(string walletName, string changeName, decimal amount, string date, ICreateRedirects redirecter);
+        void Execute(WalletDay walletDay, AddedChange addedChange, ICreateRedirects redirecter);
     }
 }

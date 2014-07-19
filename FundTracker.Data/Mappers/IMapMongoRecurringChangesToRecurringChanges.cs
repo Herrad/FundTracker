@@ -5,6 +5,6 @@ namespace FundTracker.Data.Mappers
 {
     public interface IMapMongoRecurringChangesToRecurringChanges
     {
-        RecurringChange CreateRecurringChange(MongoRecurringChange recurringChange);
+        RecurringChange Map(MongoRecurringChange recurringChange);
     }
 }

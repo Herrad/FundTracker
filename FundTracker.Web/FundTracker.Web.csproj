@@ -112,6 +112,7 @@
     <Compile Include="Controllers\ActionHelpers\IAddRecurringChanges.cs" />
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
+    <Compile Include="Controllers\BoundModels\AddedChange.cs" />
     <Compile Include="Controllers\BoundModels\WalletDay.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ICreateViews.cs" />

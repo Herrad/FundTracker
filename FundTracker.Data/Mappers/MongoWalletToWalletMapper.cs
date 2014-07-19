@@ -20,7 +20,7 @@ namespace FundTracker.Data.Mappers
         public IWallet InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges)
         {
             var walletIdentification = new WalletIdentification(mongoWallet.Name);
-            var recurringChanges = mongoRecurringChanges.Select(_mongoRecurringChangeToRecurringChangeMapper.CreateRecurringChange).ToList();
+            var recurringChanges = mongoRecurringChanges.Select(_mongoRecurringChangeToRecurringChangeMapper.Map).ToList();
             var wallet = new Wallet(_eventBus, walletIdentification, mongoWallet.AvailableFunds, recurringChanges);
             return wallet;
         }

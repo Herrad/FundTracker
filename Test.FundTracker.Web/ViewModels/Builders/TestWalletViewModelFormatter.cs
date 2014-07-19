@@ -34,7 +34,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
-            wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3)));
+            wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3), null));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
 
@@ -50,9 +50,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
-            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3)));
-            wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3)));
-            wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3)));
+            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3), null));
+            wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3), null));
+            wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3), null));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
 
@@ -68,7 +68,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new EventSwallower(), walletIdentification, 0, new List<RecurringChange>());
-            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3)));
+            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3), null));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
 
@@ -84,7 +84,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
-            wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3)));
+            wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3), null));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
 
@@ -100,9 +100,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
-            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3)));
-            wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3)));
-            wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3)));
+            wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3), null));
+            wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3), null));
+            wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3), null));
 
             var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
 

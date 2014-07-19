@@ -1,11 +1,15 @@
 using System;
+using FundTracker.Domain.RecurranceRules;
 
 namespace FundTracker.Domain
 {
     public class RecurringChange
     {
-        public RecurringChange(string name, decimal amount, DateTime startDate)
+        private readonly IDecideWhenRecurringChangesOccur _recurranceSpecification;
+
+        public RecurringChange(string name, decimal amount, DateTime startDate, IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
+            _recurranceSpecification = recurranceSpecification;
             StartDate = startDate;
             Name = name;
             Amount = amount;
@@ -15,5 +19,10 @@ namespace FundTracker.Domain
         public decimal Amount { get; private set; }
 
         public DateTime StartDate { get; private set; }
+
+        public bool AppliesTo(DateTime targetDate)
+        {
+            return _recurranceSpecification.IsSpecifiedOn(targetDate);
+        }
     }
 }

@@ -1,5 +1,8 @@
+using System;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
+using FundTracker.Web.Controllers.BoundModels;
 using FundTracker.Web.Controllers.ParameterParsers;
 
 namespace FundTracker.Web.Controllers.ActionHelpers
@@ -8,22 +11,26 @@ namespace FundTracker.Web.Controllers.ActionHelpers
     {
         private readonly IProvideWallets _walletService;
         private readonly IParseDates _dateParser;
+        private readonly IBuildRecurranceSpecifications _recurranceSpecificationFactory;
 
-        public AddChangeAction(IProvideWallets walletService, IParseDates dateParser)
+        public AddChangeAction(IProvideWallets walletService, IParseDates dateParser, IBuildRecurranceSpecifications recurranceSpecificationFactory)
         {
             _walletService = walletService;
             _dateParser = dateParser;
+            _recurranceSpecificationFactory = recurranceSpecificationFactory;
         }
 
-        public void Execute(string walletName, string changeName, decimal amount, string date, ICreateRedirects redirecter)
+        public void Execute(WalletDay walletDay, AddedChange addedChange, ICreateRedirects redirecter)
         {
-            var walletIdentification = new WalletIdentification(walletName);
+            var walletIdentification = new WalletIdentification(walletDay.WalletName);
             var wallet = _walletService.FindFirstWalletWith(walletIdentification);
 
-            var parsedDate = _dateParser.ParseDateOrUseToday(date);
-            wallet.CreateChange(new RecurringChange(changeName, amount, parsedDate));
+            var firstApplicableDate = _dateParser.ParseDateOrUseToday(walletDay.Date);
+            var recurranceSpecification = _recurranceSpecificationFactory.Build(addedChange.RecurranceRule, firstApplicableDate);
 
-            redirecter.SetRedirect("Display", "Wallet", new { walletName });
+            wallet.CreateChange(new RecurringChange(addedChange.Name, addedChange.Amount, firstApplicableDate, recurranceSpecification));
+
+            redirecter.SetRedirect("Display", "Wallet", new { walletDay.WalletName });
         }
     }
 }

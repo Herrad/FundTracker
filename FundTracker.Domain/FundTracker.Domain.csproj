@@ -49,6 +49,11 @@
     <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="IWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurranceRules\IBuildRecurranceSpecifications.cs" />
+    <Compile Include="RecurranceRules\IDecideWhenRecurringChangesOccur.cs" />
+    <Compile Include="RecurranceRules\OneShotRule.cs" />
+    <Compile Include="RecurranceRules\RecurranceSpecificationFactory.cs" />
+    <Compile Include="RecurranceRules\WeeklyRule.cs" />
     <Compile Include="RecurringChange.cs" />
     <Compile Include="Wallet.cs" />
     <Compile Include="WalletBuilder.cs" />

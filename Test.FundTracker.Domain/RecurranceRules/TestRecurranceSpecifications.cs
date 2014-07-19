@@ -20,6 +20,19 @@ namespace Test.FundTracker.Domain.RecurranceRules
         }
 
         [Test]
+        public void Just_today_applies_to_today_only()
+        {
+            
+            var firstDate = DateTime.Today;
+
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Just today", firstDate);
+
+            Assert.That(recurranceRule, Is.Not.Null);
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(1)), Is.False);
+        }
+
+        [Test]
         public void Every_week_is_a_rule_applicable_the_same_day_every_week()
         {
             var firstDate = new DateTime(2014, 07, 19);

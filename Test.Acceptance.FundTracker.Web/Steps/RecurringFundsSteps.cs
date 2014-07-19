@@ -17,7 +17,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var firstApplicationDate = DateTime.Today.AddDays(0 - daysSinceRemovalTookPlace).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0 - amountRemoved, firstApplicationDate);
+            TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0 - amountRemoved, firstApplicationDate, "Just today");
         }
 
         [Given(@"I have a deposit of (.*) due in (.*) days for ""(.*)""")]
@@ -26,7 +26,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var depositDueDate = DateTime.Today.AddDays(daysUntilItsDue).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate);
+            TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate, "Just today");
         }
 
         [Given(@"the following recurring deposit exists")]
@@ -39,7 +39,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var repetitionRule = tableRow["Repetition Rule"];
 
             var walletName = ScenarioContext.Current["wallet name"].ToString();
-            TestDbAdapter.CreateRecurringChange(walletName, name, amount, startDate);
+            TestDbAdapter.CreateRecurringChange(walletName, name, amount, startDate, repetitionRule);
         }
 
 

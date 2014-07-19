@@ -22,7 +22,7 @@ namespace FundTracker.Web.ViewModels.Builders
             
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
 
-            var changeNames = wallet.RecurringChanges.Where(x => x.StartDate == selectedDate).Select(x => x.Name);
+            var changeNames = wallet.RecurringChanges.Where(x => x.AppliesTo(selectedDate)).Select(x => x.Name);
 
             return new RecurringChangeListViewModel(changeNames);
         }

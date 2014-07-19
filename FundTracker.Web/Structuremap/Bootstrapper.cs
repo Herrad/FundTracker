@@ -2,6 +2,7 @@
 using FundTracker.Data;
 using FundTracker.Data.Mappers;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
 using MicroEvent;
@@ -29,6 +30,8 @@ namespace FundTracker.Web.Structuremap
                     x.For<ISaveWallets>().Use<MongoDbWalletRepository>();
                     x.For<IKnowAboutWallets>().Use<MongoDbWalletRepository>();
                     x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
+                    x.For<IMapMongoRecurringChangesToRecurringChanges>().Use<MongoRecurringChangeToRecurringChangeMapper>();
+                    x.For<IBuildRecurranceSpecifications>().Use<RecurranceSpecificationFactory>();
                     x.For<IReceivePublishedEvents>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<IReadSubscriptions>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<Subscription>().OnCreationForAll(eventBus.Subscribe);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.ViewModels;
@@ -58,7 +59,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         }
 
         [Test]
-        public void Only_shows_Changes_for_selected_date()
+        public void Only_shows_Changes_where_rule_applies()
         {
             const string walletName = "foo wallet";
             const string walletDate = "foo date";
@@ -69,9 +70,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var recurringChanges = new List<RecurringChange>
             {
-                new RecurringChange(expectedName1, 111m, startDate, null),
-                new RecurringChange(expectedName2, 222m, startDate, null),
-                new RecurringChange("foo3", 333m, new DateTime(4, 5, 6), null)
+                new RecurringChange(expectedName1, 111m, startDate, new OneShotRule(startDate)),
+                new RecurringChange(expectedName2, 222m, startDate, new OneShotRule(startDate)),
+                new RecurringChange("foo3", 333m, new DateTime(4, 5, 6), new OneShotRule(startDate.AddDays(1)))
             };
             var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger

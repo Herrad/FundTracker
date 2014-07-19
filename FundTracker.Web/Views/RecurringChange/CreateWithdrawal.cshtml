@@ -13,6 +13,10 @@
     <input type="hidden" name="date" value="@Model.SelectedDate" />
     <label for="amount">Enter a value to withdraw</label>
     <input type="number" name="amount" class="withdrawal-amount" />
-    <input type="text" name="withdrawalName" class="withdrawal-name" />
+    <input type="text" name="changeName" class="withdrawal-name" />
+    <select name="recurranceRule" class="withdrawal-rule">
+        <option value="Just today" selected="selected">Just today</option>
+        <option value="Every week">Once a week</option>
+    </select>
     <input type="submit" class="withdrawal-submit" />
 </form>

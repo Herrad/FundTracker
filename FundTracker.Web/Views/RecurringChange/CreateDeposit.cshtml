@@ -13,6 +13,10 @@
     <input type="hidden" name="date" value="@Model.SelectedDate"/>
     <label for="amount">Enter a value to deposit</label>
     <input type="number" name="amount" class="deposit-amount" />
-    <input type="text" name="depositName" class="deposit-name" />
+    <input type="text" name="changeName" class="deposit-name" />
+    <select name="recurranceRule" class="deposit-rule">
+        <option value="Just today" selected="selected">Just today</option>
+        <option value="Every week">Once a week</option>
+    </select>
     <input type="submit" class="deposit-submit" />
 </form>

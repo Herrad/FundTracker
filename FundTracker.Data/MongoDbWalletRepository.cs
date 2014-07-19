@@ -97,7 +97,8 @@ namespace FundTracker.Data
                 WalletId = wallet.Id,
                 Amount = recurringChange.Amount,
                 Name = recurringChange.Name,
-                FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd")
+                FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
+                RecurranceRule = recurringChange.RuleName()
             });
         }
 

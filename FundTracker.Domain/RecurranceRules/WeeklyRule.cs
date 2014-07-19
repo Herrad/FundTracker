@@ -15,5 +15,7 @@ namespace FundTracker.Domain.RecurranceRules
         {
             return targetDate.DayOfWeek == _firstApplicableDate.DayOfWeek;
         }
+
+        public string Name { get { return "Every week"; } }
     }
 }

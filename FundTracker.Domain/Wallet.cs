@@ -28,7 +28,6 @@ namespace FundTracker.Domain
 
         public void CreateChange(RecurringChange recurringChange)
         {
-            RecurringChanges.Add(recurringChange);
             AddFunds(recurringChange.Amount);
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }

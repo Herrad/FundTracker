@@ -15,5 +15,7 @@ namespace FundTracker.Domain.RecurranceRules
         {
             return _dateToApplyTo == targetDate;
         }
+
+        public string Name { get { return "Just today"; } }
     }
 }

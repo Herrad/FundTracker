@@ -10,8 +10,8 @@
 
 <h2>Changes</h2>
 <ul>
-    @foreach (var changeName in Model.RecurringChangeViewModels)
+    @foreach (var change in Model.RecurringChangeViewModels)
     {
-        <li>@changeName</li>
+        <li>@change.Name: £@change.Amount</li>
     }
 </ul>

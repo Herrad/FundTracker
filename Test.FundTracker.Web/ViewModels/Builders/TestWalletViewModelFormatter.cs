@@ -115,5 +115,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             Assert.That(result.DepositAmountViewModel.PositiveTotal, Is.EqualTo(100m));
         }
+
+
     }
 }

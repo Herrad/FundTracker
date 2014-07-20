@@ -14,13 +14,13 @@ namespace Test.FundTracker.Web.ViewModels.Builders
     public class TestRecurringChangeListViewModelBuilder
     {
         [Test]
-        public void Sets_a_list_of_names()
+        public void Sets_a_list_of_names_and_amounts()
         {
             const string walletName = "foo wallet";
 
-            var expectedChange1 = new RecurringChange("foo1", 0, DateTime.Today, null);
-            var expectedChange2 = new RecurringChange("foo2", 0, DateTime.Today, null);
-            var expectedChange3 = new RecurringChange("foo3", 0, DateTime.Today, null);
+            var expectedChange1 = new RecurringChange("foo1", 1, DateTime.Today, null);
+            var expectedChange2 = new RecurringChange("foo2", 2, DateTime.Today, null);
+            var expectedChange3 = new RecurringChange("foo3", 3, DateTime.Today, null);
 
             var startDate = new DateTime(1, 2 ,3);
             var recurringChanges = new List<RecurringChange>
@@ -52,9 +52,15 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(3));
+
             Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[0].Amount, Is.EqualTo(expectedChange1.Amount));
+
             Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[1].Amount, Is.EqualTo(expectedChange2.Amount));
+
             Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.Name));
+            Assert.That(changeNames[2].Amount, Is.EqualTo(expectedChange3.Amount));
         }
 
         [Test]

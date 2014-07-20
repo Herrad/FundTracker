@@ -1,17 +1,28 @@
 ﻿@model FundTracker.Web.ViewModels.WalletViewModel
 <div class="wallet-input">
-    <form method="POST" action="/Wallet/AddFunds">
-        <input type="hidden" name="walletName" value="@Model.Name" />
-        <input type="hidden" name="date" value="@Model.DayViewModel.SelectedDate" />
-        <label for="fundsToAdd">Funds to add</label>
-        <input type="number" name="fundsToAdd" class="funds-to-add"  value="0" min="0" />
-        <input type="submit" name="submit-add" class="submit-add fund-submit"value="Add Funds"/>
-    </form>
-    <form method="POST" action="/Wallet/RemoveFunds">
-        <input type="hidden" name="walletName" value="@Model.Name" />
-        <input type="hidden" name="date" value="@Model.DayViewModel.SelectedDate" />
-        <label for="fundsToRemove">Funds to remove</label>
-        <input type="number" name="fundsToRemove" class="funds-to-remove" value="0" min="0"/>
-        <input type="submit" name="submit-remove" class="submit-remove fund-submit" value="Remove Funds" />
-    </form>
+    <div class="add">
+        <h3>Deposit now</h3>
+        <form method="POST" action="/Wallet/AddFunds">
+            <input type="hidden" name="walletName" value="@Model.Name" />
+            <input type="hidden" name="date" value="@Model.DayViewModel.SelectedDate" />
+            <label for="amount">Funds to add</label>
+            <input type="number" name="amount" class="funds-to-add" value="0" min="0" />
+            <label for="changeName">Description</label>
+            <input type="text" name="changeName" />
+            <input type="submit" name="submit-add" class="submit-add fund-submit" value="Add Funds" />
+        </form>
+    </div>
+    
+    <div class="remove">
+        <h3>Withdraw now</h3>
+        <form method="POST" action="/Wallet/RemoveFunds">
+            <input type="hidden" name="walletName" value="@Model.Name" />
+            <input type="hidden" name="date" value="@Model.DayViewModel.SelectedDate" />
+            <label for="amount">Funds to remove</label>
+            <input type="number" name="amount" class="funds-to-remove" value="0" min="0" />
+            <label for="changeName">Description</label>
+            <input type="text" name="changeName" />
+            <input type="submit" name="submit-remove" class="submit-remove fund-submit" value="Remove Funds" />
+        </form>
+    </div>
 </div>

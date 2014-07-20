@@ -78,7 +78,7 @@ h2{margin-bottom: 20px;}
     .wallet-info .recurring-amount{ display: none;}
     .wallet-info .recurring-amount.limited { display: inherit;}
 }
-@media(max-device-width: 1024px) {
+@media(min-device-width: 1024px) {
     .wallet-info .recurring-amount.limited { display: none;}
 }
 @media(max-device-width: 800px) {
@@ -87,10 +87,14 @@ h2{margin-bottom: 20px;}
 }
    
 
-.wallet-input { width: 400px;margin:20px auto;}
-    .wallet-input form label  { float: left;width: 25%;}
-    .wallet-input form input { float: left;width: 35%;}
-    .wallet-input form .fund-submit { float: left;width: 35%;}
+.wallet-input { margin:50px 0 0 20px;}
+    .wallet-input div { float: left; width: 400px;}
+        .wallet-input div.remove{ float: right; padding-right: 275px;}
+        .wallet-input div.add{ padding-left: 275px;}
+    .wallet-input form { float: left;}
+        .wallet-input form label  { float: left;width: 38%;}
+        .wallet-input form input { float: left;width: 60%;}
+        .wallet-input form .fund-submit { float: left;width: 100%;}
 
 .cl{ clear: both;}
 .hidden{ display: none;}

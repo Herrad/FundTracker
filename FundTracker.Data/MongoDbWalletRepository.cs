@@ -28,7 +28,7 @@ namespace FundTracker.Data
         }
 
 
-        public IWallet Get(WalletIdentification identification)
+        public IHaveFundsThatFrequentlyChange Get(WalletIdentification identification)
         {
             var mongoWallet = GetMongoWallet(identification);
             var mongoRecurringChanges = GetAllRecurringChangesFor(mongoWallet);
@@ -42,7 +42,7 @@ namespace FundTracker.Data
             return GetRecurringChanges().Find(mongoQuery);
         }
 
-        public void Save(IWallet wallet)
+        public void Save(IHaveFundsThatFrequentlyChange wallet)
         {
             if (WalletExists(wallet))
             {

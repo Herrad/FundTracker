@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using FundTracker.Domain;
+﻿using FundTracker.Domain;
 
 namespace FundTracker.Services
 {
     public interface IKnowAboutWallets
     {
-
-        IWallet Get(WalletIdentification identification);
+        IHaveFundsThatFrequentlyChange Get(WalletIdentification identification);
     }
 }

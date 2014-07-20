@@ -4,6 +4,6 @@ namespace FundTracker.Services
 {
     public interface ISaveWallets
     {
-        void Save(IWallet wallet);
+        void Save(IHaveFundsThatFrequentlyChange wallet);
     }
 }

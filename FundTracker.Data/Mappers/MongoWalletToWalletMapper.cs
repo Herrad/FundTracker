@@ -17,7 +17,7 @@ namespace FundTracker.Data.Mappers
             _mongoRecurringChangeToRecurringChangeMapper = mongoRecurringChangeToRecurringChangeMapper;
         }
 
-        public IWallet InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges)
+        public IHaveFundsThatFrequentlyChange InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges)
         {
             var walletIdentification = new WalletIdentification(mongoWallet.Name);
             var recurringChanges = mongoRecurringChanges.Select(_mongoRecurringChangeToRecurringChangeMapper.Map).ToList();

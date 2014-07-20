@@ -11,7 +11,7 @@ namespace Test.FundTracker.Services
     public class TestWalletService : IKnowAboutWallets, ISaveWallets
     {
         private IHaveRecurringChanges _walletSaved;
-        private IWallet _walletToReturnFromGet;
+        private IHaveFundsThatFrequentlyChange _walletToReturnFromGet;
 
         [Test]
         public void FindRecurringChanger_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
@@ -63,12 +63,12 @@ namespace Test.FundTracker.Services
         }
 
         public List<IHaveRecurringChanges> Wallets { get; private set; }
-        public IWallet Get(WalletIdentification identification)
+        public IHaveFundsThatFrequentlyChange Get(WalletIdentification identification)
         {
             return _walletToReturnFromGet;
         }
 
-        public void Save(IWallet wallet)
+        public void Save(IHaveFundsThatFrequentlyChange wallet)
         {
             _walletSaved = wallet;
         }

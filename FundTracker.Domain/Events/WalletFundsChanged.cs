@@ -4,9 +4,9 @@ namespace FundTracker.Domain.Events
 {
     public class WalletFundsChanged : AnEvent
     {
-        public IWallet Wallet { get; private set; }
+        public IHaveChangingFunds Wallet { get; private set; }
 
-        public WalletFundsChanged(IWallet wallet)
+        public WalletFundsChanged(IHaveChangingFunds wallet)
         {
             Wallet = wallet;
         }

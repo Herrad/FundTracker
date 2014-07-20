@@ -23,7 +23,7 @@ namespace FundTracker.Services
             return _walletRepository.Get(walletIdentification);
         }
 
-        public void Add(IWallet wallet)
+        public void Add(IHaveFundsThatFrequentlyChange wallet)
         {
             _walletSaver.Save(wallet);
         }

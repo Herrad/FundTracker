@@ -28,7 +28,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
                 expectedName2,
                 expectedName3
             };
-            var recurringChanger = MockRepository.GenerateStub<IWallet>();
+            var recurringChanger = MockRepository.GenerateStub<IHaveFundsThatFrequentlyChange>();
             recurringChanger
                 .Stub(x => x.GetChangeNamesApplicableTo(startDate))
                 .Return(recurringChangeNames);
@@ -71,7 +71,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
                 expectedName1,
                 expectedName2
             };
-            var recurringChanger = MockRepository.GenerateStub<IWallet>();
+            var recurringChanger = MockRepository.GenerateStub<IHaveFundsThatFrequentlyChange>();
             recurringChanger
                 .Stub(x => x.GetChangeNamesApplicableTo(startDate))
                 .Return(recurringChangeNames);

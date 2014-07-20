@@ -10,3 +10,4 @@ Scenario: Viewing a wallet for today
          | my wallet   | 0              |
 	When I load the wallet with name "my wallet"
 	Then the calander should have today's date selected
+	

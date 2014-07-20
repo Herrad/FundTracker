@@ -33,6 +33,20 @@ namespace Test.FundTracker.Domain.RecurranceRules
         }
 
         [Test]
+        public void Every_day_is_a_rule_applicable_the_same_day_every_day()
+        {
+            var firstDate = new DateTime(2014, 07, 19);
+
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every day", firstDate);
+
+            Assert.That(recurranceRule, Is.Not.Null);
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(1)), Is.True);
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(2)), Is.True);
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(3)), Is.True);
+        }
+
+        [Test]
         public void Every_week_is_a_rule_applicable_the_same_day_every_week()
         {
             var firstDate = new DateTime(2014, 07, 19);
@@ -44,6 +58,18 @@ namespace Test.FundTracker.Domain.RecurranceRules
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(6)), Is.False);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(7)), Is.True);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(8)), Is.False);
+        }
+
+        [Test]
+        public void Every_week_does_not_apply_before_first_date()
+        {
+            var firstDate = new DateTime(2014, 07, 19);
+
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", firstDate);
+
+            Assert.That(recurranceRule, Is.Not.Null);
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
+            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(-7)), Is.False);
         }
     }
 }

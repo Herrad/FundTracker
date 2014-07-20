@@ -13,7 +13,7 @@ namespace FundTracker.Domain.RecurranceRules
 
         public bool IsSpecifiedOn(DateTime targetDate)
         {
-            return targetDate.DayOfWeek == _firstApplicableDate.DayOfWeek;
+            return targetDate >= _firstApplicableDate && targetDate.DayOfWeek == _firstApplicableDate.DayOfWeek;
         }
 
         public string Name { get { return "Every week"; } }

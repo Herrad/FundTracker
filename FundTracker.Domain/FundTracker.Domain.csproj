@@ -48,8 +48,10 @@
     <Compile Include="IHaveChangingFunds.cs" />
     <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurranceRules\DailyRule.cs" />
     <Compile Include="RecurranceRules\IBuildRecurranceSpecifications.cs" />
     <Compile Include="RecurranceRules\IDecideWhenRecurringChangesOccur.cs" />
+    <Compile Include="RecurranceRules\IIdentifyRules.cs" />
     <Compile Include="RecurranceRules\OneShotRule.cs" />
     <Compile Include="RecurranceRules\RecurranceSpecificationFactory.cs" />
     <Compile Include="RecurranceRules\WeeklyRule.cs" />

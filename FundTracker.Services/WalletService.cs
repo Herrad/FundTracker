@@ -15,7 +15,22 @@ namespace FundTracker.Services
 
         public IWallet FindFirstWalletWith(WalletIdentification walletIdentification)
         {
+            return GetWallet(walletIdentification);
+        }
+
+        private IWallet GetWallet(WalletIdentification walletIdentification)
+        {
             return _walletRepository.Get(walletIdentification);
+        }
+
+        public IHaveRecurringChanges FindRecurringChanger(WalletIdentification walletIdentification)
+        {
+            return GetWallet(walletIdentification);
+        }
+
+        public IHaveChangingFunds FindFundChanger(WalletIdentification walletIdentification)
+        {
+            return GetWallet(walletIdentification);
         }
 
         public void Add(IWallet wallet)

@@ -4,15 +4,9 @@ using FundTracker.Domain;
 
 namespace Test.FundTracker.Web.Controllers
 {
-    public class WithdrawalExposer : IWallet
+    public class WithdrawalExposer : IHaveRecurringChanges
     {
-        void ITakeFundsToAdd.AddFunds(decimal fundsToAdd)
-        {
-            throw new NotImplementedException();
-        }
-
-        decimal IHaveAvailableFunds.AvailableFunds { get { return 0; } }
-        WalletIdentification IWallet.Identification { get { return null; } }
+        WalletIdentification IAmIdentifiable.Identification { get { return null; } }
 
         public void CreateChange(RecurringChange recurringChange)
         {

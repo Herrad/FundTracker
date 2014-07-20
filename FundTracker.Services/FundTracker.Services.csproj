@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IKnowAboutWallets.cs" />
-    <Compile Include="InMemoryWalletRepository.cs" />
     <Compile Include="IProvideWallets.cs" />
     <Compile Include="ISaveWallets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

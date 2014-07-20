@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FundTracker.Domain
+﻿namespace FundTracker.Domain
 {
-    public interface IWallet : ITakeFundsToAdd, IHaveAvailableFunds, IHaveRecurringChanges
+    public interface IWallet : IHaveChangingFunds, IHaveRecurringChanges
     {
-        WalletIdentification Identification { get; }
     }
 }

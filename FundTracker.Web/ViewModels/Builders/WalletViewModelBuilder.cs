@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
 
@@ -14,7 +13,7 @@ namespace FundTracker.Web.ViewModels.Builders
             _calendarDayViewModelBuilder = calendarDayViewModelBuilder;
         }
 
-        public WalletViewModel FormatWalletAsViewModel(IWallet wallet, DateTime selectedDate)
+        public WalletViewModel FormatWalletAsViewModel(IHaveRecurringChanges wallet, IHaveChangingFunds fundChanger, DateTime selectedDate)
         {
             var formattedSelectedDate = selectedDate.ToString("yyyy-MM-dd");
             var depositAmountViewModel = BuildDepositAmountViewModel(wallet, formattedSelectedDate);
@@ -22,10 +21,10 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
 
-            return new WalletViewModel(wallet.Identification.Name, wallet.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
+            return new WalletViewModel(wallet.Identification.Name, fundChanger.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
         }
 
-        private static RecurringAmountViewModel BuildDepositAmountViewModel(IWallet wallet, string date)
+        private static RecurringAmountViewModel BuildDepositAmountViewModel(IHaveRecurringChanges wallet, string date)
         {
             var recurringDeposits = wallet.GetRecurringDeposits();
             var depositAmountViewModel = new RecurringAmountViewModel("Deposit",
@@ -33,7 +32,7 @@ namespace FundTracker.Web.ViewModels.Builders
             return depositAmountViewModel;
         }
 
-        private static RecurringAmountViewModel BuildWithdrawalAmountViewModel(IWallet wallet, string date)
+        private static RecurringAmountViewModel BuildWithdrawalAmountViewModel(IHaveRecurringChanges wallet, string date)
         {
             var recurringWithdrawals = wallet.GetRecurringWithdrawals();
             var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal",

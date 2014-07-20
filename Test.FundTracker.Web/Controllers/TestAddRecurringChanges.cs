@@ -24,7 +24,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             var withdrawalExposer = new WithdrawalExposer();
             walletService
-                .Stub(x => x.FindFirstWalletWith(walletIdentification))
+                .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
 
             var dateParser = MockRepository.GenerateStub<IParseDates>();
@@ -50,7 +50,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             var withdrawalExposer = new WithdrawalExposer();
             walletService
-                .Stub(x => x.FindFirstWalletWith(walletIdentification))
+                .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
 
             const string dateToParse = "date";
@@ -79,7 +79,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             var withdrawalExposer = new WithdrawalExposer();
             walletService
-                .Stub(x => x.FindFirstWalletWith(walletIdentification))
+                .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
             
             const string dateToParse = "date";

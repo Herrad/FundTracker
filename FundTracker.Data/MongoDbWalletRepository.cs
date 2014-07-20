@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using FundTracker.Data.Annotations;
 using FundTracker.Data.Entities;
 using FundTracker.Data.Mappers;
 using FundTracker.Domain;
@@ -12,6 +13,7 @@ using MongoDB.Driver.Builders;
 
 namespace FundTracker.Data
 {
+    [UsedImplicitly]
     public class MongoDbWalletRepository : Subscription, ISaveWallets, IKnowAboutWallets
     {
         private readonly IMapMongoWalletsToWallets _mongoWalletToWalletMapper;
@@ -66,7 +68,7 @@ namespace FundTracker.Data
             }
         }
 
-        private static bool WalletExists(IWallet wallet)
+        private static bool WalletExists(IAmIdentifiable wallet)
         {
             return GetMongoWallet(wallet.Identification) != null;
         }
@@ -79,7 +81,7 @@ namespace FundTracker.Data
             return mongoWallet;
         }
 
-        private static void CreateNewWallet(IWallet wallet)
+        private static void CreateNewWallet(IHaveChangingFunds wallet)
         {
             GetWallets().Insert(new MongoWallet
             {
@@ -102,7 +104,7 @@ namespace FundTracker.Data
             });
         }
 
-        private static void UpdateExistingWallet(IWallet wallet)
+        private static void UpdateExistingWallet(IHaveChangingFunds wallet)
         {
             var walletName = wallet.Identification.Name;
             var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);

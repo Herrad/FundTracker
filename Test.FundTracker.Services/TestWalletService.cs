@@ -10,7 +10,7 @@ namespace Test.FundTracker.Services
     [TestFixture]
     public class TestWalletService : IKnowAboutWallets, ISaveWallets
     {
-        private IWallet _walletSaved;
+        private IHaveRecurringChanges _walletSaved;
         private IWallet _walletToReturnFromGet;
 
         [Test]
@@ -18,7 +18,7 @@ namespace Test.FundTracker.Services
         {
             var expectedWallet = _walletToReturnFromGet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo name"), 0, null);
 
-            Wallets = new List<IWallet> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
+            Wallets = new List<IHaveRecurringChanges> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
             
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
@@ -34,7 +34,7 @@ namespace Test.FundTracker.Services
         public void Saves_wallet_using_saver()
         {
             _walletSaved = null;
-            Wallets = new List<IWallet>();
+            Wallets = new List<IHaveRecurringChanges>();
 
             var walletService = new WalletService(this, this);
 
@@ -45,7 +45,7 @@ namespace Test.FundTracker.Services
             Assert.That(_walletSaved, Is.EqualTo(wallet));
         }
 
-        public List<IWallet> Wallets { get; private set; }
+        public List<IHaveRecurringChanges> Wallets { get; private set; }
         public IWallet Get(WalletIdentification identification)
         {
             return _walletToReturnFromGet;

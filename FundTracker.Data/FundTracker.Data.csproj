@@ -58,6 +58,7 @@
     <Compile Include="Mappers\MongoRecurringChangeToRecurringChangeMapper.cs" />
     <Compile Include="Mappers\MongoWalletToWalletMapper.cs" />
     <Compile Include="MongoDbWalletRepository.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

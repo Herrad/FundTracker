@@ -11,9 +11,8 @@ namespace FundTracker.Domain
         private readonly IReceivePublishedEvents _eventReciever;
         private readonly List<RecurringChange> _recurringChanges;
 
-        public WalletIdentification Identification { get; private set; }
-
         public decimal AvailableFunds { get; private set; }
+        public WalletIdentification Identification { get; private set; }
 
         public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, decimal availableFunds, List<RecurringChange> recurringChanges)
         {
@@ -36,7 +35,7 @@ namespace FundTracker.Domain
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }
 
-        protected bool Equals(Wallet other)
+        private bool Equals(IAmIdentifiable other)
         {
             return Identification.Equals(other.Identification);
         }
@@ -66,7 +65,7 @@ namespace FundTracker.Domain
 
         public IEnumerable<string> GetChangeNamesApplicableTo(DateTime selectedDate)
         {
-            return _recurringChanges.Where(x => x.AppliesTo(selectedDate)).Select(x => x.Name);
+            return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate)).Select(x => x.Name);
         }
     }
 }

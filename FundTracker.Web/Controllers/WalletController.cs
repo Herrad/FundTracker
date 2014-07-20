@@ -43,7 +43,7 @@ namespace FundTracker.Web.Controllers
             var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
 
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
-            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, selectedDate);
+            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, wallet, selectedDate);
 
             return View("Display", walletViewModel);
         }

@@ -23,7 +23,7 @@ namespace FundTracker.Web.Controllers.ActionHelpers
         public void Execute(WalletDay walletDay, AddedChange addedChange, ICreateRedirects redirecter)
         {
             var walletIdentification = new WalletIdentification(walletDay.WalletName);
-            var wallet = _walletService.FindFirstWalletWith(walletIdentification);
+            var wallet = _walletService.FindRecurringChanger(walletIdentification);
 
             var firstApplicableDate = _dateParser.ParseDateOrUseToday(walletDay.Date);
             var recurranceSpecification = _recurranceSpecificationFactory.Build(addedChange.RecurranceRule, firstApplicableDate);

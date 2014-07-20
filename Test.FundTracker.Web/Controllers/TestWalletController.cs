@@ -5,7 +5,6 @@ using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.Controllers.ParameterParsers;
-using FundTracker.Web.Http;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
@@ -179,15 +178,15 @@ namespace Test.FundTracker.Web.Controllers
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
             walletController.Display(walletName, "2001-02-03");
 
-            var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
-                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
+            var argumentsForCallToViewModelBuilder = walletViewModelBuilder
+                .GetArgumentsForCallsMadeOn(x => x.FormatWalletAsViewModel(Arg<IHaveRecurringChanges>.Is.Anything, Arg<IHaveChangingFunds>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(new DateTime(2001, 2, 3)));
+            Assert.That(argumentsForCallToViewModelBuilder[2], Is.EqualTo(new DateTime(2001, 2, 3)));
 
             walletViewModelBuilder
                 .AssertWasCalled(
-                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything),
+                x => x.FormatWalletAsViewModel(Arg<IHaveRecurringChanges>.Is.Anything, Arg<IHaveChangingFunds>.Is.Anything, Arg<DateTime>.Is.Anything),
                 c => c.Repeat.Once());
         }
 
@@ -211,11 +210,12 @@ namespace Test.FundTracker.Web.Controllers
             var walletController = new WalletController(null, walletProvider, walletViewModelBuilder, new DateParser());
             walletController.Display(walletName, dateStringToVerify);
 
-            var argumentsForCallToViewModelBuilder = walletViewModelBuilder.GetArgumentsForCallsMadeOn(
-                x => x.FormatWalletAsViewModel(Arg<IWallet>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
+            var argumentsForCallToViewModelBuilder = walletViewModelBuilder
+                .GetArgumentsForCallsMadeOn(x => x.FormatWalletAsViewModel(Arg<IHaveRecurringChanges>.Is.Anything, Arg<IHaveChangingFunds>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(DateTime.Today));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(wallet));
+            Assert.That(argumentsForCallToViewModelBuilder[2], Is.EqualTo(DateTime.Today));
         }
     }
 }

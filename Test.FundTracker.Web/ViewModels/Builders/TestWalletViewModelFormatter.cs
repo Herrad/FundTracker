@@ -19,7 +19,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, new List<RecurringChange>());
             wallet.AddFunds(123m);
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.Name, Is.EqualTo(walletName));
             Assert.That(result.AvailableFunds, Is.EqualTo(123m));
@@ -36,7 +36,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
             wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.WithdrawalAmountViewModel, Is.Not.Null);
         }
@@ -54,7 +54,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3), null));
             wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.WithdrawalAmountViewModel.PositiveTotal, Is.EqualTo(75m));
         }
@@ -70,7 +70,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var wallet = new Wallet(new EventSwallower(), walletIdentification, 0, new List<RecurringChange>());
             wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.WithdrawalAmountViewModel.PositiveTotal, Is.EqualTo(50m));
         }
@@ -86,7 +86,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, 0, new List<RecurringChange>());
             wallet.CreateChange(new RecurringChange("foo", 123m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.DepositAmountViewModel, Is.Not.Null);
         }
@@ -104,7 +104,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             wallet.CreateChange(new RecurringChange("foo", 100m, new DateTime(1, 2, 3), null));
             wallet.CreateChange(new RecurringChange("foo", -25m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
 
             Assert.That(result.DepositAmountViewModel.PositiveTotal, Is.EqualTo(100m));
         }

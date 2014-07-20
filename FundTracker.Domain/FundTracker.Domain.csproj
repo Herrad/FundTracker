@@ -41,11 +41,11 @@
     <Compile Include="EventSwallower.cs" />
     <Compile Include="Events\RecurringChangeCreated.cs" />
     <Compile Include="Events\WalletFundsChanged.cs" />
+    <Compile Include="IAmIdentifiable.cs" />
     <Compile Include="ICreateWallets.cs" />
-    <Compile Include="IHaveAvailableFunds.cs" />
     <Compile Include="IHaveRecurringChanges.cs" />
     <Compile Include="IStoreCreatedWallets.cs" />
-    <Compile Include="ITakeFundsToAdd.cs" />
+    <Compile Include="IHaveChangingFunds.cs" />
     <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="IWallet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

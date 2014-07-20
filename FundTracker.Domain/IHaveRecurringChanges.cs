@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FundTracker.Domain
 {
-    public interface IHaveRecurringChanges
+    public interface IHaveRecurringChanges : IAmIdentifiable
     {
         void CreateChange(RecurringChange recurringChange);
         IEnumerable<RecurringChange> GetRecurringDeposits();

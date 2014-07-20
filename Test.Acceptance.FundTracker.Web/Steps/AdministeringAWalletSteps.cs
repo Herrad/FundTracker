@@ -1,5 +1,5 @@
-﻿using System;
-using Coypu;
+﻿using Coypu;
+using FundTracker.Data.Annotations;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;
@@ -7,7 +7,7 @@ using Test.Acceptance.FundTracker.Web.Pages;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
 {
-    [Binding]
+    [Binding, UsedImplicitly]
     public class AdministeringAWalletSteps : WebDriverTests
     {
         [Given(@"this wallet exists")]
@@ -15,12 +15,10 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var walletRow = table.Rows[0];
             var name = walletRow["Unique Name"];
-            var availableFunds = decimal.Parse(walletRow["Starting Funds"]);
 
             ScenarioContext.Current["wallet name"] = name;
-            ScenarioContext.Current["available funds"] = availableFunds;
 
-            TestDbAdapter.CreateWalletCalled(name, availableFunds);
+            TestDbAdapter.CreateWalletCalled(name);
         }
 
         [Given(@"my wallet has no recurring changes")]
@@ -48,7 +46,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"A wallet already exists called ""(.*)""")]
         public void GivenAWalletAlreadyExistsCalled(string walletName)
         {
-            TestDbAdapter.CreateWalletCalled(walletName, 0);
+            TestDbAdapter.CreateWalletCalled(walletName);
         }
 
         [When(@"I load the wallet with name ""(.*)""")]

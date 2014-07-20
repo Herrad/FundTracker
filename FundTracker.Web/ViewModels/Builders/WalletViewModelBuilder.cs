@@ -21,7 +21,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
 
-            return new WalletViewModel(wallet.Identification.Name, fundChanger.AvailableFunds, depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
+            return new WalletViewModel(wallet.Identification.Name, fundChanger.GetAvailableFundsFor(selectedDate), depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
         }
 
         private static RecurringAmountViewModel BuildDepositAmountViewModel(IHaveRecurringChanges wallet, string date)

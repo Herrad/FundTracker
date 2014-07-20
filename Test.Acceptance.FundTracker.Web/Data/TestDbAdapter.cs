@@ -5,7 +5,7 @@ using MongoDB.Driver.Builders;
 
 namespace Test.Acceptance.FundTracker.Web.Data
 {
-    public class TestDbAdapter
+    public static class TestDbAdapter
     {
         private static readonly MongoClient Client = GetDefaultMongoClient();
 
@@ -15,16 +15,10 @@ namespace Test.Acceptance.FundTracker.Web.Data
             return new MongoClient(connectionString);
         }
 
-        public static void CreateWalletCalled(string walletName, decimal availableFunds)
+        public static void CreateWalletCalled(string walletName)
         {
             var walletsCollection = GetWalletsCollection();
-            var walletToInsert = new MongoWallet {Name = walletName, AvailableFunds = availableFunds};
-
-            if (FindWalletCalled(walletName) != null)
-            {
-                UpdateExistingWallet(walletToInsert);
-                return;
-            }
+            var walletToInsert = new MongoWallet {Name = walletName};
 
             walletsCollection.Insert(walletToInsert);
         }
@@ -47,9 +41,6 @@ namespace Test.Acceptance.FundTracker.Web.Data
 
         public static void UpdateExistingWallet(MongoWallet walletToUpdate)
         {
-            var walletsCollection = GetWalletsCollection();
-            var update = Update<MongoWallet>.Set(mw => mw.AvailableFunds, walletToUpdate.AvailableFunds);
-            walletsCollection.Update(Query<MongoWallet>.EQ(e => e.Name, walletToUpdate.Name), update);
         }
 
         public static MongoWallet FindWalletCalled(string walletName)

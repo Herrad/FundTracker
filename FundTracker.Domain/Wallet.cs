@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain.Events;
+using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
 
 namespace FundTracker.Domain
@@ -12,28 +13,23 @@ namespace FundTracker.Domain
         private readonly List<RecurringChange> _recurringChanges;
         private static readonly DateTime EarliestChangeDate = new DateTime(2013, 01, 01);
 
-        public decimal AvailableFunds { get; private set; }
-
         public WalletIdentification Identification { get; private set; }
 
-        public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, decimal availableFunds, List<RecurringChange> recurringChanges)
+        public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, List<RecurringChange> recurringChanges)
         {
             _eventReciever = eventReciever;
             _recurringChanges = recurringChanges;
             Identification = walletIdentification;
-            AvailableFunds = availableFunds;
         }
 
         public void AddFunds(decimal fundsToAdd)
         {
-            AvailableFunds += fundsToAdd;
-            _eventReciever.Publish(new WalletFundsChanged(this));
+            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, DateTime.Today, new OneShotRule(DateTime.Today)));
         }
 
         public void CreateChange(RecurringChange recurringChange)
         {
             _recurringChanges.Add(recurringChange);
-            AddFunds(recurringChange.Amount);
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }
 
@@ -42,7 +38,7 @@ namespace FundTracker.Domain
             var runningTotal = 0m;
             var differenceBetweenTargetDateAndEarliest = (targetDate - EarliestChangeDate).Days;
             var remainingDifference = differenceBetweenTargetDateAndEarliest;
-            while (remainingDifference > 0)
+            while (remainingDifference >= 0)
             {
                 var invertedDifference = 0 - remainingDifference;
                 var recurringChangeQuery = targetDate.AddDays(invertedDifference);

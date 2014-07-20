@@ -60,7 +60,7 @@ namespace Test.FundTracker.Domain
 
             walletBuilder.CreateWallet(new WalletIdentification(walletName));
 
-            walletStore.AssertWasCalled(x => x.Add(new Wallet(fakeEventReciever, new WalletIdentification(walletName), 0, null)), c => c.Repeat.Once());
+            walletStore.AssertWasCalled(x => x.Add(new Wallet(fakeEventReciever, new WalletIdentification(walletName), null)), c => c.Repeat.Once());
         }
     }
 }

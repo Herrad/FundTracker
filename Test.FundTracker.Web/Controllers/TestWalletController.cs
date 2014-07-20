@@ -1,9 +1,11 @@
 using System;
 using System.Web.Mvc;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.BoundModels;
 using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
@@ -69,13 +71,13 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFundChanger(new WalletIdentification(expectedName)))
-                .Return(MockRepository.GenerateStub<IHaveChangingFunds>());
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(expectedName)))
+                .Return(MockRepository.GenerateStub<IHaveRecurringChanges>());
 
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
 
 
-            var result = walletController.AddFunds(expectedName, fundsToAdd);
+            var result = walletController.AddFunds(new WalletDay {WalletName = expectedName, Date = "2001-02-03"}, fundsToAdd);
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
 
@@ -88,24 +90,22 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void AddFunds_adds_funds_to_wallet()
         {
-            
-
             const string name = "foo name";
             const decimal fundsToAdd = 123m;
 
-            var wallet = MockRepository.GenerateMock<IHaveChangingFunds>();
+            var wallet = MockRepository.GenerateMock<IHaveRecurringChanges>();
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFundChanger(new WalletIdentification(name)))
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(name)))
                 .Return(wallet);
 
             var controller = new WalletController(null, walletProvider, null, new DateParser());
 
-            controller.AddFunds(name, fundsToAdd);
+            controller.AddFunds(new WalletDay { WalletName = name, Date = "2001-02-03" }, fundsToAdd);
 
             wallet.AssertWasCalled(
-                x => x.AddFunds(fundsToAdd), 
+                x => x.CreateChange(Arg<RecurringChange>.Is.NotNull), 
                 c => c.Repeat.Once());
         }
         
@@ -162,7 +162,7 @@ namespace Test.FundTracker.Web.Controllers
             
 
             const string walletName = "foo wallet";
-            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
+            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), null);
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
@@ -194,7 +194,7 @@ namespace Test.FundTracker.Web.Controllers
             
 
             const string walletName = "foo wallet";
-            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), 0, null);
+            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(walletName), null);
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider

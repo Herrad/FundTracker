@@ -10,22 +10,22 @@ Scenario: Creating a wallet with a name
 
 Scenario: Adding funds to a wallet
 	Given this wallet exists
-	| Unique Name | Starting Funds |
-	| my wallet   | 50.00          |
+	| Unique Name | 
+	| my wallet   | 
 	When I add 100.00 in funds to my wallet
-	Then the amount in the wallet is 150.00
+	Then the amount in the wallet is 100.00
 
 Scenario: Removing funds from a wallet
 	Given this wallet exists
-	| Unique Name | Starting Funds |
-	| my wallet   | 50.00          |
+	| Unique Name |
+	| my wallet   |
 	When I remove 25.00 in funds from my wallet
-	Then the amount in the wallet is 25.00
+	Then the amount in the wallet is -25.00
 
 Scenario: View an existing wallet
 	Given this wallet exists
-	| Unique Name | Starting Funds |
-	| my wallet   | 0.00          |
+	| Unique Name | 
+	| my wallet   | 
 	When I load the wallet with name "my wallet"
 	Then I am taken to the display wallet page
 	And the name starts with "my wallet"

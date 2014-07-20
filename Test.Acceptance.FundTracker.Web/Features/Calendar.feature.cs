@@ -74,11 +74,9 @@ namespace Test.Acceptance.FundTracker.Web.Features
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table1.AddRow(new string[] {
-                        "my wallet",
-                        "0"});
+                        "my wallet"});
 #line 8
  testRunner.Given("this wallet exists", ((string)(null)), table1, "Given ");
 #line 11

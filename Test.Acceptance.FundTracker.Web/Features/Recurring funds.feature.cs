@@ -74,11 +74,9 @@ namespace Test.Acceptance.FundTracker.Web.Features
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table1.AddRow(new string[] {
-                        "my wallet",
-                        "100.00"});
+                        "my wallet"});
 #line 7
  testRunner.Given("this wallet exists", ((string)(null)), table1, "Given ");
 #line 10
@@ -97,7 +95,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
  testRunner.Then("the outgoing total value is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 16
- testRunner.And("the amount in the wallet is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the amount in the wallet is -50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -111,11 +109,9 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table3.AddRow(new string[] {
-                        "my wallet",
-                        "100.00"});
+                        "my wallet"});
 #line 20
  testRunner.Given("this wallet exists", ((string)(null)), table3, "Given ");
 #line 23
@@ -134,7 +130,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
  testRunner.Then("the incoming total value is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 29
- testRunner.And("the amount in the wallet is 150.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the amount in the wallet is 50.00", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -148,11 +144,9 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table5.AddRow(new string[] {
-                        "my wallet",
-                        "250.00"});
+                        "my wallet"});
 #line 33
  testRunner.Given("this wallet exists", ((string)(null)), table5, "Given ");
 #line 36
@@ -174,11 +168,9 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table6.AddRow(new string[] {
-                        "my wallet",
-                        "250.00"});
+                        "my wallet"});
 #line 42
  testRunner.Given("this wallet exists", ((string)(null)), table6, "Given ");
 #line 45
@@ -200,11 +192,9 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table7.AddRow(new string[] {
-                        "my wallet",
-                        "250.00"});
+                        "my wallet"});
 #line 51
  testRunner.Given("this wallet exists", ((string)(null)), table7, "Given ");
 #line 54
@@ -230,11 +220,9 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Unique Name",
-                        "Starting Funds"});
+                        "Unique Name"});
             table8.AddRow(new string[] {
-                        "my wallet",
-                        "250.00"});
+                        "my wallet"});
 #line 62
  testRunner.Given("this wallet exists", ((string)(null)), table8, "Given ");
 #line hidden

@@ -16,7 +16,7 @@ namespace FundTracker.Domain
 
         public void CreateWallet(WalletIdentification walletIdentification)
         {
-            var wallet = new Wallet(_eventBus, walletIdentification, 0, new List<RecurringChange>());
+            var wallet = new Wallet(_eventBus, walletIdentification, new List<RecurringChange>());
             _walletStore.Add(wallet);
         }
     }

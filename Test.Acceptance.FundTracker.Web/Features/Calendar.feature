@@ -6,8 +6,8 @@
 
 Scenario: Viewing a wallet for today
 	Given this wallet exists
-         | Unique Name | Starting Funds |
-         | my wallet   | 0              |
+         | Unique Name | 
+         | my wallet   | 
 	When I load the wallet with name "my wallet"
 	Then the calander should have today's date selected
 	

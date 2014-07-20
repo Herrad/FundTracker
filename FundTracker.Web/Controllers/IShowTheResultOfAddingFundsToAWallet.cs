@@ -1,9 +1,10 @@
 ﻿using System.Web.Mvc;
+using FundTracker.Web.Controllers.BoundModels;
 
 namespace FundTracker.Web.Controllers
 {
     public interface IShowTheResultOfAddingFundsToAWallet
     {
-        ActionResult AddFunds(string name, decimal fundsToAdd);
+        ActionResult AddFunds(WalletDay walletDay, decimal fundsToAdd);
     }
 }

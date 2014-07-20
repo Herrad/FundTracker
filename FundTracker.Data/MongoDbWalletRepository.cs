@@ -20,7 +20,7 @@ namespace FundTracker.Data
         private static string _connectionString;
         private static string _databaseName;
 
-        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper) : base(new List<Type>{typeof(WalletFundsChanged), typeof(RecurringChangeCreated)})
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper) : base(new List<Type>{typeof(RecurringChangeCreated)})
         {
             _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
             _connectionString = ConfigurationManager.AppSettings["MongoConnectionString"];
@@ -44,33 +44,18 @@ namespace FundTracker.Data
 
         public void Save(IHaveChangingFunds wallet)
         {
-            if (WalletExists(wallet))
-            {
-                UpdateExistingWallet(wallet);
-            }
 
             CreateNewWallet(wallet);
         }
 
         public override void Notify(AnEvent anEvent)
         {
-            if(anEvent.GetType() == typeof(WalletFundsChanged))
-            {
-                var fundsChanged = (WalletFundsChanged) anEvent;
-                var wallet = fundsChanged.Wallet;
-                UpdateExistingWallet(wallet);
-            }
-            else if (anEvent.GetType() == typeof(RecurringChangeCreated))
+            if (anEvent.GetType() == typeof(RecurringChangeCreated))
             {
                 var recurringChangeCreated = (RecurringChangeCreated)anEvent;
                 var recurringChange = recurringChangeCreated.Change;
                 CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetWallet);
             }
-        }
-
-        private static bool WalletExists(IAmIdentifiable wallet)
-        {
-            return GetMongoWallet(wallet.Identification) != null;
         }
 
         private static MongoWallet GetMongoWallet(WalletIdentification identification)
@@ -85,8 +70,7 @@ namespace FundTracker.Data
         {
             GetWallets().Insert(new MongoWallet
             {
-                Name = wallet.Identification.Name,
-                AvailableFunds = wallet.AvailableFunds
+                Name = wallet.Identification.Name
             });
         }
 
@@ -106,10 +90,6 @@ namespace FundTracker.Data
 
         private static void UpdateExistingWallet(IHaveChangingFunds wallet)
         {
-            var walletName = wallet.Identification.Name;
-            var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);
-            var update = Update<MongoWallet>.Set(mw => mw.AvailableFunds, wallet.AvailableFunds);
-            GetWallets().Update(mongoQuery, update);
         }
 
         private static MongoCollection<MongoWallet> GetWallets()

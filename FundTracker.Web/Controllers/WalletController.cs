@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ActionHelpers;
+using FundTracker.Web.Controllers.BoundModels;
 using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
@@ -49,18 +52,21 @@ namespace FundTracker.Web.Controllers
             return View("Display", walletViewModel);
         }
 
-        public ActionResult AddFunds(string name, decimal fundsToAdd)
+        public ActionResult AddFunds(WalletDay walletDay, decimal fundsToAdd)
         {
-            var fundChanger = _walletProvider.FindFundChanger(new WalletIdentification(name));
+            var walletName = walletDay.WalletName;
+            var dateToApplyTo = _dateParser.ParseDateOrUseToday(walletDay.Date);
 
-            fundChanger.AddFunds(fundsToAdd);
+            var recurringChanger = _walletProvider.FindRecurringChanger(new WalletIdentification(walletName));
 
-            return RedirectToAction("Display", new { walletName = name });
+            recurringChanger.CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, dateToApplyTo, new OneShotRule(dateToApplyTo)));
+
+            return RedirectToAction("Display", new {walletName });
         }
 
-        public ActionResult RemoveFunds(string name, decimal fundsToRemove)
+        public ActionResult RemoveFunds(WalletDay walletDay, decimal fundsToRemove)
         {
-            return AddFunds(name, 0 - fundsToRemove);
+            return AddFunds(walletDay, 0 - fundsToRemove);
         }
 
         public void SetRedirect(string action, string controller, object parameters)

@@ -40,18 +40,20 @@ namespace FundTracker.Web.Controllers
 
         public ViewResult Display(string walletName, string date)
         {
-            var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(walletName));
+            var fundChanger = _walletProvider.FindFundChanger(new WalletIdentification(walletName));
+            var recurringChanger = _walletProvider.FindRecurringChanger(new WalletIdentification(walletName));
 
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
-            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(recurringChanger, fundChanger, selectedDate);
 
             return View("Display", walletViewModel);
         }
 
         public ActionResult AddFunds(string name, decimal fundsToAdd)
         {
-            var wallet = _walletProvider.FindFirstWalletWith(new WalletIdentification(name));
-            wallet.AddFunds(fundsToAdd);
+            var fundChanger = _walletProvider.FindFundChanger(new WalletIdentification(name));
+
+            fundChanger.AddFunds(fundsToAdd);
 
             return RedirectToAction("Display", new { walletName = name });
         }

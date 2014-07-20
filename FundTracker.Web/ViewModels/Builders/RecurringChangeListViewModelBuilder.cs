@@ -17,7 +17,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         public RecurringChangeListViewModel Build(string walletName, string date)
         {
-            var wallet = _walletService.FindFirstWalletWith(new WalletIdentification(walletName));
+            var wallet = _walletService.FindRecurringChanger(new WalletIdentification(walletName));
             
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
 

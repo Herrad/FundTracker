@@ -19,8 +19,6 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void SuccessfullyCreated_returns_ViewResult_with_empty_ViewName()
         {
-            
-
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             var viewResult = walletController.SuccessfullyCreated(null);
 
@@ -31,8 +29,6 @@ namespace Test.FundTracker.Web.Controllers
         public void SuccessfullyCreated_sets_WalletName_on_ViewModel()
         {
             const string walletName = "foo walletName";
-
-            
 
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), null, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
             
@@ -73,7 +69,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(expectedName)))
+                .Stub(x => x.FindFundChanger(new WalletIdentification(expectedName)))
                 .Return(MockRepository.GenerateStub<IWallet>());
 
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
@@ -101,7 +97,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(name)))
+                .Stub(x => x.FindFundChanger(new WalletIdentification(name)))
                 .Return(wallet);
 
             var controller = new WalletController(null, walletProvider, null, new DateParser());
@@ -170,7 +166,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
                 .Return(wallet);
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
@@ -202,7 +198,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
                 .Return(wallet);
 
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
@@ -214,7 +210,6 @@ namespace Test.FundTracker.Web.Controllers
                 .GetArgumentsForCallsMadeOn(x => x.FormatWalletAsViewModel(Arg<IHaveRecurringChanges>.Is.Anything, Arg<IHaveChangingFunds>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(wallet));
             Assert.That(argumentsForCallToViewModelBuilder[2], Is.EqualTo(DateTime.Today));
         }
     }

@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
-using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
-using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -37,7 +35,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
                 .Return(recurringChanger);
 
             var dateParser = MockRepository.GenerateStub<IParseDates>();
@@ -80,7 +78,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService
-                .Stub(x => x.FindFirstWalletWith(new WalletIdentification(walletName)))
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
                 .Return(recurringChanger);
 
             var dateParser = MockRepository.GenerateStub<IParseDates>();

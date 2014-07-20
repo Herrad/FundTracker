@@ -14,18 +14,35 @@ namespace Test.FundTracker.Services
         private IWallet _walletToReturnFromGet;
 
         [Test]
-        public void GetBy_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
+        public void FindRecurringChanger_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
             var expectedWallet = _walletToReturnFromGet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo name"), 0, null);
 
             Wallets = new List<IHaveRecurringChanges> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
-            
+
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
 
             var walletService = new WalletService(this, this);
 
-            var wallet = walletService.FindFirstWalletWith(new WalletIdentification("foo name"));
+            var wallet = walletService.FindRecurringChanger(new WalletIdentification("foo name"));
+
+            Assert.That(wallet, Is.EqualTo(expectedWallet));
+        }
+
+        [Test]
+        public void FindFundChanger_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
+        {
+            var expectedWallet = _walletToReturnFromGet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo name"), 0, null);
+
+            Wallets = new List<IHaveRecurringChanges> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
+
+            var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
+            nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
+
+            var walletService = new WalletService(this, this);
+
+            var wallet = walletService.FindFundChanger(new WalletIdentification("foo name"));
 
             Assert.That(wallet, Is.EqualTo(expectedWallet));
         }

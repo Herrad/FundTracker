@@ -29,7 +29,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var page = (AdministerWalletPage) ScenarioContext.Current["current page"];
             var currentMonth = page.GetCurrentMonth();
             var nextMonth = DateTime.Today.AddMonths(1);
-            Assert.That(currentMonth, Is.EqualTo(nextMonth.ToString("MMMMMMMMM")));
+            Assert.That(currentMonth, Is.EqualTo(nextMonth.ToString("MMMMMMMMM yyyy")));
             Assert.That(currentMonth, Is.EqualTo("01"));
         }
 
@@ -40,7 +40,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var currentMonth = page.GetCurrentMonth();
             var selectedDay = page.GetSelectedDay();
             var lastMonth = DateTime.Today.AddMonths(-1);
-            Assert.That(currentMonth, Is.EqualTo(lastMonth.ToString("MMMMMMMMM")));
+            Assert.That(currentMonth, Is.EqualTo(lastMonth.ToString("MMMMMMMMM yyyy")));
             Assert.That(selectedDay, Is.EqualTo(DateTime.DaysInMonth(lastMonth.Year, lastMonth.Month)));
         }
 

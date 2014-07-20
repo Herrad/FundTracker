@@ -23,15 +23,40 @@ h2{margin-bottom: 20px;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
 
-#calendar {margin: auto;width: 1124px;padding: 0;list-style: none;}
+#calendar {margin: auto;width: 1024px;padding: 0;list-style: none;}
     #calendar .month {float: left;padding-left: 45%;font-size: 1.5em;}
-    #calendar .day{ float: left;width: 2.3%;text-align: center;text-decoration: none;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
+    #calendar .day{ float: left;width: 2.2%;text-align: center;text-decoration: none;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
             #calendar .current-month.day:hover{ background: #b8b8b8;cursor: pointer;}
         #calendar .current-month.day.selected{ font-weight: bold;background: #b8b8b8;}
             #calendar a.current-month.day.selected:hover{background: #b8b8b8;cursor: default;}
         #calendar .other-month{float: left;padding: 0 15px;background: #EAEAEA;border: 1px solid #C8C8C8;text-decoration: none;color: black;cursor: pointer; }
             #calendar .other-month:visited{ color: black; }
             #calendar .other-month:hover{ background: #b8b8b8;cursor: pointer; }
+            
+#calendar .mobile { display: none;}
+#calendar .tablet { display: none;}
+            
+@media(max-device-width: 1023px) {
+    #calendar .dekstop{ display: none;}
+    #calendar .tablet{ display:block;}
+    #calendar{ width: 800px;}
+    #calendar .other-month{ padding: 10px;}
+}
+#calendar .tablet{ float: left;width: 70%;}
+#calendar .tablet strong{ float: left;padding: 10px;width: 68px;background: #EAEAEA;border: 1px solid #C8C8C8;text-align: center;text-decoration: none;text-align: center;color: black;}
+    #calendar .tablet a{ float: left;padding: 10px;width: 38%;background: #EAEAEA;border: 1px solid #C8C8C8;text-align: center;text-decoration: none;color: black;cursor: pointer;}
+
+#calendar .mobile{ float: left;width: 45%;background: red;}
+#calendar .mobile strong{ float: left;padding: 10px 5px;width: 14px;background: #EAEAEA;border: 1px solid #C8C8C8;text-decoration: none;text-align: center;color: black;}
+    #calendar .mobile a{ float: left;padding: 10px 5px;width: 65px;background: #EAEAEA;border: 1px solid #C8C8C8;text-align: center;text-decoration: none;color: black;cursor: pointer;}
+    
+@media(max-device-width: 800px) {
+    #calendar .mobile{ display:block;}
+    #calendar .tablet{ display: none;}
+    #calendar{ width: 400px;margin: 0;}
+    #calendar .other-month{ padding: 10px 5px;}
+}
+
     
 .wallet-info { }
     .wallet-info .funds div { float: left;}
@@ -49,22 +74,23 @@ h2{margin-bottom: 20px;}
         .wallet-info .recurring-amount.deposit {background-color: #E2FFCC;border-image: url("../Images/green-arrows.png") 32 0 round;}
         .wallet-info .recurring-amount.limited {width: 5%;margin-top: 1.5%;}
 
-@media(max-width: 1023px) {
+@media(max-device-width: 1023px) {
     .wallet-info .recurring-amount{ display: none;}
     .wallet-info .recurring-amount.limited { display: inherit;}
 }
-@media(min-width: 1024px) {
+@media(max-device-width: 1024px) {
     .wallet-info .recurring-amount.limited { display: none;}
 }
-@media(max-width: 800px) {
+@media(max-device-width: 800px) {
     .wallet-info .recurring-amount.limited {display: none}
     .wallet-info .recurring {display: none}
 }
    
 
-.wallet-input { float: left;width: 45%;margin:20px 0 0 27.5%;}
+.wallet-input { width: 400px;margin:20px auto;}
     .wallet-input form label  { float: left;width: 25%;}
     .wallet-input form input { float: left;width: 35%;}
     .wallet-input form .fund-submit { float: left;width: 35%;}
 
 .cl{ clear: both;}
+.hidden{ display: none;}

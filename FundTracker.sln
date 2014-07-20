@@ -7,13 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundTracker.Web", "FundTrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FundTracker.Web", "Test.FundTracker.Web\Test.FundTracker.Web.csproj", "{06A63CA5-BF99-4C6F-851A-C01E0F997766}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0F97A209-7E11-485F-AAB5-9C6002DE618D}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Acceptance.FundTracker.Web", "Test.Acceptance.FundTracker.Web\Test.Acceptance.FundTracker.Web.csproj", "{C82BF119-BC5D-4C60-966B-B4227E8FCA73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundTracker.Services", "FundTracker.Services\FundTracker.Services.csproj", "{334CA1D2-E60D-49F7-AAED-2AEB0293603C}"
@@ -31,6 +24,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundTracker.Data", "FundTracker.Data\FundTracker.Data.csproj", "{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FundTracker.Data", "Test.FundTracker.Data\Test.FundTracker.Data.csproj", "{3D198B70-2087-471A-B951-24F7B9B6E005}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E50CD7EE-9D12-4ABC-BC48-5F02553C60DD}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

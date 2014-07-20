@@ -10,8 +10,10 @@ namespace FundTracker.Domain
     {
         private readonly IReceivePublishedEvents _eventReciever;
         private readonly List<RecurringChange> _recurringChanges;
+        private static readonly DateTime EarliestChangeDate = new DateTime(2013, 01, 01);
 
         public decimal AvailableFunds { get; private set; }
+
         public WalletIdentification Identification { get; private set; }
 
         public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, decimal availableFunds, List<RecurringChange> recurringChanges)
@@ -33,6 +35,24 @@ namespace FundTracker.Domain
             _recurringChanges.Add(recurringChange);
             AddFunds(recurringChange.Amount);
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
+        }
+
+        public decimal GetAvailableFundsFor(DateTime targetDate)
+        {
+            var runningTotal = 0m;
+            var differenceBetweenTargetDateAndEarliest = (targetDate - EarliestChangeDate).Days;
+            var remainingDifference = differenceBetweenTargetDateAndEarliest;
+            while (remainingDifference > 0)
+            {
+                var invertedDifference = 0 - remainingDifference;
+                var recurringChangeQuery = targetDate.AddDays(invertedDifference);
+                var applicableChanges = GetChangesApplicableTo(recurringChangeQuery);
+
+                runningTotal += applicableChanges.Sum(x => x.Amount);
+
+                remainingDifference--;
+            }
+            return runningTotal;
         }
 
         private bool Equals(IAmIdentifiable other)
@@ -63,9 +83,9 @@ namespace FundTracker.Domain
             return _recurringChanges.Where(recurringChange => recurringChange.Amount < 0);
         }
 
-        public IEnumerable<string> GetChangeNamesApplicableTo(DateTime selectedDate)
+        public IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate)
         {
-            return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate)).Select(x => x.Name);
+            return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate));
         }
     }
 }

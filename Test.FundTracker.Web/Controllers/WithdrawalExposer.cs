@@ -23,7 +23,7 @@ namespace Test.FundTracker.Web.Controllers
             throw new NotImplementedException();
         }
 
-        IEnumerable<string> IHaveRecurringChanges.GetChangeNamesApplicableTo(DateTime selectedDate)
+        IEnumerable<RecurringChange> IHaveRecurringChanges.GetChangesApplicableTo(DateTime selectedDate)
         {
             throw new NotImplementedException();
         }

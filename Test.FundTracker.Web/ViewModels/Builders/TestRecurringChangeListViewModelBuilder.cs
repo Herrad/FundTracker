@@ -18,20 +18,21 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo wallet";
 
-            const string expectedName1 = "foo1";
-            const string expectedName2 = "foo2";
-            const string expectedName3 = "foo3";
+            var expectedChange1 = new RecurringChange("foo1", 0, DateTime.Today, null);
+            var expectedChange2 = new RecurringChange("foo2", 0, DateTime.Today, null);
+            var expectedChange3 = new RecurringChange("foo3", 0, DateTime.Today, null);
+
             var startDate = new DateTime(1, 2 ,3);
-            var recurringChangeNames = new List<string>
+            var recurringChanges = new List<RecurringChange>
             {
-                expectedName1,
-                expectedName2,
-                expectedName3
+                expectedChange1,
+                expectedChange2,
+                expectedChange3
             };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangeNamesApplicableTo(startDate))
-                .Return(recurringChangeNames);
+                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService
@@ -51,9 +52,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var changeNames = recurringChangeListViewModel.ChangeNames.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(3));
-            Assert.That(changeNames[0], Is.EqualTo(expectedName1));
-            Assert.That(changeNames[1], Is.EqualTo(expectedName2));
-            Assert.That(changeNames[2], Is.EqualTo(expectedName3));
+            Assert.That(changeNames[0], Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[1], Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[2], Is.EqualTo(expectedChange3.Name));
         }
 
         [Test]
@@ -62,19 +63,19 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo wallet";
             const string walletDate = "foo date";
 
-            const string expectedName1 = "foo1";
-            const string expectedName2 = "foo2";
-            var startDate = new DateTime(1, 2, 3);
+            var expectedChange1 = new RecurringChange("foo1", 0, DateTime.Today, null);
+            var expectedChange2 = new RecurringChange("foo2", 0, DateTime.Today, null);
 
-            var recurringChangeNames = new List<string>
+            var startDate = new DateTime(1, 2, 3);
+            var recurringChanges = new List<RecurringChange>
             {
-                expectedName1,
-                expectedName2
+                expectedChange1,
+                expectedChange2
             };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangeNamesApplicableTo(startDate))
-                .Return(recurringChangeNames);
+                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService
@@ -93,8 +94,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(recurringChangeListViewModel.ChangeNames, Is.Not.Null);
             var changeNames = recurringChangeListViewModel.ChangeNames.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(2));
-            Assert.That(changeNames[0], Is.EqualTo(expectedName1));
-            Assert.That(changeNames[1], Is.EqualTo(expectedName2));
+            Assert.That(changeNames[0], Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[1], Is.EqualTo(expectedChange2.Name));
         }
     }
 }

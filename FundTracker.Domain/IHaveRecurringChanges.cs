@@ -8,6 +8,6 @@ namespace FundTracker.Domain
         void CreateChange(RecurringChange recurringChange);
         IEnumerable<RecurringChange> GetRecurringDeposits();
         IEnumerable<RecurringChange> GetRecurringWithdrawals();
-        IEnumerable<string> GetChangeNamesApplicableTo(DateTime selectedDate);
+        IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate);
     }
 }

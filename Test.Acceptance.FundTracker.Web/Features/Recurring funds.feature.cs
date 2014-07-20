@@ -154,7 +154,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 37
  testRunner.When("I view my withdrawals for 2 days ago", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 38
- testRunner.Then("I can see an entry for \"dance lessons\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"dance lessons: £-100\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -178,7 +178,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 46
  testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 47
- testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -204,7 +204,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 56
  testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 57
- testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 58
  testRunner.And("no entry for \"debt\" is present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -241,7 +241,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 68
  testRunner.When("I view my deposits for \"2014-07-08\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 69
- testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

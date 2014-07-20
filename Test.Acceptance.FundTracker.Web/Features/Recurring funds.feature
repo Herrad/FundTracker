@@ -35,7 +35,7 @@ Scenario: Removing funds 2 days ago
 	| my wallet   |
 	And I removed 100 in funds 2 days ago for "dance lessons"
 	When I view my withdrawals for 2 days ago
-	Then I can see an entry for "dance lessons"
+	Then I can see an entry for "dance lessons: £-100"
 
 
 Scenario: Incoming funds in 5 days 
@@ -44,7 +44,7 @@ Scenario: Incoming funds in 5 days
 	| my wallet   |
 	And I have a deposit of 1000 due in 5 days for "payday"
 	When I view my deposits for 5 days ahead
-	Then I can see an entry for "payday"
+	Then I can see an entry for "payday: £1000"
 
 
 Scenario: Multiple changes on different days
@@ -54,7 +54,7 @@ Scenario: Multiple changes on different days
 	And I have a deposit of 1000 due in 5 days for "payday"
 	And I have a deposit of 250 due in 2 days for "debt"
 	When I view my deposits for 5 days ahead
-	Then I can see an entry for "payday"
+	Then I can see an entry for "payday: £1000"
 	And no entry for "debt" is present
 
 	
@@ -66,4 +66,4 @@ Scenario: Changes repeat according to rules
 	| Name   | Amount | Start Date | Repetition Rule |
 	| payday | 1000   | 2014-07-01 | Every week      |
 	When I view my deposits for "2014-07-08" 
-	Then I can see an entry for "payday"
+	Then I can see an entry for "payday: £1000"

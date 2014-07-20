@@ -70,7 +70,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var wallet = new Wallet(new EventSwallower(), walletIdentification, new List<RecurringChange>());
             wallet.CreateChange(new RecurringChange("foo", -50m, new DateTime(1, 2, 3), null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, ((IHaveChangingFunds)wallet), new DateTime(1, 2, 3));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, new DateTime(1, 2, 3));
 
             Assert.That(result.WithdrawalAmountViewModel.PositiveTotal, Is.EqualTo(50m));
         }

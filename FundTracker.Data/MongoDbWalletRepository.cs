@@ -17,12 +17,14 @@ namespace FundTracker.Data
     public class MongoDbWalletRepository : Subscription, ISaveWallets, IKnowAboutWallets
     {
         private readonly IMapMongoWalletsToWallets _mongoWalletToWalletMapper;
+        private readonly ICacheThings<WalletIdentification, Wallet> _cache;
         private static string _connectionString;
         private static string _databaseName;
 
-        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper) : base(new List<Type>{typeof(RecurringChangeCreated)})
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper, ICacheThings<WalletIdentification, Wallet> cache) : base(new List<Type>{typeof(RecurringChangeCreated)})
         {
             _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
+            _cache = cache;
             _connectionString = ConfigurationManager.AppSettings["MongoConnectionString"];
             _databaseName = ConfigurationManager.AppSettings["DatabaseName"];
         }
@@ -30,10 +32,23 @@ namespace FundTracker.Data
 
         public Wallet Get(WalletIdentification identification)
         {
+            var cachedWallet = _cache.Get(identification);
+            if (cachedWallet != null)
+            {
+                return cachedWallet;
+            }
+
             var mongoWallet = GetMongoWallet(identification);
             var mongoRecurringChanges = GetAllRecurringChangesFor(mongoWallet);
 
-            return _mongoWalletToWalletMapper.InflateWallet(mongoWallet, mongoRecurringChanges);
+            var inflatedWallet = _mongoWalletToWalletMapper.InflateWallet(mongoWallet, mongoRecurringChanges);
+            Cache(inflatedWallet);
+            return inflatedWallet;
+        }
+
+        private void Cache(Wallet wallet)
+        {
+            _cache.Store(wallet.Identification, wallet);
         }
 
         private static IEnumerable<MongoRecurringChange> GetAllRecurringChangesFor(MongoWallet mongoWallet)
@@ -44,7 +59,6 @@ namespace FundTracker.Data
 
         public void Save(IHaveChangingFunds wallet)
         {
-
             CreateNewWallet(wallet);
         }
 
@@ -66,7 +80,7 @@ namespace FundTracker.Data
             return mongoWallet;
         }
 
-        private static void CreateNewWallet(IHaveChangingFunds wallet)
+        private static void CreateNewWallet(IAmIdentifiable wallet)
         {
             GetWallets().Insert(new MongoWallet
             {
@@ -86,10 +100,6 @@ namespace FundTracker.Data
                 FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
                 RecurranceRule = recurringChange.RuleName()
             });
-        }
-
-        private static void UpdateExistingWallet(IHaveChangingFunds wallet)
-        {
         }
 
         private static MongoCollection<MongoWallet> GetWallets()

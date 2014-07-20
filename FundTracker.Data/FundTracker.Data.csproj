@@ -51,8 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BustCacheForWallet.cs" />
     <Compile Include="Entities\MongoRecurringChange.cs" />
     <Compile Include="Entities\MongoWallet.cs" />
+    <Compile Include="ICacheThings.cs" />
+    <Compile Include="InMemoryWalletCache.cs" />
     <Compile Include="Mappers\IMapMongoRecurringChangesToRecurringChanges.cs" />
     <Compile Include="Mappers\IMapMongoWalletsToWallets.cs" />
     <Compile Include="Mappers\MongoRecurringChangeToRecurringChangeMapper.cs" />

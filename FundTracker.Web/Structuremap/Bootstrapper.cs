@@ -34,6 +34,7 @@ namespace FundTracker.Web.Structuremap
                     x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
                     x.For<IMapMongoRecurringChangesToRecurringChanges>().Use<MongoRecurringChangeToRecurringChangeMapper>();
                     x.For<IBuildRecurranceSpecifications>().Use<RecurranceSpecificationFactory>();
+                    x.For<ICacheThings<WalletIdentification, Wallet>>().Use<InMemoryWalletCache>();
                     x.For<IReceivePublishedEvents>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<IReadSubscriptions>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<Subscription>().OnCreationForAll(eventBus.Subscribe);

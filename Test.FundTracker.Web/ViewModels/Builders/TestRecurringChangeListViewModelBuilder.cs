@@ -48,13 +48,13 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, "foo date");
 
             Assert.That(recurringChangeListViewModel, Is.Not.Null);
-            Assert.That(recurringChangeListViewModel.ChangeNames, Is.Not.Null);
+            Assert.That(recurringChangeListViewModel.RecurringChangeViewModels, Is.Not.Null);
 
-            var changeNames = recurringChangeListViewModel.ChangeNames.ToList();
+            var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(3));
-            Assert.That(changeNames[0], Is.EqualTo(expectedChange1.Name));
-            Assert.That(changeNames[1], Is.EqualTo(expectedChange2.Name));
-            Assert.That(changeNames[2], Is.EqualTo(expectedChange3.Name));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.Name));
         }
 
         [Test]
@@ -91,11 +91,11 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
 
             Assert.That(recurringChangeListViewModel, Is.Not.Null);
-            Assert.That(recurringChangeListViewModel.ChangeNames, Is.Not.Null);
-            var changeNames = recurringChangeListViewModel.ChangeNames.ToList();
+            Assert.That(recurringChangeListViewModel.RecurringChangeViewModels, Is.Not.Null);
+            var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(2));
-            Assert.That(changeNames[0], Is.EqualTo(expectedChange1.Name));
-            Assert.That(changeNames[1], Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
         }
     }
 }

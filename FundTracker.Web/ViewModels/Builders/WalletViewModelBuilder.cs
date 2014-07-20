@@ -32,7 +32,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static decimal GetTotalRecurringWithdrawalsAmount(IEnumerable<RecurringChange> applicableChanges)
         {
-            return applicableChanges.Where(change => change.Amount < 0).Sum(recurringChange => recurringChange.Amount);
+            return 0-applicableChanges.Where(change => change.Amount < 0).Sum(recurringChange => recurringChange.Amount);
         }
 
         private static decimal GetTotalRecurringDepositAmount(IEnumerable<RecurringChange> applicableChanges)

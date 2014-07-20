@@ -27,7 +27,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo wallet";
             var walletDay = new WalletDay { Date = "foo date", WalletName = walletName };
-            var recurringChangeListViewModel = new RecurringChangeListViewModel(new List<string>());
+            var recurringChangeListViewModel = new RecurringChangeListViewModel(new List<RecurringChangeViewModel>());
             var recurringChangeListViewModelBuilder = MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>();
             recurringChangeListViewModelBuilder
                 .Stub(x => x.Build(walletName, "foo date"))

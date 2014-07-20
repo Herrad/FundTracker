@@ -24,7 +24,12 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var applicableChanges = wallet.GetChangesApplicableTo(selectedDate);
 
-            return new RecurringChangeListViewModel(applicableChanges.Select(change => change.Name));
+            return new RecurringChangeListViewModel(applicableChanges.Select(BuildRecurringChangeViewModel));
+        }
+
+        private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change)
+        {
+            return new RecurringChangeViewModel(change.Name);
         }
     }
 }

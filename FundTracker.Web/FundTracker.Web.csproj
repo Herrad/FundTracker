@@ -142,6 +142,7 @@
     <Compile Include="ViewModels\Builders\RecurringChangeListViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
     <Compile Include="ViewModels\RecurringChangeListViewModel.cs" />
+    <Compile Include="ViewModels\RecurringChangeViewModel.cs" />
     <Compile Include="ViewModels\WalletDatePickerViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\RecurringAmountViewModel.cs" />

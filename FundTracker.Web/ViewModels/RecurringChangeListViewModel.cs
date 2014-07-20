@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using FundTracker.Web.ViewModels.Builders;
 
 namespace FundTracker.Web.ViewModels
 {
     public class RecurringChangeListViewModel
     {
-        public RecurringChangeListViewModel(IEnumerable<string> changeNames)
+        public RecurringChangeListViewModel(IEnumerable<RecurringChangeViewModel> recurringChangeViewModels)
         {
-            ChangeNames = changeNames;
+            RecurringChangeViewModels = recurringChangeViewModels;
         }
 
-        public IEnumerable<string> ChangeNames { get; private set; }
+        public IEnumerable<RecurringChangeViewModel> RecurringChangeViewModels { get; private set; }
     }
 }

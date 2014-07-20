@@ -24,16 +24,16 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string expectedName2 = "foo2";
             const string expectedName3 = "foo3";
             var startDate = new DateTime(1, 2 ,3);
-            var recurringChanges = new List<RecurringChange>
+            var recurringChangeNames = new List<string>
             {
-                new RecurringChange(expectedName1, 111m, startDate, null),
-                new RecurringChange(expectedName2, 222m, startDate, null),
-                new RecurringChange(expectedName3, 333m, startDate, null)
+                expectedName1,
+                expectedName2,
+                expectedName3
             };
             var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger
-                .Stub(x => x.RecurringChanges)
-                .Return(recurringChanges);
+                .Stub(x => x.GetChangeNamesApplicableTo(startDate))
+                .Return(recurringChangeNames);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService
@@ -68,16 +68,15 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string expectedName2 = "foo2";
             var startDate = new DateTime(1, 2, 3);
 
-            var recurringChanges = new List<RecurringChange>
+            var recurringChangeNames = new List<string>
             {
-                new RecurringChange(expectedName1, 111m, startDate, new OneShotRule(startDate)),
-                new RecurringChange(expectedName2, 222m, startDate, new OneShotRule(startDate)),
-                new RecurringChange("foo3", 333m, new DateTime(4, 5, 6), new OneShotRule(startDate.AddDays(1)))
+                expectedName1,
+                expectedName2
             };
             var recurringChanger = MockRepository.GenerateStub<IWallet>();
             recurringChanger
-                .Stub(x => x.RecurringChanges)
-                .Return(recurringChanges);
+                .Stub(x => x.GetChangeNamesApplicableTo(startDate))
+                .Return(recurringChangeNames);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
             walletService

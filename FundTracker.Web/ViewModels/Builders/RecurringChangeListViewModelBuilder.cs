@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FundTracker.Domain;
+﻿using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
 
@@ -22,7 +21,7 @@ namespace FundTracker.Web.ViewModels.Builders
             
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
 
-            var changeNames = wallet.RecurringChanges.Where(x => x.AppliesTo(selectedDate)).Select(x => x.Name);
+            var changeNames = wallet.GetChangeNamesApplicableTo(selectedDate);
 
             return new RecurringChangeListViewModel(changeNames);
         }

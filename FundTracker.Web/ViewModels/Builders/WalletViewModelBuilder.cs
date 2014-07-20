@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
 
@@ -26,7 +27,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static RecurringAmountViewModel BuildDepositAmountViewModel(IWallet wallet, string date)
         {
-            var recurringDeposits = wallet.RecurringChanges.Where(recurringChange => recurringChange.Amount > 0);
+            var recurringDeposits = wallet.GetRecurringDeposits();
             var depositAmountViewModel = new RecurringAmountViewModel("Deposit",
                 recurringDeposits.Sum(recurringChange => recurringChange.Amount), wallet.Identification.Name, date);
             return depositAmountViewModel;
@@ -34,7 +35,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static RecurringAmountViewModel BuildWithdrawalAmountViewModel(IWallet wallet, string date)
         {
-            var recurringWithdrawals = wallet.RecurringChanges.Where(recurringChange => recurringChange.Amount < 0);
+            var recurringWithdrawals = wallet.GetRecurringWithdrawals();
             var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal",
                 recurringWithdrawals.Sum(recurringChange => 0 - recurringChange.Amount), wallet.Identification.Name, date);
             return withdrawalAmountViewModel;

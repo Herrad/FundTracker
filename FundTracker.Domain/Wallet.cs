@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FundTracker.Domain.Events;
 using MicroEvent;
 
@@ -7,7 +9,8 @@ namespace FundTracker.Domain
     public class Wallet : IWallet
     {
         private readonly IReceivePublishedEvents _eventReciever;
-        public List<RecurringChange> RecurringChanges { get; private set; }
+        private readonly List<RecurringChange> _recurringChanges;
+
         public WalletIdentification Identification { get; private set; }
 
         public decimal AvailableFunds { get; private set; }
@@ -15,7 +18,7 @@ namespace FundTracker.Domain
         public Wallet(IReceivePublishedEvents eventReciever, WalletIdentification walletIdentification, decimal availableFunds, List<RecurringChange> recurringChanges)
         {
             _eventReciever = eventReciever;
-            RecurringChanges = recurringChanges;
+            _recurringChanges = recurringChanges;
             Identification = walletIdentification;
             AvailableFunds = availableFunds;
         }
@@ -28,6 +31,7 @@ namespace FundTracker.Domain
 
         public void CreateChange(RecurringChange recurringChange)
         {
+            _recurringChanges.Add(recurringChange);
             AddFunds(recurringChange.Amount);
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }
@@ -48,6 +52,21 @@ namespace FundTracker.Domain
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
             return Equals((Wallet) obj);
+        }
+
+        public IEnumerable<RecurringChange> GetRecurringDeposits()
+        {
+            return _recurringChanges.Where(recurringChange => recurringChange.Amount > 0);
+        }
+
+        public IEnumerable<RecurringChange> GetRecurringWithdrawals()
+        {
+            return _recurringChanges.Where(recurringChange => recurringChange.Amount < 0);
+        }
+
+        public IEnumerable<string> GetChangeNamesApplicableTo(DateTime selectedDate)
+        {
+            return _recurringChanges.Where(x => x.AppliesTo(selectedDate)).Select(x => x.Name);
         }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography.X509Certificates;
 using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
@@ -98,7 +97,7 @@ namespace Test.FundTracker.Web.Controllers
             const string recurranceRule = "foo rule";
             var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
             recurranceSpecificationFactory
-                .Stub(x => x.Build(recurranceRule, new DateTime(2001, 2, 3)))
+                .Stub(x => x.Build(recurranceRule, parsedDate))
                 .Return(recurranceRuleSpecification);
 
             var addChangeAction = new AddChangeAction(walletService, dateParser, recurranceSpecificationFactory);

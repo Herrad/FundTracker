@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FundTracker.Domain
 {
     public interface IHaveRecurringChanges
     {
-        List<RecurringChange> RecurringChanges { get; }
         void CreateChange(RecurringChange recurringChange);
+        IEnumerable<RecurringChange> GetRecurringDeposits();
+        IEnumerable<RecurringChange> GetRecurringWithdrawals();
+        IEnumerable<string> GetChangeNamesApplicableTo(DateTime selectedDate);
     }
 }

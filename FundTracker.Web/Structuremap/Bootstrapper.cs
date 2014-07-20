@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using FundTracker.Data;
+using FundTracker.Data.Annotations;
 using FundTracker.Data.Mappers;
 using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
@@ -11,6 +12,7 @@ using StructureMap.Pipeline;
 
 namespace FundTracker.Web.Structuremap
 {
+    [UsedImplicitly]
     public class Bootstrapper
     {
         public static void Run()

@@ -4,6 +4,6 @@ namespace FundTracker.Services
 {
     public interface IKnowAboutWallets
     {
-        IHaveFundsThatFrequentlyChange Get(WalletIdentification identification);
+        Wallet Get(WalletIdentification identification);
     }
 }

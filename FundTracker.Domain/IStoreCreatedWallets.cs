@@ -2,6 +2,6 @@
 {
     public interface IStoreCreatedWallets
     {
-        void Add(IHaveFundsThatFrequentlyChange wallet);
+        void Add(IHaveChangingFunds wallet);
     }
 }

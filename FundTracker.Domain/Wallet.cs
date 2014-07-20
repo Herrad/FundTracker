@@ -6,7 +6,7 @@ using MicroEvent;
 
 namespace FundTracker.Domain
 {
-    public class Wallet : IHaveFundsThatFrequentlyChange
+    public class Wallet : IHaveChangingFunds, IHaveRecurringChanges
     {
         private readonly IReceivePublishedEvents _eventReciever;
         private readonly List<RecurringChange> _recurringChanges;

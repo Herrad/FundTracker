@@ -6,6 +6,6 @@ namespace FundTracker.Data.Mappers
 {
     public interface IMapMongoWalletsToWallets
     {
-        IHaveFundsThatFrequentlyChange InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges);
+        Wallet InflateWallet(MongoWallet mongoWallet, IEnumerable<MongoRecurringChange> mongoRecurringChanges);
     }
 }

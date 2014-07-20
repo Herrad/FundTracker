@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FundTracker.Domain;
+﻿using FundTracker.Domain;
 using FundTracker.Services;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -10,15 +9,13 @@ namespace Test.FundTracker.Services
     [TestFixture]
     public class TestWalletService : IKnowAboutWallets, ISaveWallets
     {
-        private IHaveRecurringChanges _walletSaved;
-        private IHaveFundsThatFrequentlyChange _walletToReturnFromGet;
+        private IHaveChangingFunds _walletSaved;
+        private Wallet _walletToReturnFromGet;
 
         [Test]
         public void FindRecurringChanger_should_return_a_wallet_if_a_matching_wallet_exists_in_the_repository()
         {
             var expectedWallet = _walletToReturnFromGet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo name"), 0, null);
-
-            Wallets = new List<IHaveRecurringChanges> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
 
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
@@ -35,8 +32,6 @@ namespace Test.FundTracker.Services
         {
             var expectedWallet = _walletToReturnFromGet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo name"), 0, null);
 
-            Wallets = new List<IHaveRecurringChanges> { expectedWallet, new Wallet(new LastEventPublishedReporter(), new WalletIdentification("foo other name"), 0, null) };
-
             var nameValidater = MockRepository.GenerateStub<IValidateWalletNames>();
             nameValidater.Stub(x => x.IsNameValid("foo name")).Return(true);
 
@@ -51,7 +46,6 @@ namespace Test.FundTracker.Services
         public void Saves_wallet_using_saver()
         {
             _walletSaved = null;
-            Wallets = new List<IHaveRecurringChanges>();
 
             var walletService = new WalletService(this, this);
 
@@ -62,13 +56,12 @@ namespace Test.FundTracker.Services
             Assert.That(_walletSaved, Is.EqualTo(wallet));
         }
 
-        public List<IHaveRecurringChanges> Wallets { get; private set; }
-        public IHaveFundsThatFrequentlyChange Get(WalletIdentification identification)
+        public Wallet Get(WalletIdentification identification)
         {
             return _walletToReturnFromGet;
         }
 
-        public void Save(IHaveFundsThatFrequentlyChange wallet)
+        public void Save(IHaveChangingFunds wallet)
         {
             _walletSaved = wallet;
         }

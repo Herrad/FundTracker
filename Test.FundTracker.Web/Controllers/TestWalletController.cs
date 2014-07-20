@@ -70,7 +70,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
                 .Stub(x => x.FindFundChanger(new WalletIdentification(expectedName)))
-                .Return(MockRepository.GenerateStub<IHaveFundsThatFrequentlyChange>());
+                .Return(MockRepository.GenerateStub<IHaveChangingFunds>());
 
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
 
@@ -93,7 +93,7 @@ namespace Test.FundTracker.Web.Controllers
             const string name = "foo name";
             const decimal fundsToAdd = 123m;
 
-            var wallet = MockRepository.GenerateMock<IHaveFundsThatFrequentlyChange>();
+            var wallet = MockRepository.GenerateMock<IHaveChangingFunds>();
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider

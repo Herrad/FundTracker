@@ -49,7 +49,8 @@ namespace FundTracker.Web.ViewModels.Builders
         private static List<int> BuildDaysInPreviousMonth(DateTime selectedDate)
         {
             var daysInPreviousMonth = new List<int>();
-            var totalDaysInPreviousMonth = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month - 1);
+            var newDate = selectedDate.AddMonths(-1);
+            var totalDaysInPreviousMonth = DateTime.DaysInMonth(newDate.Year, newDate.Month);
             var dayToGoBackTo = totalDaysInPreviousMonth - 4;
             for (var i = dayToGoBackTo; i <= totalDaysInPreviousMonth; i++)
             {

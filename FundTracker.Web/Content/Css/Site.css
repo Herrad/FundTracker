@@ -23,13 +23,15 @@ h2{margin-bottom: 20px;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
 
-#calendar .month {float: left;padding-left: 13%;font-size: 1.5em;}
-#calendar {margin: 0;padding: 0;list-style: none;}
-    #calendar a{ float: left;width: 2.3%;text-align: center;text-decoration: none;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
-        #calendar a.current-month:hover{ background: #b8b8b8;cursor: pointer;}
-    #calendar a.current-month.selected{ font-weight: bold;background: #b8b8b8;}
-        #calendar a.current-month.selected:hover{background: #b8b8b8;cursor: default;}
-        #calendar a.other-month{ background: #b8b8b8;}
+#calendar {margin: auto;width: 1124px;padding: 0;list-style: none;}
+    #calendar .month {float: left;padding-left: 45%;font-size: 1.5em;}
+    #calendar .day{ float: left;width: 2.3%;text-align: center;text-decoration: none;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
+            #calendar .current-month.day:hover{ background: #b8b8b8;cursor: pointer;}
+        #calendar .current-month.day.selected{ font-weight: bold;background: #b8b8b8;}
+            #calendar a.current-month.day.selected:hover{background: #b8b8b8;cursor: default;}
+        #calendar .other-month{float: left;padding: 0 15px;background: #EAEAEA;border: 1px solid #C8C8C8;text-decoration: none;color: black;cursor: pointer; }
+            #calendar .other-month:visited{ color: black; }
+            #calendar .other-month:hover{ background: #b8b8b8;cursor: pointer; }
     
 .wallet-info { }
     .wallet-info .funds div { float: left;}

@@ -1,23 +1,23 @@
 ﻿@model FundTracker.Web.ViewModels.WalletDatePickerViewModel
 
 <div id="calendar">
-    <strong class="month">@Model.SelectedDate.ToString("MMM")</strong>
+    <strong class="month">@Model.SelectedDate.ToString("MMMMMMMMM")</strong>
     <div class="cl"></div>
-    @foreach (var day in Model.DaysInPreviousMonth)
-    {
-        <a class="other-month">@day</a>
-    }
-    @foreach (var day in Model.DaysInCurrentMonth)
-    {
-        if (day == Model.SelectedDate.ToString("dd"))
+    <a class="other-month previous" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddMonths(-1).ToString("yyyy")-@Model.SelectedDate.AddMonths(-1).ToString("MM")-@DateTime.DaysInMonth(Model.SelectedDate.AddMonths(-1).Year, Model.SelectedDate.AddMonths(-1).Month)">
+        < Previous Month
+    </a>
+    <div>
+        @foreach (var day in Model.DaysInCurrentMonth)
         {
-            <a class="current-month selected">@day</a>
-            continue;
+            if (day == Model.SelectedDate.ToString("dd"))
+            {
+                <a class="current-month day selected">@day</a>
+                continue;
+            }
+            <a class="current-month day" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.ToString("yyyy")-@Model.SelectedDate.ToString("MM")-@day">@day</a>
         }
-        <a class="current-month" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.ToString("yyyy")-@Model.SelectedDate.ToString("MM")-@day">@day</a>
-    }
-    @foreach (var day in Model.DaysInNextMonth)
-    {
-        <a class="other-month">@day</a>
-    }
+    </div>
+    <a class="other-month next" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddMonths(1).ToString("yyyy")-@Model.SelectedDate.AddMonths(1).ToString("MM")-01">
+        Next Month >
+    </a>
 </div>

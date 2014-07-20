@@ -87,5 +87,31 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             WebDriverTests.Driver.FindLink("Total Deposits").Click();
             return new RecurringChangeListPage();
         }
+
+        public AdministerWalletPage GoToNextMonth()
+        {
+            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            calander.FindCss(".other-month.next", Options.First).Click();
+            return this;
+        }
+
+        public string GetCurrentMonth()
+        {
+            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            return calander.FindCss(".month").Text;
+        }
+
+        public AdministerWalletPage GoToLastMonth()
+        {
+            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            calander.FindCss(".other-month.previous", Options.First).Click();
+            return this;
+        }
+
+        public string GetSelectedDay()
+        {
+            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            return calander.FindCss(".selected", Options.First).Text;
+        }
     }
 }

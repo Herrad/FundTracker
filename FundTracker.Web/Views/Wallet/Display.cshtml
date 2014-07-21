@@ -9,11 +9,10 @@
 
 @{Html.RenderPartial("_Navigation");}
 
-<h2 class="display-header">Your Wallet</h2>
+<h2 class="display-header">@Model.Name</h2>
 @{Html.RenderPartial("_Calendar", @Model.DayViewModel);}
 <div class="cl"></div>
 <div class="wallet-info">
-    <h2 class="wallet-name">@Model.Name</h2>
     <div class="funds">
         <a href="/RecurringChange/CreateDeposit/?walletName=@Model.Name&date=@Model.DayViewModel.SelectedDate.ToString("yyyy-MM-dd")" class="recurring deposit">New deposit</a>
         @{Html.RenderPartial("_RecurringAmount", Model.DepositAmountViewModel);}

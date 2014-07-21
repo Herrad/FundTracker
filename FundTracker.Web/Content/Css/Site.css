@@ -90,7 +90,7 @@ h2{margin-bottom: 20px;}
     .wallet-info .recurring-amount.limited { display: none;}
 }
 @media(max-device-width: 1023px) {
-    .wallet-info { width: 100%;margin: 0; }
+    .wallet-info { width: 100%; }
         .wallet-info .recurring-amount{ display: none;}
         .wallet-info .recurring-amount.limited { display: inherit;}
 }

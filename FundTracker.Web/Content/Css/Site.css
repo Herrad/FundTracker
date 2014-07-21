@@ -9,10 +9,10 @@ h2{margin-bottom: 20px;}
 #main{width: 1024px; margin: auto;}
 
 @media(max-device-width: 1023px) {
-    #main{ width: 800px;margin: 5px;}
+    #main{ width: 800px;}
 }
 @media(max-device-width: 800px) {
-    #main{ width: 300px;margin: 5px;}
+    #main{ width: 300px;margin: 20px 5px;}
 }
 
 .container{float: left;border: 1px solid #C8C8C8;padding: 5px;border-radius: 5px;}
@@ -97,15 +97,15 @@ h2{margin-bottom: 20px;}
         .wallet-info .recurring-amount.limited { display: inherit;}
 }
 @media(max-device-width: 800px) {
-    .wallet-info .funds .available-funds{ width: 134px;}
+    .wallet-info .funds .available-funds{ width: 134px;border-left: 1px solid #C8C8C8;border-right: 1px solid #C8C8C8;}
 
     .wallet-info .recurring-amount.limited {display: none}
     .wallet-info .recurring {display: none}
 }
    
 
-.wallet-input { margin:50px 0 0 20px;}
-    .wallet-input div { float: left; width: 400px;}
+.wallet-input { }
+    .wallet-input div { float: left; width: 400px;margin: 15px 0;}
         .wallet-input div.remove{ float: right; }
     .wallet-input form { float: left;}
         .wallet-input form label  { float: left;width: 40%;}
@@ -114,7 +114,7 @@ h2{margin-bottom: 20px;}
 
 @media(max-device-width: 800px) {
         .wallet-input div{ width: 100%; }
-        .wallet-input div.remove{ float: left; }
+        .wallet-input div.remove{ float: left;margin-top: 0; }
 }
 
 .cl{ clear: both;}

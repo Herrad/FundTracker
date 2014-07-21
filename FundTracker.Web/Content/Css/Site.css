@@ -34,7 +34,7 @@ h2{margin-bottom: 20px;}
 
 
 #calendar {margin: auto;width: 1024px;padding: 0;list-style: none;}
-    #calendar .month {float: left;padding-left: 45%;font-size: 1.5em;}
+    #calendar .month {float: left;width: 100%;font-size: 1.5em;text-align: center;}
     #calendar .day{ float: left;width: 2.2%;text-align: center;text-decoration: none;background: #EAEAEA;color: black;border: 1px solid #C8C8C8;}
             #calendar .current-month.day:hover{ background: #b8b8b8;cursor: pointer;}
         #calendar .current-month.day.selected{ font-weight: bold;background: #b8b8b8;}
@@ -58,14 +58,12 @@ h2{margin-bottom: 20px;}
     
 @media(max-device-width: 1023px) {
     #calendar{ width: 800px;}
-    #calendar .month { padding-left: 35%;}
     #calendar .dekstop{ display: none;}
     #calendar .tablet{ display:block;}
     #calendar .other-month{ padding: 10px;}
 }
 @media(max-device-width: 800px) {
     #calendar{ width: 300px;margin: 0;}
-    #calender .month{ padding-left: 35%;}
     #calendar .mobile{ display:block;}
     #calendar .tablet{ display: none;}
     #calendar .other-month{ padding: 10px 5px;}

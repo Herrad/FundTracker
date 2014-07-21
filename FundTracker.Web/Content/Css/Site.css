@@ -11,16 +11,8 @@ h2{margin-bottom: 20px;}
 @media(max-device-width: 1023px) {
     #main{ width: 800px;margin: 5px;}
 }
-@media(max-width: 1023px) {
-    #main{ width: 800px;margin: 5px;}
-}
-@media(max-width: 800px) {
-    #main{ width: 300px;margin: 5px;}
-    body { width: 350px;margin: 0;}
-}
 @media(max-device-width: 800px) {
     #main{ width: 300px;margin: 5px;}
-    body { width: 350px;margin: 0;}
 }
 
 .container{float: left;border: 1px solid #C8C8C8;padding: 5px;border-radius: 5px;}
@@ -71,21 +63,7 @@ h2{margin-bottom: 20px;}
     #calendar .tablet{ display:block;}
     #calendar .other-month{ padding: 10px;}
 }
-@media(max-width: 1023px) {
-    #calendar{ width: 800px;}
-    #calendar .month { padding-left: 35%;}
-    #calendar .dekstop{ display: none;}
-    #calendar .tablet{ display:block;}
-    #calendar .other-month{ padding: 10px;}
-}
 @media(max-device-width: 800px) {
-    #calendar{ width: 300px;margin: 0;}
-    #calender .month{ padding-left: 35%;}
-    #calendar .mobile{ display:block;}
-    #calendar .tablet{ display: none;}
-    #calendar .other-month{ padding: 10px 5px;}
-}
-@media(max-width: 800px) {
     #calendar{ width: 300px;margin: 0;}
     #calender .month{ padding-left: 35%;}
     #calendar .mobile{ display:block;}
@@ -113,26 +91,12 @@ h2{margin-bottom: 20px;}
 @media(min-device-width: 1024px) {
     .wallet-info .recurring-amount.limited { display: none;}
 }
-@media(min-width: 1024px) {
-    .wallet-info .recurring-amount.limited { display: none;}
-}
 @media(max-device-width: 1023px) {
     .wallet-info { width: 100%;margin: 0; }
         .wallet-info .recurring-amount{ display: none;}
         .wallet-info .recurring-amount.limited { display: inherit;}
 }
-@media(max-width: 1023px) {
-    .wallet-info { width: 100%;margin: 0; }
-    .wallet-info .recurring-amount{ display: none;}
-    .wallet-info .recurring-amount.limited { display: inherit;}
-}
 @media(max-device-width: 800px) {
-    .wallet-info .funds .available-funds{ width: 134px;}
-
-    .wallet-info .recurring-amount.limited {display: none}
-    .wallet-info .recurring {display: none}
-}
-@media(max-width: 800px) {
     .wallet-info .funds .available-funds{ width: 134px;}
 
     .wallet-info .recurring-amount.limited {display: none}
@@ -149,10 +113,6 @@ h2{margin-bottom: 20px;}
         .wallet-input form .fund-submit { float: left;width: 100%;}
 
 @media(max-device-width: 800px) {
-        .wallet-input div{ width: 100%; }
-        .wallet-input div.remove{ float: left; }
-}
-@media(max-width: 800px) {
         .wallet-input div{ width: 100%; }
         .wallet-input div.remove{ float: left; }
 }

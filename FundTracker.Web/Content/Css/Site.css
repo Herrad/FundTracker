@@ -1,5 +1,6 @@
 ﻿body
 {
+
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
 }
@@ -17,7 +18,7 @@ h2{margin-bottom: 20px;}
 
 .container{float: left;border: 1px solid #C8C8C8;padding: 5px;border-radius: 5px;}
 
-.wallet-name-panel {float: left;background: #EAEAEA;padding: 15px;width: 300px;}
+.wallet-name-panel {float: left;background: #EAEAEA;padding: 15px;width: 258px;}
     .wallet-name-panel label { float: left;font-weight: bold;padding-bottom: 10px;}
     .wallet-name-panel input { float: left;width: 100%;}
     .wallet-name-panel input.button { padding: 10px 0;}
@@ -25,10 +26,16 @@ h2{margin-bottom: 20px;}
     .wallet-name-panel .error-text {float: left;color: red;}
 
 #find-a-wallet { float: right;}
+
+@media(max-device-width: 800px) {
+    #find-a-wallet{ float: left; margin-top: 30px;}
+}
+
     
-#created { float: left;width: 30%;margin: 15% 0 0 35%;}
+#created { float: left;width: 100%;text-align: center;}
 #created span { float: left;}
 #created a { float: left;margin-top: 30px;}
+
 
 
 

@@ -2,9 +2,9 @@
 @model FundTracker.Web.ViewModels.RecurringAmountViewModel
 
 
-<div class="recurring-amount @Model.RecurringType.ToLower()">
-    <a href="/RecurringChange/Display?walletName=@Model.WalletName&date=@Model.Date">Total @Model.RecurringType.ToString(CultureInfo.InvariantCulture)s</a>: £<strong class="amount">@Model.PositiveTotal</strong>
-</div>
+<a href="/RecurringChange/Display?walletName=@Model.WalletName&date=@Model.Date"  class="recurring-amount @Model.RecurringType.ToLower()">
+    <span>Total @Model.RecurringType.ToString(CultureInfo.InvariantCulture)s</span>: £<strong class="amount">@Model.PositiveTotal</strong>
+</a>
 
 <div class="recurring-amount limited @Model.RecurringType.ToLower()">
     £<strong class="amount">@Model.PositiveTotal</strong>

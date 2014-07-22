@@ -16,7 +16,7 @@
     <div class="funds">
         <a href="/RecurringChange/CreateDeposit/?walletName=@Model.Name&date=@Model.DayViewModel.SelectedDate.ToString("yyyy-MM-dd")" class="recurring deposit">New deposit</a>
         @{Html.RenderPartial("_RecurringAmount", Model.DepositAmountViewModel);}
-        <div class="available-funds">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></div>
+        <a class="available-funds" href="/RecurringChange/Display?walletName=@Model.DepositAmountViewModel.WalletName&date=@Model.DepositAmountViewModel.Date">Available funds: £<strong id="available-funds-value">@Model.AvailableFunds</strong></a>
         @{Html.RenderPartial("_RecurringAmount", Model.WithdrawalAmountViewModel);}
         <a href="/RecurringChange/CreateWithdrawal/?walletName=@Model.Name&date=@Model.DayViewModel.SelectedDate.ToString("yyyy-MM-dd")" class="recurring withdrawal">New withdrawal</a>
     </div>

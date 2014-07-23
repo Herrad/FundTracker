@@ -50,7 +50,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Then(@"the calander should have today's date selected")]
         public void ThenTheCalanderShouldHaveTodaysDateSelected()
         {
-            var calendar = Driver.FindCss("#calendar");
+            var calendar = WebDriver.FindCss("#calendar");
             var selected = calendar.FindCss(".selected");
 
             Assert.That(selected.Text, Is.EqualTo(DateTime.Today.ToString("dd")));

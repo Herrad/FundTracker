@@ -13,10 +13,10 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
             EnterNameTo(walletName, ".create-name");
 
-            var createButton = WebDriverTests.Driver.FindCss(".create-submit");
+            var createButton = WebDriverTests.WebDriver.FindCss(".create-submit");
             createButton.Click();
 
-            var redirectLink = WebDriverTests.Driver.FindCss("a");
+            var redirectLink = WebDriverTests.WebDriver.FindCss("a");
             redirectLink.Click();
         }
 
@@ -30,7 +30,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             ScenarioContext.Current["wallet name"] = walletName;
             EnterNameTo(walletName, ".find-name");
 
-            var createButton = WebDriverTests.Driver.FindCss(".find-submit");
+            var createButton = WebDriverTests.WebDriver.FindCss(".find-submit");
             createButton.Click();
 
             return new AdministerWalletPage();
@@ -38,7 +38,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         private static void EnterNameTo(string walletName, string targetNameBox)
         {
-            var nameBox = WebDriverTests.Driver.FindCss(targetNameBox);
+            var nameBox = WebDriverTests.WebDriver.FindCss(targetNameBox);
             nameBox.SendKeys(walletName);
         }
     }

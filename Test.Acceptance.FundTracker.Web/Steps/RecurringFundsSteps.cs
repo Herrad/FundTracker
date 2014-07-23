@@ -68,16 +68,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var recurringDepositToEnter = recurringDepositParameters.Rows[0];
 
-            var recurringDeposit = Driver.FindCss(".recurring.deposit");
+            var recurringDeposit = WebDriver.FindCss(".recurring.deposit");
             recurringDeposit.Click();
 
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
 
-            Driver.FindCss(".deposit-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
-            Driver.FindCss(".deposit-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".deposit-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".deposit-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
 
-            Driver.FindCss(".deposit-submit").Click();
+            WebDriver.FindCss(".deposit-submit").Click();
         }
 
         [When(@"I add the following recurring withdrawal")]
@@ -85,16 +85,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var recurringDepositToEnter = recurringWithdrawalParameters.Rows[0];
 
-            var recurringDeposit = Driver.FindCss(".recurring.withdrawal");
+            var recurringDeposit = WebDriver.FindCss(".recurring.withdrawal");
             recurringDeposit.Click();
 
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
 
-            Driver.FindCss(".withdrawal-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
-            Driver.FindCss(".withdrawal-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".withdrawal-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".withdrawal-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
 
-            Driver.FindCss(".withdrawal-submit").Click();
+            WebDriver.FindCss(".withdrawal-submit").Click();
         }
 
         [When(@"I view my deposits for ""(.*)""")]
@@ -138,7 +138,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Then(@"the outgoing total value is (.*)")]
         public void ThenTheOutgoingTotalValueIs(decimal expectedWithdrawalAmount)
         {
-            var withdrawalAmount = Driver.FindCss(".recurring-amount.withdrawal");
+            var withdrawalAmount = WebDriver.FindCss(".recurring-amount.withdrawal");
 
             var amount = decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
 
@@ -148,7 +148,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Then(@"the incoming total value is (.*)")]
         public void ThenTheIncomingTotalValueIs(decimal expectedDepositAmount)
         {
-            var withdrawalAmount = Driver.FindCss(".recurring-amount.deposit");
+            var withdrawalAmount = WebDriver.FindCss(".recurring-amount.deposit");
 
             var amount = decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
 

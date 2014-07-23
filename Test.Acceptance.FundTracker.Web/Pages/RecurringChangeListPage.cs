@@ -7,7 +7,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
     {
         public bool HasEntryFor(string entryToCheck)
         {
-            var listElements = WebDriverTests.Driver.FindAllCss("li");
+            var listElements = WebDriverTests.WebDriver.FindAllCss("li");
 
             return listElements.Any(listElement => listElement.Text.ToLower() == entryToCheck);
 

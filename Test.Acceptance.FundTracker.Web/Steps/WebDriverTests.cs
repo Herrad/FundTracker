@@ -23,8 +23,8 @@ namespace Test.Acceptance.FundTracker.Web.Steps
                 Driver = typeof(SeleniumWebDriver),
                 Browser = Coypu.Drivers.Browser.Firefox
             };
-            Driver = new BrowserSession(sessionConfiguration);
-            Driver.Visit("/");
+            WebDriver = new BrowserSession(sessionConfiguration);
+            WebDriver.Visit("/");
         }
 
         [AfterScenario]
@@ -35,9 +35,9 @@ namespace Test.Acceptance.FundTracker.Web.Steps
                 TestDbAdapter.RemoveWallet(ScenarioContext.Current["wallet name"].ToString());
             }
 
-            Driver.Dispose();
+            WebDriver.Dispose();
         }
 
-        public static BrowserSession Driver { get; private set; }
+        public static BrowserSession WebDriver { get; private set; }
     }
 }

@@ -7,41 +7,47 @@ using Test.Acceptance.FundTracker.Web.Steps;
 
 namespace Test.Acceptance.FundTracker.Web.Pages
 {
-    public class AdministerWalletPage
+    public class AdministerWalletPage : WebDriverTests
     {
         public void AddFundsToWallet(decimal fundAmount)
         {
-            var addFundsAmount = WebDriverTests.Driver.FindCss(".funds-to-add");
+            var addFundsAmount = WebDriver.FindCss(".funds-to-add");
             addFundsAmount.SendKeys(fundAmount.ToString(CultureInfo.InvariantCulture));
 
-            var addFundsButton = WebDriverTests.Driver.FindCss(".submit-add");
+            var description = WebDriver.FindCss(".add").FindField("changeName");
+            description.SendKeys("foo bar");
+
+            var addFundsButton = WebDriver.FindCss(".submit-add");
             addFundsButton.Click();
         }
 
         public void RemoveFundsFromWallet(decimal fundsToRemove)
         {
-            var removeFundsAmount = WebDriverTests.Driver.FindCss(".funds-to-remove");
+            var removeFundsAmount = WebDriver.FindCss(".funds-to-remove");
             removeFundsAmount.SendKeys(fundsToRemove.ToString(CultureInfo.InvariantCulture));
 
-            var submitButton = WebDriverTests.Driver.FindCss(".submit-remove");
+            var description = WebDriver.FindCss(".remove").FindField("changeName");
+            description.SendKeys("foo bar");
+
+            var submitButton = WebDriver.FindCss(".submit-remove");
             submitButton.Click();
         }
 
         public static void AddWithdrawal(decimal fundsToWithdraw)
         {
-            var addWithdrawalElement = WebDriverTests.Driver.FindCss(".withdrawal");
+            var addWithdrawalElement = WebDriver.FindCss(".withdrawal");
             addWithdrawalElement.Click();
 
-            var withdrawalAmount = WebDriverTests.Driver.FindCss("." + "withdrawal-amount");
+            var withdrawalAmount = WebDriver.FindCss("." + "withdrawal-amount");
             withdrawalAmount.SendKeys(fundsToWithdraw.ToString(CultureInfo.InvariantCulture));
 
-            var withdrawalSubmit = WebDriverTests.Driver.FindCss("." + "withdrawal-submit");
+            var withdrawalSubmit = WebDriver.FindCss("." + "withdrawal-submit");
             withdrawalSubmit.Click();
         }
 
         public static decimal GetAvailableFunds()
         {
-            var availableFunds = WebDriverTests.Driver.FindCss("#available-funds-value").Text;
+            var availableFunds = WebDriver.FindCss("#available-funds-value").Text;
             decimal parsedAvailableFunds;
             var successfullyParsed = Decimal.TryParse(availableFunds, out parsedAvailableFunds);
             if (!successfullyParsed)
@@ -51,7 +57,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         public AdministerWalletPage ViewFor(DateTime targetDate)
         {
-            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            var calander = WebDriver.FindCss("#calendar");
             var selectedDate = calander.FindCss(".current-month.selected");
             var targetDayOfMonth = targetDate.Day.ToString(CultureInfo.InvariantCulture);
             if (int.Parse(targetDayOfMonth) < 10)
@@ -78,39 +84,39 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         public RecurringChangeListPage ViewWithdrawals()
         {
-            WebDriverTests.Driver.FindLink("Total Withdrawals").Click();
+            WebDriver.FindLink("Total Withdrawals").Click();
             return new RecurringChangeListPage();
         }
 
         public RecurringChangeListPage ViewDeposits()
         {
-            WebDriverTests.Driver.FindLink("Total Deposits").Click();
+            WebDriver.FindLink("Total Deposits").Click();
             return new RecurringChangeListPage();
         }
 
         public AdministerWalletPage GoToNextMonth()
         {
-            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            var calander = WebDriver.FindCss("#calendar");
             calander.FindCss(".other-month.next", Options.First).Click();
             return this;
         }
 
         public string GetCurrentMonth()
         {
-            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            var calander = WebDriver.FindCss("#calendar");
             return calander.FindCss(".month").Text;
         }
 
         public AdministerWalletPage GoToLastMonth()
         {
-            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            var calander = WebDriver.FindCss("#calendar");
             calander.FindCss(".other-month.previous", Options.First).Click();
             return this;
         }
 
         public string GetSelectedDay()
         {
-            var calander = WebDriverTests.Driver.FindCss("#calendar");
+            var calander = WebDriver.FindCss("#calendar");
             return calander.FindCss(".selected", Options.First).Text;
         }
     }

@@ -53,6 +53,7 @@
     <Compile Include="RecurranceRules\IDecideWhenRecurringChangesOccur.cs" />
     <Compile Include="RecurranceRules\IIdentifyRules.cs" />
     <Compile Include="RecurranceRules\OneShotRule.cs" />
+    <Compile Include="RecurranceRules\RecurranceRule.cs" />
     <Compile Include="RecurranceRules\RecurranceSpecificationFactory.cs" />
     <Compile Include="RecurranceRules\WeeklyRule.cs" />
     <Compile Include="RecurringChange.cs" />

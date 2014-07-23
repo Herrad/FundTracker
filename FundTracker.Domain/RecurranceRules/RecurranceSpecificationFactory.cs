@@ -4,12 +4,12 @@ namespace FundTracker.Domain.RecurranceRules
 {
     public class RecurranceSpecificationFactory : IBuildRecurranceSpecifications
     {
-        public IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate)
+        public IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate, DateTime? lastApplicableDate)
         {
             switch (aRecurranceRule)
             {
                 case "Every week":
-                    return new WeeklyRule(firstApplicableDate);
+                    return new WeeklyRule(firstApplicableDate, lastApplicableDate);
                 case "Every day":
                     return new DailyRule(firstApplicableDate);
                 case "Just today":

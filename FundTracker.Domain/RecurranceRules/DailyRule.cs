@@ -2,20 +2,20 @@ using System;
 
 namespace FundTracker.Domain.RecurranceRules
 {
-    public class DailyRule : IDecideWhenRecurringChangesOccur
+    public class DailyRule : RecurranceRule
     {
         private readonly DateTime _firstApplicableDate;
 
-        public DailyRule(DateTime firstApplicableDate)
+        public DailyRule(DateTime firstApplicableDate) : base(firstApplicableDate, null)
         {
             _firstApplicableDate = firstApplicableDate;
         }
 
-        public bool IsSpecifiedOn(DateTime targetDate)
+        protected override bool SpecificRulesApplyTo(DateTime targetDate)
         {
             return targetDate >= _firstApplicableDate;
         }
 
-        public string Name { get { return "Every day"; } }
+        public override string Name { get { return "Every day"; } }
     }
 }

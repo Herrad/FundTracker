@@ -12,7 +12,7 @@ namespace Test.FundTracker.Domain.RecurranceRules
         {
             var firstDate = DateTime.Today;
 
-            var recurranceRule = new RecurranceSpecificationFactory().Build("foo rule", firstDate);
+            var recurranceRule = new RecurranceSpecificationFactory().Build("foo rule", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
@@ -25,7 +25,7 @@ namespace Test.FundTracker.Domain.RecurranceRules
             
             var firstDate = DateTime.Today;
 
-            var recurranceRule = new RecurranceSpecificationFactory().Build("Just today", firstDate);
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Just today", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
@@ -37,7 +37,7 @@ namespace Test.FundTracker.Domain.RecurranceRules
         {
             var firstDate = new DateTime(2014, 07, 19);
 
-            var recurranceRule = new RecurranceSpecificationFactory().Build("Every day", firstDate);
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every day", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
@@ -51,7 +51,7 @@ namespace Test.FundTracker.Domain.RecurranceRules
         {
             var firstDate = new DateTime(2014, 07, 19);
 
-            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", firstDate);
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
@@ -65,11 +65,26 @@ namespace Test.FundTracker.Domain.RecurranceRules
         {
             var firstDate = new DateTime(2014, 07, 19);
 
-            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", firstDate);
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
             Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(-7)), Is.False);
+        }
+
+        [Test]
+        public void Every_week_does_not_apply_after_stop_date_when_it_has_been_applied()
+        {
+            var startDate = new DateTime(2014, 07, 01);
+            var stopDate = startDate.AddDays(14);
+
+
+            var recurranceRule = new RecurranceSpecificationFactory().Build("Every week", startDate, stopDate);
+
+            Assert.That(recurranceRule, Is.Not.Null);
+            Assert.That(recurranceRule.IsSpecifiedOn(startDate));
+            Assert.That(recurranceRule.IsSpecifiedOn(stopDate));
+            Assert.That(recurranceRule.IsSpecifiedOn(stopDate.AddDays(7)), Is.False);
         }
     }
 }

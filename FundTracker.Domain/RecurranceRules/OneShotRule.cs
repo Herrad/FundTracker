@@ -2,20 +2,17 @@ using System;
 
 namespace FundTracker.Domain.RecurranceRules
 {
-    public class OneShotRule : IDecideWhenRecurringChangesOccur
+    public class OneShotRule : RecurranceRule
     {
-        private readonly DateTime _dateToApplyTo;
-
-        public OneShotRule(DateTime dateToApplyTo)
+        public OneShotRule(DateTime firstApplicableDate) : base(firstApplicableDate, null)
         {
-            _dateToApplyTo = dateToApplyTo;
         }
 
-        public bool IsSpecifiedOn(DateTime targetDate)
+        protected override bool SpecificRulesApplyTo(DateTime targetDate)
         {
-            return _dateToApplyTo == targetDate;
+            return FirstApplicableDate == targetDate;
         }
 
-        public string Name { get { return "Just today"; } }
+        public override string Name { get { return "Just today"; } }
     }
 }

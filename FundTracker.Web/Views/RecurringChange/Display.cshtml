@@ -8,10 +8,29 @@
 @section Header
 {}
 
-<h2>Changes</h2>
-<ul>
-    @foreach (var change in Model.RecurringChangeViewModels)
+<h2>Changes on @Model.Date.ToString("dd MMM yyyy")</h2>
+<table class="changes">
+    <thead><tr ><td colspan="2">Deposits</td></tr></thead>
+    @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount > 0))
     {
-        <li>@change.Name: £@change.Amount</li>
+        <tr>
+            <td >@change.Name</td>
+            <td >£@change.Amount</td>
+        </tr>
     }
-</ul>
+</table>
+<table class="changes">
+    <thead><tr><td colspan="2">Withdrawals</td></tr></thead>
+    @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
+    {
+        <tr><td colspan="2">No withdrawals on this day</td></tr>
+    }
+    @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount < 0))
+    {
+        var invertedAmount = 0 - change.Amount;
+        <tr>
+            <td>@change.Name</td>
+            <td>£@invertedAmount</td>
+        </tr>
+    }
+</table>

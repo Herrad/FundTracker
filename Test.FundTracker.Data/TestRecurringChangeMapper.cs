@@ -48,7 +48,7 @@ namespace Test.FundTracker.Data
 
             var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
             recurranceSpecificationFactory
-                .Stub(x => x.Build(recurranceRule, new DateTime(2001, 2, 3)))
+                .Stub(x => x.Build(recurranceRule, new DateTime(2001, 2, 3), null))
                 .Return(recurranceSpecification);
 
             var mapper = new MongoRecurringChangeToRecurringChangeMapper(recurranceSpecificationFactory);

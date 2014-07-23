@@ -97,7 +97,7 @@ namespace Test.FundTracker.Web.Controllers
             const string recurranceRule = "foo rule";
             var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
             recurranceSpecificationFactory
-                .Stub(x => x.Build(recurranceRule, parsedDate))
+                .Stub(x => x.Build(recurranceRule, parsedDate, null))
                 .Return(recurranceRuleSpecification);
 
             var addChangeAction = new AddChangeAction(walletService, dateParser, recurranceSpecificationFactory);

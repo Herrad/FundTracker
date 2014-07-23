@@ -68,16 +68,17 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var recurringDepositToEnter = recurringDepositParameters.Rows[0];
 
-            var recurringDeposit = WebDriver.FindCss(".recurring.deposit");
-            recurringDeposit.Click();
-
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
 
-            WebDriver.FindCss(".deposit-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
-            WebDriver.FindCss(".deposit-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+            var recurringDeposit = WebDriver.FindCss(".recurring.deposit");
+            recurringDeposit.Click();
 
-            WebDriver.FindCss(".deposit-submit").Click();
+
+            WebDriver.FindCss(".amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+
+            WebDriver.FindCss(".submit").Click();
         }
 
         [When(@"I add the following recurring withdrawal")]
@@ -85,16 +86,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var recurringDepositToEnter = recurringWithdrawalParameters.Rows[0];
 
-            var recurringDeposit = WebDriver.FindCss(".recurring.withdrawal");
-            recurringDeposit.Click();
-
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
 
-            WebDriver.FindCss(".withdrawal-amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
-            WebDriver.FindCss(".withdrawal-name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+            var change = WebDriver.FindCss(".recurring.withdrawal");
+            change.Click();
 
-            WebDriver.FindCss(".withdrawal-submit").Click();
+            WebDriver.FindCss(".amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
+            WebDriver.FindCss(".name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
+
+            WebDriver.FindCss(".submit").Click();
         }
 
         [When(@"I view my deposits for ""(.*)""")]

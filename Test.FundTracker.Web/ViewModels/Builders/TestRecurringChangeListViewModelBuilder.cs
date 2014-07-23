@@ -18,9 +18,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo wallet";
 
-            var expectedChange1 = new RecurringChange("foo1", 1, DateTime.Today, null);
-            var expectedChange2 = new RecurringChange("foo2", 2, DateTime.Today, null);
-            var expectedChange3 = new RecurringChange("foo3", 3, DateTime.Today, null);
+            var expectedChange1 = new RecurringChange("foo1", 1, null);
+            var expectedChange2 = new RecurringChange("foo2", 2, null);
+            var expectedChange3 = new RecurringChange("foo3", 3, null);
 
             var startDate = new DateTime(1, 2 ,3);
             var recurringChanges = new List<RecurringChange>
@@ -69,8 +69,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo wallet";
             const string walletDate = "foo date";
 
-            var expectedChange1 = new RecurringChange("foo1", 0, DateTime.Today, null);
-            var expectedChange2 = new RecurringChange("foo2", 0, DateTime.Today, null);
+            var expectedChange1 = new RecurringChange("foo1", 0, null);
+            var expectedChange2 = new RecurringChange("foo2", 0, null);
 
             var startDate = new DateTime(1, 2, 3);
             var recurringChanges = new List<RecurringChange>

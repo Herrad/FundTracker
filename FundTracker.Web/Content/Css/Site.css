@@ -128,10 +128,13 @@ h2{margin-bottom: 20px;}
         .wallet-input div.remove{ float: left;margin-top: 0; }
 }
 .changes{margin-bottom: 30px;width: 100%;background: #EAEAEA;border: 1px solid #C8C8C8;border-collapse: collapse;}
-        .changes thead td{font-size: 1.5em;padding: 20px 0;text-align: center}
-    .changes tr{}
+        .changes thead tr.table-head td{font-size: 1.5em;padding: 20px 0;text-align: center}
+        .changes thead tr.row-head td{ font-weight: bold;}
     .changes td{border: 1px solid #C8C8C8;padding: 10px;}
-    .changes td:last-child{}
+    
+@media(max-device-width: 400px) {
+    .changes td.extrenious{ display: none;}
+}
 
 .cl{ clear: both;}
 .hidden{ display: none;}

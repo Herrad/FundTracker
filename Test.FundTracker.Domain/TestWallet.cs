@@ -28,7 +28,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange("foo", 123, new DateTime(1, 2, 3), null);
+            var recurringChange = new RecurringChange("foo", 123, null);
             wallet.CreateChange(recurringChange);
 
             Assert.That(recurringChanges.Contains(recurringChange));
@@ -46,7 +46,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, expectedStartDate, null);
+            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, null);
             wallet.CreateChange(recurringChange);
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());

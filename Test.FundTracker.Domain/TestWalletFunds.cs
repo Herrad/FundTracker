@@ -19,7 +19,7 @@ namespace Test.FundTracker.Domain
             var startDate = new DateTime(2014, 07, 01);
             var recurringChanges = new List<RecurringChange>()
             {
-                new RecurringChange("Payday", 100m, startDate, new WeeklyRule(startDate, null))
+                new RecurringChange("Payday", 100m, new WeeklyRule(startDate, null))
             };
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
 
@@ -36,7 +36,7 @@ namespace Test.FundTracker.Domain
             var today = DateTime.Today;
             var recurringChanges = new List<RecurringChange>()
             {
-                new RecurringChange("Payday", 100m, today, new WeeklyRule(today, null))
+                new RecurringChange("Payday", 100m, new WeeklyRule(today, null))
             };
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
 

@@ -7,5 +7,6 @@ namespace FundTracker.Domain.RecurranceRules
         bool IsSpecifiedOn(DateTime targetDate);
 
         string Name { get; }
+        DateTime FirstApplicableDate { get; }
     }
 }

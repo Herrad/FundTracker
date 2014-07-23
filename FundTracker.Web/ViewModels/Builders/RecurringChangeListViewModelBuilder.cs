@@ -29,7 +29,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change)
         {
-            return new RecurringChangeViewModel(change.Name, change.Amount);
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName());
         }
     }
 }

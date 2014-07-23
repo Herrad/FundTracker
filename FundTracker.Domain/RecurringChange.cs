@@ -7,10 +7,9 @@ namespace FundTracker.Domain
     {
         private readonly IDecideWhenRecurringChangesOccur _recurranceSpecification;
 
-        public RecurringChange(string name, decimal amount, DateTime startDate, IDecideWhenRecurringChangesOccur recurranceSpecification)
+        public RecurringChange(string name, decimal amount, IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
             _recurranceSpecification = recurranceSpecification;
-            StartDate = startDate;
             Name = name;
             Amount = amount;
         }
@@ -18,7 +17,7 @@ namespace FundTracker.Domain
         public string Name { get; private set; }
         public decimal Amount { get; private set; }
 
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get { return _recurranceSpecification.FirstApplicableDate; } }
 
         public bool AppliesTo(DateTime targetDate)
         {

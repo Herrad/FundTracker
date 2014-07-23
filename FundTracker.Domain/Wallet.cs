@@ -24,7 +24,7 @@ namespace FundTracker.Domain
 
         public void AddFunds(decimal fundsToAdd)
         {
-            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, DateTime.Today, new OneShotRule(DateTime.Today)));
+            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, new OneShotRule(DateTime.Today)));
         }
 
         public void CreateChange(RecurringChange recurringChange)

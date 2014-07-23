@@ -19,7 +19,7 @@ namespace FundTracker.Data.Mappers
             var startDate = DateTime.Parse(recurringChange.FirstApplicationDate);
             var recurranceSpecification = _recurranceSpecificationFactory.Build(recurringChange.RecurranceRule, startDate, null);
 
-            return new RecurringChange(recurringChange.Name, recurringChange.Amount, startDate, recurranceSpecification);
+            return new RecurringChange(recurringChange.Name, recurringChange.Amount, recurranceSpecification);
         }
     }
 }

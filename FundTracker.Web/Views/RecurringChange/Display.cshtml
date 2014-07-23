@@ -10,25 +10,56 @@
 
 <h2>Changes on @Model.Date.ToString("dd MMM yyyy")</h2>
 <table class="changes">
-    <thead><tr ><td colspan="2">Deposits</td></tr></thead>
+    <thead>
+        <tr class="table-head">
+            <td colspan="4">Deposits</td>
+        </tr>
+        <tr class="row-head">
+            <td class="extrenious">Applied since</td>
+            <td class="extrenious">Repeat rule</td>
+            <td>Name</td>
+            <td>Amount</td>
+        </tr>
+    </thead>    
+    @if (!Model.RecurringChangeViewModels.Any(change => change.Amount > 0))
+    {
+        <tr><td colspan="2">No withdrawals on this day</td></tr>
+    }
     @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount > 0))
     {
         <tr>
+            <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
+            <td class="extrenious">@change.RuleType</td>
             <td >@change.Name</td>
             <td >£@change.Amount</td>
         </tr>
     }
 </table>
 <table class="changes">
-    <thead><tr><td colspan="2">Withdrawals</td></tr></thead>
-    @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
-    {
-        <tr><td colspan="2">No withdrawals on this day</td></tr>
-    }
+    <thead>
+        <tr class="table-head">
+            <td colspan="4">Withdrawals</td>
+        </tr>
+        @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
+        {
+            <tr><td colspan="4">No withdrawals on this day</td></tr>
+        }
+        else
+        {
+            <tr class="row-head">
+                <td class="extrenious">Applied since</td>
+                <td class="extrenious">Repeat rule</td>
+                <td>Name</td>
+                <td>Amount</td>
+            </tr>
+        }
+    </thead>
     @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount < 0))
     {
         var invertedAmount = 0 - change.Amount;
         <tr>
+            <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
+            <td class="extrenious">@change.RuleType</td>
             <td>@change.Name</td>
             <td>£@invertedAmount</td>
         </tr>

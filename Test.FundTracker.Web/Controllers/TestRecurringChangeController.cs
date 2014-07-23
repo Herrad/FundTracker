@@ -41,7 +41,7 @@ namespace Test.FundTracker.Web.Controllers
         }
 
         [Test]
-        public void Create_returns_view_with_empty_ViewName_set()
+        public void Create_returns_view_with_Create_ViewName_set()
         {
             var withdrawalController = new RecurringChangeController(MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>(), new CreateRecurringChangeViewModelBuilder(), MockRepository.GenerateStub<IAddRecurringChanges>());
 
@@ -52,7 +52,7 @@ namespace Test.FundTracker.Web.Controllers
                                 };
             var result = withdrawalController.CreateWithdrawal(walletDay);
 
-            Assert.That(result.ViewName, Is.Empty);
+            Assert.That(result.ViewName, Is.EqualTo("Create"));
         }
 
         [Test]

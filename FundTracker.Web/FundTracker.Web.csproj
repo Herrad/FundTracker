@@ -198,10 +198,9 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\Wallet\_AdministerWallet.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
-    <Content Include="Views\RecurringChange\CreateWithdrawal.cshtml" />
     <Content Include="Views\Wallet\_RecurringTiles.cshtml" />
     <Content Include="Views\Wallet\_RecurringAmount.cshtml" />
-    <Content Include="Views\RecurringChange\CreateDeposit.cshtml" />
+    <Content Include="Views\RecurringChange\Create.cshtml" />
     <Content Include="Views\Wallet\_Calendar.cshtml" />
     <Content Include="Views\RecurringChange\Display.cshtml" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using FundTracker.Data.Annotations;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -28,9 +29,10 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var page = (AdministerWalletPage) ScenarioContext.Current["current page"];
             var currentMonth = page.GetCurrentMonth();
+            var selectedDay = page.GetSelectedDay();
             var nextMonth = DateTime.Today.AddMonths(1);
             Assert.That(currentMonth, Is.EqualTo(nextMonth.ToString("MMMMMMMMM yyyy")));
-            Assert.That(currentMonth, Is.EqualTo("01"));
+            Assert.That(selectedDay, Is.EqualTo("01"));
         }
 
         [Then(@"the calander should have the last day of last month selected")]
@@ -41,12 +43,12 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var selectedDay = page.GetSelectedDay();
             var lastMonth = DateTime.Today.AddMonths(-1);
             Assert.That(currentMonth, Is.EqualTo(lastMonth.ToString("MMMMMMMMM yyyy")));
-            Assert.That(selectedDay, Is.EqualTo(DateTime.DaysInMonth(lastMonth.Year, lastMonth.Month)));
+            Assert.That(selectedDay, Is.EqualTo(DateTime.DaysInMonth(lastMonth.Year, lastMonth.Month).ToString(CultureInfo.InvariantCulture)));
         }
 
 
         [Then(@"the calander should have today's date selected")]
-        public void ThenTheCalanderShouldHaveTodaySDateSelected()
+        public void ThenTheCalanderShouldHaveTodaysDateSelected()
         {
             var calendar = Driver.FindCss("#calendar");
             var selected = calendar.FindCss(".selected");

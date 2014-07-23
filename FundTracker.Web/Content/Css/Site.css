@@ -79,17 +79,17 @@ h2{margin-bottom: 20px;}
 .wallet-info { width: 1024px;margin: 25px auto; }
     .wallet-info .funds div { float: left;}
     .wallet-info .funds a { float: left;}
-
-    .wallet-info .funds .available-funds {padding: 60px 82px;text-align: center;background: #EAEAEA;border: 1px solid #C8C8C8;border-left: dashed #C8C8C8;border-right: dashed #C8C8C8;}
+    
+    .wallet-info .funds .available-funds {width: 200px;padding: 60px 45px;background: #EAEAEA;border: 1px solid #C8C8C8;border-left: dashed #C8C8C8;border-right: dashed #C8C8C8;text-align: center;text-decoration: none;color: black;}
+    .wallet-info .funds .available-funds:hover {background: #b8b8b8;}
         
     .wallet-info .funds .recurring{width: 118px;padding: 60px 0 60px 5px;background: #EAEAEA;border: 1px solid #C8C8C8;color: black;text-decoration: none;}
-        .wallet-info .funds .recurring:hover{ background: #b8b8b8;cursor: pointer;}
+        .wallet-info .funds .recurring:hover{ background: #b8b8b8;}
 
     .wallet-info .funds .recurring.deposit{ border-right: dashed #C8C8C8;}
     .wallet-info .funds .recurring.withdrawal{padding: 60px 5px 60px 0;border-left: dashed #C8C8C8;text-align: right;}
         
     .wallet-info .recurring-amount {width: 235px;margin-top: 28px;text-align: center;background-color: #FFE6E6;border-image: url("../Images/red-arrows.png") 32 0 round;border-top: 32px solid;border-bottom: 32px solid;border-left: 0;border-right: 0;color: black;text-decoration: none;}
-        .wallet-info .recurring-amount:visited { color: black;}
         .wallet-info .recurring-amount.deposit {background-color: #E2FFCC;border-image: url("../Images/green-arrows.png") 32 0 round;}
         .wallet-info .recurring-amount.limited {width: 5%;margin-top: 1.5%;}
 

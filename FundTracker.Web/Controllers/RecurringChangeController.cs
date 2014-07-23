@@ -28,14 +28,14 @@ namespace FundTracker.Web.Controllers
 
         public ViewResult CreateWithdrawal(WalletDay walletDay)
         {
-            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName, walletDay.Date);
-            return View(createRecurringChangeViewModel);
+            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName, walletDay.Date, "/RecurringChange/AddNewWithdrawal");
+            return View("Create", createRecurringChangeViewModel);
         }
 
         public ViewResult CreateDeposit(WalletDay walletDay)
         {
-            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName, walletDay.Date);
-            return View(createRecurringChangeViewModel);
+            var createRecurringChangeViewModel = _createRecurringChangeViewModelBuilder.Build(walletDay.WalletName, walletDay.Date, "/RecurringChange/AddNewDeposit");
+            return View("Create", createRecurringChangeViewModel);
         }
 
         public RedirectToRouteResult AddNewWithdrawal(WalletDay walletDay, AddedChange addedChange)

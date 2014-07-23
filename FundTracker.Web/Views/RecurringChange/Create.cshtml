@@ -6,18 +6,18 @@
 }
 @section Header
 {}
-<h2>Create a recurring deposit into <strong>@Model.WalletName</strong></h2>
+<h2>Create a recurring change for <strong>@Model.WalletName</strong></h2>
 
-<form method="POST" action="/RecurringChange/AddNewDeposit">
-    <input type="hidden" name="walletName" min="0"value="@Model.WalletName" />
+<form method="POST" action="@Model.FormAction">
+    <input type="hidden" name="walletName" value="@Model.WalletName" />
     <input type="hidden" name="date" value="@Model.SelectedDate"/>
     <label for="amount">Enter a value to deposit</label>
-    <input type="number" name="amount" class="deposit-amount" />
-    <input type="text" name="changeName" class="deposit-name" />
-    <select name="recurranceRule" class="deposit-rule">
+    <input type="number" name="amount" min="0" class="amount" />
+    <input type="text" name="changeName" class="name" />
+    <select name="recurranceRule" class="rule">
         <option value="Just today" selected="selected">Just today</option>
         <option value="Every week">Once a week</option>
         <option value="Every day">Every day</option>
     </select>
-    <input type="submit" class="deposit-submit" />
+    <input type="submit" class="submit" />
 </form>

@@ -110,7 +110,9 @@
     <Compile Include="Controllers\ActionHelpers\AddChangeAction.cs" />
     <Compile Include="Controllers\ActionHelpers\CreateWalletValidationRules.cs" />
     <Compile Include="Controllers\ActionHelpers\IAddRecurringChanges.cs" />
+    <Compile Include="Controllers\ActionHelpers\ILimitRecurringChanges.cs" />
     <Compile Include="Controllers\ActionHelpers\IRedirectBasedOnWalletCreationValidation.cs" />
+    <Compile Include="Controllers\ActionHelpers\RecurringChangeLimiter.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
     <Compile Include="Controllers\BoundModels\AddedChange.cs" />
     <Compile Include="Controllers\BoundModels\WalletDay.cs" />

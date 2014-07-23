@@ -8,5 +8,6 @@ namespace FundTracker.Domain.RecurranceRules
 
         string Name { get; }
         DateTime FirstApplicableDate { get; }
+        void StopOn(DateTime lastApplicableDate);
     }
 }

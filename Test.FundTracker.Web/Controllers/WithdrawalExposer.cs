@@ -13,17 +13,12 @@ namespace Test.FundTracker.Web.Controllers
             WithdrawalAdded = recurringChange;
         }
 
-        IEnumerable<RecurringChange> IHaveRecurringChanges.GetRecurringDeposits()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<RecurringChange> IHaveRecurringChanges.GetRecurringWithdrawals()
-        {
-            throw new NotImplementedException();
-        }
-
         IEnumerable<RecurringChange> IHaveRecurringChanges.GetChangesApplicableTo(DateTime selectedDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopChangeOn(string changeName, DateTime lastApplicableDate)
         {
             throw new NotImplementedException();
         }

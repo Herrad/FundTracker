@@ -28,5 +28,10 @@ namespace FundTracker.Domain
         {
             return _recurranceSpecification.Name;
         }
+
+        public void StopOn(DateTime lastApplicableDate)
+        {
+            _recurranceSpecification.StopOn(lastApplicableDate);
+        }
     }
 }

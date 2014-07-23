@@ -6,7 +6,7 @@ namespace FundTracker.Domain.RecurranceRules
     {
         private readonly DateTime _firstApplicableDate;
 
-        public DailyRule(DateTime firstApplicableDate) : base(firstApplicableDate, null)
+        public DailyRule(DateTime firstApplicableDate, DateTime? lastApplicableDate) : base(firstApplicableDate, lastApplicableDate)
         {
             _firstApplicableDate = firstApplicableDate;
         }

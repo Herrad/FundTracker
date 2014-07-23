@@ -6,8 +6,7 @@ namespace FundTracker.Domain
     public interface IHaveRecurringChanges : IAmIdentifiable
     {
         void CreateChange(RecurringChange recurringChange);
-        IEnumerable<RecurringChange> GetRecurringDeposits();
-        IEnumerable<RecurringChange> GetRecurringWithdrawals();
         IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate);
+        void StopChangeOn(string changeName, DateTime lastApplicableDate);
     }
 }

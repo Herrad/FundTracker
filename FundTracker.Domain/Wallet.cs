@@ -24,7 +24,7 @@ namespace FundTracker.Domain
 
         public void AddFunds(decimal fundsToAdd)
         {
-            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, new OneShotRule(DateTime.Today)));
+            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, new OneShotRule(DateTime.Today, null)));
         }
 
         public void CreateChange(RecurringChange recurringChange)
@@ -69,19 +69,14 @@ namespace FundTracker.Domain
             return Equals((Wallet) obj);
         }
 
-        public IEnumerable<RecurringChange> GetRecurringDeposits()
-        {
-            return _recurringChanges.Where(recurringChange => recurringChange.Amount > 0);
-        }
-
-        public IEnumerable<RecurringChange> GetRecurringWithdrawals()
-        {
-            return _recurringChanges.Where(recurringChange => recurringChange.Amount < 0);
-        }
-
         public IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate)
         {
             return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate));
+        }
+
+        public void StopChangeOn(string changeName, DateTime lastApplicableDate)
+        {
+            _recurringChanges.First(change => change.Name == changeName).StopOn(lastApplicableDate);
         }
     }
 }

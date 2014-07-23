@@ -4,7 +4,7 @@ namespace FundTracker.Domain.RecurranceRules
 {
     public class OneShotRule : RecurranceRule
     {
-        public OneShotRule(DateTime firstApplicableDate) : base(firstApplicableDate, null)
+        public OneShotRule(DateTime firstApplicableDate, DateTime? lastApplicableDate) : base(firstApplicableDate, lastApplicableDate)
         {
         }
 

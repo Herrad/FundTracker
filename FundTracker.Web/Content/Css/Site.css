@@ -136,5 +136,15 @@ h2{margin-bottom: 20px;}
     .changes td.extrenious{ display: none;}
 }
 
+.new-change label{float: left;width: 39%;}
+.new-change input{float: left; width: 60%;}
+.new-change select{float: left; width: 60%;}
+.new-change .submit{float: left; width: 100%;margin-top:30px;}
+
+@media(max-device-width: 800px) {
+.new-change label{width: 100%;}
+.new-change input{width: 100%;}
+    .new-change select{width: 100%;}
+}
 .cl{ clear: both;}
 .hidden{ display: none;}

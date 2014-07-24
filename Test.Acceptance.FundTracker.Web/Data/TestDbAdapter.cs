@@ -17,7 +17,13 @@ namespace Test.Acceptance.FundTracker.Web.Data
 
         public static void CreateWalletCalled(string walletName)
         {
+            var wallet = FindWalletCalled(walletName);
             var walletsCollection = GetWalletsCollection();
+            if (wallet != null)
+            {
+                RemoveAllRecurringChangesAssociatedWith(walletName);
+                walletsCollection.Remove(Query<MongoWallet>.EQ(mw => mw.Id, wallet.Id));
+            }
             var walletToInsert = new MongoWallet {Name = walletName};
 
             walletsCollection.Insert(walletToInsert);
@@ -39,10 +45,6 @@ namespace Test.Acceptance.FundTracker.Web.Data
             recurringChanges.Insert(recurringChangeToInsert);
         }
 
-        public static void UpdateExistingWallet(MongoWallet walletToUpdate)
-        {
-        }
-
         public static MongoWallet FindWalletCalled(string walletName)
         {
             var query = Query<MongoWallet>.EQ(e => e.Name, walletName);
@@ -50,7 +52,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
             return walletsCollection.FindOne(query);
         }
 
-        public static void RemoveRecurringChangesAssociatedWith(string walletName)
+        public static void RemoveAllRecurringChangesAssociatedWith(string walletName)
         {
             var mongoWallet = FindWalletCalled(walletName);
             var mongoDatabase = GetMongoDatabase();

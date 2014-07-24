@@ -24,7 +24,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         [Given(@"my wallet has no recurring changes")]
         public void GivenItHasNoRecurringChanges()
         {
-            TestDbAdapter.RemoveRecurringChangesAssociatedWith(ScenarioContext.Current["wallet name"].ToString());
+            TestDbAdapter.RemoveAllRecurringChangesAssociatedWith(ScenarioContext.Current["wallet name"].ToString());
         }
 
 

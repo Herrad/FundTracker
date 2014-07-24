@@ -154,7 +154,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 37
  testRunner.When("I view my withdrawals for 2 days ago", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 38
- testRunner.Then("I can see an entry for \"dance lessons: £-100\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"dance lessons\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -178,7 +178,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 46
  testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 47
- testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -204,7 +204,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 56
  testRunner.When("I view my deposits for 5 days ahead", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 57
- testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 58
  testRunner.And("no entry for \"debt\" is present", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -247,10 +247,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Stopping changes prevents them from happening after the day they were stopped on")]
-        public virtual void StoppingChangesPreventsThemFromHappeningAfterTheDayTheyWereStoppedOn()
+        [NUnit.Framework.DescriptionAttribute("Stopping one shot changes prevents them from happening after the day they were st" +
+            "opped on")]
+        public virtual void StoppingOneShotChangesPreventsThemFromHappeningAfterTheDayTheyWereStoppedOn()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stopping changes prevents them from happening after the day they were stopped on", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stopping one shot changes prevents them from happening after the day they were st" +
+                    "opped on", ((string[])(null)));
 #line 72
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -277,6 +279,41 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I stop the deposit called \"payday\" on \"2014-07-02\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 80
  testRunner.Then("no entry for \"payday\" is present on \"2014-07-03\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Removing changes stops them rendering")]
+        public virtual void RemovingChangesStopsThemRendering()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing changes stops them rendering", ((string[])(null)));
+#line 83
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name"});
+            table12.AddRow(new string[] {
+                        "my wallet"});
+#line 84
+ testRunner.Given("this wallet exists", ((string)(null)), table12, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Amount",
+                        "Start Date",
+                        "Repetition Rule"});
+            table13.AddRow(new string[] {
+                        "payday",
+                        "1000",
+                        "2014-07-01",
+                        "Just today"});
+#line 87
+ testRunner.And("the following recurring deposit exists", ((string)(null)), table13, "And ");
+#line 90
+ testRunner.When("I remove the deposit called \"payday\" on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 91
+ testRunner.Then("no entry for \"payday\" is present on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

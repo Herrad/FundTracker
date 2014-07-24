@@ -24,17 +24,17 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var applicableChanges = wallet.GetChangesApplicableTo(selectedDate);
 
-            return new RecurringChangeListViewModel(applicableChanges.Select(BuildRecurringChangeViewModel), selectedDate, walletName);
+            return new RecurringChangeListViewModel(applicableChanges.Select(change => BuildRecurringChangeViewModel(change, walletName)), selectedDate);
         }
 
-        private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change)
+        private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change, string walletName)
         {
-            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), GetStopLinkText(change), GetStopLinkDestination(change));
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), GetStopLinkText(change), GetStopLinkDestination(change, walletName));
         }
 
         private static string GetStopLinkText(RecurringChange change)
         {
-            return IsOneShot(change) ? "Remove this change" : "Stop this change";
+            return IsOneShot(change) ? "Remove from today" : "Stop from today";
         }
 
         private static bool IsOneShot(RecurringChange change)
@@ -42,10 +42,10 @@ namespace FundTracker.Web.ViewModels.Builders
             return change.RuleName() == "Just today";
         }
 
-        private static string GetStopLinkDestination(RecurringChange change)
+        private static string GetStopLinkDestination(RecurringChange change, string walletName)
         {
-            var desiredAction = IsOneShot(change) ? "Delete" : "Stop";
-            return "/RecurringChange/" + desiredAction + "/?walletName=" + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeName=" + change.Name;
+            var desiredAction = IsOneShot(change) ? "Delete" : "StopChange";
+            return "/RecurringChange/" + desiredAction + "/?walletName=" + walletName + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeName=" + change.Name;
         }
     }
 }

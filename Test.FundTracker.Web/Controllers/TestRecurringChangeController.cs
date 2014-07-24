@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using FundTracker.Domain;
-using FundTracker.Domain.RecurranceRules;
 using FundTracker.Web.Controllers;
 using FundTracker.Web.Controllers.ActionHelpers;
 using FundTracker.Web.Controllers.BoundModels;
@@ -31,7 +28,7 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string walletName = "foo wallet";
             var walletDay = new WalletDay { Date = "foo date", WalletName = walletName };
-            var recurringChangeListViewModel = new RecurringChangeListViewModel(new List<RecurringChangeViewModel>(), new DateTime(1, 2, 3), walletName);
+            var recurringChangeListViewModel = new RecurringChangeListViewModel(new List<RecurringChangeViewModel>(), new DateTime(1, 2, 3));
             var recurringChangeListViewModelBuilder = MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>();
             recurringChangeListViewModelBuilder
                 .Stub(x => x.Build(walletName, "foo date"))

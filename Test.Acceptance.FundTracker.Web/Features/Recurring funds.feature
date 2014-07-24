@@ -35,7 +35,7 @@ Scenario: Removing funds 2 days ago
 	| my wallet   |
 	And I removed 100 in funds 2 days ago for "dance lessons"
 	When I view my withdrawals for 2 days ago
-	Then I can see an entry for "dance lessons: £-100"
+	Then I can see an entry for "dance lessons"
 
 
 Scenario: Incoming funds in 5 days 
@@ -44,7 +44,7 @@ Scenario: Incoming funds in 5 days
 	| my wallet   |
 	And I have a deposit of 1000 due in 5 days for "payday"
 	When I view my deposits for 5 days ahead
-	Then I can see an entry for "payday: £1000"
+	Then I can see an entry for "payday"
 
 
 Scenario: Multiple changes on different days
@@ -54,7 +54,7 @@ Scenario: Multiple changes on different days
 	And I have a deposit of 1000 due in 5 days for "payday"
 	And I have a deposit of 250 due in 2 days for "debt"
 	When I view my deposits for 5 days ahead
-	Then I can see an entry for "payday: £1000"
+	Then I can see an entry for "payday"
 	And no entry for "debt" is present
 	
 	
@@ -69,7 +69,7 @@ Scenario: Changes repeat according to rules
 	Then I can see an entry for "payday"
 
 	
-Scenario: Stopping changes prevents them from happening after the day they were stopped on
+Scenario: Stopping one shot changes prevents them from happening after the day they were stopped on
 	Given this wallet exists
 	| Unique Name |
 	| my wallet   |
@@ -78,3 +78,14 @@ Scenario: Stopping changes prevents them from happening after the day they were 
 	| payday | 1000   | 2014-07-01 | Every day       |
 	When I stop the deposit called "payday" on "2014-07-02"
 	Then no entry for "payday" is present on "2014-07-03"
+
+
+Scenario: Removing changes stops them rendering
+	Given this wallet exists
+	| Unique Name |
+	| my wallet   |
+	And the following recurring deposit exists
+	| Name   | Amount | Start Date | Repetition Rule |
+	| payday | 1000   | 2014-07-01 | Just today      |
+	When I remove the deposit called "payday" on "2014-07-01"
+	Then no entry for "payday" is present on "2014-07-01"

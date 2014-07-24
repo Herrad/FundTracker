@@ -119,6 +119,17 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             recurringChangeListPage.StopChangeCalled(depositName);
             ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
         }
+        [When(@"I remove the deposit called ""(.*)"" on ""(.*)""")]
+        public void WhenIRemoveTheDepositCalledOn(string depositName, string rawDate)
+        {
+            var date = DateTime.Parse(rawDate);
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            administerWalletPage = administerWalletPage.ViewFor(date);
+            var recurringChangeListPage = administerWalletPage.ViewDeposits();
+            recurringChangeListPage.RemoveChangeCalled(depositName);
+            ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
+        }
 
 
         [Then(@"I can see an entry for ""(.*)""")]

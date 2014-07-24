@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FundTracker.Domain;
+using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
 using NUnit.Framework;
 using Rhino.Mocks;
-using RecurringChangeModified = FundTracker.Domain.Events.RecurringChangeModified;
 
 namespace Test.FundTracker.Domain
 {
@@ -19,7 +19,7 @@ namespace Test.FundTracker.Domain
             const decimal expectedFunds = 400;
 
             var startDate = new DateTime(2014, 07, 01);
-            var recurringChanges = new List<RecurringChange>()
+            var recurringChanges = new List<RecurringChange>
             {
                 new RecurringChange("Payday", 100m, new WeeklyRule(startDate, null))
             };
@@ -36,7 +36,7 @@ namespace Test.FundTracker.Domain
             const decimal expectedFunds = 100;
 
             var today = DateTime.Today;
-            var recurringChanges = new List<RecurringChange>()
+            var recurringChanges = new List<RecurringChange>
             {
                 new RecurringChange("Payday", 100m, new WeeklyRule(today, null))
             };

@@ -9,7 +9,7 @@ namespace Test.FundTracker.Web.Controllers
     {
         WalletIdentification IAmIdentifiable.Identification { get { return null; } }
 
-        IEnumerable<RecurringChange> IHaveRecurringChanges.GetChangesApplicableTo(DateTime selectedDate)
+        IEnumerable<RecurringChange> IHaveRecurringChanges.GetChangesActiveOn(DateTime selectedDate)
         {
             throw new NotImplementedException();
         }

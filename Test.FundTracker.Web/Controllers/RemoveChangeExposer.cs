@@ -11,7 +11,7 @@ namespace Test.FundTracker.Web.Controllers
 
         public int IdOfLastChangeRemoved { get; private set; }
 
-        public IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate)
+        public IEnumerable<RecurringChange> GetChangesActiveOn(DateTime selectedDate)
         {
             throw new NotImplementedException();
         }

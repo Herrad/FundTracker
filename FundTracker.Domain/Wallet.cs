@@ -42,16 +42,16 @@ namespace FundTracker.Domain
         {
             var runningTotal = 0m;
             var differenceBetweenTargetDateAndEarliest = (targetDate - EarliestChangeDate).Days;
-            var remainingDifference = differenceBetweenTargetDateAndEarliest;
-            while (remainingDifference >= 0)
+            var remainingDifferenceInDays = differenceBetweenTargetDateAndEarliest;
+            while (remainingDifferenceInDays >= 0)
             {
-                var invertedDifference = 0 - remainingDifference;
+                var invertedDifference = 0 - remainingDifferenceInDays;
                 var recurringChangeQuery = targetDate.AddDays(invertedDifference);
-                var applicableChanges = GetChangesApplicableTo(recurringChangeQuery);
+                var applicableChanges = GetChangesActiveOn(recurringChangeQuery);
 
                 runningTotal += applicableChanges.Sum(x => x.Amount);
 
-                remainingDifference--;
+                remainingDifferenceInDays--;
             }
             return runningTotal;
         }
@@ -74,7 +74,7 @@ namespace FundTracker.Domain
             return Equals((Wallet) obj);
         }
 
-        public IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate)
+        public IEnumerable<RecurringChange> GetChangesActiveOn(DateTime selectedDate)
         {
             return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate));
         }

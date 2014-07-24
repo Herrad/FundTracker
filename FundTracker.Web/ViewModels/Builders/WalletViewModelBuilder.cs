@@ -17,7 +17,7 @@ namespace FundTracker.Web.ViewModels.Builders
         public WalletViewModel FormatWalletAsViewModel(IHaveRecurringChanges wallet, IHaveChangingFunds fundChanger, DateTime selectedDate)
         {
             var formattedSelectedDate = selectedDate.ToString("yyyy-MM-dd");
-            var applicableChanges = wallet.GetChangesApplicableTo(selectedDate).ToList();
+            var applicableChanges = wallet.GetChangesActiveOn(selectedDate).ToList();
 
             var recurringDepositAmount = GetTotalRecurringDepositAmount(applicableChanges);
             var depositAmountViewModel = new RecurringAmountViewModel("Deposit",recurringDepositAmount, wallet.Identification.Name, formattedSelectedDate);

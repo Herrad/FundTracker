@@ -32,7 +32,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Stub(x => x.GetChangesActiveOn(startDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -81,7 +81,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Stub(x => x.GetChangesActiveOn(startDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -120,7 +120,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Stub(x => x.GetChangesActiveOn(startDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -159,7 +159,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Stub(x => x.GetChangesActiveOn(startDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -199,7 +199,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Stub(x => x.GetChangesActiveOn(startDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();

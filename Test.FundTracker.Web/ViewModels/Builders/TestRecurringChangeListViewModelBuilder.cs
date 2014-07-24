@@ -114,10 +114,49 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
-            var recurringChange = new RecurringChange(changeName, 0, new OneShotRule(startDate, null));
-            var expectedLinkDestination = "/RecurringChange/Stop/?walletName="+"&date="+startDate.ToString("yyyy-MM-dd")+"&changeName="+changeName;
+            var recurringChange = new RecurringChange(changeName, 0, new WeeklyRule(startDate, null));
+            var expectedLinkDestination = "/RecurringChange/Stop/?walletName=" + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeName=" + changeName;
 
-            var recurringChanges = new List<RecurringChange>{recurringChange};
+            var recurringChanges = new List<RecurringChange> { recurringChange };
+            var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
+            recurringChanger
+                .Stub(x => x.GetChangesApplicableTo(startDate))
+                .Return(recurringChanges);
+
+            var walletService = MockRepository.GenerateStub<IProvideWallets>();
+            walletService
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
+                .Return(recurringChanger);
+
+            var dateParser = MockRepository.GenerateStub<IParseDates>();
+            dateParser
+                .Stub(x => x.ParseDateOrUseToday(walletDate))
+                .Return(startDate);
+
+            var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
+            var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
+
+            Assert.That(recurringChangeListViewModel, Is.Not.Null);
+            Assert.That(recurringChangeListViewModel.RecurringChangeViewModels, Is.Not.Null);
+            var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
+
+            Assert.That(changeNames[0].StopLinkText, Is.EqualTo(expectedStopLinkText));
+            Assert.That(changeNames[0].StopLinkDestination, Is.EqualTo(expectedLinkDestination));
+        }
+
+        [Test]
+        public void Sets_stop_link_text_and_href_for_stopping_change_when_a_one_shot_change()
+        {
+            const string expectedStopLinkText = "Remove this change";
+            const string walletName = "foo wallet";
+            const string walletDate = "foo date";
+            const string changeName = "foo1";
+
+            var startDate = new DateTime(1, 2, 3);
+            var recurringChange = new RecurringChange(changeName, 0, new OneShotRule(startDate, null));
+            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeName=" + changeName;
+
+            var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
                 .Stub(x => x.GetChangesApplicableTo(startDate))

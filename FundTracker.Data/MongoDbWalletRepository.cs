@@ -77,6 +77,12 @@ namespace FundTracker.Data
                 var recurringChange = recurringChangeCreated.ModifiedChange;
                 UpdateExistingRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
             }
+            if (anEvent.GetType() == typeof(RecurringChangeRemoved))
+            {
+                var recurringChangeCreated = (RecurringChangeRemoved)anEvent;
+                var recurringChange = recurringChangeCreated.ChangeToRemove;
+                DeleteRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
+            }
         }
 
         private static MongoWallet GetMongoWallet(WalletIdentification identification)
@@ -113,6 +119,15 @@ namespace FundTracker.Data
             var update = Update<MongoRecurringChange>.Set(oldChange => oldChange.LastApplicationDate, updatedChange.LastApplicationDate);
 
             GetRecurringChanges().Update(mongoQuery, update);
+        }
+        private void DeleteRecurringChange(RecurringChange recurringChange, WalletIdentification targetIdentification)
+        {
+            var wallet = GetMongoWallet(targetIdentification);
+
+            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.Name == recurringChange.Name);
+            var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
+
+            GetRecurringChanges().Remove(mongoQuery);
         }
 
         private static MongoRecurringChange BuildMongoRecurringChange(RecurringChange recurringChange, MongoWallet wallet)

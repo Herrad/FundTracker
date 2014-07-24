@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FundTracker.Data">
+      <HintPath>..\FundTracker.Data\bin\Debug\FundTracker.Data.dll</HintPath>
+    </Reference>
     <Reference Include="MicroEvent">
       <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
     </Reference>

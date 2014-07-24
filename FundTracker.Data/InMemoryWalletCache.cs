@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using FundTracker.Data.Annotations;
 using FundTracker.Domain;
+using MicroEvent;
 
 namespace FundTracker.Data
 {
     [UsedImplicitly]
-    public class InMemoryWalletCache : ICacheThings<WalletIdentification, Wallet>
+    public class InMemoryWalletCache : Subscription, ICacheThings<WalletIdentification, Wallet>
     {
         private readonly Dictionary<WalletIdentification, Wallet> _cache;
 
-        public InMemoryWalletCache() 
+        public InMemoryWalletCache() :base(typeof (BustCacheForWallet))
         {
             _cache = new Dictionary<WalletIdentification, Wallet>();
         }
@@ -42,6 +43,16 @@ namespace FundTracker.Data
                 return _cache[id];
             }
             return null;
+        }
+
+        public override void Notify(AnEvent anEvent)
+        {
+            var bust = anEvent as BustCacheForWallet;
+            if (bust != null)
+            {
+                var cacheBust = bust;
+                Delete(cacheBust.TargetWalletIdentification);
+            }
         }
     }
 }

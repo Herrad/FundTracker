@@ -18,6 +18,7 @@ namespace FundTracker.Domain
         public decimal Amount { get; private set; }
 
         public DateTime StartDate { get { return _recurranceSpecification.FirstApplicableDate; } }
+        public DateTime? EndDate { get { return _recurranceSpecification.LastApplicableDate; } }
 
         public bool AppliesTo(DateTime targetDate)
         {

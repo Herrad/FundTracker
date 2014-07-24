@@ -56,7 +56,7 @@ Scenario: Multiple changes on different days
 	When I view my deposits for 5 days ahead
 	Then I can see an entry for "payday: £1000"
 	And no entry for "debt" is present
-
+	
 	
 Scenario: Changes repeat according to rules
 	Given this wallet exists
@@ -66,4 +66,15 @@ Scenario: Changes repeat according to rules
 	| Name   | Amount | Start Date | Repetition Rule |
 	| payday | 1000   | 2014-07-01 | Every week      |
 	When I view my deposits for "2014-07-08" 
-	Then I can see an entry for "payday: £1000"
+	Then I can see an entry for "payday"
+
+	
+Scenario: Stopping changes prevents them from happening after the day they were stopped on
+	Given this wallet exists
+	| Unique Name |
+	| my wallet   |
+	And the following recurring deposit exists
+	| Name   | Amount | Start Date | Repetition Rule |
+	| payday | 1000   | 2014-07-01 | Every day       |
+	When I stop the deposit called "payday" on "2014-07-02"
+	Then no entry for "payday" is present on "2014-07-03"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FundTracker.Data;
 using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
@@ -76,7 +77,9 @@ namespace FundTracker.Domain
 
         public void StopChangeOn(string changeName, DateTime lastApplicableDate)
         {
-            _recurringChanges.First(change => change.Name == changeName).StopOn(lastApplicableDate);
+            var recurringChange = _recurringChanges.First(change => change.Name == changeName);
+            recurringChange.StopOn(lastApplicableDate);
+            _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
         }
     }
 }

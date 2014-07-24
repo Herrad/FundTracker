@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using FundTracker.Data.Annotations;
 using FundTracker.Data.Entities;
 using FundTracker.Data.Mappers;
@@ -21,7 +22,7 @@ namespace FundTracker.Data
         private static string _connectionString;
         private static string _databaseName;
 
-        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper, ICacheThings<WalletIdentification, Wallet> cache) : base(new List<Type>{typeof(RecurringChangeCreated)})
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper, ICacheThings<WalletIdentification, Wallet> cache) : base(new List<Type>{typeof(RecurringChangeCreated), typeof (RecurringChangeModified)})
         {
             _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
             _cache = cache;
@@ -70,6 +71,12 @@ namespace FundTracker.Data
                 var recurringChange = recurringChangeCreated.Change;
                 CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetWallet);
             }
+            if (anEvent.GetType() == typeof(RecurringChangeModified))
+            {
+                var recurringChangeCreated = (RecurringChangeModified)anEvent;
+                var recurringChange = recurringChangeCreated.ModifiedChange;
+                UpdateExistingRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
+            }
         }
 
         private static MongoWallet GetMongoWallet(WalletIdentification identification)
@@ -92,14 +99,34 @@ namespace FundTracker.Data
         {
             var wallet = GetMongoWallet(targetWalletIdentifier);
 
-            GetRecurringChanges().Insert(new MongoRecurringChange
+            GetRecurringChanges().Insert(BuildMongoRecurringChange(recurringChange, wallet));
+        }
+
+        private void UpdateExistingRecurringChange(RecurringChange recurringChange, WalletIdentification targetIdentification)
+        {
+            var wallet = GetMongoWallet(targetIdentification);
+
+            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.Name == recurringChange.Name);
+            var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
+
+            var updatedChange = BuildMongoRecurringChange(recurringChange, wallet);
+            var update = Update<MongoRecurringChange>.Set(oldChange => oldChange.LastApplicationDate, updatedChange.LastApplicationDate);
+
+            GetRecurringChanges().Update(mongoQuery, update);
+        }
+
+        private static MongoRecurringChange BuildMongoRecurringChange(RecurringChange recurringChange, MongoWallet wallet)
+        {
+            var lastApplicationDate = recurringChange.EndDate.HasValue ? recurringChange.EndDate.Value.ToString("yyyy-MM-dd") : null;
+            return new MongoRecurringChange
             {
                 WalletId = wallet.Id,
                 Amount = recurringChange.Amount,
                 Name = recurringChange.Name,
                 FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
+                LastApplicationDate = lastApplicationDate,
                 RecurranceRule = recurringChange.RuleName()
-            });
+            };
         }
 
         private static MongoCollection<MongoWallet> GetWallets()

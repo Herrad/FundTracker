@@ -241,7 +241,42 @@ this.ScenarioSetup(scenarioInfo);
 #line 68
  testRunner.When("I view my deposits for \"2014-07-08\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 69
- testRunner.Then("I can see an entry for \"payday: £1000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I can see an entry for \"payday\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Stopping changes prevents them from happening after the day they were stopped on")]
+        public virtual void StoppingChangesPreventsThemFromHappeningAfterTheDayTheyWereStoppedOn()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Stopping changes prevents them from happening after the day they were stopped on", ((string[])(null)));
+#line 72
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name"});
+            table10.AddRow(new string[] {
+                        "my wallet"});
+#line 73
+ testRunner.Given("this wallet exists", ((string)(null)), table10, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Amount",
+                        "Start Date",
+                        "Repetition Rule"});
+            table11.AddRow(new string[] {
+                        "payday",
+                        "1000",
+                        "2014-07-01",
+                        "Every day"});
+#line 76
+ testRunner.And("the following recurring deposit exists", ((string)(null)), table11, "And ");
+#line 79
+ testRunner.When("I stop the deposit called \"payday\" on \"2014-07-02\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 80
+ testRunner.Then("no entry for \"payday\" is present on \"2014-07-03\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

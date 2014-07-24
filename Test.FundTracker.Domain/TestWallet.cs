@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FundTracker.Domain;
 using FundTracker.Domain.Events;
+using FundTracker.Domain.RecurranceRules;
 using NUnit.Framework;
 
 namespace Test.FundTracker.Domain
@@ -46,7 +47,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, null);
+            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
             wallet.CreateChange(recurringChange);
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());

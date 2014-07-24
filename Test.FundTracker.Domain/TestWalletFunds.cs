@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FundTracker.Data;
 using FundTracker.Domain;
 using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
@@ -63,6 +64,23 @@ namespace Test.FundTracker.Domain
 
             Assert.That(recurringChange.AppliesTo(lastApplicableDate));
             Assert.That(recurringChange.AppliesTo(lastApplicableDate.AddDays(1)), Is.False);
+        }
+
+        [Test]
+        public void StopChange_raises_event_to_modify_change_entry_in_Database()
+        {
+            var firstApplicableDate = new DateTime(1, 1, 1);
+            var lastApplicableDate = new DateTime(2, 2, 2);
+            const string changeName = "foo changeName";
+
+            var recurringChange = new RecurringChange(changeName, 123, new DailyRule(firstApplicableDate, null));
+            var recurringChanges = new List<RecurringChange> { recurringChange };
+
+            var eventReciever = MockRepository.GenerateStub<IReceivePublishedEvents>();
+            var wallet = new Wallet(eventReciever, new WalletIdentification("foo name"), recurringChanges);
+            wallet.StopChangeOn(changeName, lastApplicableDate);
+
+            eventReciever.AssertWasCalled(x => x.Publish(Arg<RecurringChangeModified>.Is.NotNull), c => c.Repeat.Once());
         }
     }
 }

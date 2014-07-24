@@ -17,9 +17,16 @@ namespace FundTracker.Data.Mappers
         public RecurringChange Map(MongoRecurringChange recurringChange)
         {
             var startDate = DateTime.Parse(recurringChange.FirstApplicationDate);
-            var recurranceSpecification = _recurranceSpecificationFactory.Build(recurringChange.RecurranceRule, startDate, null);
+            var endDate = GetEndDate(recurringChange);
+
+            var recurranceSpecification = _recurranceSpecificationFactory.Build(recurringChange.RecurranceRule, startDate, endDate);
 
             return new RecurringChange(recurringChange.Name, recurringChange.Amount, recurranceSpecification);
+        }
+
+        private static DateTime? GetEndDate(MongoRecurringChange recurringChange)
+        {
+            return recurringChange.LastApplicationDate !=null ? DateTime.Parse(recurringChange.LastApplicationDate) : (DateTime?) null;
         }
     }
 }

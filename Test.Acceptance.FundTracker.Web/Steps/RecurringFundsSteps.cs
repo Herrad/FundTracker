@@ -107,7 +107,18 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             administerWalletPage = administerWalletPage.ViewFor(DateTime.Parse(targetDate));
             ScenarioContext.Current["page being viewed"] = administerWalletPage.ViewDeposits();
         }
-
+        
+        [When(@"I stop the deposit called ""(.*)"" on ""(.*)""")]
+        public void WhenIStopTheDepositCalledOn(string depositName, string rawDate)
+        {
+            var date = DateTime.Parse(rawDate);
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            administerWalletPage = administerWalletPage.ViewFor(date);
+            var recurringChangeListPage = administerWalletPage.ViewDeposits();
+            recurringChangeListPage.StopChangeCalled(depositName);
+            ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
+        }
 
 
         [Then(@"I can see an entry for ""(.*)""")]
@@ -134,6 +145,15 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
             Assert.That(entryExists, Is.False, "Expected not to find a recurring change called " + expectedEntry);
         }
+
+        [Then(@"no entry for ""(.*)"" is present on ""(.*)""")]
+        public void ThenNoEntryForIsPresentOn(string changeName, string targetDate)
+        {
+            WebDriver.Visit("/");
+            WhenIViewMyDepositsFor(targetDate);
+            ThenNoEntryForIsPresent(changeName);
+        }
+
 
 
         [Then(@"the outgoing total value is (.*)")]

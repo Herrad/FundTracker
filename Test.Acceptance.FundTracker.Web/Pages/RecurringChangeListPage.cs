@@ -1,4 +1,5 @@
 using System.Linq;
+using Coypu;
 using Test.Acceptance.FundTracker.Web.Steps;
 
 namespace Test.Acceptance.FundTracker.Web.Pages
@@ -7,11 +8,28 @@ namespace Test.Acceptance.FundTracker.Web.Pages
     {
         public bool HasEntryFor(string entryToCheck)
         {
-            var listElements = WebDriverTests.WebDriver.FindAllCss("li");
+            return GetRowContaining(entryToCheck) != null;
+        }
+        public SnapshotElementScope GetRowContaining(string entryToCheck)
+        {
+            entryToCheck = entryToCheck.ToLower();
 
-            return listElements.Any(listElement => listElement.Text.ToLower() == entryToCheck);
+            var tableRows = WebDriverTests.WebDriver.FindAllCss("tr").ToList();
+            foreach (var tableRow in tableRows)
+            {
+                var rowCells = tableRow.FindAllCss("td");
+                if (rowCells.Any(x => x.Text.ToLower() == entryToCheck))
+                {
+                    return tableRow;
+                }
+            }
 
+            return null;
         }
 
+        public void StopChangeCalled(string depositName)
+        {
+            GetRowContaining(depositName).FindLink("Stop from today").Click();
+        }
     }
 }

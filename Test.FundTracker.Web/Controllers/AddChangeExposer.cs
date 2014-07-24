@@ -30,7 +30,7 @@ namespace Test.FundTracker.Web.Controllers
 
         public int GetNextId()
         {
-            throw new NotImplementedException();
+            return 111;
         }
 
         public RecurringChange LastChangeAdded { get; private set; }

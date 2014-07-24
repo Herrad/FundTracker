@@ -83,7 +83,8 @@ namespace FundTracker.Domain
 
         public void RemoveChange(string changeName)
         {
-            throw new NotImplementedException();
+            StopChangeOn(changeName, DateTime.Today);
+            _eventReciever.Publish(new RecurringChangeRemoved(Identification, _recurringChanges.First(change => change.Name == changeName)));
         }
     }
 }

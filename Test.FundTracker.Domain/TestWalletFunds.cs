@@ -81,5 +81,22 @@ namespace Test.FundTracker.Domain
 
             eventReciever.AssertWasCalled(x => x.Publish(Arg<RecurringChangeModified>.Is.NotNull), c => c.Repeat.Once());
         }
+
+        [Test]
+        public void RemoveChange_raises_event_to_delete_change_entry_in_Database()
+        {
+            var firstApplicableDate = new DateTime(1, 1, 1);
+            const string changeName = "foo changeName";
+
+            var recurringChange = new RecurringChange(changeName, 123, new OneShotRule(firstApplicableDate, null));
+            var recurringChanges = new List<RecurringChange> { recurringChange };
+
+            var eventReciever = MockRepository.GenerateStub<IReceivePublishedEvents>();
+            var wallet = new Wallet(eventReciever, new WalletIdentification("foo name"), recurringChanges);
+            wallet.RemoveChange(changeName);
+
+            eventReciever.AssertWasCalled(x => x.Publish(Arg<RecurringChangeRemoved>.Matches(m =>
+                Equals(m.TargetIdentification, wallet.Identification))), c => c.Repeat.Once());
+        }
     }
 }

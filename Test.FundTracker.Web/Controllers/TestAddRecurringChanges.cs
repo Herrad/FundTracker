@@ -59,7 +59,15 @@ namespace Test.FundTracker.Web.Controllers
             dateParser
                 .Stub(x => x.ParseDateOrUseToday(dateToParse))
                 .Return(parsedDate);
-            var addChangeAction = new AddChangeAction(walletService, dateParser, MockRepository.GenerateStub<IBuildRecurranceSpecifications>());
+            var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
+            var recurranceSpecification = MockRepository.GenerateStub<IDecideWhenRecurringChangesOccur>();
+            recurranceSpecification
+                .Stub(x => x.FirstApplicableDate)
+                .Return(parsedDate);
+            recurranceSpecificationFactory
+                .Stub(x => x.Build(Arg<string>.Is.Anything, Arg<DateTime>.Is.Anything, Arg<DateTime?>.Is.Anything))
+                .Return(recurranceSpecification);
+            var addChangeAction = new AddChangeAction(walletService, dateParser, recurranceSpecificationFactory);
 
             const string withdrawalName = "withdrawal for foo";
             var addedChange = new AddedChange{Amount = 123,ChangeName = withdrawalName};

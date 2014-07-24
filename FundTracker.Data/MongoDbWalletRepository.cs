@@ -22,7 +22,8 @@ namespace FundTracker.Data
         private static string _connectionString;
         private static string _databaseName;
 
-        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper, ICacheThings<WalletIdentification, Wallet> cache) : base(new List<Type>{typeof(RecurringChangeCreated), typeof (RecurringChangeModified)})
+        public MongoDbWalletRepository(IMapMongoWalletsToWallets mongoWalletToWalletMapper, ICacheThings<WalletIdentification, Wallet> cache)
+            : base(new List<Type> { typeof(RecurringChangeCreated), typeof(RecurringChangeModified), typeof (RecurringChangeRemoved)})
         {
             _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
             _cache = cache;

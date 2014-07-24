@@ -17,6 +17,7 @@ namespace FundTracker.Web.Controllers.ActionHelpers
         {
             var wallet = _walletService.FindRecurringChanger(new WalletIdentification(walletDay.WalletName));
             wallet.RemoveChange(changeName);
+            redirecter.SetRedirect("Display", "RecurringChange", new{walletName = walletDay.WalletName, date = walletDay.Date});
         }
     }
 }

@@ -80,5 +80,10 @@ namespace FundTracker.Domain
             recurringChange.StopOn(lastApplicableDate);
             _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
         }
+
+        public void RemoveChange(string changeName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

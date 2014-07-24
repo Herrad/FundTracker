@@ -22,7 +22,7 @@ namespace Test.FundTracker.Web.Controllers
             const decimal expectedAmountGivenToWallet = 123;
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
-            var withdrawalExposer = new WithdrawalExposer();
+            var withdrawalExposer = new AddChangeExposer();
             walletService
                 .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
@@ -36,9 +36,9 @@ namespace Test.FundTracker.Web.Controllers
 
             addChangeAction.Execute(walletDay, addedChange, MockRepository.GenerateStub<ICreateRedirects>());
 
-            Assert.That(withdrawalExposer.WithdrawalAdded, Is.Not.Null);
-            Assert.That(withdrawalExposer.WithdrawalAdded.Amount, Is.EqualTo(expectedAmountGivenToWallet));
-            Assert.That(withdrawalExposer.WithdrawalAdded.Name, Is.EqualTo(withdrawalName));
+            Assert.That(withdrawalExposer.LastChangeAdded, Is.Not.Null);
+            Assert.That(withdrawalExposer.LastChangeAdded.Amount, Is.EqualTo(expectedAmountGivenToWallet));
+            Assert.That(withdrawalExposer.LastChangeAdded.Name, Is.EqualTo(withdrawalName));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletIdentification = new WalletIdentification(walletName);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
-            var withdrawalExposer = new WithdrawalExposer();
+            var withdrawalExposer = new AddChangeExposer();
             walletService
                 .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
@@ -75,7 +75,7 @@ namespace Test.FundTracker.Web.Controllers
 
             addChangeAction.Execute(walletDay, addedChange, MockRepository.GenerateStub<ICreateRedirects>());
 
-            Assert.That(withdrawalExposer.WithdrawalAdded.StartDate, Is.EqualTo(parsedDate));
+            Assert.That(withdrawalExposer.LastChangeAdded.StartDate, Is.EqualTo(parsedDate));
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletIdentification = new WalletIdentification(walletName);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
-            var withdrawalExposer = new WithdrawalExposer();
+            var withdrawalExposer = new AddChangeExposer();
             walletService
                 .Stub(x => x.FindRecurringChanger(walletIdentification))
                 .Return(withdrawalExposer);
@@ -116,7 +116,7 @@ namespace Test.FundTracker.Web.Controllers
 
             addChangeAction.Execute(walletDay, addedChange, MockRepository.GenerateStub<ICreateRedirects>());
 
-            Assert.That(withdrawalExposer.WithdrawalAdded.AppliesTo(parsedDate));
+            Assert.That(withdrawalExposer.LastChangeAdded.AppliesTo(parsedDate));
         }
     }
 }

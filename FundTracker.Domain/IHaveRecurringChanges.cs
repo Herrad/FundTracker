@@ -8,5 +8,6 @@ namespace FundTracker.Domain
         void CreateChange(RecurringChange recurringChange);
         IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate);
         void StopChangeOn(string changeName, DateTime lastApplicableDate);
+        void RemoveChange(string changeName);
     }
 }

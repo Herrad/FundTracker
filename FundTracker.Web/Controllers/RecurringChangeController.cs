@@ -12,17 +12,20 @@ namespace FundTracker.Web.Controllers
         private RedirectToRouteResult _redirectResult;
         private readonly IAddRecurringChanges _addChangeAction;
         private readonly ILimitRecurringChanges _recurringChangeLimiter;
+        private readonly IRemoveRecurringChanges _changeRemover;
 
         public RecurringChangeController(
             IBuildRecurringChangeListViewModels recurringChangeListViewModelBuilder, 
             IBuildCreateRecurringChangeViewModels createRecurringChangeViewModelBuilder, 
             IAddRecurringChanges addChangeAction, 
-            ILimitRecurringChanges recurringChangeLimiter)
+            ILimitRecurringChanges recurringChangeLimiter, 
+            IRemoveRecurringChanges changeRemover)
         {
             _recurringChangeListViewModelBuilder = recurringChangeListViewModelBuilder;
             _createRecurringChangeViewModelBuilder = createRecurringChangeViewModelBuilder;
             _addChangeAction = addChangeAction;
             _recurringChangeLimiter = recurringChangeLimiter;
+            _changeRemover = changeRemover;
         }
 
         public ViewResult Display(WalletDay walletDay)
@@ -66,6 +69,12 @@ namespace FundTracker.Web.Controllers
         public RedirectToRouteResult StopChange(WalletDay walletDay, string changeName)
         {
             _recurringChangeLimiter.LimitChange(walletDay, changeName, this);
+            return _redirectResult;
+        }
+
+        public RedirectToRouteResult Delete(WalletDay walletDay, string changeName)
+        {
+            _changeRemover.Execute(walletDay, changeName, this);
             return _redirectResult;
         }
     }

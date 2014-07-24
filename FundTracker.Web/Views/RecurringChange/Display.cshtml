@@ -49,10 +49,10 @@
         else
         {
             <tr class="row-head">
-                <td class="extrenious">Applied since</td>
-                <td class="extrenious">Repeat rule</td>
                 <td>Name</td>
                 <td>Amount</td>
+                <td class="extrenious">Applied since</td>
+                <td class="extrenious">Repeat rule</td>
                 <td>Stops change</td>
             </tr>
         }
@@ -65,7 +65,7 @@
             <td>£@invertedAmount</td>
             <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
             <td class="extrenious">@change.RuleType</td>
-            <td><a href="/RecurringChange/StopChange/?walletName=@Model.WalletName&date=@Model.Date.ToString("yyyy-MM-dd")&changeName=@change.Name">Stop from today</a></td>
+            <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>
     }
 </table>

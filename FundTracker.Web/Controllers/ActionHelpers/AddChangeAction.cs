@@ -27,7 +27,7 @@ namespace FundTracker.Web.Controllers.ActionHelpers
             var firstApplicableDate = _dateParser.ParseDateOrUseToday(walletDay.Date);
             var recurranceSpecification = _recurranceSpecificationFactory.Build(incomingChange.RecurranceRule, firstApplicableDate, null);
 
-            wallet.CreateChange(new RecurringChange(wallet.GetNextId(), incomingChange.ChangeName, incomingChange.Amount, recurranceSpecification));
+            wallet.CreateChange(incomingChange.ChangeName, incomingChange.Amount, recurranceSpecification);
 
             redirecter.SetRedirect("Display", "Wallet", new { walletDay.WalletName });
         }

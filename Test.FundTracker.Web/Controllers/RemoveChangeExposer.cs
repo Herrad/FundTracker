@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 
 namespace Test.FundTracker.Web.Controllers
 {
@@ -8,12 +9,7 @@ namespace Test.FundTracker.Web.Controllers
     {
         public WalletIdentification Identification { get; private set; }
 
-        public int IdOfLastChangeRemoved { get; set; }
-
-        public void CreateChange(RecurringChange recurringChange)
-        {
-            throw new NotImplementedException();
-        }
+        public int IdOfLastChangeRemoved { get; private set; }
 
         public IEnumerable<RecurringChange> GetChangesApplicableTo(DateTime selectedDate)
         {
@@ -30,7 +26,8 @@ namespace Test.FundTracker.Web.Controllers
             IdOfLastChangeRemoved = changeId;
         }
 
-        public int GetNextId()
+        public void CreateChange(string changeName, decimal amount,
+            IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
             throw new NotImplementedException();
         }

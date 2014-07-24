@@ -58,7 +58,7 @@ namespace FundTracker.Web.Controllers
 
             var recurringChanger = _walletProvider.FindRecurringChanger(new WalletIdentification(walletName));
 
-            recurringChanger.CreateChange(new RecurringChange(recurringChanger.GetNextId(), incomingChange.ChangeName, incomingChange.Amount, new OneShotRule(dateToApplyTo, null)));
+            recurringChanger.CreateChange(incomingChange.ChangeName, incomingChange.Amount, new OneShotRule(dateToApplyTo, null));
 
             return RedirectToAction("Display", new {walletName });
         }

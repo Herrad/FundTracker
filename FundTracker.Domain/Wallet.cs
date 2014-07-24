@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain.Events;
+using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
 
 namespace FundTracker.Domain
@@ -21,7 +22,7 @@ namespace FundTracker.Domain
             Identification = walletIdentification;
         }
 
-        public int GetNextId()
+        private int GetNextId()
         {
             if (!_recurringChanges.Any())
             {
@@ -30,8 +31,9 @@ namespace FundTracker.Domain
             return _recurringChanges.OrderByDescending(x => x.Id).First().Id + 1;
         }
 
-        public void CreateChange(RecurringChange recurringChange)
+        public void CreateChange(string changeName, decimal amount,IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
+            var recurringChange = new RecurringChange(GetNextId(), changeName, amount, recurranceSpecification);
             _recurringChanges.Add(recurringChange);
             _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }

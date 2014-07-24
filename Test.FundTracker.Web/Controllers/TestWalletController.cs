@@ -105,7 +105,7 @@ namespace Test.FundTracker.Web.Controllers
             controller.AddFunds(new WalletDay { WalletName = name, Date = "2001-02-03" }, new IncomingChange() {Amount = fundsToAdd});
 
             wallet.AssertWasCalled(
-                x => x.CreateChange(Arg<RecurringChange>.Is.NotNull), 
+                x => x.CreateChange(Arg<string>.Is.Anything, Arg<decimal>.Is.Anything, Arg<IDecideWhenRecurringChangesOccur>.Is.Anything), 
                 c => c.Repeat.Once());
         }
         

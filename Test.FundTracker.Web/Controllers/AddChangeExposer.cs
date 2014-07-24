@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 
 namespace Test.FundTracker.Web.Controllers
 {
     public class AddChangeExposer : IHaveRecurringChanges
     {
         WalletIdentification IAmIdentifiable.Identification { get { return null; } }
-
-        public void CreateChange(RecurringChange recurringChange)
-        {
-            LastChangeAdded = recurringChange;
-        }
 
         IEnumerable<RecurringChange> IHaveRecurringChanges.GetChangesApplicableTo(DateTime selectedDate)
         {
@@ -28,9 +24,10 @@ namespace Test.FundTracker.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public int GetNextId()
+        public void CreateChange(string changeName, decimal amount,
+            IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
-            return 111;
+            throw new NotImplementedException();
         }
 
         public RecurringChange LastChangeAdded { get; private set; }

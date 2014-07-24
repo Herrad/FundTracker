@@ -29,10 +29,12 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange(0, "foo", 123, null);
-            wallet.CreateChange(recurringChange);
+            const int amount = 123;
+            const string changeName = "foo";
+            wallet.CreateChange(changeName, amount, null);
 
-            Assert.That(recurringChanges.Contains(recurringChange));
+            Assert.That(recurringChanges[0].Name, Is.EqualTo(changeName));
+            Assert.That(recurringChanges[0].Amount, Is.EqualTo(amount));
         }
 
         [Test]
@@ -47,8 +49,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange(0, expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
-            wallet.CreateChange(recurringChange);
+            wallet.CreateChange(expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());
 
@@ -68,9 +69,9 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            int nextId = wallet.GetNextId();
+            wallet.CreateChange("foo", 123, new OneShotRule(DateTime.Today, null));
 
-            Assert.That(nextId, Is.EqualTo(1));
+            Assert.That(recurringChanges[0].Id, Is.EqualTo(1));
         }
 
         [Test]
@@ -81,9 +82,9 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            int nextId = wallet.GetNextId();
+            wallet.CreateChange("foo", 123, new OneShotRule(DateTime.Today, null));
 
-            Assert.That(nextId, Is.EqualTo(5));
+            Assert.That(recurringChanges[1].Id, Is.EqualTo(5));
         }
     }
 }

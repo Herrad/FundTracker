@@ -12,5 +12,6 @@ namespace FundTracker.Data.Entities
         public string FirstApplicationDate { get; set; }
         public string RecurranceRule { get; set; }
         public string LastApplicationDate { get; set; }
+        public int ChangeId { get; set; }
     }
 }

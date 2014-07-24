@@ -20,9 +20,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo wallet";
             var startDate = new DateTime(1, 2, 3);
 
-            var expectedChange1 = new RecurringChange("foo1", 1, new OneShotRule(startDate, null));
-            var expectedChange2 = new RecurringChange("foo2", 2, new OneShotRule(startDate, null));
-            var expectedChange3 = new RecurringChange("foo3", 3, new OneShotRule(startDate, null));
+            var expectedChange1 = new RecurringChange(0, "foo1", 1, new OneShotRule(startDate, null));
+            var expectedChange2 = new RecurringChange(0, "foo2", 2, new OneShotRule(startDate, null));
+            var expectedChange3 = new RecurringChange(0, "foo3", 3, new OneShotRule(startDate, null));
 
             var recurringChanges = new List<RecurringChange>
             {
@@ -71,8 +71,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletDate = "foo date";
             
             var startDate = new DateTime(1, 2, 3);
-            var expectedChange1 = new RecurringChange("foo1", 0, new OneShotRule(startDate, null));
-            var expectedChange2 = new RecurringChange("foo2", 0, new OneShotRule(startDate, null));
+            var expectedChange1 = new RecurringChange(0, "foo1", 0, new OneShotRule(startDate, null));
+            var expectedChange2 = new RecurringChange(0, "foo2", 0, new OneShotRule(startDate, null));
 
             var recurringChanges = new List<RecurringChange>
             {
@@ -114,8 +114,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
-            var recurringChange = new RecurringChange(changeName, 0, new WeeklyRule(startDate, null));
-            var expectedLinkDestination = "/RecurringChange/StopChange/?walletName=" +walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeName=" + changeName;
+            var recurringChange = new RecurringChange(123, changeName, 0, new WeeklyRule(startDate, null));
+            var expectedLinkDestination = "/RecurringChange/StopChange/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -153,8 +153,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
-            var recurringChange = new RecurringChange(changeName, 0, new OneShotRule(startDate, null));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeName=" + changeName;
+            var recurringChange = new RecurringChange(123, changeName, 0, new OneShotRule(startDate, null));
+            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -193,8 +193,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var startDate = new DateTime(1, 2, 3);
             var endDate = startDate;
-            var recurringChange = new RecurringChange(changeName, 0, new DailyRule(startDate, endDate));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeName=" + changeName;
+            var recurringChange = new RecurringChange(123, changeName, 0, new DailyRule(startDate, endDate));
+            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();

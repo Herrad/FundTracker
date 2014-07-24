@@ -29,7 +29,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange("foo", 123, null);
+            var recurringChange = new RecurringChange(0, "foo", 123, null);
             wallet.CreateChange(recurringChange);
 
             Assert.That(recurringChanges.Contains(recurringChange));
@@ -47,7 +47,7 @@ namespace Test.FundTracker.Domain
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            var recurringChange = new RecurringChange(expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
+            var recurringChange = new RecurringChange(0, expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
             wallet.CreateChange(recurringChange);
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());
@@ -58,6 +58,32 @@ namespace Test.FundTracker.Domain
             Assert.That(recurringChangeCreated.Change.Amount, Is.EqualTo(expectedAmount));
             Assert.That(recurringChangeCreated.Change.Name, Is.EqualTo(expectedChangeName));
             Assert.That(recurringChangeCreated.Change.StartDate, Is.EqualTo(expectedStartDate));
+        }
+
+        [Test]
+        public void GetNextId_returns_1_if_no_RecurringChanges_present()
+        {
+            var eventBus = new LastEventPublishedReporter();
+            var recurringChanges = new List<RecurringChange>();
+            var walletIdentification = new WalletIdentification(null);
+            var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
+
+            int nextId = wallet.GetNextId();
+
+            Assert.That(nextId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetNextId_returns_next_highest_id_if_no_RecurringChanges_present()
+        {
+            var eventBus = new LastEventPublishedReporter();
+            var recurringChanges = new List<RecurringChange>{new RecurringChange(4, null, 0, null)};
+            var walletIdentification = new WalletIdentification(null);
+            var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
+
+            int nextId = wallet.GetNextId();
+
+            Assert.That(nextId, Is.EqualTo(5));
         }
     }
 }

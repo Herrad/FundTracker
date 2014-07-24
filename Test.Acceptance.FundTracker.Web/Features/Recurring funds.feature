@@ -62,9 +62,9 @@ Scenario: Changes repeat according to rules
 	Given this wallet exists
 	| Unique Name |
 	| my wallet   |
-	And the following recurring deposit exists
-	| Name   | Amount | Start Date | Repetition Rule |
-	| payday | 1000   | 2014-07-01 | Every week      |
+	And the following recurring deposits exists
+	| ChangeId | Name   | Amount | Start Date | Repetition Rule |
+	| 1        | payday | 1000   | 2014-07-01 | Every week      |
 	When I view my deposits for "2014-07-08" 
 	Then I can see an entry for "payday"
 
@@ -73,19 +73,31 @@ Scenario: Stopping one shot changes prevents them from happening after the day t
 	Given this wallet exists
 	| Unique Name |
 	| my wallet   |
-	And the following recurring deposit exists
-	| Name   | Amount | Start Date | Repetition Rule |
-	| payday | 1000   | 2014-07-01 | Every day       |
+	And the following recurring deposits exists
+	| ChangeId | Name   | Amount | Start Date | Repetition Rule |
+	| 1        | payday | 1000   | 2014-07-01 | Every day       |
 	When I stop the deposit called "payday" on "2014-07-02"
 	Then no entry for "payday" is present on "2014-07-03"
 
-
+	
 Scenario: Removing changes stops them rendering
 	Given this wallet exists
 	| Unique Name |
 	| my wallet   |
-	And the following recurring deposit exists
-	| Name   | Amount | Start Date | Repetition Rule |
-	| payday | 1000   | 2014-07-01 | Just today      |
+	And the following recurring deposits exists
+	| ChangeId | Name   | Amount | Start Date | Repetition Rule |
+	| 1        | payday | 1000   | 2014-07-01 | Just today      |
 	When I remove the deposit called "payday" on "2014-07-01"
 	Then no entry for "payday" is present on "2014-07-01"
+
+
+Scenario: Removing a change when one exists with the same name removes the correct change
+	Given this wallet exists
+	| Unique Name |
+	| my wallet   |
+	And the following recurring deposits exists
+	| ChangeId | Name   | Amount | Start Date | Repetition Rule |
+	| 1        | payday | 1000   | 2014-07-01 | Just today      |
+	| 2        | payday | 2000   | 2014-07-01 | Just today      |
+	When I remove the deposit with id "2" on "2014-07-01"
+	Then no entry with id "2" is present on "2014-07-01"

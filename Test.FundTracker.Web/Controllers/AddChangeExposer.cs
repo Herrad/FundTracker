@@ -18,12 +18,17 @@ namespace Test.FundTracker.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public void StopChangeOn(string changeName, DateTime lastApplicableDate)
+        public void StopChangeOn(int changeId, DateTime lastApplicableDate)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveChange(string changeName)
+        public void RemoveChange(int changeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetNextId()
         {
             throw new NotImplementedException();
         }

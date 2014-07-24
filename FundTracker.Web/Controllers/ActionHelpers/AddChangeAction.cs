@@ -19,15 +19,15 @@ namespace FundTracker.Web.Controllers.ActionHelpers
             _recurranceSpecificationFactory = recurranceSpecificationFactory;
         }
 
-        public void Execute(WalletDay walletDay, AddedChange addedChange, ICreateRedirects redirecter)
+        public void Execute(WalletDay walletDay, IncomingChange incomingChange, ICreateRedirects redirecter)
         {
             var walletIdentification = new WalletIdentification(walletDay.WalletName);
             var wallet = _walletService.FindRecurringChanger(walletIdentification);
 
             var firstApplicableDate = _dateParser.ParseDateOrUseToday(walletDay.Date);
-            var recurranceSpecification = _recurranceSpecificationFactory.Build(addedChange.RecurranceRule, firstApplicableDate, null);
+            var recurranceSpecification = _recurranceSpecificationFactory.Build(incomingChange.RecurranceRule, firstApplicableDate, null);
 
-            wallet.CreateChange(new RecurringChange(addedChange.ChangeName, addedChange.Amount, recurranceSpecification));
+            wallet.CreateChange(new RecurringChange(wallet.GetNextId(), incomingChange.ChangeName, incomingChange.Amount, recurranceSpecification));
 
             redirecter.SetRedirect("Display", "Wallet", new { walletDay.WalletName });
         }

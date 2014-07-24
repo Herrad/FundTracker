@@ -47,17 +47,17 @@ namespace FundTracker.Web.Controllers
             return View("Create", createRecurringChangeViewModel);
         }
 
-        public RedirectToRouteResult AddNewWithdrawal(WalletDay walletDay, AddedChange addedChange)
+        public RedirectToRouteResult AddNewWithdrawal(WalletDay walletDay, IncomingChange incomingChange)
         {
-            addedChange.Amount = 0 - addedChange.Amount;
+            incomingChange.Amount = 0 - incomingChange.Amount;
 
-            _addChangeAction.Execute(walletDay, addedChange, this);
+            _addChangeAction.Execute(walletDay, incomingChange, this);
             return _redirectResult;
         }
 
-        public RedirectToRouteResult AddNewDeposit(WalletDay walletDay, AddedChange addedChange)
+        public RedirectToRouteResult AddNewDeposit(WalletDay walletDay, IncomingChange incomingChange)
         {
-            _addChangeAction.Execute(walletDay, addedChange, this);
+            _addChangeAction.Execute(walletDay, incomingChange, this);
             return _redirectResult;
         }
 
@@ -66,15 +66,15 @@ namespace FundTracker.Web.Controllers
             _redirectResult = RedirectToAction(action, controller, parameters);
         }
 
-        public RedirectToRouteResult StopChange(WalletDay walletDay, string changeName)
+        public RedirectToRouteResult StopChange(WalletDay walletDay, IncomingChange incomingChange)
         {
-            _recurringChangeLimiter.LimitChange(walletDay, changeName, this);
+            _recurringChangeLimiter.LimitChange(walletDay, incomingChange, this);
             return _redirectResult;
         }
 
-        public RedirectToRouteResult Delete(WalletDay walletDay, string changeName)
+        public RedirectToRouteResult Delete(WalletDay walletDay, IncomingChange incomingChange)
         {
-            _changeRemover.Execute(walletDay, changeName, this);
+            _changeRemover.Execute(walletDay, incomingChange, this);
             return _redirectResult;
         }
     }

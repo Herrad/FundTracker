@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain.Events;
-using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
 
 namespace FundTracker.Domain
@@ -22,9 +21,13 @@ namespace FundTracker.Domain
             Identification = walletIdentification;
         }
 
-        public void AddFunds(decimal fundsToAdd)
+        public int GetNextId()
         {
-            CreateChange(new RecurringChange("AD-HOC CHANGE", fundsToAdd, new OneShotRule(DateTime.Today, null)));
+            if (!_recurringChanges.Any())
+            {
+                return 1;
+            }
+            return _recurringChanges.OrderByDescending(x => x.Id).First().Id + 1;
         }
 
         public void CreateChange(RecurringChange recurringChange)
@@ -74,17 +77,17 @@ namespace FundTracker.Domain
             return _recurringChanges.Where(recurringChange => recurringChange.AppliesTo(selectedDate));
         }
 
-        public void StopChangeOn(string changeName, DateTime lastApplicableDate)
+        public void StopChangeOn(int changeId, DateTime lastApplicableDate)
         {
-            var recurringChange = _recurringChanges.First(change => change.Name == changeName);
+            var recurringChange = _recurringChanges.First(change => change.Id == changeId);
             recurringChange.StopOn(lastApplicableDate);
             _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
         }
 
-        public void RemoveChange(string changeName)
+        public void RemoveChange(int changeId)
         {
-            StopChangeOn(changeName, DateTime.Today);
-            _eventReciever.Publish(new RecurringChangeRemoved(Identification, _recurringChanges.First(change => change.Name == changeName)));
+            StopChangeOn(changeId, DateTime.Today);
+            _eventReciever.Publish(new RecurringChangeRemoved(Identification, _recurringChanges.First(change => change.Id == changeId)));
         }
     }
 }

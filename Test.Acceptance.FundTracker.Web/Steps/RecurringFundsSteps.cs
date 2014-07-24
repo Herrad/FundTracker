@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using FundTracker.Data.Annotations;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Data;
@@ -17,7 +18,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var firstApplicationDate = DateTime.Today.AddDays(0 - daysSinceRemovalTookPlace).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, nameOfRemoval, 0 - amountRemoved, firstApplicationDate, "Just today");
+            TestDbAdapter.CreateRecurringChange(walletName, 0, nameOfRemoval, 0 - amountRemoved, firstApplicationDate, "Just today");
         }
 
         [Given(@"I have a deposit of (.*) due in (.*) days for ""(.*)""")]
@@ -26,21 +27,30 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var depositDueDate = DateTime.Today.AddDays(daysUntilItsDue).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, depositName, depositAmount, depositDueDate, "Just today");
+            TestDbAdapter.CreateRecurringChange(walletName, 0, depositName, depositAmount, depositDueDate, "Just today");
         }
 
-        [Given(@"the following recurring deposit exists")]
-        public void GivenTheFollowingRecurringDepositExists(Table table)
+        private static void CreateRecurringDeposit(TableRow tableRow)
         {
-            var tableRow = table.Rows[0];
+            var changeId = int.Parse(tableRow["ChangeId"]);
             var name = tableRow["Name"];
             var amount = int.Parse(tableRow["Amount"]);
             var startDate = tableRow["Start Date"];
             var repetitionRule = tableRow["Repetition Rule"];
 
             var walletName = ScenarioContext.Current["wallet name"].ToString();
-            TestDbAdapter.CreateRecurringChange(walletName, name, amount, startDate, repetitionRule);
+            TestDbAdapter.CreateRecurringChange(walletName, changeId, name, amount, startDate, repetitionRule);
         }
+
+        [Given(@"the following recurring deposits exists"), UsedImplicitly]
+        public void GivenTheFollowingRecurringDepositsExists(Table table)
+        {
+            foreach (var tableRow in table.Rows)
+            {
+                CreateRecurringDeposit(tableRow);
+            }
+        }
+
 
 
         [When(@"I view my withdrawals for (.*) days ago")]
@@ -131,6 +141,18 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
         }
 
+        [When(@"I remove the deposit with id ""(.*)"" on ""(.*)""")]
+        public void WhenIRemoveTheDepositWithIdOn(int changeId, string rawDate)
+        {
+            var date = DateTime.Parse(rawDate);
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            administerWalletPage = administerWalletPage.ViewFor(date);
+            var recurringChangeListPage = administerWalletPage.ViewDeposits();
+            recurringChangeListPage.RemoveChangeWithId(changeId);
+            ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
+        }
+
 
         [Then(@"I can see an entry for ""(.*)""")]
         public void ThenICanSeeAnEntryFor(string expectedEntry)
@@ -165,6 +187,21 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             ThenNoEntryForIsPresent(changeName);
         }
 
+        [Then(@"no entry with id ""(.*)"" is present on ""(.*)""")]
+        public void ThenNoEntryWithIdIsPresentOn(int changeId, string targetDate)
+        {
+            WebDriver.Visit("/");
+            WhenIViewMyDepositsFor(targetDate);
+
+            var pageBeingViewed = ScenarioContext.Current["page being viewed"];
+            Assert.That(pageBeingViewed, Is.TypeOf<RecurringChangeListPage>());
+
+            var recurringChangeListPage = (RecurringChangeListPage)pageBeingViewed;
+            var entryExists = recurringChangeListPage.HasEntryForId(changeId);
+
+
+            Assert.That(entryExists, Is.False, "Expected not to find a recurring change with Id: " + changeId);
+        }
 
 
         [Then(@"the outgoing total value is (.*)")]

@@ -29,7 +29,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change, string walletName)
         {
-            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), GetStopLinkText(change), GetStopLinkDestination(change, walletName));
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), GetStopLinkText(change), GetStopLinkDestination(change, walletName), change.Id);
         }
 
         private static string GetStopLinkText(RecurringChange change)
@@ -45,7 +45,7 @@ namespace FundTracker.Web.ViewModels.Builders
         private static string GetStopLinkDestination(RecurringChange change, string walletName)
         {
             var desiredAction = IsOneShot(change) ? "Delete" : "StopChange";
-            return "/RecurringChange/" + desiredAction + "/?walletName=" + walletName + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeName=" + change.Name;
+            return "/RecurringChange/" + desiredAction + "/?walletName=" + walletName + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeId=" + change.Id;
         }
     }
 }

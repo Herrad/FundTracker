@@ -77,7 +77,7 @@ namespace Test.FundTracker.Web.Controllers
             var walletController = new WalletController(new CreateWalletValidationRules(new WalletNameValidator(), null), walletProvider, new WalletViewModelBuilder(new CalendarDayViewModelBuilder()), new DateParser());
 
 
-            var result = walletController.AddFunds(new WalletDay {WalletName = expectedName, Date = "2001-02-03"}, new AddedChange() {Amount = fundsToAdd});
+            var result = walletController.AddFunds(new WalletDay {WalletName = expectedName, Date = "2001-02-03"}, new IncomingChange() {Amount = fundsToAdd});
 
             Assert.That(result, Is.TypeOf<RedirectToRouteResult>());
 
@@ -102,7 +102,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var controller = new WalletController(null, walletProvider, null, new DateParser());
 
-            controller.AddFunds(new WalletDay { WalletName = name, Date = "2001-02-03" }, new AddedChange() {Amount = fundsToAdd});
+            controller.AddFunds(new WalletDay { WalletName = name, Date = "2001-02-03" }, new IncomingChange() {Amount = fundsToAdd});
 
             wallet.AssertWasCalled(
                 x => x.CreateChange(Arg<RecurringChange>.Is.NotNull), 

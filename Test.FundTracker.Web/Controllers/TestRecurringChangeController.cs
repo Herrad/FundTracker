@@ -81,7 +81,7 @@ namespace Test.FundTracker.Web.Controllers
             var recurringChangeLimiter = MockRepository.GenerateStub<ILimitRecurringChanges>();
             var recurringChangeController = new RecurringChangeController(null, null, null, recurringChangeLimiter, null);
             recurringChangeController.SetRedirect("foo", "bar", null);
-            var result = recurringChangeController.StopChange(new WalletDay(), "foo change");
+            var result = recurringChangeController.StopChange(new WalletDay(), new IncomingChange());
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["action"], Is.EqualTo("foo"));
@@ -91,16 +91,15 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void StopChange_passes_WalletDay_and_changeName_to_limiter()
         {
-            const string changeName = "foo change";
-
-            var walletDay = new WalletDay {WalletName = "foo wallet", Date = "01-02-03"};
+            var walletDay = new WalletDay { WalletName = "foo wallet", Date = "01-02-03" };
+            var incomingChange = new IncomingChange { ChangeId = 111 };
 
             var recurringChangeLimiter = MockRepository.GenerateStub<ILimitRecurringChanges>();
             var recurringChangeController = new RecurringChangeController(null, null, null, recurringChangeLimiter, null);
-            recurringChangeController.StopChange(walletDay,changeName);
+            recurringChangeController.StopChange(walletDay, incomingChange);
 
             recurringChangeLimiter
-                .AssertWasCalled(x => x.LimitChange(walletDay, changeName, recurringChangeController),
+                .AssertWasCalled(x => x.LimitChange(walletDay, incomingChange, recurringChangeController),
                 c => c.Repeat.Once());
         }
 
@@ -111,12 +110,12 @@ namespace Test.FundTracker.Web.Controllers
 
             var recurringChangeController = new RecurringChangeController(null, null, null, null, changeRemover);
             var walletDay = new WalletDay { WalletName = "foo name", Date = "foo date" };
-            const string changeName = "foo change";
-            recurringChangeController.Delete(walletDay, changeName);
+            var incomingChange = new IncomingChange();
+            recurringChangeController.Delete(walletDay, incomingChange);
 
             changeRemover
                 .AssertWasCalled(
-                x => x.Execute(walletDay, changeName, recurringChangeController),
+                x => x.Execute(walletDay, incomingChange, recurringChangeController),
                 c => c.Repeat.Once());
         }
 
@@ -128,7 +127,7 @@ namespace Test.FundTracker.Web.Controllers
             var recurringChangeController = new RecurringChangeController(null, null, null, null, changeRemover);
             var walletDay = new WalletDay { WalletName = "foo name", Date = "foo date" };
             recurringChangeController.SetRedirect("foo", "bar", null);
-            var result = recurringChangeController.Delete(walletDay, "foo change");
+            var result = recurringChangeController.Delete(walletDay, new IncomingChange());
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["action"], Is.EqualTo("foo"));
@@ -143,7 +142,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var recurringChangeController = new RecurringChangeController(MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>(), new CreateRecurringChangeViewModelBuilder(), MockRepository.GenerateStub<IAddRecurringChanges>(), null, null);
             recurringChangeController.SetRedirect(expectedAction, expectedController, new { walletName = "foobar" });
-            var result = recurringChangeController.AddNewWithdrawal(new WalletDay {WalletName = "foo name", Date = "foo date"}, new AddedChange {Amount = 123m, ChangeName = "foo withdrawal"});
+            var result = recurringChangeController.AddNewWithdrawal(new WalletDay {WalletName = "foo name", Date = "foo date"}, new IncomingChange {Amount = 123m, ChangeName = "foo withdrawal"});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo(expectedAction));
             Assert.That(result.RouteValues["controller"], Is.EqualTo(expectedController));
@@ -157,7 +156,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var recurringChangeController = new RecurringChangeController(MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>(), new CreateRecurringChangeViewModelBuilder(), MockRepository.GenerateStub<IAddRecurringChanges>(), null, null);
             recurringChangeController.SetRedirect(expectedAction, expectedController, new { walletName = "foobar" });
-            var result = recurringChangeController.AddNewDeposit(new WalletDay {WalletName = "foo name", Date = "foo date"}, new AddedChange {ChangeName = "foo withdrawal", Amount = 123m});
+            var result = recurringChangeController.AddNewDeposit(new WalletDay {WalletName = "foo name", Date = "foo date"}, new IncomingChange {ChangeName = "foo withdrawal", Amount = 123m});
 
             Assert.That(result.RouteValues["action"], Is.EqualTo(expectedAction));
             Assert.That(result.RouteValues["controller"], Is.EqualTo(expectedController));
@@ -173,13 +172,13 @@ namespace Test.FundTracker.Web.Controllers
             var addChangeAction = MockRepository.GenerateMock<IAddRecurringChanges>();
 
             var recurringChangeController = new RecurringChangeController(MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>(), new CreateRecurringChangeViewModelBuilder(), addChangeAction, null, null);
-            recurringChangeController.AddNewDeposit(new WalletDay {WalletName = walletName, Date = "foo date"}, new AddedChange {ChangeName = changeName, Amount = changeAmount});
+            recurringChangeController.AddNewDeposit(new WalletDay {WalletName = walletName, Date = "foo date"}, new IncomingChange {ChangeName = changeName, Amount = changeAmount});
 
-            var argumentsForFirstCallMadeToAction = addChangeAction.GetArgumentsForCallsMadeOn(x => x.Execute(Arg<WalletDay>.Is.Anything, Arg<AddedChange>.Is.Anything, Arg<ICreateRedirects>.Is.Anything))[0];
+            var argumentsForFirstCallMadeToAction = addChangeAction.GetArgumentsForCallsMadeOn(x => x.Execute(Arg<WalletDay>.Is.Anything, Arg<IncomingChange>.Is.Anything, Arg<ICreateRedirects>.Is.Anything))[0];
 
             Assert.That(((WalletDay)argumentsForFirstCallMadeToAction[0]).WalletName, Is.EqualTo(walletName));
-            Assert.That(((AddedChange)argumentsForFirstCallMadeToAction[1]).ChangeName, Is.EqualTo(changeName));
-            Assert.That(((AddedChange)argumentsForFirstCallMadeToAction[1]).Amount, Is.EqualTo(changeAmount));
+            Assert.That(((IncomingChange)argumentsForFirstCallMadeToAction[1]).ChangeName, Is.EqualTo(changeName));
+            Assert.That(((IncomingChange)argumentsForFirstCallMadeToAction[1]).Amount, Is.EqualTo(changeAmount));
         }
 
         [Test]
@@ -193,13 +192,13 @@ namespace Test.FundTracker.Web.Controllers
             var addChangeAction = MockRepository.GenerateMock<IAddRecurringChanges>();
 
             var recurringChangeController = new RecurringChangeController(MockRepository.GenerateStub<IBuildRecurringChangeListViewModels>(), new CreateRecurringChangeViewModelBuilder(), addChangeAction, null, null);
-            recurringChangeController.AddNewWithdrawal(new WalletDay {WalletName = walletName, Date = "foo date"}, new AddedChange {Amount = changeAmount, ChangeName = changeName});
+            recurringChangeController.AddNewWithdrawal(new WalletDay {WalletName = walletName, Date = "foo date"}, new IncomingChange {Amount = changeAmount, ChangeName = changeName});
 
-            var argumentsForFirstCallMadeToAction = addChangeAction.GetArgumentsForCallsMadeOn(x => x.Execute(Arg<WalletDay>.Is.Anything, Arg<AddedChange>.Is.Anything, Arg<ICreateRedirects>.Is.Anything))[0];
+            var argumentsForFirstCallMadeToAction = addChangeAction.GetArgumentsForCallsMadeOn(x => x.Execute(Arg<WalletDay>.Is.Anything, Arg<IncomingChange>.Is.Anything, Arg<ICreateRedirects>.Is.Anything))[0];
 
             Assert.That(((WalletDay)argumentsForFirstCallMadeToAction[0]).WalletName, Is.EqualTo(walletName));
-            Assert.That(((AddedChange)argumentsForFirstCallMadeToAction[1]).ChangeName, Is.EqualTo(changeName));
-            Assert.That(((AddedChange)argumentsForFirstCallMadeToAction[1]).Amount, Is.EqualTo(expectedChangeAmount));
+            Assert.That(((IncomingChange)argumentsForFirstCallMadeToAction[1]).ChangeName, Is.EqualTo(changeName));
+            Assert.That(((IncomingChange)argumentsForFirstCallMadeToAction[1]).Amount, Is.EqualTo(expectedChangeAmount));
         }
     }
 }

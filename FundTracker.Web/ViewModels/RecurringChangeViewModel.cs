@@ -10,9 +10,11 @@ namespace FundTracker.Web.ViewModels
         public string RuleType { get; private set; }
         public string StopLinkText { get; private set; }
         public string StopLinkDestination { get; private set; }
+        public int ChangeId { get; private set; }
 
-        public RecurringChangeViewModel(string name, decimal amount, DateTime appliedSince, string ruleType, string stopLinkText, string stopLinkDestination)
+        public RecurringChangeViewModel(string name, decimal amount, DateTime appliedSince, string ruleType, string stopLinkText, string stopLinkDestination, int changeId)
         {
+            ChangeId = changeId;
             StopLinkDestination = stopLinkDestination;
             StopLinkText = stopLinkText;
             RuleType = ruleType;

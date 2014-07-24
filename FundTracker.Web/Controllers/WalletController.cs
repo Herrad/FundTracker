@@ -51,22 +51,22 @@ namespace FundTracker.Web.Controllers
             return View("Display", walletViewModel);
         }
 
-        public ActionResult AddFunds(WalletDay walletDay, AddedChange addedChange)
+        public ActionResult AddFunds(WalletDay walletDay, IncomingChange incomingChange)
         {
             var walletName = walletDay.WalletName;
             var dateToApplyTo = _dateParser.ParseDateOrUseToday(walletDay.Date);
 
             var recurringChanger = _walletProvider.FindRecurringChanger(new WalletIdentification(walletName));
 
-            recurringChanger.CreateChange(new RecurringChange(addedChange.ChangeName, addedChange.Amount, new OneShotRule(dateToApplyTo, null)));
+            recurringChanger.CreateChange(new RecurringChange(recurringChanger.GetNextId(), incomingChange.ChangeName, incomingChange.Amount, new OneShotRule(dateToApplyTo, null)));
 
             return RedirectToAction("Display", new {walletName });
         }
 
-        public ActionResult RemoveFunds(WalletDay walletDay, AddedChange addedChange)
+        public ActionResult RemoveFunds(WalletDay walletDay, IncomingChange incomingChange)
         {
-            addedChange.Amount = 0 - addedChange.Amount;
-            return AddFunds(walletDay, addedChange);
+            incomingChange.Amount = 0 - incomingChange.Amount;
+            return AddFunds(walletDay, incomingChange);
         }
 
         public void SetRedirect(string action, string controller, object parameters)

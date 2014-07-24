@@ -4,6 +4,6 @@ namespace FundTracker.Web.Controllers.ActionHelpers
 {
     public interface IRemoveRecurringChanges
     {
-        void Execute(WalletDay walletDay, string changeName, ICreateRedirects redirecter);
+        void Execute(WalletDay walletDay, IncomingChange incomingChange, ICreateRedirects redirecter);
     }
 }

@@ -7,7 +7,8 @@ namespace Test.FundTracker.Web.Controllers
     public class RemoveChangeExposer : IHaveRecurringChanges
     {
         public WalletIdentification Identification { get; private set; }
-        public string NameOfLastChangeRemoved { get; private set; }
+
+        public int IdOfLastChangeRemoved { get; set; }
 
         public void CreateChange(RecurringChange recurringChange)
         {
@@ -19,14 +20,19 @@ namespace Test.FundTracker.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public void StopChangeOn(string changeName, DateTime lastApplicableDate)
+        public void StopChangeOn(int changeId, DateTime lastApplicableDate)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveChange(string changeName)
+        public void RemoveChange(int changeId)
         {
-            NameOfLastChangeRemoved = changeName;
+            IdOfLastChangeRemoved = changeId;
+        }
+
+        public int GetNextId()
+        {
+            throw new NotImplementedException();
         }
     }
 }

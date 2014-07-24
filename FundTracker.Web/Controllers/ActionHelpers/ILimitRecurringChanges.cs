@@ -4,6 +4,6 @@ namespace FundTracker.Web.Controllers.ActionHelpers
 {
     public interface ILimitRecurringChanges
     {
-        void LimitChange(WalletDay walletDay, string changeName, ICreateRedirects redirecter);
+        void LimitChange(WalletDay walletDay, IncomingChange incomingChange, ICreateRedirects redirecter);
     }
 }

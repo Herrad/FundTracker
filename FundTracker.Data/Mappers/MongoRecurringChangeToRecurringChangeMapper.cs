@@ -21,7 +21,7 @@ namespace FundTracker.Data.Mappers
 
             var recurranceSpecification = _recurranceSpecificationFactory.Build(recurringChange.RecurranceRule, startDate, endDate);
 
-            return new RecurringChange(recurringChange.Name, recurringChange.Amount, recurranceSpecification);
+            return new RecurringChange(recurringChange.ChangeId, recurringChange.Name, recurringChange.Amount, recurranceSpecification);
         }
 
         private static DateTime? GetEndDate(MongoRecurringChange recurringChange)

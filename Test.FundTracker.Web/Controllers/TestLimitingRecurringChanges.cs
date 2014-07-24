@@ -19,8 +19,8 @@ namespace Test.FundTracker.Web.Controllers
         public void StopChange_passes_WalletDay_and_changeName_to_limiter()
         {
             var lastApplicableDate = new DateTime(2, 2, 2);
-            const string walletName = "foo wallet";
-            const string changeName = "foo change";
+            const string walletName = "foo wallet"; 
+            const int changeId = 111;
 
             var date = lastApplicableDate.ToString("yyyy-MM-dd");
             var walletDay = new WalletDay() { WalletName = walletName, Date = date };
@@ -39,9 +39,10 @@ namespace Test.FundTracker.Web.Controllers
             var redirecter = MockRepository.GenerateStub<ICreateRedirects>();
 
             var recurringChangeLimiter = new RecurringChangeLimiter(walletService, dateParser);
-            recurringChangeLimiter.LimitChange(walletDay, changeName, redirecter);
+            
+            recurringChangeLimiter.LimitChange(walletDay, new IncomingChange(){ChangeId = changeId}, redirecter);
 
-            wallet.AssertWasCalled(x => x.StopChangeOn(changeName, lastApplicableDate), c => c.Repeat.Once());
+            wallet.AssertWasCalled(x => x.StopChangeOn(changeId, lastApplicableDate), c => c.Repeat.Once());
         }
 
         [Test]
@@ -49,7 +50,6 @@ namespace Test.FundTracker.Web.Controllers
         {
             const string date = "foo date";
             const string walletName = "foo wallet";
-            const string changeName = "foo change";
 
             var wallet = MockRepository.GenerateStub<IHaveRecurringChanges>();
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -67,7 +67,7 @@ namespace Test.FundTracker.Web.Controllers
             var redirecter = MockRepository.GenerateStub<ICreateRedirects>();
 
             var recurringChangeLimiter = new RecurringChangeLimiter(walletService, dateParser);
-            recurringChangeLimiter.LimitChange(walletDay, changeName, redirecter);
+            recurringChangeLimiter.LimitChange(walletDay, new IncomingChange(), redirecter);
 
             redirecter
                 .AssertWasCalled(x => x.SetRedirect(Arg<string>.Is.Equal("Display"), Arg<string>.Is.Equal("RecurringChange"), Arg<object>.Is.NotNull));

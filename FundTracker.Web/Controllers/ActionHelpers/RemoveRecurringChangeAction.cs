@@ -13,10 +13,10 @@ namespace FundTracker.Web.Controllers.ActionHelpers
             _walletService = walletService;
         }
 
-        public void Execute(WalletDay walletDay, string changeName, ICreateRedirects redirecter)
+        public void Execute(WalletDay walletDay, IncomingChange incomingChange, ICreateRedirects redirecter)
         {
             var wallet = _walletService.FindRecurringChanger(new WalletIdentification(walletDay.WalletName));
-            wallet.RemoveChange(changeName);
+            wallet.RemoveChange(incomingChange.ChangeId);
             redirecter.SetRedirect("Display", "RecurringChange", new{walletName = walletDay.WalletName, date = walletDay.Date});
         }
     }

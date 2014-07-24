@@ -116,7 +116,7 @@
     <Compile Include="Controllers\ActionHelpers\RecurringChangeLimiter.cs" />
     <Compile Include="Controllers\ActionHelpers\RemoveRecurringChangeAction.cs" />
     <Compile Include="Controllers\ActionHelpers\WalletNameValidator.cs" />
-    <Compile Include="Controllers\BoundModels\AddedChange.cs" />
+    <Compile Include="Controllers\BoundModels\IncomingChange.cs" />
     <Compile Include="Controllers\BoundModels\WalletDay.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ICreateViews.cs" />

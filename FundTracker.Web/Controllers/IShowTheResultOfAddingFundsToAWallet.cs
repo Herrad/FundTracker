@@ -5,6 +5,6 @@ namespace FundTracker.Web.Controllers
 {
     public interface IShowTheResultOfAddingFundsToAWallet
     {
-        ActionResult AddFunds(WalletDay walletDay, AddedChange addedChange);
+        ActionResult AddFunds(WalletDay walletDay, IncomingChange incomingChange);
     }
 }

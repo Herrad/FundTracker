@@ -28,7 +28,7 @@
     }
     @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount > 0))
     {
-        <tr>
+        <tr data-changeid="@change.ChangeId">
             <td>@change.Name</td>
             <td>£@change.Amount</td>
             <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>

@@ -227,17 +227,19 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("this wallet exists", ((string)(null)), table8, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ChangeId",
                         "Name",
                         "Amount",
                         "Start Date",
                         "Repetition Rule"});
             table9.AddRow(new string[] {
+                        "1",
                         "payday",
                         "1000",
                         "2014-07-01",
                         "Every week"});
 #line 65
- testRunner.And("the following recurring deposit exists", ((string)(null)), table9, "And ");
+ testRunner.And("the following recurring deposits exists", ((string)(null)), table9, "And ");
 #line 68
  testRunner.When("I view my deposits for \"2014-07-08\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 69
@@ -264,17 +266,19 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("this wallet exists", ((string)(null)), table10, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ChangeId",
                         "Name",
                         "Amount",
                         "Start Date",
                         "Repetition Rule"});
             table11.AddRow(new string[] {
+                        "1",
                         "payday",
                         "1000",
                         "2014-07-01",
                         "Every day"});
 #line 76
- testRunner.And("the following recurring deposit exists", ((string)(null)), table11, "And ");
+ testRunner.And("the following recurring deposits exists", ((string)(null)), table11, "And ");
 #line 79
  testRunner.When("I stop the deposit called \"payday\" on \"2014-07-02\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 80
@@ -299,21 +303,66 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("this wallet exists", ((string)(null)), table12, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ChangeId",
                         "Name",
                         "Amount",
                         "Start Date",
                         "Repetition Rule"});
             table13.AddRow(new string[] {
+                        "1",
                         "payday",
                         "1000",
                         "2014-07-01",
                         "Just today"});
 #line 87
- testRunner.And("the following recurring deposit exists", ((string)(null)), table13, "And ");
+ testRunner.And("the following recurring deposits exists", ((string)(null)), table13, "And ");
 #line 90
  testRunner.When("I remove the deposit called \"payday\" on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 91
  testRunner.Then("no entry for \"payday\" is present on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Removing a change when one exists with the same name removes the correct change")]
+        public virtual void RemovingAChangeWhenOneExistsWithTheSameNameRemovesTheCorrectChange()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing a change when one exists with the same name removes the correct change", ((string[])(null)));
+#line 94
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name"});
+            table14.AddRow(new string[] {
+                        "my wallet"});
+#line 95
+ testRunner.Given("this wallet exists", ((string)(null)), table14, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ChangeId",
+                        "Name",
+                        "Amount",
+                        "Start Date",
+                        "Repetition Rule"});
+            table15.AddRow(new string[] {
+                        "1",
+                        "payday",
+                        "1000",
+                        "2014-07-01",
+                        "Just today"});
+            table15.AddRow(new string[] {
+                        "2",
+                        "payday",
+                        "2000",
+                        "2014-07-01",
+                        "Just today"});
+#line 98
+ testRunner.And("the following recurring deposits exists", ((string)(null)), table15, "And ");
+#line 102
+ testRunner.When("I remove the deposit with id \"2\" on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 103
+ testRunner.Then("no entry with id \"2\" is present on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FundTracker.Data">
-      <HintPath>..\FundTracker.Data\bin\Debug\FundTracker.Data.dll</HintPath>
-    </Reference>
     <Reference Include="MicroEvent">
       <HintPath>..\MicroEvent\MicroEvent.dll</HintPath>
     </Reference>
@@ -43,6 +40,7 @@
   <ItemGroup>
     <Compile Include="EventSwallower.cs" />
     <Compile Include="Events\RecurringChangeCreated.cs" />
+    <Compile Include="Events\RecurringChangeModified.cs" />
     <Compile Include="Events\WalletFundsChanged.cs" />
     <Compile Include="IAmIdentifiable.cs" />
     <Compile Include="ICreateWallets.cs" />

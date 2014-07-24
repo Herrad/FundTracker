@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FundTracker.Data;
 using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
 using MicroEvent;

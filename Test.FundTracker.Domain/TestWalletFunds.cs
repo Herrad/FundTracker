@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using FundTracker.Data;
 using FundTracker.Domain;
-using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
 using MicroEvent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using RecurringChangeModified = FundTracker.Domain.Events.RecurringChangeModified;
 
 namespace Test.FundTracker.Domain
 {

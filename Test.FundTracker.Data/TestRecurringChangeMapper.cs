@@ -28,7 +28,16 @@ namespace Test.FundTracker.Data
         {
             var expectedDate = new DateTime(2001,02,03);
 
-            var mapper = new MongoRecurringChangeToRecurringChangeMapper(MockRepository.GenerateStub<IBuildRecurranceSpecifications>());
+            var recurranceSpecification = MockRepository.GenerateStub<IDecideWhenRecurringChangesOccur>();
+            recurranceSpecification
+                .Stub(x => x.FirstApplicableDate)
+                .Return(expectedDate);
+
+            var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
+            recurranceSpecificationFactory
+                .Stub(x => x.Build(Arg<string>.Is.Anything, Arg<DateTime>.Is.Anything, Arg<DateTime?>.Is.Anything))
+                .Return(recurranceSpecification);
+            var mapper = new MongoRecurringChangeToRecurringChangeMapper(recurranceSpecificationFactory);
             var recurringChange = mapper.Map(new MongoRecurringChange { FirstApplicationDate = "2001-02-03"});
 
             Assert.That(recurringChange.StartDate, Is.EqualTo(expectedDate));

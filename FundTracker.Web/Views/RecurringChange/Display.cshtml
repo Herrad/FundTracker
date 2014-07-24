@@ -13,19 +13,22 @@
     <thead>
         <tr class="table-head">
             <td colspan="5">Deposits</td>
-        </tr>
-        <tr class="row-head">
-            <td class="extrenious">Applied since</td>
-            <td class="extrenious">Repeat rule</td>
-            <td>Name</td>
-            <td>Amount</td>
-            <td>Stops change</td>
-        </tr>
-    </thead>    
-    @if (!Model.RecurringChangeViewModels.Any(change => change.Amount > 0))
-    {
-        <tr><td colspan="5">No deposits on this day</td></tr>
-    }
+        </tr>        
+        @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
+        {
+            <tr><td colspan="5">No deposits on this day</td></tr>
+        }
+        else
+        {
+            <tr class="row-head">
+                <td>Name</td>
+                <td>Amount</td>
+                <td class="extrenious">Applied since</td>
+                <td class="extrenious">Repeat rule</td>
+                <td>Stops change</td>
+            </tr>
+        }
+    </thead>
     @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount > 0))
     {
         <tr data-changeid="@change.ChangeId">

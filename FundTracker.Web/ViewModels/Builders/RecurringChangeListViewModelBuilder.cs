@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FundTracker.Domain;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
@@ -24,7 +26,15 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var applicableChanges = wallet.GetChangesActiveOn(selectedDate);
 
-            return new RecurringChangeListViewModel(applicableChanges.Select(change => BuildRecurringChangeViewModel(change, walletName)), selectedDate);
+            return new RecurringChangeListViewModel(applicableChanges.Select(change => BuildRecurringChangeViewModel(change, walletName)), selectedDate, BuildNavigationLinkViewModels(walletName, selectedDate));
+        }
+
+        private static IEnumerable<NavigationLinkViewModel> BuildNavigationLinkViewModels(string walletName, DateTime selectedDate)
+        {
+            return new List<NavigationLinkViewModel>
+            {
+                new NavigationLinkViewModel("Wallet", "/Wallet/Display/?walletName=" + walletName + "&date=" + selectedDate)
+            };
         }
 
         private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change, string walletName)

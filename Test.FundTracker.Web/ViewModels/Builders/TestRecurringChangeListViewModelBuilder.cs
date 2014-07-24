@@ -5,6 +5,7 @@ using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
+using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -221,6 +222,44 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             Assert.That(changeNames[0].StopLinkText, Is.EqualTo(expectedStopLinkText));
             Assert.That(changeNames[0].StopLinkDestination, Is.EqualTo(expectedLinkDestination));
+        }
+
+        [Test]
+        public void Sets_NavigationLinks()
+        {
+            const string walletName = "foo name";
+            const string walletDate = "foo date";
+            var startDate = new DateTime(01, 02, 03);
+
+            const string linkText = "Wallet";
+            string target = "/Wallet/Display/?walletName="+walletName+"&date="+startDate;
+
+            var recurringChanges = new List<RecurringChange>();
+            var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
+            recurringChanger
+                .Stub(x => x.GetChangesActiveOn(startDate))
+                .Return(recurringChanges);
+
+            var walletService = MockRepository.GenerateStub<IProvideWallets>();
+            walletService
+                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
+                .Return(recurringChanger);
+
+            var dateParser = MockRepository.GenerateStub<IParseDates>();
+            dateParser
+                .Stub(x => x.ParseDateOrUseToday(walletDate))
+                .Return(startDate);
+
+            var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
+            var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
+
+            
+            var navigationLinkViewModels = recurringChangeListViewModel.NavigationLinkViewModels;
+            Assert.That(navigationLinkViewModels, Is.Not.Null);
+
+            var navigationLinkViewModelsList = navigationLinkViewModels.ToList();
+            Assert.That(navigationLinkViewModelsList[0].LinkText, Is.EqualTo(linkText));
+            Assert.That(navigationLinkViewModelsList[0].Target, Is.EqualTo(target));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model FundTracker.Web.ViewModels.WalletViewModel
+﻿@using FundTracker.Web.ViewModels
+@model FundTracker.Web.ViewModels.WalletViewModel
 
 @{
     ViewBag.Title = "Wallet";
@@ -7,7 +8,7 @@
 @section Header
 {}
 
-@{Html.RenderPartial("_Navigation");}
+@{Html.RenderPartial("_Navigation", new List<NavigationLinkViewModel>());}
 
 <h2 class="display-header">@Model.Name</h2>
 @{Html.RenderPartial("_Calendar", @Model.DayViewModel);}

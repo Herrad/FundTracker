@@ -1,3 +1,8 @@
-﻿<div class="navigation">
+﻿@model IEnumerable<FundTracker.Web.ViewModels.NavigationLinkViewModel>
+<div class="navigation">
     <a href="/Home/Index">Go back home</a>
+    @foreach (var link in Model)
+    {
+        <a href="@link.Target">@link.LinkText</a>
+    }
 </div>

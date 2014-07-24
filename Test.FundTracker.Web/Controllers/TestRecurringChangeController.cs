@@ -80,9 +80,10 @@ namespace Test.FundTracker.Web.Controllers
         [Test]
         public void StopChange_redirects_to_last_set_redirect()
         {
-            var recurringChangeController = new RecurringChangeController(null, null, null, null);
+            var recurringChangeLimiter = MockRepository.GenerateStub<ILimitRecurringChanges>();
+            var recurringChangeController = new RecurringChangeController(null, null, null, recurringChangeLimiter);
             recurringChangeController.SetRedirect("foo", "bar", null);
-            RedirectToRouteResult result = recurringChangeController.StopChange(new WalletDay(), "foo change");
+            var result = recurringChangeController.StopChange(new WalletDay(), "foo change");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.RouteValues["action"], Is.EqualTo("foo"));

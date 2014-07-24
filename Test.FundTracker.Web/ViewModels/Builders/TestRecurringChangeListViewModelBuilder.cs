@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
+using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
 using FundTracker.Web.ViewModels.Builders;
@@ -17,12 +18,12 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         public void Sets_a_list_of_names_and_amounts()
         {
             const string walletName = "foo wallet";
+            var startDate = new DateTime(1, 2, 3);
 
-            var expectedChange1 = new RecurringChange("foo1", 1, null);
-            var expectedChange2 = new RecurringChange("foo2", 2, null);
-            var expectedChange3 = new RecurringChange("foo3", 3, null);
+            var expectedChange1 = new RecurringChange("foo1", 1, new OneShotRule(startDate, null));
+            var expectedChange2 = new RecurringChange("foo2", 2, new OneShotRule(startDate, null));
+            var expectedChange3 = new RecurringChange("foo3", 3, new OneShotRule(startDate, null));
 
-            var startDate = new DateTime(1, 2 ,3);
             var recurringChanges = new List<RecurringChange>
             {
                 expectedChange1,
@@ -68,11 +69,11 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo wallet";
             const string walletDate = "foo date";
-
-            var expectedChange1 = new RecurringChange("foo1", 0, null);
-            var expectedChange2 = new RecurringChange("foo2", 0, null);
-
+            
             var startDate = new DateTime(1, 2, 3);
+            var expectedChange1 = new RecurringChange("foo1", 0, new OneShotRule(startDate, null));
+            var expectedChange2 = new RecurringChange("foo2", 0, new OneShotRule(startDate, null));
+
             var recurringChanges = new List<RecurringChange>
             {
                 expectedChange1,

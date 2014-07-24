@@ -29,7 +29,17 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change)
         {
-            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), "Stop this change");
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.StartDate, change.RuleName(), GetStopLinkText(), GetStopLinkDestination(change));
+        }
+
+        private static string GetStopLinkText()
+        {
+            return "Stop this change";
+        }
+
+        private static string GetStopLinkDestination(RecurringChange change)
+        {
+            return "/RecurringChange/Stop/?walletName=" + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeName=" + change.Name;
         }
     }
 }

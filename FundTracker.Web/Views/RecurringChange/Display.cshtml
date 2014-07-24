@@ -33,7 +33,7 @@
             <td>£@change.Amount</td>
             <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
             <td class="extrenious">@change.RuleType</td>
-            <td><a href="/RecurringChange/StopChange/?walletName=@Model.WalletName&date=@Model.Date.ToString("yyyy-MM-dd")&changeName=@change.Name">@change.StopText</a></td>
+            <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>
     }
 </table>

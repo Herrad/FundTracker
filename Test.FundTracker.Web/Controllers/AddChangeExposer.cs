@@ -27,7 +27,7 @@ namespace Test.FundTracker.Web.Controllers
         public void CreateChange(string changeName, decimal amount,
             IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
-            throw new NotImplementedException();
+            LastChangeAdded = new RecurringChange(123, changeName, amount, recurranceSpecification);
         }
 
         public RecurringChange LastChangeAdded { get; private set; }

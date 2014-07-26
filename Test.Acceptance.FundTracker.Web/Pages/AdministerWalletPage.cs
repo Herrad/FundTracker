@@ -122,7 +122,7 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         public AddDepositPage AddNewRecurringDeposit()
         {
-            var change = WebDriver.FindCss(".recurring.withdrawal");
+            var change = WebDriver.FindCss(".recurring.deposit");
             change.Click();
             return new AddDepositPage();
         }

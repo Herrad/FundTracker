@@ -9,7 +9,7 @@ namespace Test.FundTracker.Services
     [TestFixture]
     public class TestWalletService : IKnowAboutWallets, ISaveWallets
     {
-        private IHaveChangingFunds _walletSaved;
+        private IAmIdentifiable _walletSaved;
         private Wallet _walletToReturnFromGet;
 
         [Test]
@@ -61,7 +61,7 @@ namespace Test.FundTracker.Services
             return _walletToReturnFromGet;
         }
 
-        public void Save(IHaveChangingFunds wallet)
+        public void Save(IAmIdentifiable wallet)
         {
             _walletSaved = wallet;
         }

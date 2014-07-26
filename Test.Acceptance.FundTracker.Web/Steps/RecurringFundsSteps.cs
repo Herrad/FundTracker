@@ -89,8 +89,9 @@ namespace Test.Acceptance.FundTracker.Web.Steps
 
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
+            var addDepositPage = new AdministerWalletPage().AddNewRecurringDeposit();
 
-            new AddDepositPage().CreateNewDeposit(depositAmount, depositName, null);
+            addDepositPage.CreateNewDeposit(depositAmount, depositName, null);
         }
 
         [When(@"I add the following recurring withdrawal")]

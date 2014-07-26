@@ -33,7 +33,7 @@ namespace FundTracker.Web.ViewModels.Builders
         {
             return new List<NavigationLinkViewModel>
             {
-                new NavigationLinkViewModel("Wallet", "/Wallet/Display/?walletName=" + walletName + "&date=" + selectedDate)
+                new NavigationLinkViewModel("Wallet", "/Wallet/Display/?walletName=" + walletName + "&date=" + selectedDate, "wallet")
             };
         }
 

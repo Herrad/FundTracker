@@ -163,7 +163,12 @@
     <Content Include="Content\Css\Site.css" />
     <Content Include="Content\Images\arrows.png" />
     <Content Include="Content\Images\green-arrows.png" />
+    <Content Include="Content\Images\home-32.png" />
+    <Content Include="Content\Images\home-48.png" />
     <Content Include="Content\Images\red-arrows.png" />
+    <Content Include="Content\Images\wallet-1-32.png" />
+    <Content Include="Content\Images\wallet-1-48.png" />
+    <Content Include="Content\Images\wallet-1-64.png" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">

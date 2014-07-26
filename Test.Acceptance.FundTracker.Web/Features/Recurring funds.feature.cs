@@ -86,10 +86,12 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
-                        "Amount"});
+                        "Amount",
+                        "Repetition Rule"});
             table2.AddRow(new string[] {
                         "debt",
-                        "50"});
+                        "50",
+                        "Just Today"});
 #line 12
  testRunner.When("I add the following recurring withdrawal", ((string)(null)), table2, "When ");
 #line 15
@@ -121,10 +123,12 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
-                        "Amount"});
+                        "Amount",
+                        "Repetition Rule"});
             table4.AddRow(new string[] {
                         "debt",
-                        "50"});
+                        "50",
+                        "Just Today"});
 #line 25
  testRunner.When("I add the following recurring deposit", ((string)(null)), table4, "When ");
 #line 28
@@ -363,6 +367,50 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I remove the deposit with id \"2\" on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 103
  testRunner.Then("no entry with id \"2\" is present on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Removing a change when one exists with the same name removes the correct change a" +
+            "ccross multiple days")]
+        public virtual void RemovingAChangeWhenOneExistsWithTheSameNameRemovesTheCorrectChangeAccrossMultipleDays()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Removing a change when one exists with the same name removes the correct change a" +
+                    "ccross multiple days", ((string[])(null)));
+#line 106
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Unique Name"});
+            table16.AddRow(new string[] {
+                        "my wallet"});
+#line 107
+ testRunner.Given("this wallet exists", ((string)(null)), table16, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Amount",
+                        "Start Date",
+                        "Repetition Rule"});
+            table17.AddRow(new string[] {
+                        "payday",
+                        "1000",
+                        "2014-07-01",
+                        "Just today"});
+            table17.AddRow(new string[] {
+                        "payday",
+                        "2000",
+                        "2014-07-02",
+                        "Just today"});
+#line 110
+ testRunner.And("I have created the following changes", ((string)(null)), table17, "And ");
+#line 114
+ testRunner.When("I remove the deposit called \"payday\" on \"2014-07-02\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 115
+ testRunner.Then("no entry for \"payday\" is present on \"2014-07-02\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 116
+ testRunner.Then("I an entry for \"payday\" is present on \"2014-07-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

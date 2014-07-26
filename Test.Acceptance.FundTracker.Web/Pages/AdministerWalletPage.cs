@@ -119,5 +119,12 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             var calander = WebDriver.FindCss("#calendar");
             return calander.FindCss(".selected", Options.First).Text;
         }
+
+        public AddDepositPage AddNewRecurringDeposit()
+        {
+            var change = WebDriver.FindCss(".recurring.withdrawal");
+            change.Click();
+            return new AddDepositPage();
+        }
     }
 }

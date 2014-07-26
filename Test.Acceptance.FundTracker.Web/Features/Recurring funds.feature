@@ -10,8 +10,8 @@ Scenario: Adding recurring withdrawal changes
 	And my wallet has no recurring changes
 	And I am administering this wallet
 	When I add the following recurring withdrawal
-	| Name | Amount |
-	| debt | 50     |
+	| Name | Amount |Repetition Rule |
+	| debt | 50     |Just Today      |
 	Then the outgoing total value is 50.00
 	And the amount in the wallet is -50.00
 
@@ -23,8 +23,8 @@ Scenario: Adding recurring deposit changes
 	And my wallet has no recurring changes
 	And I am administering this wallet
 	When I add the following recurring deposit
-	| Name | Amount |
-	| debt | 50     |
+	| Name | Amount |Repetition Rule |
+	| debt | 50     |Just Today      |
 	Then the incoming total value is 50.00
 	And the amount in the wallet is 50.00
 
@@ -89,7 +89,7 @@ Scenario: Removing changes stops them rendering
 	| 1        | payday | 1000   | 2014-07-01 | Just today      |
 	When I remove the deposit called "payday" on "2014-07-01"
 	Then no entry for "payday" is present on "2014-07-01"
-
+	
 
 Scenario: Removing a change when one exists with the same name removes the correct change
 	Given this wallet exists
@@ -101,3 +101,16 @@ Scenario: Removing a change when one exists with the same name removes the corre
 	| 2        | payday | 2000   | 2014-07-01 | Just today      |
 	When I remove the deposit with id "2" on "2014-07-01"
 	Then no entry with id "2" is present on "2014-07-01"
+
+
+Scenario: Removing a change when one exists with the same name removes the correct change accross multiple days
+	Given this wallet exists
+	| Unique Name |
+	| my wallet   |
+	And I have created the following changes
+	| Name   | Amount | Start Date | Repetition Rule |
+	| payday | 1000   | 2014-07-01 | Just today      |
+	| payday | 2000   | 2014-07-02 | Just today      |
+	When I remove the deposit called "payday" on "2014-07-02"
+	Then no entry for "payday" is present on "2014-07-02"
+	Then I an entry for "payday" is present on "2014-07-01"

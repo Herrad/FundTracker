@@ -30,18 +30,6 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             TestDbAdapter.CreateRecurringChange(walletName, 0, depositName, depositAmount, depositDueDate, "Just today");
         }
 
-        private static void CreateRecurringDeposit(TableRow tableRow)
-        {
-            var changeId = int.Parse(tableRow["ChangeId"]);
-            var name = tableRow["Name"];
-            var amount = int.Parse(tableRow["Amount"]);
-            var startDate = tableRow["Start Date"];
-            var repetitionRule = tableRow["Repetition Rule"];
-
-            var walletName = ScenarioContext.Current["wallet name"].ToString();
-            TestDbAdapter.CreateRecurringChange(walletName, changeId, name, amount, startDate, repetitionRule);
-        }
-
         [Given(@"the following recurring deposits exists"), UsedImplicitly]
         public void GivenTheFollowingRecurringDepositsExists(Table table)
         {
@@ -51,6 +39,27 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             }
         }
 
+        [Given(@"I have created the following changes")]
+        public void GivenIHaveCreatedTheFollowingChanges(Table table)
+        {
+            foreach (var tableRow in table.Rows)
+            {
+                ManuallyCreateRecurringDeposit(tableRow);
+            }
+        }
+
+        private void ManuallyCreateRecurringDeposit(TableRow tableRow)
+        {
+
+            WebDriver.Visit("/");
+            var walletName = (string)ScenarioContext.Current["wallet name"];
+            var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
+            administerWalletPage = administerWalletPage.ViewFor(DateTime.Parse(tableRow["Start Date"]));
+            var addDepositPage = administerWalletPage.AddNewRecurringDeposit();
+
+            addDepositPage.CreateNewDeposit(tableRow["Amount"], tableRow["Name"], tableRow["Repetition Rule"]);
+
+        }
 
 
         [When(@"I view my withdrawals for (.*) days ago")]
@@ -81,14 +90,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var depositAmount = recurringDepositToEnter["Amount"];
             var depositName = recurringDepositToEnter["Name"];
 
-            var recurringDeposit = WebDriver.FindCss(".recurring.deposit");
-            recurringDeposit.Click();
-
-
-            WebDriver.FindCss(".amount").SendKeys(depositAmount.ToString(CultureInfo.InvariantCulture));
-            WebDriver.FindCss(".name").SendKeys(depositName.ToString(CultureInfo.InvariantCulture));
-
-            WebDriver.FindCss(".submit").Click();
+            new AddDepositPage().CreateNewDeposit(depositAmount, depositName, null);
         }
 
         [When(@"I add the following recurring withdrawal")]
@@ -134,9 +136,12 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var date = DateTime.Parse(rawDate);
             var walletName = ScenarioContext.Current["wallet name"].ToString();
+            WebDriver.Visit("/");
             var administerWalletPage = IndexPage.SubmitSearchForWalletCalled(walletName);
             administerWalletPage = administerWalletPage.ViewFor(date);
+
             var recurringChangeListPage = administerWalletPage.ViewDeposits();
+
             recurringChangeListPage.RemoveChangeCalled(depositName);
             ScenarioContext.Current["page being viewed"] = recurringChangeListPage;
         }
@@ -187,6 +192,14 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             ThenNoEntryForIsPresent(changeName);
         }
 
+        [Then(@"I an entry for ""(.*)"" is present on ""(.*)""")]
+        public void ThenIAnEntryForIsPresentOn(string changeName, string targetDate)
+        {
+            WebDriver.Visit("/");
+            WhenIViewMyDepositsFor(targetDate);
+            ThenICanSeeAnEntryFor(changeName);
+        }
+
         [Then(@"no entry with id ""(.*)"" is present on ""(.*)""")]
         public void ThenNoEntryWithIdIsPresentOn(int changeId, string targetDate)
         {
@@ -204,12 +217,13 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         }
 
 
+
         [Then(@"the outgoing total value is (.*)")]
         public void ThenTheOutgoingTotalValueIs(decimal expectedWithdrawalAmount)
         {
             var withdrawalAmount = WebDriver.FindCss(".recurring-amount.withdrawal");
 
-            var amount = decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
+            var amount = Decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
 
             Assert.That(amount, Is.EqualTo(expectedWithdrawalAmount));
         }
@@ -219,10 +233,21 @@ namespace Test.Acceptance.FundTracker.Web.Steps
         {
             var withdrawalAmount = WebDriver.FindCss(".recurring-amount.deposit");
 
-            var amount = decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
+            var amount = Decimal.Parse(withdrawalAmount.FindCss(".amount").Text);
 
             Assert.That(amount, Is.EqualTo(expectedDepositAmount));
         }
 
+        private static void CreateRecurringDeposit(TableRow tableRow)
+        {
+            var changeId = Int32.Parse(tableRow["ChangeId"]);
+            var name = tableRow["Name"];
+            var amount = Int32.Parse(tableRow["Amount"]);
+            var startDate = tableRow["Start Date"];
+            var repetitionRule = tableRow["Repetition Rule"];
+
+            var walletName = ScenarioContext.Current["wallet name"].ToString();
+            TestDbAdapter.CreateRecurringChange(walletName, changeId, name, amount, startDate, repetitionRule);
+        }
     }
 }

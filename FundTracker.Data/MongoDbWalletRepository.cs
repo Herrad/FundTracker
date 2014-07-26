@@ -113,7 +113,7 @@ namespace FundTracker.Data
         {
             var wallet = GetMongoWallet(targetIdentification);
 
-            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.Name == recurringChange.Name);
+            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.ChangeId == recurringChange.Id);
             var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
 
             var updatedChange = BuildMongoRecurringChange(recurringChange, wallet);
@@ -125,7 +125,7 @@ namespace FundTracker.Data
         {
             var wallet = GetMongoWallet(targetIdentification);
 
-            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.Name == recurringChange.Name);
+            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.ChangeId == recurringChange.Id);
             var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
 
             GetRecurringChanges().Remove(mongoQuery);
@@ -141,7 +141,8 @@ namespace FundTracker.Data
                 Name = recurringChange.Name,
                 FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
                 LastApplicationDate = lastApplicationDate,
-                RecurranceRule = recurringChange.RuleName()
+                RecurranceRule = recurringChange.RuleName(),
+                ChangeId = recurringChange.Id
             };
         }
 

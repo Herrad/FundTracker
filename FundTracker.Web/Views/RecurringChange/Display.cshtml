@@ -63,7 +63,7 @@
     @foreach (var change in Model.RecurringChangeViewModels.Where(change => change.Amount < 0))
     {
         var invertedAmount = 0 - change.Amount;
-        <tr>
+        <tr data-changeid="@change.ChangeId">
             <td>@change.Name</td>
             <td>£@invertedAmount</td>
             <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>

@@ -30,8 +30,8 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             TestDbAdapter.CreateRecurringChange(walletName, 0, depositName, depositAmount, depositDueDate, "Just today");
         }
 
-        [Given(@"the following recurring deposits exists"), UsedImplicitly]
-        public void GivenTheFollowingRecurringDepositsExists(Table table)
+        [Given(@"the following recurring deposits exist in the databse"), UsedImplicitly]
+        public void GivenTheFollowingRecurringDepositsExistInTheDatabase(Table table)
         {
             foreach (var tableRow in table.Rows)
             {

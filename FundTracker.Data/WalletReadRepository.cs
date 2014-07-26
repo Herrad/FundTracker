@@ -8,11 +8,18 @@ namespace FundTracker.Data
     [UsedImplicitly]
     public class WalletReadRepository : IProvideMongoWallets
     {
-        public MongoWallet GetMongoWallet(IProvideMongoCollections databaseAdapter, WalletIdentification identification)
+        private readonly IProvideMongoCollections _databaseAdapter;
+
+        public WalletReadRepository(IProvideMongoCollections databaseAdapter)
+        {
+            _databaseAdapter = databaseAdapter;
+        }
+
+        public MongoWallet GetMongoWallet(WalletIdentification identification)
         {
             var walletName = identification.Name;
             var mongoQuery = Query<MongoWallet>.EQ(mw => mw.Name, walletName);
-            var mongoWallet = databaseAdapter.GetCollection<MongoWallet>("Wallets").FindOne(mongoQuery);
+            var mongoWallet = _databaseAdapter.GetCollection<MongoWallet>("Wallets").FindOne(mongoQuery);
             return mongoWallet;
         }
     }

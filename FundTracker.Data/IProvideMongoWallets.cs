@@ -5,6 +5,6 @@ namespace FundTracker.Data
 {
     public interface IProvideMongoWallets
     {
-        MongoWallet GetMongoWallet(IProvideMongoCollections databaseAdapter, WalletIdentification identification);
+        MongoWallet GetMongoWallet(WalletIdentification identification);
     }
 }

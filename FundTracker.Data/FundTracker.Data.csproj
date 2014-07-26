@@ -57,6 +57,7 @@
     <Compile Include="Entities\MongoWallet.cs" />
     <Compile Include="ICacheThings.cs" />
     <Compile Include="IInflateMongoRecurringChanges.cs" />
+    <Compile Include="IKnowWhichChangesBelongToWallets.cs" />
     <Compile Include="InMemoryWalletCache.cs" />
     <Compile Include="IProvideMongoCollections.cs" />
     <Compile Include="IProvideMongoWallets.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Mappers\IMapMongoWalletsToWallets.cs" />
     <Compile Include="Mappers\MongoRecurringChangeToRecurringChangeMapper.cs" />
     <Compile Include="Mappers\MongoWalletToWalletMapper.cs" />
+    <Compile Include="MongoDbRecurringChangeRepository.cs" />
     <Compile Include="MongoDbWalletRepository.cs" />
     <Compile Include="MongoRecurringChangeMapper.cs" />
     <Compile Include="Properties\Annotations.cs" />

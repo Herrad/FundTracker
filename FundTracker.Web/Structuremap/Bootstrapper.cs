@@ -38,6 +38,7 @@ namespace FundTracker.Web.Structuremap
                     x.For<IProvideMongoCollections>().Use<DatabaseAdapter>();
                     x.For<IInflateMongoRecurringChanges>().Use<MongoRecurringChangeMapper>();
                     x.For<IProvideMongoWallets>().Use<WalletReadRepository>();
+                    x.For<IKnowWhichChangesBelongToWallets>().Use<MongoDbRecurringChangeRepository>();
                     x.For<IReceivePublishedEvents>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<IReadSubscriptions>().LifecycleIs(new SingletonLifecycle()).Use(() => eventBus);
                     x.For<Subscription>().OnCreationForAll(eventBus.Subscribe);

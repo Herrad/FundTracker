@@ -4,13 +4,13 @@ namespace FundTracker.Domain.Events
 {
     public class RecurringChangeCreated : AnEvent
     {
-        public RecurringChangeCreated(RecurringChange change, WalletIdentification targetWallet)
+        public RecurringChangeCreated(RecurringChange change, WalletIdentification targetIdentification)
         {
-            TargetWallet = targetWallet;
+            TargetIdentification = targetIdentification;
             Change = change;
         }
 
         public RecurringChange Change { get; private set; }
-        public WalletIdentification TargetWallet { get; private set; }
+        public WalletIdentification TargetIdentification { get; private set; }
     }
 }

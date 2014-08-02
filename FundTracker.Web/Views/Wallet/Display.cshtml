@@ -24,7 +24,10 @@
 </div>
 <div class="cl"></div>
 @{
-    Html.RenderPartial("_AdministerWallet");
+    if (Model.DisplayQuickChanges)
+    {
+        Html.RenderPartial("_AdministerWallet");
+    }
 }
 
 @section Footer

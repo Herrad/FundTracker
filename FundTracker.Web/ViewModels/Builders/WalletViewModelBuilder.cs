@@ -27,7 +27,12 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
 
-            return new WalletViewModel(wallet.Identification.Name, fundChanger.GetAvailableFundsFor(selectedDate), depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel);
+            return new WalletViewModel(wallet.Identification.Name, fundChanger.GetAvailableFundsFor(selectedDate), depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel, SelectedDateIsToday(selectedDate));
+        }
+
+        private static bool SelectedDateIsToday(DateTime selectedDate)
+        {
+            return selectedDate==DateTime.Today;
         }
 
         private static decimal GetTotalRecurringWithdrawalsAmount(IEnumerable<RecurringChange> applicableChanges)

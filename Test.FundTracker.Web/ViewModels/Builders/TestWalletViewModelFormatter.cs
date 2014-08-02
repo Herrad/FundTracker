@@ -102,6 +102,40 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(result.DepositAmountViewModel.PositiveTotal, Is.EqualTo(100m));
         }
 
+        [Test]
+        public void Displays_quick_changes_when_selected_date_is_Today()
+        {
+            const string walletName = "foo name";
+            var walletIdentification = new WalletIdentification(walletName);
+
+            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
+
+            var selectedDate = DateTime.Today;
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+
+
+            Assert.That(result.DisplayQuickChanges, Is.True);
+        }
+
+        [Test]
+        public void Does_not_display_quick_changes_when_selected_date_is_not_Today()
+        {
+            const string walletName = "foo name";
+            var walletIdentification = new WalletIdentification(walletName);
+
+            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
+
+            var selectedDate = DateTime.Today.AddDays(1);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+
+
+            Assert.That(result.DisplayQuickChanges, Is.False);
+        }
+
 
     }
 }

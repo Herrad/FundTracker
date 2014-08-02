@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
+using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Test.FundTracker.Domain;
@@ -134,6 +136,27 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
 
             Assert.That(result.DisplayQuickChanges, Is.False);
+        }
+
+        [Test]
+        public void Adds_link_to_todays_wallet_when_selected_date_is_not_Today()
+        {
+            const string walletName = "foo name";
+            var walletIdentification = new WalletIdentification(walletName);
+
+            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
+
+            var selectedDate = DateTime.Today.AddDays(1);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+
+            Assert.That(result.NavigationLinks, Is.Not.Null);
+            Assert.That(result.NavigationLinks.Count(), Is.EqualTo(1));
+            var navigationLinkViewModels = result.NavigationLinks.ToList();
+            Assert.That(navigationLinkViewModels[0].LinkText, Is.EqualTo("Jump to today"));
+            Assert.That(navigationLinkViewModels[0].Target, Is.EqualTo("/Wallet/Display/?walletName=" + walletName + "&date=" + DateTime.Today.ToString("yyyy-MM-dd")));
+            Assert.That(navigationLinkViewModels[0].LinkClass, Is.EqualTo("go-to-today"));
         }
 
 

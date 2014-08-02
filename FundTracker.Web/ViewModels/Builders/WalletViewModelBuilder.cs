@@ -27,10 +27,31 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
 
-            return new WalletViewModel(wallet.Identification.Name, fundChanger.GetAvailableFundsFor(selectedDate), depositAmountViewModel, withdrawalAmountViewModel, calendarDayViewModel, SelectedDateIsToday(selectedDate));
+            var navigationLinkViewModels = BuildNavigationLinkViewModels(wallet, selectedDate);
+
+            return new WalletViewModel(
+                wallet.Identification.Name, 
+                fundChanger.GetAvailableFundsFor(selectedDate), 
+                depositAmountViewModel, 
+                withdrawalAmountViewModel, 
+                calendarDayViewModel, 
+                IsToday(selectedDate), 
+                navigationLinkViewModels);
         }
 
-        private static bool SelectedDateIsToday(DateTime selectedDate)
+        private static IEnumerable<NavigationLinkViewModel> BuildNavigationLinkViewModels(IAmIdentifiable wallet, DateTime selectedDate)
+        {
+            var navigationLinkViewModels = new List<NavigationLinkViewModel>();
+            if (!IsToday(selectedDate))
+            {
+                navigationLinkViewModels.Add(new NavigationLinkViewModel("Jump to today",
+                    "/Wallet/Display/?walletName=" + wallet.Identification.Name + "&date=" +
+                    DateTime.Today.ToString("yyyy-MM-dd"), "go-to-today"));
+            }
+            return navigationLinkViewModels;
+        }
+
+        private static bool IsToday(DateTime selectedDate)
         {
             return selectedDate==DateTime.Today;
         }

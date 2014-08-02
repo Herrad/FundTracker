@@ -8,7 +8,7 @@
 @section Header
 {}
 
-@{Html.RenderPartial("_Navigation", new List<NavigationLinkViewModel>());}
+@{Html.RenderPartial("_Navigation", Model.NavigationLinks);}
 
 <h2 class="display-header">@Model.Name</h2>
 @{Html.RenderPartial("_Calendar", @Model.DayViewModel);}

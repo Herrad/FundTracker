@@ -77,10 +77,6 @@
       <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
       <Name>FundTracker.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FundTracker.Services\FundTracker.Services.csproj">
-      <Project>{334CA1D2-E60D-49F7-AAED-2AEB0293603C}</Project>
-      <Name>FundTracker.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

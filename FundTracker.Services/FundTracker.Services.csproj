@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FundTracker.Data">
-      <HintPath>..\FundTracker.Data\bin\Debug\FundTracker.Data.dll</HintPath>
-    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\mongocsharpdriver.1.9.0\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -56,6 +53,10 @@
     <Compile Include="WalletService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FundTracker.Data\FundTracker.Data.csproj">
+      <Project>{2C1767A7-8D3B-4CD1-9D18-37F8FA18E23D}</Project>
+      <Name>FundTracker.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FundTracker.Domain\FundTracker.Domain.csproj">
       <Project>{B8995B49-9763-415E-BDDE-9D23114824BE}</Project>
       <Name>FundTracker.Domain</Name>

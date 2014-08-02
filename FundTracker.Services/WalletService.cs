@@ -1,31 +1,65 @@
-﻿using FundTracker.Domain;
+﻿using FundTracker.Data;
+using FundTracker.Data.Entities;
+using FundTracker.Data.Mappers;
+using FundTracker.Domain;
+using FundTracker.Services.Annotations;
 
 namespace FundTracker.Services
 {
+    [UsedImplicitly]
     public class WalletService : IProvideWallets, IStoreCreatedWallets
     {
-        private readonly IKnowAboutWallets _walletRepository;
-        private readonly ISaveWallets _walletSaver;
+        private readonly IProvideMongoCollections _mongoCollectionProvider;
+        private readonly IMapMongoWalletsToWallets _mongoWalletToWalletMapper;
+        private readonly IKnowWhichChangesBelongToWallets _walletChangeIdentifier;
+        private readonly IProvideMongoWallets _walletReadRepository;
+        private readonly ICacheThings<WalletIdentification, Wallet> _cache;
 
-        public WalletService(IKnowAboutWallets walletRepository, ISaveWallets walletSaver)
+        public WalletService(IProvideMongoCollections mongoCollectionProvider,
+            IMapMongoWalletsToWallets mongoWalletToWalletMapper, 
+            IKnowWhichChangesBelongToWallets walletChangeIdentifier, 
+            IProvideMongoWallets walletReadRepository, 
+            ICacheThings<WalletIdentification, Wallet> cache)
         {
-            _walletRepository = walletRepository;
-            _walletSaver = walletSaver;
+            _mongoCollectionProvider = mongoCollectionProvider;
+            _mongoWalletToWalletMapper = mongoWalletToWalletMapper;
+            _walletChangeIdentifier = walletChangeIdentifier;
+            _walletReadRepository = walletReadRepository;
+            _cache = cache;
         }
 
         public IHaveRecurringChanges FindRecurringChanger(WalletIdentification walletIdentification)
         {
-            return _walletRepository.Get(walletIdentification);
+            return GetWalletFromCacheOrDatabase(walletIdentification);
         }
 
         public IHaveChangingFunds FindFundChanger(WalletIdentification walletIdentification)
         {
-            return _walletRepository.Get(walletIdentification);
+            return GetWalletFromCacheOrDatabase(walletIdentification);
         }
 
         public void Add(IAmIdentifiable wallet)
         {
-            _walletSaver.Save(wallet);
+            _mongoCollectionProvider.GetCollection<MongoWallet>("Wallets").Insert(new MongoWallet
+            {
+                Name = wallet.Identification.Name
+            });
+        }
+
+        private Wallet GetWalletFromCacheOrDatabase(WalletIdentification identification)
+        {
+            var cachedWallet = _cache.Get(identification);
+            if (cachedWallet != null)
+            {
+                return cachedWallet;
+            }
+
+            var mongoWallet = _walletReadRepository.GetMongoWallet(identification);
+            var mongoRecurringChanges = _walletChangeIdentifier.GetAllRecurringChangesFor(mongoWallet);
+
+            var inflatedWallet = _mongoWalletToWalletMapper.InflateWallet(mongoWallet, mongoRecurringChanges);
+            _cache.Store(inflatedWallet.Identification, inflatedWallet);
+            return inflatedWallet;
         }
     }
 }

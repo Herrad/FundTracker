@@ -29,8 +29,6 @@ namespace FundTracker.Web.Structuremap
                     x.For<IValidateWalletNames>().Use<WalletNameValidator>();
                     x.For<IStoreCreatedWallets>().Use<WalletService>();
                     x.For<ICreateWallets>().Use<WalletBuilder>();
-                    x.For<ISaveWallets>().Use<MongoDbWalletRepository>();
-                    x.For<IKnowAboutWallets>().Use<MongoDbWalletRepository>();
                     x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
                     x.For<IMapMongoRecurringChangesToRecurringChanges>().Use<MongoRecurringChangeToRecurringChangeMapper>();
                     x.For<IBuildRecurranceSpecifications>().Use<RecurranceSpecificationFactory>();

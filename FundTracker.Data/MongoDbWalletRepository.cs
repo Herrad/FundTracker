@@ -43,13 +43,8 @@ namespace FundTracker.Data
             var mongoRecurringChanges = _recurringChangeRepository.GetAllRecurringChangesFor(mongoWallet);
 
             var inflatedWallet = _mongoWalletToWalletMapper.InflateWallet(mongoWallet, mongoRecurringChanges);
-            Cache(inflatedWallet);
+            _cache.Store(inflatedWallet.Identification, inflatedWallet);
             return inflatedWallet;
-        }
-
-        private void Cache(Wallet wallet)
-        {
-            _cache.Store(wallet.Identification, wallet);
         }
 
         public void Save(IAmIdentifiable wallet)

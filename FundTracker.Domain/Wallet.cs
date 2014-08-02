@@ -31,13 +31,6 @@ namespace FundTracker.Domain
             return _recurringChanges.OrderByDescending(x => x.Id).First().Id + 1;
         }
 
-        public void CreateChange(string changeName, decimal amount,IDecideWhenRecurringChangesOccur recurranceSpecification)
-        {
-            var recurringChange = new RecurringChange(GetNextId(), changeName, amount, recurranceSpecification);
-            _recurringChanges.Add(recurringChange);
-            _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
-        }
-
         public decimal GetAvailableFundsFor(DateTime targetDate)
         {
             var runningTotal = 0m;
@@ -56,22 +49,11 @@ namespace FundTracker.Domain
             return runningTotal;
         }
 
-        private bool Equals(IAmIdentifiable other)
+        public void CreateChange(string changeName, decimal amount,IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
-            return Identification.Equals(other.Identification);
-        }
-
-        public override int GetHashCode()
-        {
-            return (Identification!= null ? Identification.GetHashCode() : 0);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((Wallet) obj);
+            var recurringChange = new RecurringChange(GetNextId(), changeName, amount, recurranceSpecification);
+            _recurringChanges.Add(recurringChange);
+            _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
         }
 
         public IEnumerable<RecurringChange> GetChangesActiveOn(DateTime selectedDate)
@@ -90,6 +72,24 @@ namespace FundTracker.Domain
         {
             StopChangeOn(changeId, DateTime.Today);
             _eventReciever.Publish(new RecurringChangeRemoved(Identification, _recurringChanges.First(change => change.Id == changeId)));
+        }
+
+        private bool Equals(IAmIdentifiable other)
+        {
+            return Identification.Equals(other.Identification);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Identification!= null ? Identification.GetHashCode() : 0);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Wallet) obj);
         }
     }
 }

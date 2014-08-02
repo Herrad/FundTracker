@@ -44,6 +44,16 @@ namespace FundTracker.Data
             return GetRecurringChanges().Find(mongoQuery);
         }
 
+        private void DeleteEvent(AnEvent anEvent)
+        {
+            if (anEvent.GetType() == typeof (RecurringChangeRemoved))
+            {
+                var recurringChangeCreated = (RecurringChangeRemoved) anEvent;
+                var recurringChange = recurringChangeCreated.ChangeToRemove;
+                DeleteRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
+            }
+        }
+
         private void DeleteRecurringChange(RecurringChange recurringChange, WalletIdentification targetIdentification)
         {
             var wallet = _walletReadRepository.GetMongoWallet(targetIdentification);
@@ -54,13 +64,13 @@ namespace FundTracker.Data
             GetRecurringChanges().Remove(mongoQuery);
         }
 
-        private void DeleteEvent(AnEvent anEvent)
+        private void UpdateEvent(AnEvent anEvent)
         {
-            if (anEvent.GetType() == typeof (RecurringChangeRemoved))
+            if (anEvent.GetType() == typeof (RecurringChangeModified))
             {
-                var recurringChangeCreated = (RecurringChangeRemoved) anEvent;
-                var recurringChange = recurringChangeCreated.ChangeToRemove;
-                DeleteRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
+                var recurringChangeCreated = (RecurringChangeModified)anEvent;
+                var recurringChange = recurringChangeCreated.ModifiedChange;
+                UpdateExistingRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
             }
         }
 
@@ -77,13 +87,13 @@ namespace FundTracker.Data
             GetRecurringChanges().Update(mongoQuery, update);
         }
 
-        private void UpdateEvent(AnEvent anEvent)
+        private void CreateEvent(AnEvent anEvent)
         {
-            if (anEvent.GetType() == typeof (RecurringChangeModified))
+            if (anEvent.GetType() == typeof (RecurringChangeCreated))
             {
-                var recurringChangeCreated = (RecurringChangeModified)anEvent;
-                var recurringChange = recurringChangeCreated.ModifiedChange;
-                UpdateExistingRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
+                var recurringChangeCreated = (RecurringChangeCreated) anEvent;
+                var recurringChange = recurringChangeCreated.Change;
+                CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
             }
         }
 
@@ -93,16 +103,6 @@ namespace FundTracker.Data
 
             var mongoRecurringChange = _mongoRecurringChangeMapper.MapFrom(recurringChange, wallet);
             GetRecurringChanges().Insert(mongoRecurringChange);
-        }
-
-        private void CreateEvent(AnEvent anEvent)
-        {
-            if (anEvent.GetType() == typeof (RecurringChangeCreated))
-            {
-                var recurringChangeCreated = (RecurringChangeCreated) anEvent;
-                var recurringChange = recurringChangeCreated.Change;
-                CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
-            }
         }
     }
 }

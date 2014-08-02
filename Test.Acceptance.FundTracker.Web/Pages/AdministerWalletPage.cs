@@ -57,6 +57,8 @@ namespace Test.Acceptance.FundTracker.Web.Pages
 
         public AdministerWalletPage ViewFor(DateTime targetDate)
         {
+            GoToCorrectMonth(targetDate);
+
             var calander = WebDriver.FindCss("#calendar");
             var selectedDate = calander.FindCss(".current-month.selected");
             var targetDayOfMonth = targetDate.Day.ToString(CultureInfo.InvariantCulture);
@@ -80,6 +82,32 @@ namespace Test.Acceptance.FundTracker.Web.Pages
                 }
             }
             throw new NoSuchElementException("Couldn't find: "+ targetDayOfMonth);
+        }
+
+        private static void GoToCorrectMonth(DateTime targetDate)
+        {
+            var currentlySelectedMonth = ParseCurrentlySelectedMonth();
+            var i = 0;
+
+            while (currentlySelectedMonth.Month != targetDate.Month)
+            {
+                WebDriver.FindCss(".previous").Click();
+                currentlySelectedMonth = ParseCurrentlySelectedMonth();
+                if (i > 11)
+                {
+                    Assert.Fail("Tried going back more than 11 months and couldn't find " + targetDate.ToString("MMMMMMMMM"));
+                }
+
+                i++;
+            }
+        }
+
+        private static DateTime ParseCurrentlySelectedMonth()
+        {
+            var monthTitle = WebDriver.FindCss("#calendar").FindCss(".month").Text;
+            var parsableMonthTitle = "01-" + monthTitle.Replace(' ', '-');
+            var currentlySelectedMonth = DateTime.Parse(parsableMonthTitle);
+            return currentlySelectedMonth;
         }
 
         public RecurringChangeListPage ViewWithdrawals()

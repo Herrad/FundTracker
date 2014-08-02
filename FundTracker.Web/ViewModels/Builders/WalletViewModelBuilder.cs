@@ -44,7 +44,7 @@ namespace FundTracker.Web.ViewModels.Builders
             var navigationLinkViewModels = new List<NavigationLinkViewModel>();
             if (!IsToday(selectedDate))
             {
-                navigationLinkViewModels.Add(new NavigationLinkViewModel("Jump to today",
+                navigationLinkViewModels.Add(new NavigationLinkViewModel("Today",
                     "/Wallet/Display/?walletName=" + wallet.Identification.Name + "&date=" +
                     DateTime.Today.ToString("yyyy-MM-dd"), "go-to-today"));
             }

@@ -154,7 +154,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(result.NavigationLinks, Is.Not.Null);
             Assert.That(result.NavigationLinks.Count(), Is.EqualTo(1));
             var navigationLinkViewModels = result.NavigationLinks.ToList();
-            Assert.That(navigationLinkViewModels[0].LinkText, Is.EqualTo("Jump to today"));
+            Assert.That(navigationLinkViewModels[0].LinkText, Is.EqualTo("Today"));
             Assert.That(navigationLinkViewModels[0].Target, Is.EqualTo("/Wallet/Display/?walletName=" + walletName + "&date=" + DateTime.Today.ToString("yyyy-MM-dd")));
             Assert.That(navigationLinkViewModels[0].LinkClass, Is.EqualTo("go-to-today"));
         }

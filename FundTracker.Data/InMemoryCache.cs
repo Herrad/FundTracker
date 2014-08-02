@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MicroEvent;
 
 namespace FundTracker.Data
@@ -18,12 +19,16 @@ namespace FundTracker.Data
         {
             if (_cache.Count < _maximumCacheSize)
             {
+                if (EntryExistsFor(key))
+                {
+                    Delete(key);
+                }
                 _cache.Add(key, value);
             }
             else
             {
-                var ids = new TKey[_maximumCacheSize];
-                _cache.Remove(ids[_maximumCacheSize-1]);
+                var keys = _cache.Keys.ToList();
+                Delete(keys[_maximumCacheSize-1]);
             }
         }
 

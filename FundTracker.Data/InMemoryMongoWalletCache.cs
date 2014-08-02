@@ -8,9 +8,9 @@ using MicroEvent;
 namespace FundTracker.Data
 {
     [UsedImplicitly]
-    public class InMemoryMongoWalletCache : InMemoryCache<WalletIdentification, MongoWallet>
+    public class InMemoryWalletCache : InMemoryCache<WalletIdentification, Wallet>
     {
-        public InMemoryMongoWalletCache()
+        public InMemoryWalletCache()
             : base(new List<Type> { typeof(BustCacheForWallet) }, 10)
         {
         }

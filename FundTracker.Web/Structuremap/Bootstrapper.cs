@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using FundTracker.Data;
 using FundTracker.Data.Annotations;
+using FundTracker.Data.Entities;
 using FundTracker.Data.Mappers;
 using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
@@ -32,7 +33,7 @@ namespace FundTracker.Web.Structuremap
                     x.For<IMapMongoWalletsToWallets>().Use<MongoWalletToWalletMapper>();
                     x.For<IMapMongoRecurringChangesToRecurringChanges>().Use<MongoRecurringChangeToRecurringChangeMapper>();
                     x.For<IBuildRecurranceSpecifications>().Use<RecurranceSpecificationFactory>();
-                    x.For<ICacheThings<WalletIdentification, Wallet>>().Use<InMemoryWalletCache>();
+                    x.For<ICacheThings<WalletIdentification, MongoWallet>>().Use<InMemoryMongoWalletCache>();
                     x.For<IProvideMongoCollections>().Use<DatabaseAdapter>();
                     x.For<IInflateMongoRecurringChanges>().Use<MongoRecurringChangeMapper>();
                     x.For<IProvideMongoWallets>().Use<WalletReadRepository>();

@@ -58,7 +58,8 @@
     <Compile Include="ICacheThings.cs" />
     <Compile Include="IInflateMongoRecurringChanges.cs" />
     <Compile Include="IKnowWhichChangesBelongToWallets.cs" />
-    <Compile Include="InMemoryWalletCache.cs" />
+    <Compile Include="InMemoryCache.cs" />
+    <Compile Include="InMemoryMongoWalletCache.cs" />
     <Compile Include="IProvideMongoCollections.cs" />
     <Compile Include="IProvideMongoWallets.cs" />
     <Compile Include="Mappers\IMapMongoRecurringChangesToRecurringChanges.cs" />

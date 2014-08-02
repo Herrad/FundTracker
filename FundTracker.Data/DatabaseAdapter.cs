@@ -1,5 +1,7 @@
 using System.Configuration;
 using FundTracker.Data.Annotations;
+using FundTracker.Data.Entities;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace FundTracker.Data

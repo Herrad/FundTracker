@@ -6,6 +6,7 @@ namespace FundTracker.Data
     {
         void Store(TKey key, TValue value);
         TValue Get(TKey key);
-        void Delete(TKey id);
+
+        bool EntryExistsFor(TKey key);
     }
 }

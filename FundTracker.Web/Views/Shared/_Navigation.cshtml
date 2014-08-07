@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<FundTracker.Web.ViewModels.NavigationLinkViewModel>
 <div class="navigation">
     <div class="navigation-items">
-        <a href="/Home/Index">Go back home</a>
+        <a href="/Home/Index">View another wallet</a>
         @foreach (var link in Model)
         {
             <a href="@link.Target" class="@link.LinkClass">@link.LinkText</a>

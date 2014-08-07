@@ -22,13 +22,19 @@
     </div>
     <div class="tablet">
         <a class="other-month previous" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddMonths(-1).ToString("yyyy")-@Model.SelectedDate.AddMonths(-1).ToString("MM")-@DateTime.DaysInMonth(Model.SelectedDate.AddMonths(-1).Year, Model.SelectedDate.AddMonths(-1).Month)">
-            < Previous Month
+            < Month
         </a>
-        <a class="previous-day" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddDays(-1).ToString("yyyy-MM-dd")">< Previous Day</a>
-        <strong class="today">@Model.SelectedDate.ToString("dd")</strong>
-        <a class="next-day" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddDays(1).ToString("yyyy-MM-dd")">Next Day ></a>
+        @foreach (var day in Model.DaysInCurrentMonth)
+        {
+            if (day == Model.SelectedDate.ToString("dd"))
+            {
+                <a class="current-month day selected">@day</a>
+                continue;
+            }
+            <a class="current-month day" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.ToString("yyyy")-@Model.SelectedDate.ToString("MM")-@day">@day</a>
+        }
         <a class="other-month next" href="/Wallet/Display/?walletName=@Model.WalletName&date=@Model.SelectedDate.AddMonths(1).ToString("yyyy")-@Model.SelectedDate.AddMonths(1).ToString("MM")-01">
-            Next Month >
+            Month >
         </a>
     </div>
     <div class="mobile">

@@ -115,8 +115,9 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
+            var selectedDate = new DateTime(1, 1, 1);
             var recurringChange = new RecurringChange(123, changeName, 0, new WeeklyRule(startDate, null));
-            var expectedLinkDestination = "/RecurringChange/StopChange/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
+            var expectedLinkDestination = "/RecurringChange/StopChange/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -132,7 +133,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var dateParser = MockRepository.GenerateStub<IParseDates>();
             dateParser
                 .Stub(x => x.ParseDateOrUseToday(walletDate))
-                .Return(startDate);
+                .Return(selectedDate);
 
             var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
@@ -154,13 +155,14 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
+            var selectedDate = new DateTime(1, 1, 1);
             var recurringChange = new RecurringChange(123, changeName, 0, new OneShotRule(startDate, startDate));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
+            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesActiveOn(startDate))
+                .Stub(x => x.GetChangesActiveOn(selectedDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -171,7 +173,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var dateParser = MockRepository.GenerateStub<IParseDates>();
             dateParser
                 .Stub(x => x.ParseDateOrUseToday(walletDate))
-                .Return(startDate);
+                .Return(selectedDate);
 
             var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
@@ -193,14 +195,16 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
+            var selectedDate = new DateTime(1, 1, 1);
+
             var endDate = startDate;
             var recurringChange = new RecurringChange(123, changeName, 0, new DailyRule(startDate, endDate));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
+            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesActiveOn(startDate))
+                .Stub(x => x.GetChangesActiveOn(selectedDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -211,7 +215,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var dateParser = MockRepository.GenerateStub<IParseDates>();
             dateParser
                 .Stub(x => x.ParseDateOrUseToday(walletDate))
-                .Return(startDate);
+                .Return(selectedDate);
 
             var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);
@@ -230,14 +234,15 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             const string walletDate = "foo date";
             var startDate = new DateTime(01, 02, 03);
+            var selectedDate = new DateTime(1, 1, 1);
 
             const string linkText = "Wallet";
-            string target = "/Wallet/Display/?walletName="+walletName+"&date="+startDate;
+            string target = "/Wallet/Display/?walletName=" + walletName + "&date=" + selectedDate;
 
             var recurringChanges = new List<RecurringChange>();
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesActiveOn(startDate))
+                .Stub(x => x.GetChangesActiveOn(selectedDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();
@@ -248,7 +253,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var dateParser = MockRepository.GenerateStub<IParseDates>();
             dateParser
                 .Stub(x => x.ParseDateOrUseToday(walletDate))
-                .Return(startDate);
+                .Return(selectedDate);
 
             var recurringChangeListViewModelBuilder = new RecurringChangeListViewModelBuilder(walletService, dateParser);
             var recurringChangeListViewModel = recurringChangeListViewModelBuilder.Build(walletName, walletDate);

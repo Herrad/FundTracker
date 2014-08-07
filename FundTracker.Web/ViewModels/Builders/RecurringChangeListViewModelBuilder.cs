@@ -26,7 +26,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var applicableChanges = wallet.GetChangesActiveOn(selectedDate);
 
-            return new RecurringChangeListViewModel(applicableChanges.Select(change => BuildRecurringChangeViewModel(change, walletName)), selectedDate, BuildNavigationLinkViewModels(walletName, selectedDate));
+            return new RecurringChangeListViewModel(applicableChanges.Select(change => BuildRecurringChangeViewModel(change, walletName, selectedDate)), selectedDate, BuildNavigationLinkViewModels(walletName, selectedDate));
         }
 
         private static IEnumerable<NavigationLinkViewModel> BuildNavigationLinkViewModels(string walletName, DateTime selectedDate)
@@ -37,9 +37,9 @@ namespace FundTracker.Web.ViewModels.Builders
             };
         }
 
-        private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change, string walletName)
+        private static RecurringChangeViewModel BuildRecurringChangeViewModel(RecurringChange change, string walletName, DateTime selectedDate)
         {
-            return new RecurringChangeViewModel(change.Name, change.Amount, change.RuleDescription(), GetStopLinkText(change), GetStopLinkDestination(change, walletName), change.Id);
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.RuleDescription(), GetStopLinkText(change), GetStopLinkDestination(change, walletName, selectedDate), change.Id);
         }
 
         private static string GetStopLinkText(RecurringChange change)
@@ -52,10 +52,10 @@ namespace FundTracker.Web.ViewModels.Builders
             return change.StartDate == change.EndDate;
         }
 
-        private static string GetStopLinkDestination(RecurringChange change, string walletName)
+        private static string GetStopLinkDestination(RecurringChange change, string walletName, DateTime selectedDate)
         {
             var desiredAction = IsOneShot(change) ? "Delete" : "StopChange";
-            return "/RecurringChange/" + desiredAction + "/?walletName=" + walletName + "&date=" + change.StartDate.ToString("yyyy-MM-dd") + "&changeId=" + change.Id;
+            return "/RecurringChange/" + desiredAction + "/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + change.Id;
         }
     }
 }

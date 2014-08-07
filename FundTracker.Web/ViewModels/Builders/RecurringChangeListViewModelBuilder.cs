@@ -49,7 +49,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static bool IsOneShot(RecurringChange change)
         {
-            return change.RuleName() == "Just today" || change.StartDate == change.EndDate;
+            return change.StartDate == change.EndDate;
         }
 
         private static string GetStopLinkDestination(RecurringChange change, string walletName)

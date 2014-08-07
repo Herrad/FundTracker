@@ -36,9 +36,9 @@ namespace FundTracker.Domain.RecurranceRules
             LastApplicableDate = lastApplicableDate;
         }
 
-        public bool ApplicableFor(string ruleName)
+        public bool Matches(string aRecurranceRule)
         {
-            return Name == ruleName;
+            return Name == aRecurranceRule;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace FundTracker.Domain.RecurranceRules
         DateTime FirstApplicableDate { get; }
         DateTime? LastApplicableDate { get; }
         void StopOn(DateTime lastApplicableDate);
+        bool Matches(string aRecurranceRule);
     }
 }

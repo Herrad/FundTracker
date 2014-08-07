@@ -15,7 +15,7 @@ namespace FundTracker.Domain.RecurranceRules
         public IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate, DateTime? lastApplicableDate)
         {
             var availableRules = _rulesRepository.GetAvailableRules(firstApplicableDate, lastApplicableDate);
-            var selectedRule = availableRules.FirstOrDefault(rule => rule.Name == aRecurranceRule);
+            var selectedRule = availableRules.FirstOrDefault(rule => rule.Matches(aRecurranceRule));
 
             return selectedRule ?? new OneShotRule(firstApplicableDate, lastApplicableDate);
         }

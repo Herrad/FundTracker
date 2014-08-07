@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FundTracker.Data.Annotations;
-using FundTracker.Data.Entities;
 using FundTracker.Domain;
 using MicroEvent;
 

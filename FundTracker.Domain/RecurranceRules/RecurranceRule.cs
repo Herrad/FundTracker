@@ -35,5 +35,10 @@ namespace FundTracker.Domain.RecurranceRules
         {
             LastApplicableDate = lastApplicableDate;
         }
+
+        public bool ApplicableFor(string ruleName)
+        {
+            return Name == ruleName;
+        }
     }
 }

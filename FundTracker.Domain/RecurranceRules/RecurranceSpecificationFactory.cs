@@ -1,22 +1,23 @@
 using System;
+using System.Linq;
 
 namespace FundTracker.Domain.RecurranceRules
 {
     public class RecurranceSpecificationFactory : IBuildRecurranceSpecifications
     {
+        private readonly RulesRepository _rulesRepository;
+
+        public RecurranceSpecificationFactory()
+        {
+            _rulesRepository = new RulesRepository();
+        }
+
         public IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate, DateTime? lastApplicableDate)
         {
-            switch (aRecurranceRule)
-            {
-                case "Every week":
-                    return new WeeklyRule(firstApplicableDate, lastApplicableDate);
-                case "Every day":
-                    return new DailyRule(firstApplicableDate, lastApplicableDate);
-                case "Just today":
-                    return new OneShotRule(firstApplicableDate, lastApplicableDate);
-            }
+            var availableRules = _rulesRepository.GetAvailableRules(firstApplicableDate, lastApplicableDate);
+            var selectedRule = availableRules.FirstOrDefault(rule => rule.Name == aRecurranceRule);
 
-            return new OneShotRule(firstApplicableDate, lastApplicableDate);
+            return selectedRule ?? new OneShotRule(firstApplicableDate, lastApplicableDate);
         }
     }
 }

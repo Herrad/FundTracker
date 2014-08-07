@@ -17,7 +17,7 @@ namespace FundTracker.Data
                 Name = recurringChange.Name,
                 FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
                 LastApplicationDate = lastApplicationDate,
-                RecurranceRule = recurringChange.RuleName(),
+                RecurranceType = recurringChange.GetType().ToString(),
                 ChangeId = recurringChange.Id
             };
         }

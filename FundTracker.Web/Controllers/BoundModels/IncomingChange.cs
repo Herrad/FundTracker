@@ -5,7 +5,7 @@ namespace FundTracker.Web.Controllers.BoundModels
         public string ChangeName { get; set; }
         public decimal Amount { get; set; }
 
-        public string RecurranceRule { get; set; }
+        public string RecurranceType { get; set; }
         public int ChangeId { get; set; }
     }
 }

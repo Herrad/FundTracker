@@ -111,7 +111,7 @@ namespace Test.FundTracker.Web.Controllers
             var addChangeAction = new AddChangeAction(walletService, dateParser, recurranceSpecificationFactory);
 
             const string withdrawalName = "withdrawal for foo";
-            var addedChange = new IncomingChange { Amount = 123, ChangeName = withdrawalName, RecurranceRule = recurranceRule};
+            var addedChange = new IncomingChange { Amount = 123, ChangeName = withdrawalName, RecurranceType = recurranceRule};
             var walletDay = new WalletDay { Date = dateToParse, WalletName = walletName };
 
             addChangeAction.Execute(walletDay, addedChange, MockRepository.GenerateStub<ICreateRedirects>());

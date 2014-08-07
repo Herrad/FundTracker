@@ -46,7 +46,7 @@ namespace Test.FundTracker.Data
         [Test]
         public void Sets_RecurranceSpecification_using_RecurranceSpecificationFactory()
         {
-            const string recurranceRule = "a recurrance rule";
+            const string recurranceType = "a recurrance type";
 
             var targetDate = new DateTime(2001, 02, 03);
 
@@ -57,12 +57,12 @@ namespace Test.FundTracker.Data
 
             var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
             recurranceSpecificationFactory
-                .Stub(x => x.Build(recurranceRule, new DateTime(2001, 2, 3), null))
+                .Stub(x => x.Build(recurranceType, new DateTime(2001, 2, 3), null))
                 .Return(recurranceSpecification);
 
             var mapper = new MongoRecurringChangeToRecurringChangeMapper(recurranceSpecificationFactory);
 
-            var recurringChange = mapper.Map(new MongoRecurringChange {FirstApplicationDate = "2001-02-03", RecurranceRule = recurranceRule});
+            var recurringChange = mapper.Map(new MongoRecurringChange {FirstApplicationDate = "2001-02-03", RecurranceType = recurranceType});
 
             Assert.That(recurringChange.AppliesTo(targetDate));
         }

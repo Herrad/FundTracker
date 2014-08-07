@@ -29,7 +29,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
             walletsCollection.Insert(walletToInsert);
         }
 
-        public static void CreateRecurringChange(string walletName, int changeId, string nameOfRemoval, int changeAmount, string firstApplicationDate, string recurranceRule)
+        public static void CreateRecurringChange(string walletName, int changeId, string nameOfRemoval, int changeAmount, string firstApplicationDate, string recurranceType)
         {
             var mongoDatabase = GetMongoDatabase();
             var recurringChanges = mongoDatabase.GetCollection<MongoRecurringChange>("RecurringChanges");
@@ -41,7 +41,7 @@ namespace Test.Acceptance.FundTracker.Web.Data
                 Amount = changeAmount,
                 Name = nameOfRemoval,
                 FirstApplicationDate = firstApplicationDate,
-                RecurranceRule = recurranceRule
+                RecurranceType = recurranceType
             };
             recurringChanges.Insert(recurringChangeToInsert);
         }

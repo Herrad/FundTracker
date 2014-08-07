@@ -4,6 +4,6 @@ namespace FundTracker.Domain.RecurranceRules
 {
     public interface IBuildRecurranceSpecifications
     {
-        IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate, DateTime? lastApplicableDate);
+        IDecideWhenRecurringChangesOccur Build(string ruleType, DateTime firstApplicableDate, DateTime? lastApplicableDate);
     }
 }

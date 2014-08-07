@@ -18,7 +18,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var firstApplicationDate = DateTime.Today.AddDays(0 - daysSinceRemovalTookPlace).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, 0, nameOfRemoval, 0 - amountRemoved, firstApplicationDate, "Just today");
+            TestDbAdapter.CreateRecurringChange(walletName, 0, nameOfRemoval, 0 - amountRemoved, firstApplicationDate, "OneShot");
         }
 
         [Given(@"I have a deposit of (.*) due in (.*) days for ""(.*)""")]
@@ -27,7 +27,7 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var depositDueDate = DateTime.Today.AddDays(daysUntilItsDue).ToString("yyyy-MM-dd");
             var walletName = ScenarioContext.Current["wallet name"].ToString();
 
-            TestDbAdapter.CreateRecurringChange(walletName, 0, depositName, depositAmount, depositDueDate, "Just today");
+            TestDbAdapter.CreateRecurringChange(walletName, 0, depositName, depositAmount, depositDueDate, "OneShot");
         }
 
         [Given(@"the following recurring deposits exist in the databse"), UsedImplicitly]

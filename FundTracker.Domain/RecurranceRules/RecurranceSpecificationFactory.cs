@@ -12,12 +12,12 @@ namespace FundTracker.Domain.RecurranceRules
             _rulesRepository = new RulesRepository();
         }
 
-        public IDecideWhenRecurringChangesOccur Build(string aRecurranceRule, DateTime firstApplicableDate, DateTime? lastApplicableDate)
+        public IDecideWhenRecurringChangesOccur Build(string ruleType, DateTime firstApplicableDate, DateTime? lastApplicableDate)
         {
-            var availableRules = _rulesRepository.GetAvailableRules(firstApplicableDate, lastApplicableDate);
-            var selectedRule = availableRules.FirstOrDefault(rule => rule.Matches(aRecurranceRule));
+            var availableRules = _rulesRepository.GetAvailableRules(firstApplicableDate, lastApplicableDate).ToList();
+            var selectedRule = availableRules.FirstOrDefault(rule => rule.GetType().Name == ruleType);
 
-            return selectedRule ?? new OneShotRule(firstApplicableDate, lastApplicableDate);
+            return selectedRule ?? new OneShotRule(firstApplicableDate, firstApplicableDate);
         }
     }
 }

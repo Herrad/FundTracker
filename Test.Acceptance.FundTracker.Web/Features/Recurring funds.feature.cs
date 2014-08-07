@@ -241,7 +241,7 @@ this.ScenarioSetup(scenarioInfo);
                         "payday",
                         "1000",
                         "2014-07-01",
-                        "Every week"});
+                        "WeeklyRule"});
 #line 65
  testRunner.And("the following recurring deposits exist in the databse", ((string)(null)), table9, "And ");
 #line 68
@@ -280,7 +280,7 @@ this.ScenarioSetup(scenarioInfo);
                         "payday",
                         "1000",
                         "2014-07-01",
-                        "Every day"});
+                        "DailyRule"});
 #line 76
  testRunner.And("the following recurring deposits exist in the databse", ((string)(null)), table11, "And ");
 #line 79
@@ -317,7 +317,7 @@ this.ScenarioSetup(scenarioInfo);
                         "payday",
                         "1000",
                         "2014-07-01",
-                        "Just today"});
+                        "OneShot"});
 #line 87
  testRunner.And("the following recurring deposits exist in the databse", ((string)(null)), table13, "And ");
 #line 90
@@ -354,13 +354,13 @@ this.ScenarioSetup(scenarioInfo);
                         "payday",
                         "1000",
                         "2014-07-01",
-                        "Just today"});
+                        "OneShot"});
             table15.AddRow(new string[] {
                         "2",
                         "payday",
                         "2000",
                         "2014-07-01",
-                        "Just today"});
+                        "OneShot"});
 #line 98
  testRunner.And("the following recurring deposits exist in the databse", ((string)(null)), table15, "And ");
 #line 102

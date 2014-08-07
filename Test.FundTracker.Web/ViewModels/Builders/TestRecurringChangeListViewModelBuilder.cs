@@ -154,7 +154,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string changeName = "foo1";
 
             var startDate = new DateTime(1, 2, 3);
-            var recurringChange = new RecurringChange(123, changeName, 0, new OneShotRule(startDate, null));
+            var recurringChange = new RecurringChange(123, changeName, 0, new OneShotRule(startDate, startDate));
             var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + startDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };

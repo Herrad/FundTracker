@@ -10,8 +10,8 @@ namespace FundTracker.Data.Entities
         public ObjectId WalletId { get; set; }
         public string Name { get; set; }
         public string FirstApplicationDate { get; set; }
-        public string RecurranceRule { get; set; }
         public string LastApplicationDate { get; set; }
         public int ChangeId { get; set; }
+        public string RecurranceType { get; set; }
     }
 }

@@ -24,8 +24,6 @@ namespace FundTracker.Domain.RecurranceRules
             return targetDate <= (LastApplicableDate ?? targetDate);
         }
 
-        protected abstract bool SpecificRulesApplyTo(DateTime targetDate);
-
         public DateTime FirstApplicableDate { get; private set; }
         public DateTime? LastApplicableDate { get; private set; }
 
@@ -35,5 +33,6 @@ namespace FundTracker.Domain.RecurranceRules
         }
 
         public abstract string PrettyPrint();
+        protected abstract bool SpecificRulesApplyTo(DateTime targetDate);
     }
 }

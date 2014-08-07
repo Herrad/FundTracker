@@ -27,7 +27,7 @@ namespace FundTracker.Domain
             return _recurranceSpecification.IsSpecifiedOn(targetDate);
         }
 
-        public string RuleName()
+        public string RuleDescription()
         {
             return _recurranceSpecification.PrettyPrint();
         }

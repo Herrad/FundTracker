@@ -26,8 +26,6 @@ namespace FundTracker.Domain.RecurranceRules
 
         protected abstract bool SpecificRulesApplyTo(DateTime targetDate);
 
-        public abstract string Name { get; }
-
         public DateTime FirstApplicableDate { get; private set; }
         public DateTime? LastApplicableDate { get; private set; }
 
@@ -36,9 +34,6 @@ namespace FundTracker.Domain.RecurranceRules
             LastApplicableDate = lastApplicableDate;
         }
 
-        public bool Matches(string aRecurranceRule)
-        {
-            return Name == aRecurranceRule;
-        }
+        public abstract string PrettyPrint();
     }
 }

@@ -12,18 +12,17 @@
 <table class="changes">
     <thead>
         <tr class="table-head">
-            <td colspan="5">Deposits</td>
+            <td colspan="4">Deposits</td>
         </tr>        
-        @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
+        @if (!Model.RecurringChangeViewModels.Any(change => change.Amount > 0))
         {
-            <tr><td colspan="5">No deposits on this day</td></tr>
+            <tr><td colspan="4">No deposits on this day</td></tr>
         }
         else
         {
             <tr class="row-head">
                 <td>Name</td>
                 <td>Amount</td>
-                <td class="extrenious">Applied since</td>
                 <td class="extrenious">Repeat rule</td>
                 <td>Stops change</td>
             </tr>
@@ -34,7 +33,6 @@
         <tr data-changeid="@change.ChangeId">
             <td>@change.Name</td>
             <td>£@change.Amount</td>
-            <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
             <td class="extrenious">@change.RuleType</td>
             <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>
@@ -43,18 +41,17 @@
 <table class="changes">
     <thead>
         <tr class="table-head">
-            <td colspan="5">Withdrawals</td>
+            <td colspan="4">Withdrawals</td>
         </tr>
         @if (!Model.RecurringChangeViewModels.Any(change => change.Amount < 0))
         {
-            <tr><td colspan="5">No withdrawals on this day</td></tr>
+            <tr><td colspan="4">No withdrawals on this day</td></tr>
         }
         else
         {
             <tr class="row-head">
                 <td>Name</td>
                 <td>Amount</td>
-                <td class="extrenious">Applied since</td>
                 <td class="extrenious">Repeat rule</td>
                 <td>Stops change</td>
             </tr>
@@ -66,7 +63,6 @@
         <tr data-changeid="@change.ChangeId">
             <td>@change.Name</td>
             <td>£@invertedAmount</td>
-            <td class="extrenious">@change.AppliedSince.ToString("dd MMM yyyy")</td>
             <td class="extrenious">@change.RuleType</td>
             <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>

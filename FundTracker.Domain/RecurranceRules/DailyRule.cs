@@ -16,6 +16,9 @@ namespace FundTracker.Domain.RecurranceRules
             return targetDate >= _firstApplicableDate;
         }
 
-        public override string Name { get { return "Every day"; } }
+        public override string PrettyPrint()
+        {
+            return "Every day starting " + FirstApplicableDate.ToString("dd MMM yyyy");
+        }
     }
 }

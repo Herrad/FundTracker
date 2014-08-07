@@ -29,12 +29,17 @@ namespace FundTracker.Domain
 
         public string RuleName()
         {
-            return _recurranceSpecification.Name;
+            return _recurranceSpecification.PrettyPrint();
         }
 
         public void StopOn(DateTime lastApplicableDate)
         {
             _recurranceSpecification.StopOn(lastApplicableDate);
+        }
+
+        public string GetRuleType()
+        {
+            return _recurranceSpecification.GetType().Name;
         }
     }
 }

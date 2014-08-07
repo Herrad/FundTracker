@@ -13,6 +13,9 @@ namespace FundTracker.Domain.RecurranceRules
             return targetDate.DayOfWeek == FirstApplicableDate.DayOfWeek;
         }
 
-        public override string Name { get { return "Every week"; } }
+        public override string PrettyPrint()
+        {
+            return "Every week starting " + FirstApplicableDate.ToString("dd MMM yyyy");
+        }
     }
 }

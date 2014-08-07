@@ -13,6 +13,9 @@ namespace FundTracker.Domain.RecurranceRules
             return FirstApplicableDate == targetDate;
         }
 
-        public override string Name { get { return "Just today"; } }
+        public override string PrettyPrint()
+        {
+            return "Only " + FirstApplicableDate.ToString("dd/MM/yyyy");
+        }
     }
 }

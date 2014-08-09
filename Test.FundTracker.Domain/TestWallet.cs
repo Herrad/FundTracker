@@ -33,8 +33,8 @@ namespace Test.FundTracker.Domain
             const string changeName = "foo";
             wallet.CreateChange(changeName, amount, null);
 
-            Assert.That(recurringChanges[0].ToValues().Name, Is.EqualTo(changeName));
-            Assert.That(recurringChanges[0].ToValues().Amount, Is.EqualTo(amount));
+            Assert.That(recurringChanges[0].Name, Is.EqualTo(changeName));
+            Assert.That(recurringChanges[0].Amount, Is.EqualTo(amount));
         }
 
         [Test]
@@ -42,24 +42,23 @@ namespace Test.FundTracker.Domain
         {
             const string expectedChangeName = "foo";
             const int expectedAmount = 123;
-            var startDate = new DateTime(1, 2, 3);
-            var expectedStartDate = startDate.ToString("yyyy-MM-dd");
+            var expectedStartDate = new DateTime(1, 2, 3);
 
             var eventBus = new LastEventPublishedReporter();
             var recurringChanges = new List<RecurringChange>();
             var walletIdentification = new WalletIdentification(null);
             var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
 
-            wallet.CreateChange(expectedChangeName, expectedAmount, new OneShotRule(startDate, null));
+            wallet.CreateChange(expectedChangeName, expectedAmount, new OneShotRule(expectedStartDate, null));
 
             Assert.That(eventBus.LastEventPublished, Is.TypeOf<RecurringChangeCreated>());
 
             var recurringChangeCreated = (RecurringChangeCreated) eventBus.LastEventPublished;
 
-            Assert.That(recurringChangeCreated.RecurringChangeValues, Is.Not.Null);
-            Assert.That(recurringChangeCreated.RecurringChangeValues.Amount, Is.EqualTo(expectedAmount));
-            Assert.That(recurringChangeCreated.RecurringChangeValues.Name, Is.EqualTo(expectedChangeName));
-            Assert.That(recurringChangeCreated.RecurringChangeValues.StartDate, Is.EqualTo(expectedStartDate));
+            Assert.That(recurringChangeCreated.Change, Is.Not.Null);
+            Assert.That(recurringChangeCreated.Change.Amount, Is.EqualTo(expectedAmount));
+            Assert.That(recurringChangeCreated.Change.Name, Is.EqualTo(expectedChangeName));
+            Assert.That(recurringChangeCreated.Change.StartDate, Is.EqualTo(expectedStartDate));
         }
 
         [Test]

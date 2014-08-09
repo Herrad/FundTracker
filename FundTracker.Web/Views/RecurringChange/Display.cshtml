@@ -34,7 +34,7 @@
             <td>@change.Name</td>
             <td>£@change.Amount</td>
             <td class="extrenious">@change.RuleType</td>
-            <td><a href="/RecurringChange/StopChange/?walletName=@change.WalletName&date=@Model.Date.ToString("yyyy-MM-dd")&changeId=@change.ChangeId">@change.StopLinkText</a></td>
+            <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>
     }
 </table>
@@ -64,7 +64,7 @@
             <td>@change.Name</td>
             <td>£@invertedAmount</td>
             <td class="extrenious">@change.RuleType</td>
-            <td><a href="/RecurringChange/StopChange/?walletName=@change.WalletName&date=@Model.Date.ToString("yyyy-MM-dd")&changeId=@change.ChangeId">@change.StopLinkText</a></td>
+            <td><a href="@change.StopLinkDestination">@change.StopLinkText</a></td>
         </tr>
     }
 </table>

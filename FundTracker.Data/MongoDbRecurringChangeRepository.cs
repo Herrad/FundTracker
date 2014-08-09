@@ -68,21 +68,21 @@ namespace FundTracker.Data
         {
             if (anEvent.GetType() == typeof (RecurringChangeModified))
             {
-                var recurringChangeModified = (RecurringChangeModified)anEvent;
-                UpdateExistingRecurringChange(recurringChangeModified.TargetIdentification, recurringChangeModified.RecurringChangeValues);
+                var recurringChangeCreated = (RecurringChangeModified)anEvent;
+                var recurringChange = recurringChangeCreated.ModifiedChange;
+                UpdateExistingRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
             }
         }
 
-        private void UpdateExistingRecurringChange(WalletIdentification targetIdentification, RecurringChangeValues recurringChangeValues)
+        private void UpdateExistingRecurringChange(RecurringChange recurringChange, WalletIdentification targetIdentification)
         {
             var wallet = _walletReadRepository.GetMongoWallet(targetIdentification);
 
-            var changeId = recurringChangeValues.Id;
-            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.ChangeId == changeId);
+            var mongoRecurringChangeToModify = GetAllRecurringChangesFor(wallet).First(x => x.ChangeId == recurringChange.Id);
             var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
 
-            var updatedChange = _mongoRecurringChangeMapper.MapFrom(wallet.Id, recurringChangeValues);
-            var update = Update<MongoRecurringChange>.Set(oldChange => oldChange, updatedChange);
+            var updatedChange = _mongoRecurringChangeMapper.MapFrom(recurringChange, wallet);
+            var update = Update<MongoRecurringChange>.Set(oldChange => oldChange.LastApplicationDate, updatedChange.LastApplicationDate);
 
             GetRecurringChanges().Update(mongoQuery, update);
         }
@@ -92,15 +92,16 @@ namespace FundTracker.Data
             if (anEvent.GetType() == typeof (RecurringChangeCreated))
             {
                 var recurringChangeCreated = (RecurringChangeCreated) anEvent;
-
-                CreateNewRecurringChange(recurringChangeCreated.TargetIdentification, recurringChangeCreated.RecurringChangeValues);
+                var recurringChange = recurringChangeCreated.Change;
+                CreateNewRecurringChange(recurringChange, recurringChangeCreated.TargetIdentification);
             }
         }
 
-        private void CreateNewRecurringChange(WalletIdentification targetWalletIdentifier, RecurringChangeValues recurringChangeValues)
+        private void CreateNewRecurringChange(RecurringChange recurringChange, WalletIdentification targetWalletIdentifier)
         {
             var wallet = _walletReadRepository.GetMongoWallet(targetWalletIdentifier);
-            var mongoRecurringChange = _mongoRecurringChangeMapper.MapFrom(wallet.Id, recurringChangeValues);
+
+            var mongoRecurringChange = _mongoRecurringChangeMapper.MapFrom(recurringChange, wallet);
             GetRecurringChanges().Insert(mongoRecurringChange);
         }
     }

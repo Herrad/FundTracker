@@ -1,5 +1,4 @@
 using System;
-using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
 
 namespace FundTracker.Domain
@@ -7,22 +6,20 @@ namespace FundTracker.Domain
     public class RecurringChange
     {
         private readonly IDecideWhenRecurringChangesOccur _recurranceSpecification;
-        private readonly string _name;
-        private readonly decimal _amount;
 
         public RecurringChange(int id, string name, decimal amount, IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
             _recurranceSpecification = recurranceSpecification;
             Id = id;
-            _name = name;
-            _amount = amount;
+            Name = name;
+            Amount = amount;
         }
 
-        public decimal Amount
-        {
-            get { return _amount; }
-        }
+        public string Name { get; private set; }
+        public decimal Amount { get; private set; }
 
+        public DateTime StartDate { get { return _recurranceSpecification.FirstApplicableDate; } }
+        public DateTime? EndDate { get { return _recurranceSpecification.LastApplicableDate; } }
         public int Id { get; private set; }
 
         public bool AppliesTo(DateTime targetDate)
@@ -40,7 +37,7 @@ namespace FundTracker.Domain
             _recurranceSpecification.StopOn(lastApplicableDate);
         }
 
-        private string GetRuleType()
+        public string GetRuleType()
         {
             return _recurranceSpecification.GetType().Name;
         }
@@ -53,22 +50,6 @@ namespace FundTracker.Domain
         public bool CanBeDeleted()
         {
             return _recurranceSpecification.IsOneShot();
-        }
-
-        public RecurringChangeValues ToValues()
-        {
-            return new RecurringChangeValues(_amount, _name, GetFormattedStartDate(), GetFormattedEndDate(), GetRuleType(), Id);
-        }
-
-        private string GetFormattedStartDate()
-        {
-            return _recurranceSpecification.FirstApplicableDate.ToString("yyyy-MM-dd");
-        }
-
-        private string GetFormattedEndDate()
-        {
-            var lastApplicableDate = _recurranceSpecification.LastApplicableDate;
-            return lastApplicableDate.HasValue ? lastApplicableDate.Value.ToString("yyyy-MM-dd") : null;
         }
     }
 }

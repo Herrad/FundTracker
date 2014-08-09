@@ -1,4 +1,3 @@
-using System;
 using MicroEvent;
 
 namespace FundTracker.Domain.Events

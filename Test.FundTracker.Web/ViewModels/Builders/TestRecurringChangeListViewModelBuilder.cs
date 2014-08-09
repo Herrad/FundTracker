@@ -122,7 +122,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
             recurringChanger
-                .Stub(x => x.GetChangesActiveOn(startDate))
+                .Stub(x => x.GetChangesActiveOn(selectedDate))
                 .Return(recurringChanges);
 
             var walletService = MockRepository.GenerateStub<IProvideWallets>();

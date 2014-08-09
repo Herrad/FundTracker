@@ -19,28 +19,8 @@ namespace Test.FundTracker.Data
             var mapper = new MongoRecurringChangeToRecurringChangeMapper(MockRepository.GenerateStub<IBuildRecurranceSpecifications>());
             var recurringChange = mapper.Map(new MongoRecurringChange { Name = expectedName, Amount = expectedAmount, FirstApplicationDate = "2001-02-03"});
 
-            Assert.That(recurringChange.Name, Is.EqualTo(expectedName));
-            Assert.That(recurringChange.Amount, Is.EqualTo(expectedAmount));
-        }
-
-        [Test]
-        public void Map_parses_Date()
-        {
-            var expectedDate = new DateTime(2001,02,03);
-
-            var recurranceSpecification = MockRepository.GenerateStub<IDecideWhenRecurringChangesOccur>();
-            recurranceSpecification
-                .Stub(x => x.FirstApplicableDate)
-                .Return(expectedDate);
-
-            var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();
-            recurranceSpecificationFactory
-                .Stub(x => x.Build(Arg<string>.Is.Anything, Arg<DateTime>.Is.Anything, Arg<DateTime?>.Is.Anything))
-                .Return(recurranceSpecification);
-            var mapper = new MongoRecurringChangeToRecurringChangeMapper(recurranceSpecificationFactory);
-            var recurringChange = mapper.Map(new MongoRecurringChange { FirstApplicationDate = "2001-02-03"});
-
-            Assert.That(recurringChange.StartDate, Is.EqualTo(expectedDate));
+            Assert.That(recurringChange.ToValues().Name, Is.EqualTo(expectedName));
+            Assert.That(recurringChange.ToValues().Amount, Is.EqualTo(expectedAmount));
         }
 
         [Test]

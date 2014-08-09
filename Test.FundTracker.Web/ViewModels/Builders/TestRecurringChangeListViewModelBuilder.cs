@@ -5,7 +5,6 @@ using FundTracker.Domain;
 using FundTracker.Domain.RecurranceRules;
 using FundTracker.Services;
 using FundTracker.Web.Controllers.ParameterParsers;
-using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -55,14 +54,14 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(3));
 
-            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
-            Assert.That(changeNames[0].Amount, Is.EqualTo(expectedChange1.Amount));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.ToValues().Name));
+            Assert.That(changeNames[0].Amount, Is.EqualTo(expectedChange1.ToValues().Amount));
 
-            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
-            Assert.That(changeNames[1].Amount, Is.EqualTo(expectedChange2.Amount));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.ToValues().Name));
+            Assert.That(changeNames[1].Amount, Is.EqualTo(expectedChange2.ToValues().Amount));
 
-            Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.Name));
-            Assert.That(changeNames[2].Amount, Is.EqualTo(expectedChange3.Amount));
+            Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.ToValues().Name));
+            Assert.That(changeNames[2].Amount, Is.EqualTo(expectedChange3.ToValues().Amount));
         }
 
         [Test]
@@ -102,8 +101,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(recurringChangeListViewModel.RecurringChangeViewModels, Is.Not.Null);
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(2));
-            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
-            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.ToValues().Name));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.ToValues().Name));
         }
 
         [Test]
@@ -117,7 +116,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var startDate = new DateTime(1, 2, 3);
             var selectedDate = new DateTime(1, 1, 1);
             var recurringChange = new RecurringChange(123, changeName, 0, new WeeklyRule(startDate, null));
-            var expectedLinkDestination = "/RecurringChange/StopChange/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -143,7 +141,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
 
             Assert.That(changeNames[0].StopLinkText, Is.EqualTo(expectedStopLinkText));
-            Assert.That(changeNames[0].StopLinkDestination, Is.EqualTo(expectedLinkDestination));
         }
 
         [Test]
@@ -157,7 +154,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var startDate = new DateTime(1, 2, 3);
             var selectedDate = new DateTime(1, 1, 1);
             var recurringChange = new RecurringChange(123, changeName, 0, new OneShotRule(startDate, startDate));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -183,7 +179,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
 
             Assert.That(changeNames[0].StopLinkText, Is.EqualTo(expectedStopLinkText));
-            Assert.That(changeNames[0].StopLinkDestination, Is.EqualTo(expectedLinkDestination));
         }
 
         [Test]
@@ -199,7 +194,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
 
             var endDate = startDate;
             var recurringChange = new RecurringChange(123, changeName, 0, new DailyRule(startDate, endDate));
-            var expectedLinkDestination = "/RecurringChange/Delete/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + 123;
 
             var recurringChanges = new List<RecurringChange> { recurringChange };
             var recurringChanger = MockRepository.GenerateStub<IHaveRecurringChanges>();
@@ -225,7 +219,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
 
             Assert.That(changeNames[0].StopLinkText, Is.EqualTo(expectedStopLinkText));
-            Assert.That(changeNames[0].StopLinkDestination, Is.EqualTo(expectedLinkDestination));
         }
 
         [Test]
@@ -233,7 +226,6 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo name";
             const string walletDate = "foo date";
-            var startDate = new DateTime(01, 02, 03);
             var selectedDate = new DateTime(1, 1, 1);
 
             const string linkText = "Wallet";

@@ -1,10 +1,11 @@
 using FundTracker.Data.Entities;
-using FundTracker.Domain;
+using FundTracker.Domain.Events;
+using MongoDB.Bson;
 
 namespace FundTracker.Data
 {
     public interface IInflateMongoRecurringChanges
     {
-        MongoRecurringChange MapFrom(RecurringChange recurringChange, MongoWallet wallet);
+        MongoRecurringChange MapFrom(ObjectId walletId, RecurringChangeValues recurringChangeValues);
     }
 }

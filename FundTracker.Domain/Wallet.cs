@@ -65,7 +65,14 @@ namespace FundTracker.Domain
         {
             var recurringChange = _recurringChanges.First(change => change.Id == changeId);
             recurringChange.StopOn(lastApplicableDate);
-            _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
+            if (recurringChange.CanBeDeleted())
+            {
+                _eventReciever.Publish(new RecurringChangeRemoved(Identification, recurringChange));
+            }
+            else
+            {
+                _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
+            }
         }
 
         public void RemoveChange(int changeId)

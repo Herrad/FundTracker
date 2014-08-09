@@ -4,12 +4,13 @@ namespace FundTracker.Domain.RecurranceRules
 {
     public interface IDecideWhenRecurringChangesOccur
     {
-        bool IsSpecifiedOn(DateTime targetDate);
+        bool AppliesTo(DateTime targetDate);
 
         DateTime FirstApplicableDate { get; }
         DateTime? LastApplicableDate { get; }
         void StopOn(DateTime lastApplicableDate);
 
         string PrettyPrint();
+        bool IsOneShot();
     }
 }

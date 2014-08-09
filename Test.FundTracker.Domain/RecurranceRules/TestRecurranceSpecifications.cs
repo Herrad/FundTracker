@@ -15,8 +15,8 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("foo rule", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(1)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(firstDate));
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(1)), Is.False);
         }
 
         [Test]
@@ -28,8 +28,8 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("OneShot", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(1)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(firstDate));
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(1)), Is.False);
         }
 
         [Test]
@@ -40,10 +40,10 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("DailyRule", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(1)), Is.True);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(2)), Is.True);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(3)), Is.True);
+            Assert.That(recurranceRule.AppliesTo(firstDate));
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(1)), Is.True);
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(2)), Is.True);
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(3)), Is.True);
         }
 
         [Test]
@@ -54,10 +54,10 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("WeeklyRule", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(6)), Is.False);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(7)), Is.True);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(8)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(firstDate));
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(6)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(7)), Is.True);
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(8)), Is.False);
         }
 
         [Test]
@@ -68,8 +68,8 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("WeeklyRule", firstDate, null);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(firstDate.AddDays(-7)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(firstDate));
+            Assert.That(recurranceRule.AppliesTo(firstDate.AddDays(-7)), Is.False);
         }
 
         [Test]
@@ -82,9 +82,9 @@ namespace Test.FundTracker.Domain.RecurranceRules
             var recurranceRule = new RecurranceSpecificationFactory().Build("WeeklyRule", startDate, stopDate);
 
             Assert.That(recurranceRule, Is.Not.Null);
-            Assert.That(recurranceRule.IsSpecifiedOn(startDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(stopDate));
-            Assert.That(recurranceRule.IsSpecifiedOn(stopDate.AddDays(7)), Is.False);
+            Assert.That(recurranceRule.AppliesTo(startDate));
+            Assert.That(recurranceRule.AppliesTo(stopDate));
+            Assert.That(recurranceRule.AppliesTo(stopDate.AddDays(7)), Is.False);
         }
     }
 }

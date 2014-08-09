@@ -24,7 +24,7 @@ namespace FundTracker.Domain
 
         public bool AppliesTo(DateTime targetDate)
         {
-            return _recurranceSpecification.IsSpecifiedOn(targetDate);
+            return _recurranceSpecification.AppliesTo(targetDate);
         }
 
         public string RuleDescription()
@@ -40,6 +40,21 @@ namespace FundTracker.Domain
         public string GetRuleType()
         {
             return _recurranceSpecification.GetType().Name;
+        }
+
+        public string GetStopChangeText()
+        {
+            return _recurranceSpecification.IsOneShot() ? "Remove from today" : "Stop from today";
+        }
+
+        public string GetDesiredAction()
+        {
+            return _recurranceSpecification.IsOneShot() ? "Delete" : "StopChange";
+        }
+
+        public bool CanBeDeleted()
+        {
+            return _recurranceSpecification.IsOneShot();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Test.FundTracker.Domain
         }
 
         [Test]
-        public void StopChange_raises_event_to_modify_change_entry_in_Database()
+        public void StopChange_raises_event_to_modify_change_entry_in_Database_when_last_date_is_different_to_first_date()
         {
             var firstApplicableDate = new DateTime(1, 1, 1);
             var lastApplicableDate = new DateTime(2, 2, 2);
@@ -82,6 +82,27 @@ namespace Test.FundTracker.Domain
             wallet.StopChangeOn(changeId, lastApplicableDate);
 
             eventReciever.AssertWasCalled(x => x.Publish(Arg<RecurringChangeModified>.Is.NotNull), c => c.Repeat.Once());
+        }
+
+        [Test]
+        public void StopChange_raises_event_to_delete_change_entry_in_Database_when_last_date_is_the_same_as_to_first_date()
+        {
+            var firstApplicableDate = new DateTime(1, 1, 1);
+            var lastApplicableDate = firstApplicableDate;
+            const string changeName = "foo changeName";
+            const int changeId = 111;
+
+            var recurringChange = new RecurringChange(changeId, changeName, 123, new DailyRule(firstApplicableDate, null));
+            var recurringChanges = new List<RecurringChange> { recurringChange };
+
+            var eventReciever = MockRepository.GenerateStub<IReceivePublishedEvents>();
+            var wallet = new Wallet(eventReciever, new WalletIdentification("foo name"), recurringChanges);
+            wallet.StopChangeOn(changeId, lastApplicableDate);
+
+            eventReciever.AssertWasCalled(x => x.Publish(Arg<RecurringChangeRemoved>.Is.NotNull), c => c.Repeat.Once());
+
+            var argumentsForFirstCallToPublish = eventReciever.GetArgumentsForCallsMadeOn(x => x.Publish(Arg<AnEvent>.Is.Anything))[0];
+            Assert.That(argumentsForFirstCallToPublish[0] is RecurringChangeRemoved);
         }
 
         [Test]

@@ -52,7 +52,7 @@ namespace Test.FundTracker.Data
 
             var recurranceSpecification = MockRepository.GenerateStub<IDecideWhenRecurringChangesOccur>();
             recurranceSpecification
-                .Stub(x => x.IsSpecifiedOn(targetDate))
+                .Stub(x => x.AppliesTo(targetDate))
                 .Return(true);
 
             var recurranceSpecificationFactory = MockRepository.GenerateStub<IBuildRecurranceSpecifications>();

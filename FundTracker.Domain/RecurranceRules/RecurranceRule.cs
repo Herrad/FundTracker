@@ -14,7 +14,7 @@ namespace FundTracker.Domain.RecurranceRules
             return targetDate >= FirstApplicableDate;
         }
 
-        public bool IsSpecifiedOn(DateTime targetDate)
+        public bool AppliesTo(DateTime targetDate)
         {
             return IsAfterOrOnFirstApplicableDate(targetDate) && IsBeforeOrOnLastApplicableDate(targetDate) && SpecificRulesApplyTo(targetDate);
         }
@@ -34,5 +34,10 @@ namespace FundTracker.Domain.RecurranceRules
 
         public abstract string PrettyPrint();
         protected abstract bool SpecificRulesApplyTo(DateTime targetDate);
+
+        public bool IsOneShot()
+        {
+            return FirstApplicableDate == LastApplicableDate;
+        }
     }
 }

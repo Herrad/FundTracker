@@ -99,7 +99,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var recurranceRuleSpecification = MockRepository.GenerateStub<IDecideWhenRecurringChangesOccur>();
             recurranceRuleSpecification
-                .Stub(x => x.IsSpecifiedOn(parsedDate))
+                .Stub(x => x.AppliesTo(parsedDate))
                 .Return(true);
 
             const string recurranceRule = "foo rule";

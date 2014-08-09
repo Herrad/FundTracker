@@ -46,7 +46,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         private static string GetStopLinkDestination(RecurringChange change, string walletName, DateTime selectedDate)
         {
-            return "/RecurringChange/" + change.GetDesiredAction() + "/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + change.Id;
+            return "/RecurringChange/StopChange/?walletName=" + walletName + "&date=" + selectedDate.ToString("yyyy-MM-dd") + "&changeId=" + change.Id;
         }
     }
 }

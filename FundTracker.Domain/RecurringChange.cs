@@ -47,11 +47,6 @@ namespace FundTracker.Domain
             return _recurranceSpecification.IsOneShot() ? "Remove from today" : "Stop from today";
         }
 
-        public string GetDesiredAction()
-        {
-            return _recurranceSpecification.IsOneShot() ? "Delete" : "StopChange";
-        }
-
         public bool CanBeDeleted()
         {
             return _recurranceSpecification.IsOneShot();

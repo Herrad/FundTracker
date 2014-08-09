@@ -6,13 +6,13 @@ namespace FundTracker.Web.ViewModels
         public decimal Amount { get; private set; }
         public string RuleType { get; private set; }
         public string StopLinkText { get; private set; }
-        public string StopLinkDestination { get; private set; }
         public int ChangeId { get; private set; }
+        public string WalletName { get; private set; }
 
-        public RecurringChangeViewModel(string name, decimal amount, string ruleType, string stopLinkText, string stopLinkDestination, int changeId)
+        public RecurringChangeViewModel(string name, decimal amount, string ruleType, string stopLinkText, string stopLinkDestination, int changeId, string walletName)
         {
             ChangeId = changeId;
-            StopLinkDestination = stopLinkDestination;
+            WalletName = walletName;
             StopLinkText = stopLinkText;
             RuleType = ruleType;
             Amount = amount;

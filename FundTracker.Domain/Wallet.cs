@@ -53,7 +53,7 @@ namespace FundTracker.Domain
         {
             var recurringChange = new RecurringChange(GetNextId(), changeName, amount, recurranceSpecification);
             _recurringChanges.Add(recurringChange);
-            _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification));
+            _eventReciever.Publish(new RecurringChangeCreated(recurringChange, Identification, recurringChange.ToValues()));
         }
 
         public IEnumerable<RecurringChange> GetChangesActiveOn(DateTime selectedDate)
@@ -71,7 +71,7 @@ namespace FundTracker.Domain
             }
             else
             {
-                _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange));
+                _eventReciever.Publish(new RecurringChangeModified(Identification, recurringChange.ToValues()));
             }
         }
 

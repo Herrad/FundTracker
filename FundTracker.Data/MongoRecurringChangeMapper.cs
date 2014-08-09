@@ -1,24 +1,24 @@
 using FundTracker.Data.Annotations;
 using FundTracker.Data.Entities;
-using FundTracker.Domain;
+using FundTracker.Domain.Events;
+using MongoDB.Bson;
 
 namespace FundTracker.Data
 {
     [UsedImplicitly]
     public class MongoRecurringChangeMapper : IInflateMongoRecurringChanges
     {
-        public MongoRecurringChange MapFrom(RecurringChange recurringChange, MongoWallet wallet)
+        public MongoRecurringChange MapFrom(ObjectId walletId, RecurringChangeValues recurringChangeValues)
         {
-            var lastApplicationDate = recurringChange.EndDate.HasValue ? recurringChange.EndDate.Value.ToString("yyyy-MM-dd") : null;
             return new MongoRecurringChange
             {
-                WalletId = wallet.Id,
-                Amount = recurringChange.Amount,
-                Name = recurringChange.Name,
-                FirstApplicationDate = recurringChange.StartDate.ToString("yyyy-MM-dd"),
-                LastApplicationDate = lastApplicationDate,
-                RecurranceType = recurringChange.GetRuleType(),
-                ChangeId = recurringChange.Id
+                WalletId = walletId,
+                Amount = recurringChangeValues.Amount,
+                Name = recurringChangeValues.Name,
+                FirstApplicationDate = recurringChangeValues.StartDate,
+                LastApplicationDate = recurringChangeValues.EndDate,
+                RecurranceType = recurringChangeValues.RuleType,
+                ChangeId = recurringChangeValues.Id
             };
         }
     }

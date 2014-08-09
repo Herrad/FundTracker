@@ -31,7 +31,7 @@ namespace Test.FundTracker.Domain
 
             const int amount = 123;
             const string changeName = "foo";
-            wallet.CreateChange(changeName, amount, null);
+            wallet.CreateChange(changeName, amount, new OneShotRule(new DateTime(1, 2, 3), null));
 
             Assert.That(recurringChanges[0].Name, Is.EqualTo(changeName));
             Assert.That(recurringChanges[0].Amount, Is.EqualTo(amount));

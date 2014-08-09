@@ -54,14 +54,14 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(3));
 
-            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.ToValues().Name));
-            Assert.That(changeNames[0].Amount, Is.EqualTo(expectedChange1.ToValues().Amount));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[0].Amount, Is.EqualTo(expectedChange1.Amount));
 
-            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.ToValues().Name));
-            Assert.That(changeNames[1].Amount, Is.EqualTo(expectedChange2.ToValues().Amount));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
+            Assert.That(changeNames[1].Amount, Is.EqualTo(expectedChange2.Amount));
 
-            Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.ToValues().Name));
-            Assert.That(changeNames[2].Amount, Is.EqualTo(expectedChange3.ToValues().Amount));
+            Assert.That(changeNames[2].Name, Is.EqualTo(expectedChange3.Name));
+            Assert.That(changeNames[2].Amount, Is.EqualTo(expectedChange3.Amount));
         }
 
         [Test]
@@ -101,8 +101,8 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(recurringChangeListViewModel.RecurringChangeViewModels, Is.Not.Null);
             var changeNames = recurringChangeListViewModel.RecurringChangeViewModels.ToList();
             Assert.That(changeNames.Count, Is.EqualTo(2));
-            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.ToValues().Name));
-            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.ToValues().Name));
+            Assert.That(changeNames[0].Name, Is.EqualTo(expectedChange1.Name));
+            Assert.That(changeNames[1].Name, Is.EqualTo(expectedChange2.Name));
         }
 
         [Test]

@@ -37,8 +37,8 @@ namespace Test.FundTracker.Web.Controllers
             addChangeAction.Execute(walletDay, addedChange, MockRepository.GenerateStub<ICreateRedirects>());
 
             Assert.That(withdrawalExposer.LastChangeAdded, Is.Not.Null);
-            Assert.That(withdrawalExposer.LastChangeAdded.ToValues().Amount, Is.EqualTo(expectedAmountGivenToWallet));
-            Assert.That(withdrawalExposer.LastChangeAdded.ToValues().Name, Is.EqualTo(withdrawalName));
+            Assert.That(withdrawalExposer.LastChangeAdded.Amount, Is.EqualTo(expectedAmountGivenToWallet));
+            Assert.That(withdrawalExposer.LastChangeAdded.Name, Is.EqualTo(withdrawalName));
         }
 
         [Test]

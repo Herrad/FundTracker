@@ -33,8 +33,8 @@ namespace Test.FundTracker.Domain
             const string changeName = "foo";
             wallet.CreateChange(changeName, amount, null);
 
-            Assert.That(recurringChanges[0].ToValues().Name, Is.EqualTo(changeName));
-            Assert.That(recurringChanges[0].ToValues().Amount, Is.EqualTo(amount));
+            Assert.That(recurringChanges[0].Name, Is.EqualTo(changeName));
+            Assert.That(recurringChanges[0].Amount, Is.EqualTo(amount));
         }
 
         [Test]

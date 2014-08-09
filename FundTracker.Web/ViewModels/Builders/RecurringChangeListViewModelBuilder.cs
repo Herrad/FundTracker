@@ -41,8 +41,7 @@ namespace FundTracker.Web.ViewModels.Builders
         {
             var stopLinkText = change.GetStopChangeText();
             var stopLinkDestination = GetStopLinkDestination(change, walletName, selectedDate);
-            var inflatableRecurringChange = change.ToValues();
-            return new RecurringChangeViewModel(inflatableRecurringChange.Name, inflatableRecurringChange.Amount, change.RuleDescription(), stopLinkText, stopLinkDestination, inflatableRecurringChange.Id, walletName);
+            return new RecurringChangeViewModel(change.Name, change.Amount, change.RuleDescription(), stopLinkText, stopLinkDestination, change.Id, walletName);
         }
 
         private static string GetStopLinkDestination(RecurringChange change, string walletName, DateTime selectedDate)

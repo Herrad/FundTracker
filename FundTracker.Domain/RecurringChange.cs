@@ -7,21 +7,17 @@ namespace FundTracker.Domain
     public class RecurringChange
     {
         private readonly IDecideWhenRecurringChangesOccur _recurranceSpecification;
-        private readonly string _name;
-        private readonly decimal _amount;
 
         public RecurringChange(int id, string name, decimal amount, IDecideWhenRecurringChangesOccur recurranceSpecification)
         {
             _recurranceSpecification = recurranceSpecification;
             Id = id;
-            _name = name;
-            _amount = amount;
+            Name = name;
+            Amount = amount;
         }
 
-        public decimal Amount
-        {
-            get { return _amount; }
-        }
+        public decimal Amount { get; private set; }
+        public string Name { get; private set; }
 
         public int Id { get; private set; }
 
@@ -57,7 +53,7 @@ namespace FundTracker.Domain
 
         public RecurringChangeValues ToValues()
         {
-            return new RecurringChangeValues(_amount, _name, GetFormattedStartDate(), GetFormattedEndDate(), GetRuleType(), Id);
+            return new RecurringChangeValues(Amount, Name, GetFormattedStartDate(), GetFormattedEndDate(), GetRuleType(), Id);
         }
 
         private string GetFormattedStartDate()

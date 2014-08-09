@@ -19,8 +19,8 @@ namespace Test.FundTracker.Data
             var mapper = new MongoRecurringChangeToRecurringChangeMapper(MockRepository.GenerateStub<IBuildRecurranceSpecifications>());
             var recurringChange = mapper.Map(new MongoRecurringChange { Name = expectedName, Amount = expectedAmount, FirstApplicationDate = "2001-02-03"});
 
-            Assert.That(recurringChange.ToValues().Name, Is.EqualTo(expectedName));
-            Assert.That(recurringChange.ToValues().Amount, Is.EqualTo(expectedAmount));
+            Assert.That(recurringChange.Name, Is.EqualTo(expectedName));
+            Assert.That(recurringChange.Amount, Is.EqualTo(expectedAmount));
         }
 
         [Test]

@@ -82,7 +82,14 @@ namespace FundTracker.Data
             var mongoQuery = Query<MongoRecurringChange>.EQ(mrc => mrc.Id, mongoRecurringChangeToModify.Id);
 
             var updatedChange = _mongoRecurringChangeMapper.MapFrom(wallet.Id, recurringChangeValues);
-            var update = Update<MongoRecurringChange>.Set(oldChange => oldChange, updatedChange);
+            var update = Update<MongoRecurringChange>
+                .Set(oldChange => oldChange.FirstApplicationDate, updatedChange.FirstApplicationDate)
+                .Set(oldChange => oldChange.LastApplicationDate, updatedChange.LastApplicationDate)
+                .Set(oldChange => oldChange.Name, updatedChange.Name)
+                .Set(oldChange => oldChange.RecurranceType, updatedChange.RecurranceType)
+                .Set(oldChange => oldChange.Amount, updatedChange.Amount)
+                .Set(oldChange => oldChange.ChangeId, updatedChange.ChangeId)
+                .Set(oldChange => oldChange.WalletId, updatedChange.WalletId);
 
             GetRecurringChanges().Update(mongoQuery, update);
         }

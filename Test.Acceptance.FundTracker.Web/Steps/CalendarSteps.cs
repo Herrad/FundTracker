@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using Coypu.Matchers;
 using FundTracker.Data.Annotations;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Test.Acceptance.FundTracker.Web.Pages;
+using Shows = Coypu.NUnit.Matchers.Shows;
 
 namespace Test.Acceptance.FundTracker.Web.Steps
 {
@@ -54,6 +56,16 @@ namespace Test.Acceptance.FundTracker.Web.Steps
             var selected = calendar.FindCss(".selected");
 
             Assert.That(selected.Text, Is.EqualTo(DateTime.Today.ToString("dd")));
+        }
+
+        [Then(@"the first not selected day is green")]
+        public void ThenTheFirstNotSelectedDayIsGreen()
+        {
+            var page = (AdministerWalletPage)ScenarioContext.Current["current page"];
+            var firstNotSelectedDay = page.GetFirstNotSelectedDay();
+
+
+            Assert.That(firstNotSelectedDay, Shows.Css("good"));
         }
 
     }

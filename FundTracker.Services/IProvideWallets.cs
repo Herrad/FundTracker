@@ -5,6 +5,6 @@ namespace FundTracker.Services
     public interface IProvideWallets
     {
         IHaveRecurringChanges FindRecurringChanger(WalletIdentification walletIdentification);
-        IHaveChangingFunds FindFundChanger(WalletIdentification walletIdentification);
+        IKnowAboutAvailableFunds FindFundChanger(WalletIdentification walletIdentification);
     }
 }

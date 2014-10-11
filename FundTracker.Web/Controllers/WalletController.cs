@@ -43,10 +43,9 @@ namespace FundTracker.Web.Controllers
         public ViewResult Display(string walletName, string date)
         {
             var fundChanger = _walletProvider.FindFundChanger(new WalletIdentification(walletName));
-            var recurringChanger = _walletProvider.FindRecurringChanger(new WalletIdentification(walletName));
-
+            
             var selectedDate = _dateParser.ParseDateOrUseToday(date);
-            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(recurringChanger, fundChanger, selectedDate);
+            var walletViewModel = _walletViewModelBuilder.FormatWalletAsViewModel(fundChanger, selectedDate);
 
             return View("Display", walletViewModel);
         }

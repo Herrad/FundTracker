@@ -48,7 +48,7 @@
     <Compile Include="ICreateWallets.cs" />
     <Compile Include="IHaveRecurringChanges.cs" />
     <Compile Include="IStoreCreatedWallets.cs" />
-    <Compile Include="IHaveChangingFunds.cs" />
+    <Compile Include="IKnowAboutAvailableFunds.cs" />
     <Compile Include="IValidateWalletNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecurranceRules\DailyRule.cs" />

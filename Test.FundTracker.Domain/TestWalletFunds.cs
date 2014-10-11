@@ -25,7 +25,7 @@ namespace Test.FundTracker.Domain
             };
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
 
-            var availableFundsInFourWeeks = wallet.GetAvailableFundsFor(startDate.AddDays(27));
+            var availableFundsInFourWeeks = wallet.GetAvailableFundsOn(startDate.AddDays(27));
 
             Assert.That(availableFundsInFourWeeks, Is.EqualTo(expectedFunds));
         }
@@ -42,7 +42,7 @@ namespace Test.FundTracker.Domain
             };
             var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
 
-            var availableFundsInFourWeeks = wallet.GetAvailableFundsFor(today);
+            var availableFundsInFourWeeks = wallet.GetAvailableFundsOn(today);
 
             Assert.That(availableFundsInFourWeeks, Is.EqualTo(expectedFunds));
         }

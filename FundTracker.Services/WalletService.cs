@@ -35,7 +35,7 @@ namespace FundTracker.Services
             return GetWallet(walletIdentification);
         }
 
-        public IHaveChangingFunds FindFundChanger(WalletIdentification walletIdentification)
+        public IKnowAboutAvailableFunds FindFundChanger(WalletIdentification walletIdentification)
         {
             return GetWallet(walletIdentification);
         }

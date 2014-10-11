@@ -22,14 +22,6 @@ Scenario: Removing funds from a wallet
 	When I remove 25.00 in funds from my wallet
 	Then the amount in the wallet is -25.00
 
-Scenario: View an existing wallet
-	Given this wallet exists
-	| Unique Name | 
-	| my wallet   | 
-	When I load the wallet with name "my wallet"
-	Then I am taken to the display wallet page
-	And the name starts with "my wallet"
-
 Scenario: Creating a wallet adds it to the database
 	When I create a wallet with the unique name starting with "my wallet"
 	Then the database contains a wallet with my name

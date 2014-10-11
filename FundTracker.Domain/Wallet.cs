@@ -7,7 +7,7 @@ using MicroEvent;
 
 namespace FundTracker.Domain
 {
-    public class Wallet : IHaveChangingFunds, IHaveRecurringChanges
+    public class Wallet : IKnowAboutAvailableFunds, IHaveRecurringChanges
     {
         private readonly IReceivePublishedEvents _eventReciever;
         private readonly List<RecurringChange> _recurringChanges;
@@ -31,7 +31,7 @@ namespace FundTracker.Domain
             return _recurringChanges.OrderByDescending(x => x.Id).First().Id + 1;
         }
 
-        public decimal GetAvailableFundsFor(DateTime targetDate)
+        public decimal GetAvailableFundsOn(DateTime targetDate)
         {
             var runningTotal = 0m;
             var differenceBetweenTargetDateAndEarliest = (targetDate - EarliestChangeDate).Days;

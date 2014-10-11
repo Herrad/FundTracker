@@ -19,14 +19,14 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo name";
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
             var dateToApplyTo = new DateTime(1, 2, 3);
             wallet.CreateChange("foo", 123m, new OneShotRule(dateToApplyTo, null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, dateToApplyTo);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, dateToApplyTo);
 
             Assert.That(result.WithdrawalAmountViewModel, Is.Not.Null);
         }
@@ -36,7 +36,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo name";
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
@@ -46,7 +46,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             wallet.CreateChange("foo", 100m, oneShotRule);
             wallet.CreateChange("foo", -25m, oneShotRule);
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, dateToApplyTo);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, dateToApplyTo);
 
             Assert.That(result.WithdrawalAmountViewModel.PositiveTotal, Is.EqualTo(75m));
         }
@@ -57,13 +57,13 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             var dateToApplyTo = new DateTime(1, 2, 3);
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new EventSwallower(), walletIdentification, new List<RecurringChange>());
             wallet.CreateChange("foo", -50m, new OneShotRule(dateToApplyTo, null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, dateToApplyTo);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, dateToApplyTo);
 
             Assert.That(result.WithdrawalAmountViewModel.PositiveTotal, Is.EqualTo(50m));
         }
@@ -74,13 +74,13 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             var selectedDate = new DateTime(1, 2, 3);
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
             wallet.CreateChange("foo", 123m, new OneShotRule(selectedDate, null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
 
             Assert.That(result.DepositAmountViewModel, Is.Not.Null);
         }
@@ -90,7 +90,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
         {
             const string walletName = "foo name";
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var walletIdentification = new WalletIdentification(walletName);
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
@@ -99,7 +99,7 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             wallet.CreateChange("foo", 100m, new OneShotRule(selectedDate, null));
             wallet.CreateChange("foo", -25m, new OneShotRule(selectedDate, null));
 
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
 
             Assert.That(result.DepositAmountViewModel.PositiveTotal, Is.EqualTo(100m));
         }
@@ -110,12 +110,12 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             var walletIdentification = new WalletIdentification(walletName);
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
 
             var selectedDate = DateTime.Today;
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
 
 
             Assert.That(result.DisplayQuickChanges, Is.True);
@@ -127,12 +127,12 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             var walletIdentification = new WalletIdentification(walletName);
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
 
             var selectedDate = DateTime.Today.AddDays(1);
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
 
 
             Assert.That(result.DisplayQuickChanges, Is.False);
@@ -144,12 +144,12 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             const string walletName = "foo name";
             var walletIdentification = new WalletIdentification(walletName);
 
-            var viewModelFormatter = new WalletViewModelBuilder(new CalendarDayViewModelBuilder());
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
 
             var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
 
             var selectedDate = DateTime.Today.AddDays(1);
-            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, wallet, selectedDate);
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
 
             Assert.That(result.NavigationLinks, Is.Not.Null);
             Assert.That(result.NavigationLinks.Count(), Is.EqualTo(1));

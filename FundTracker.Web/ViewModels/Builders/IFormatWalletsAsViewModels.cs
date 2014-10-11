@@ -5,6 +5,6 @@ namespace FundTracker.Web.ViewModels.Builders
 {
     public interface IFormatWalletsAsViewModels
     {
-        WalletViewModel FormatWalletAsViewModel(IHaveRecurringChanges wallet, IHaveChangingFunds fundChanger, DateTime dateTime);
+        WalletViewModel FormatWalletAsViewModel(IKnowAboutAvailableFunds wallet, DateTime dateTime);
     }
 }

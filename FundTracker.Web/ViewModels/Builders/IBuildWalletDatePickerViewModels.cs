@@ -3,7 +3,7 @@ using FundTracker.Domain;
 
 namespace FundTracker.Web.ViewModels.Builders
 {
-    public interface IBuildCalanderDayViewModels
+    public interface IBuildWalletDatePickerViewModels
     {
         WalletDatePickerViewModel Build(DateTime selectedDate, WalletIdentification identification);
     }

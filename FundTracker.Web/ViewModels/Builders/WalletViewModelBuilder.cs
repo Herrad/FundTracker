@@ -7,31 +7,34 @@ namespace FundTracker.Web.ViewModels.Builders
 {
     public class WalletViewModelBuilder : IFormatWalletsAsViewModels
     {
-        private readonly IBuildCalanderDayViewModels _calendarDayViewModelBuilder;
+        private readonly IBuildWalletDatePickerViewModels _calendarDayViewModelBuilder;
 
-        public WalletViewModelBuilder(IBuildCalanderDayViewModels calendarDayViewModelBuilder)
+        public WalletViewModelBuilder(IBuildWalletDatePickerViewModels calendarDayViewModelBuilder)
         {
             _calendarDayViewModelBuilder = calendarDayViewModelBuilder;
         }
 
-        public WalletViewModel FormatWalletAsViewModel(IHaveRecurringChanges wallet, IHaveChangingFunds fundChanger, DateTime selectedDate)
+        public WalletViewModel FormatWalletAsViewModel(IKnowAboutAvailableFunds wallet, DateTime selectedDate)
         {
+            var walletIdentification = wallet.Identification;
+            var walletName = walletIdentification.Name;
+
             var formattedSelectedDate = selectedDate.ToString("yyyy-MM-dd");
             var applicableChanges = wallet.GetChangesActiveOn(selectedDate).ToList();
 
             var recurringDepositAmount = GetTotalRecurringDepositAmount(applicableChanges);
-            var depositAmountViewModel = new RecurringAmountViewModel("Deposit",recurringDepositAmount, wallet.Identification.Name, formattedSelectedDate);
+            var depositAmountViewModel = new RecurringAmountViewModel("Deposit", recurringDepositAmount, walletName, formattedSelectedDate);
 
             var recurringWithdrawalsAmount = GetTotalRecurringWithdrawalsAmount(applicableChanges);
-            var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal", recurringWithdrawalsAmount, wallet.Identification.Name, formattedSelectedDate);
+            var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal", recurringWithdrawalsAmount, walletName, formattedSelectedDate);
 
-            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet.Identification);
+            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, walletIdentification);
 
             var navigationLinkViewModels = BuildNavigationLinkViewModels(wallet, selectedDate);
 
             return new WalletViewModel(
-                wallet.Identification.Name, 
-                fundChanger.GetAvailableFundsFor(selectedDate), 
+                walletName, 
+                wallet.GetAvailableFundsOn(selectedDate), 
                 depositAmountViewModel, 
                 withdrawalAmountViewModel, 
                 calendarDayViewModel, 

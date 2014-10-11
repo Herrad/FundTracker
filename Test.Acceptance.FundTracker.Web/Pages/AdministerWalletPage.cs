@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Coypu;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -153,6 +155,20 @@ namespace Test.Acceptance.FundTracker.Web.Pages
             var change = WebDriver.FindCss(".recurring.deposit");
             change.Click();
             return new AddDepositPage();
+        }
+
+        public ElementScope GetFirstNotSelectedDay()
+        {
+            var allDays = WebDriver.FindAllCss(".day").ToList();
+            foreach (var day in allDays)
+            {
+                if (!day.FindCss(".current-month.day.selected").Exists())
+                {
+                    return day;
+                }
+            }
+            var firstNotSelectedDay = allDays.First(day => day.FindCss(".selected").Exists());
+            return firstNotSelectedDay;
         }
     }
 }

@@ -166,7 +166,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
+                .Stub(x => x.FindFundChanger(new WalletIdentification(walletName)))
                 .Return(wallet);
             
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
@@ -178,7 +178,7 @@ namespace Test.FundTracker.Web.Controllers
                 .GetArgumentsForCallsMadeOn(x => x.FormatWalletAsViewModel(Arg<IKnowAboutAvailableFunds>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[2], Is.EqualTo(new DateTime(2001, 2, 3)));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(new DateTime(2001, 2, 3)));
 
             walletViewModelBuilder
                 .AssertWasCalled(
@@ -198,7 +198,7 @@ namespace Test.FundTracker.Web.Controllers
 
             var walletProvider = MockRepository.GenerateStub<IProvideWallets>();
             walletProvider
-                .Stub(x => x.FindRecurringChanger(new WalletIdentification(walletName)))
+                .Stub(x => x.FindFundChanger(new WalletIdentification(walletName)))
                 .Return(wallet);
 
             var walletViewModelBuilder = MockRepository.GenerateMock<IFormatWalletsAsViewModels>();
@@ -210,7 +210,7 @@ namespace Test.FundTracker.Web.Controllers
                 .GetArgumentsForCallsMadeOn(x => x.FormatWalletAsViewModel(Arg<IKnowAboutAvailableFunds>.Is.Anything, Arg<DateTime>.Is.Anything))[0];
 
             Assert.That(argumentsForCallToViewModelBuilder[0], Is.EqualTo(wallet));
-            Assert.That(argumentsForCallToViewModelBuilder[2], Is.EqualTo(DateTime.Today));
+            Assert.That(argumentsForCallToViewModelBuilder[1], Is.EqualTo(DateTime.Today));
         }
     }
 }

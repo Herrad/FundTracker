@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
+using FundTracker.Domain.Events;
 using FundTracker.Domain.RecurranceRules;
-using FundTracker.Web.ViewModels;
 using FundTracker.Web.ViewModels.Builders;
 using NUnit.Framework;
 using Test.FundTracker.Domain;
@@ -159,6 +159,24 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             Assert.That(navigationLinkViewModels[0].LinkClass, Is.EqualTo("go-to-today"));
         }
 
+        [Test]
+        public void Sets_AvailableFunds_to_last_AvailableFundsOnDate_value()
+        {
+            const string walletName = "foo name";
+            var walletIdentification = new WalletIdentification(walletName);
+
+            var viewModelFormatter = new WalletViewModelBuilder(new WalletDatePickerViewModelBuilder(new DatePickerDayViewModelBuilder()));
+
+            var selectedDate = DateTime.Today.AddDays(1);
+
+            const decimal expectedAvailableFunds = 100m;
+            var wallet = new Wallet(new LastEventPublishedReporter(), walletIdentification, new List<RecurringChange>());
+
+            viewModelFormatter.Notify(new AvailableFundsOnDate(selectedDate, expectedAvailableFunds));
+            var result = viewModelFormatter.FormatWalletAsViewModel(wallet, selectedDate);
+            
+            Assert.That(result.AvailableFunds, Is.EqualTo(expectedAvailableFunds));
+        }
 
     }
 }

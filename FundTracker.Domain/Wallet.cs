@@ -7,7 +7,7 @@ using MicroEvent;
 
 namespace FundTracker.Domain
 {
-    public class Wallet : IKnowAboutAvailableFunds, IHaveRecurringChanges
+    public class Wallet : IKnowAboutAvailableFunds
     {
         private readonly IReceivePublishedEvents _eventReciever;
         private readonly List<RecurringChange> _recurringChanges;
@@ -31,7 +31,7 @@ namespace FundTracker.Domain
             return _recurringChanges.OrderByDescending(x => x.Id).First().Id + 1;
         }
 
-        public decimal GetAvailableFundsOn(DateTime targetDate)
+        private decimal GetAvailableFundsOn(DateTime targetDate)
         {
             var runningTotal = 0m;
             var differenceBetweenTargetDateAndEarliest = (targetDate - EarliestChangeDate).Days;
@@ -47,6 +47,12 @@ namespace FundTracker.Domain
                 remainingDifferenceInDays--;
             }
             return runningTotal;
+        }
+
+        public void ReportFundsOn(DateTime selectedDate)
+        {
+            var funds = GetAvailableFundsOn(selectedDate);
+            _eventReciever.Publish(new AvailableFundsOnDate(selectedDate, funds));
         }
 
         public void CreateChange(string changeName, decimal amount,IDecideWhenRecurringChangesOccur recurranceSpecification)

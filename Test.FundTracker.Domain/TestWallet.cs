@@ -87,5 +87,38 @@ namespace Test.FundTracker.Domain
 
             Assert.That(recurringChanges[1].Id, Is.EqualTo(5));
         }
+
+        [Test]
+        public void ReportFundsOn_submits_a_funds_reported_event()
+        {
+            var eventBus = new LastEventPublishedReporter();
+            var recurringChanges = new List<RecurringChange>();
+            var walletIdentification = new WalletIdentification(null);
+            var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
+
+            wallet.ReportFundsOn(new DateTime(2014, 09, 11));
+
+            Assert.That(eventBus.LastEventPublished, Is.TypeOf<AvailableFundsOnDate>());
+        }
+
+        [Test]
+        public void ReportFundsOn_fills_all_FundsReportCompleted_fields()
+        {
+            var eventBus = new LastEventPublishedReporter();
+            var recurringChanges = new List<RecurringChange>();
+            var walletIdentification = new WalletIdentification(null);
+            var wallet = new Wallet(eventBus, walletIdentification, recurringChanges);
+            
+            const decimal expectedFunds = 100m;
+            var expectedDate = new DateTime(2014, 09, 11);
+
+            wallet.CreateChange("test", expectedFunds, new OneShotRule(expectedDate, null));
+
+            wallet.ReportFundsOn(expectedDate);
+
+            var availableFundsOnDate = (AvailableFundsOnDate) eventBus.LastEventPublished;
+            Assert.That(availableFundsOnDate.Date, Is.EqualTo(expectedDate));
+            Assert.That(availableFundsOnDate.Funds, Is.EqualTo(expectedFunds));
+        }
     }
 }

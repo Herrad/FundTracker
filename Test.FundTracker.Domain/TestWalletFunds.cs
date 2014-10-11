@@ -23,11 +23,14 @@ namespace Test.FundTracker.Domain
             {
                 new RecurringChange(0, "Payday", 100m, new WeeklyRule(startDate, null))
             };
-            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
+            var lastEventPublishedReporter = new LastEventPublishedReporter();
+            var wallet = new Wallet(lastEventPublishedReporter, new WalletIdentification(null), recurringChanges);
 
-            var availableFundsInFourWeeks = wallet.GetAvailableFundsOn(startDate.AddDays(27));
+            wallet.ReportFundsOn(startDate.AddDays(27));
 
-            Assert.That(availableFundsInFourWeeks, Is.EqualTo(expectedFunds));
+            var availableFundsOnDate = (AvailableFundsOnDate) lastEventPublishedReporter.LastEventPublished;
+
+            Assert.That(availableFundsOnDate.Funds, Is.EqualTo(expectedFunds));
         }
 
         [Test]
@@ -40,11 +43,14 @@ namespace Test.FundTracker.Domain
             {
                 new RecurringChange(0, "Payday", 100m, new WeeklyRule(today, null))
             };
-            var wallet = new Wallet(new LastEventPublishedReporter(), new WalletIdentification(null), recurringChanges);
+            var lastEventPublishedReporter = new LastEventPublishedReporter();
+            var wallet = new Wallet(lastEventPublishedReporter, new WalletIdentification(null), recurringChanges);
 
-            var availableFundsInFourWeeks = wallet.GetAvailableFundsOn(today);
+            wallet.ReportFundsOn(today);
 
-            Assert.That(availableFundsInFourWeeks, Is.EqualTo(expectedFunds));
+            var availableFundsOnDate = (AvailableFundsOnDate)lastEventPublishedReporter.LastEventPublished;
+
+            Assert.That(availableFundsOnDate.Funds, Is.EqualTo(expectedFunds));
         }
 
         [Test]

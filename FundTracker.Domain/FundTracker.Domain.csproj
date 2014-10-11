@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventSwallower.cs" />
+    <Compile Include="Events\AvailableFundsOnDate.cs" />
     <Compile Include="Events\RecurringChangeCreated.cs" />
     <Compile Include="Events\RecurringChangeModified.cs" />
     <Compile Include="Events\RecurringChangeRemoved.cs" />

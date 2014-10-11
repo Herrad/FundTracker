@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using FundTracker.Domain;
+using FundTracker.Domain.Events;
+using MicroEvent;
 
 namespace FundTracker.Web.ViewModels.Builders
 {
-    public class WalletViewModelBuilder : IFormatWalletsAsViewModels
+    public class WalletViewModelBuilder : Subscription, IFormatWalletsAsViewModels
     {
         private readonly IBuildWalletDatePickerViewModels _calendarDayViewModelBuilder;
+        private decimal _availableFunds;
 
-        public WalletViewModelBuilder(IBuildWalletDatePickerViewModels calendarDayViewModelBuilder)
+        public WalletViewModelBuilder(IBuildWalletDatePickerViewModels calendarDayViewModelBuilder) : base(typeof(AvailableFundsOnDate))
         {
             _calendarDayViewModelBuilder = calendarDayViewModelBuilder;
         }
@@ -32,9 +35,11 @@ namespace FundTracker.Web.ViewModels.Builders
 
             var navigationLinkViewModels = BuildNavigationLinkViewModels(wallet, selectedDate);
 
+            wallet.ReportFundsOn(selectedDate);
+
             return new WalletViewModel(
                 walletName, 
-                wallet.GetAvailableFundsOn(selectedDate), 
+                _availableFunds, 
                 depositAmountViewModel, 
                 withdrawalAmountViewModel, 
                 calendarDayViewModel, 
@@ -67,6 +72,15 @@ namespace FundTracker.Web.ViewModels.Builders
         private static decimal GetTotalRecurringDepositAmount(IEnumerable<RecurringChange> applicableChanges)
         {
             return applicableChanges.Where(change => change.Amount > 0).Sum(recurringChange => recurringChange.Amount);
+        }
+
+        public override void Notify(AnEvent anEvent)
+        {
+            if (anEvent is AvailableFundsOnDate)
+            {
+                var availableFundsOnDate = anEvent as AvailableFundsOnDate;
+                _availableFunds = availableFundsOnDate.Funds;
+            }
         }
     }
 }

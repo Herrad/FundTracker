@@ -59,6 +59,7 @@
     <Compile Include="Controllers\TestRemovingRecurringChanges.cs" />
     <Compile Include="Controllers\TestWalletController.cs" />
     <Compile Include="ViewModels\Builders\TestCalendarDayViewModelBuilder.cs" />
+    <Compile Include="ViewModels\Builders\TestDatePickerDayViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\TestRecurringChangeListViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\TestWalletViewModelFormatter.cs" />
     <Compile Include="Controllers\TestRecurringChangeController.cs" />

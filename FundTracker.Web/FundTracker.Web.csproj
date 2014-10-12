@@ -147,6 +147,7 @@
     <Compile Include="ViewModels\Builders\IFormatWalletsAsViewModels.cs" />
     <Compile Include="ViewModels\Builders\RecurringChangeListViewModelBuilder.cs" />
     <Compile Include="ViewModels\Builders\WalletViewModelBuilder.cs" />
+    <Compile Include="ViewModels\DatePickerDayViewModel.cs" />
     <Compile Include="ViewModels\NavigationLinkViewModel.cs" />
     <Compile Include="ViewModels\RecurringChangeListViewModel.cs" />
     <Compile Include="ViewModels\RecurringChangeViewModel.cs" />

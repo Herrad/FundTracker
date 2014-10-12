@@ -14,9 +14,7 @@ namespace FundTracker.Web.ViewModels.Builders
 
         public WalletDatePickerViewModel Build(DateTime selectedDate, WalletIdentification identification)
         {
-
-
-            var daysInCurrentMonth = _datePickerDayViewModelBuilder.Build(selectedDate);
+            var daysInCurrentMonth = _datePickerDayViewModelBuilder.BuildDatePickerDayViewModels(selectedDate);
 
             return new WalletDatePickerViewModel(daysInCurrentMonth, selectedDate, identification.Name);
         }

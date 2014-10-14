@@ -179,31 +179,5 @@ namespace Test.FundTracker.Web.ViewModels.Builders
             
             Assert.That(result.AvailableFunds, Is.EqualTo(expectedAvailableFunds));
         }
-
-        [Test]
-        public void Sets_DaysInCurrentMonth_to_result_of_DatePickerDayBuilder()
-        {
-            var selectedDate = new DateTime(2014, 9, 1);
-
-            var resultFromDatePickerDayBuilder = new List<DatePickerDayViewModel>
-            {
-                new DatePickerDayViewModel("foo"), 
-                new DatePickerDayViewModel("bar"), 
-                new DatePickerDayViewModel("foobar")
-            };
-            var datePickerDayViewModelBuilder = MockRepository.GenerateStub<IBuildDatePickerDayViewModels>();
-            datePickerDayViewModelBuilder
-                .Stub(x => x.BuildDatePickerDayViewModels(selectedDate))
-                .Return(resultFromDatePickerDayBuilder);
-            
-            var walletDatePickerViewModelBuilder = new WalletDatePickerViewModelBuilder(datePickerDayViewModelBuilder);
-
-            var walletDatePickerViewModel = walletDatePickerViewModelBuilder.Build(selectedDate, new WalletIdentification("foo"));
-
-            var datePickerDayViewModels = walletDatePickerViewModel.DaysInCurrentMonth.ToList();
-            Assert.That(datePickerDayViewModels[0], Is.EqualTo(resultFromDatePickerDayBuilder[0]));
-            Assert.That(datePickerDayViewModels[1], Is.EqualTo(resultFromDatePickerDayBuilder[1]));
-            Assert.That(datePickerDayViewModels[2], Is.EqualTo(resultFromDatePickerDayBuilder[2]));
-        }
     }
 }

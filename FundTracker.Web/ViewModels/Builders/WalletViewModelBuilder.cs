@@ -31,7 +31,7 @@ namespace FundTracker.Web.ViewModels.Builders
             var recurringWithdrawalsAmount = GetTotalRecurringWithdrawalsAmount(applicableChanges);
             var withdrawalAmountViewModel = new RecurringAmountViewModel("Withdrawal", recurringWithdrawalsAmount, walletName, formattedSelectedDate);
 
-            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, walletIdentification);
+            var calendarDayViewModel = _calendarDayViewModelBuilder.Build(selectedDate, wallet);
 
             var navigationLinkViewModels = BuildNavigationLinkViewModels(wallet, selectedDate);
 

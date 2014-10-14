@@ -12,11 +12,11 @@ namespace FundTracker.Web.ViewModels.Builders
             _datePickerDayViewModelBuilder = datePickerDayViewModelBuilder;
         }
 
-        public WalletDatePickerViewModel Build(DateTime selectedDate, WalletIdentification identification)
+        public WalletDatePickerViewModel Build(DateTime selectedDate, IKnowAboutAvailableFunds wallet)
         {
             var daysInCurrentMonth = _datePickerDayViewModelBuilder.BuildDatePickerDayViewModels(selectedDate);
 
-            return new WalletDatePickerViewModel(daysInCurrentMonth, selectedDate, identification.Name);
+            return new WalletDatePickerViewModel(daysInCurrentMonth, selectedDate, wallet.Identification.Name);
         }
     }
 }
